@@ -11,6 +11,12 @@ include_directories (
   ${JSON_INCLUDE_DIR}
 )
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
+include_directories (
+  ${PTHREAD_INCLUDE_DIR}
+)
+endif()
+
 
 set (SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/AppData.cpp

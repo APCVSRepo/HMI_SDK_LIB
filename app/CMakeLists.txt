@@ -9,6 +9,7 @@ include_directories (
   ${CONNECT_INCLUDE_DIR}
   ${JSON_INCLUDE_DIR}
   ${CMAKE_SOURCE_DIR}/include
+  ${PTHREAD_INCLUDE_DIR}
 )
 
 set (SOURCES
