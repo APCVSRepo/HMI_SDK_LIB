@@ -16,8 +16,8 @@ set (SOURCES
   main.cpp
 )
 
-
-add_executable(${PROJECT} ${SOURCES})
+add_library(${PROJECT} SHARED ${SOURCES})
+#add_executable(${PROJECT} ${SOURCES})
 
 target_link_libraries(${PROJECT} ${LIBRARIES})
 

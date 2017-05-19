@@ -13,6 +13,11 @@ OPTION(JSONCPP_WITH_CMAKE_PACKAGE "Generate and install cmake package files" OFF
 OPTION(BUILD_SHARED_LIBS "Build jsoncpp_lib as a shared library." OFF)
 OPTION(BUILD_STATIC_LIBS "Build jsoncpp_lib static library." ON)
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Android")
+  set(JSONCPP_WITH_TESTS OFF)
+endif()
+
+
 # Ensures that CMAKE_BUILD_TYPE is visible in cmake-gui on Unix
 IF(NOT WIN32)
     IF(NOT CMAKE_BUILD_TYPE)
