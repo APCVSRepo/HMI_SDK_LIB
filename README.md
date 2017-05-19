@@ -27,6 +27,6 @@ Create a folder for your build and run `cmake -DCMAKE_SYSTEM_NAME="WindowsCE" <h
 * NDK
 * CMake
 ### CREATE NDK TOOLCHAIN
-<ndk_dir>/build/tools/make_standalone_toolchain.py --arch arm --api <api> --install-dir <target_dir>
+run `<ndk_dir>/build/tools/make_standalone_toolchain.py --arch arm --api <api> --install-dir <target_dir>`
 ### BUILD
 Create a folder for your build and run `cmake -DSYSTEM_NAME="Android" -DCOMPILER_PATH=<ndk_toolchain_dir> <hmi_sdk_lib_dir>`
