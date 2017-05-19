@@ -3,29 +3,29 @@
 # Getting Started
 ## Linux
 ### Environment
-*CMake
+* CMake
 ### BUILD
 Create a folder for your build and run `cmake <hmi_sdk_lib_dir>`
 
 
 ## WIN32
 ### Environment
-*Visual Studio 2008+
-*CMake
+* Visual Studio 2008+
+* CMake
 ### BUILD
 Create a folder for your build and run `cmake -DCMAKE_SYSTEM_NAME="Windows" <hmi_sdk_lib_dir>`
 
 ## WINCE
 ### Environment
-*Visual Studio 2008 or Visual Studio 2005
-*CMake
+* Visual Studio 2008 or Visual Studio 2005
+* CMake
 ### BUILD
 Create a folder for your build and run `cmake -DCMAKE_SYSTEM_NAME="WindowsCE" <hmi_sdk_lib_dir>`
 
 ## ANDROID
 ### Environment
-*NDK
-*CMake
+* NDK
+* CMake
 ### CREATE NDK TOOLCHAIN
 <ndk_dir>/build/tools/make_standalone_toolchain.py --arch arm --api <api> --install-dir <target_dir>
 ### BUILD
