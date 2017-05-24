@@ -157,6 +157,12 @@ IF(JSONCPP_WITH_CMAKE_PACKAGE)
                 FILE        jsoncppConfig.cmake)
 ENDIF()
 
+if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
+include_directories (
+  ${CMAKE_SOURCE_DIR}/include/wince
+)
+endif()
+
 # Build the different applications
 ADD_SUBDIRECTORY( src )
 

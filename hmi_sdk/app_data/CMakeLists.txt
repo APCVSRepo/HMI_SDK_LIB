@@ -17,6 +17,12 @@ include_directories (
 )
 endif()
 
+if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
+include_directories (
+  ${CMAKE_SOURCE_DIR}/include/wince
+)
+endif()
+
 
 set (SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/AppData.cpp
