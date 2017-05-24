@@ -10,6 +10,7 @@ include_directories (
   ${JSON_INCLUDE_DIR}
   ${CMAKE_SOURCE_DIR}/include
   ${PTHREAD_INCLUDE_DIR}
+  ${CMAKE_SOURCE_DIR}/include/wince
 )
 
 set (SOURCES

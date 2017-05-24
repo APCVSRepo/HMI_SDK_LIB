@@ -13,6 +13,10 @@
 #include "config.h"
 #endif // if !defined(JSON_IS_AMALGAMATION)
 
+#ifdef OS_WINCE
+#define abort()
+#endif
+
 /** It should not be possible for a maliciously designed file to
  *  cause an abort() or seg-fault, so these macros are used only
  *  for pre-condition violations and internal logic errors.

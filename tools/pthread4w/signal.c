@@ -8,11 +8,10 @@
  *
  *      Pthreads-win32 - POSIX Threads Library for Win32
  *      Copyright(C) 1998 John E. Bossom
- *      Copyright(C) 1999,2012 Pthreads-win32 contributors
- *
- *      Homepage1: http://sourceware.org/pthreads-win32/
- *      Homepage2: http://sourceforge.net/projects/pthreads4w/
- *
+ *      Copyright(C) 1999,2005 Pthreads-win32 contributors
+ * 
+ *      Contact Email: rpj@callisto.canberra.edu.au
+ * 
  *      The current list of contributors is contained
  *      in the file CONTRIBUTORS included with the source
  *      code distribution. The list can also be seen at the
@@ -45,7 +44,7 @@
  * signal (interrupt) to a specified thread in the same
  * process.
  * Signals are always asynchronous (no deferred signals).
- * Pthread-win32 has an async cancellation mechanism.
+ * Pthread-win32 has an async cancelation mechanism.
  * A similar system can be written to deliver signals
  * within the same process (on ix86 processors at least).
  *
@@ -82,14 +81,10 @@
  * pthread_t structure.
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
-
 #include "pthread.h"
 #include "implement.h"
 
-#if defined(HAVE_SIGSET_T)
+#if HAVE_SIGSET_T
 
 static void
 ptw32_signal_thread ()

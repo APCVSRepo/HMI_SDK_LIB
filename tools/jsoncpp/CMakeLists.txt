@@ -13,7 +13,7 @@ OPTION(JSONCPP_WITH_CMAKE_PACKAGE "Generate and install cmake package files" OFF
 OPTION(BUILD_SHARED_LIBS "Build jsoncpp_lib as a shared library." OFF)
 OPTION(BUILD_STATIC_LIBS "Build jsoncpp_lib static library." ON)
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Android")
+if(CMAKE_SYSTEM_NAME STREQUAL "Android" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
   set(JSONCPP_WITH_TESTS OFF)
 endif()
 

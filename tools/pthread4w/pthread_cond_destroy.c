@@ -9,11 +9,10 @@
  *
  *      Pthreads-win32 - POSIX Threads Library for Win32
  *      Copyright(C) 1998 John E. Bossom
- *      Copyright(C) 1999,2012 Pthreads-win32 contributors
- *
- *      Homepage1: http://sourceware.org/pthreads-win32/
- *      Homepage2: http://sourceforge.net/projects/pthreads4w/
- *
+ *      Copyright(C) 1999,2005 Pthreads-win32 contributors
+ * 
+ *      Contact Email: rpj@callisto.canberra.edu.au
+ * 
  *      The current list of contributors is contained
  *      in the file CONTRIBUTORS included with the source
  *      code distribution. The list can also be seen at the
@@ -35,10 +34,6 @@
  *      if not, write to the Free Software Foundation, Inc.,
  *      59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
  */
-
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
 
 #include "pthread.h"
 #include "implement.h"
@@ -143,7 +138,7 @@ pthread_cond_destroy (pthread_cond_t * cond)
        */
       if (ptw32_semwait (&(cv->semBlockLock)) != 0) /* Non-cancelable */
 	{
-	  result = PTW32_GET_ERRNO();
+	  result = errno;
 	}
       else
         {
@@ -171,7 +166,7 @@ pthread_cond_destroy (pthread_cond_t * cond)
 	{
 	  if (sem_post (&(cv->semBlockLock)) != 0)
 	    {
-	      result = PTW32_GET_ERRNO();
+	      result = errno;
 	    }
 	  result1 = pthread_mutex_unlock (&(cv->mtxUnblockLock));
 	  result2 = EBUSY;
@@ -185,11 +180,11 @@ pthread_cond_destroy (pthread_cond_t * cond)
 
 	  if (sem_destroy (&(cv->semBlockLock)) != 0)
 	    {
-	      result = PTW32_GET_ERRNO();
+	      result = errno;
 	    }
 	  if (sem_destroy (&(cv->semBlockQueue)) != 0)
 	    {
-	      result1 = PTW32_GET_ERRNO();
+	      result1 = errno;
 	    }
 	  if ((result2 = pthread_mutex_unlock (&(cv->mtxUnblockLock))) == 0)
 	    {
