@@ -21,6 +21,76 @@ std::string ChangeSlash(std::string strSrc)
     return strSrc;
 }
 
+int CharToHex(char c)
+{
+    if (c > 0x2f && c < 0x3a)
+    {
+        return c - 0x30;
+    }
+    else if (c > 0x40 && c < 0x47)
+    {
+        return c - 0x41 + 10;
+    }
+    else if (c > 0x60 && c < 0x67)
+    {
+        return c - 0x61 + 10;
+    }
+    else
+    {
+        //error
+        return 0;
+    }
+}
+
+int atoi_hex(std::string str)
+{
+    int ret = 0;
+
+    for (int i = 0; i != str.size(); ++i)
+    {
+        ret = ret << 4;
+        ret += CharToHex(str[i]);
+    }
+
+    return ret;
+}
+
+const std::string ConvertPathOfURL(const std::string &path)
+{
+    const std::string reserved_symbols = "!#$&'()*+,:;=?@[] ";
+    std::string converted_path("");
+    const char key = '%';
+    char symbols_id[2];
+    char symbols;
+
+    size_t pos = path.find_first_of(key);
+    size_t last_pos = 0;
+
+    while (pos != std::string::npos)
+    {
+        converted_path += path.substr(last_pos, pos - last_pos);
+        ++pos;
+
+        path.copy(symbols_id, pos, 2);
+        symbols = static_cast<char>(atoi_hex(symbols_id));
+        if (reserved_symbols.find_first_of(symbols) != std::string::npos)
+        {
+            converted_path += symbols;
+            last_pos = pos + 2;
+            pos = path.find_first_of(key, last_pos);
+        }
+        else
+        {
+            printf("---atoi error symbols\n");
+            break;
+        }
+    }
+
+    converted_path += path.substr(last_pos, path.size() - last_pos);
+
+    return converted_path;
+}
+
 AppList::AppList()
 {
     m_pCurApp = NULL;
@@ -93,7 +163,6 @@ void AppList::OnDeviceSelect(const std::string id)
         ToSDL->OnDeviceChosen(data.name, data.id);
         ToSDL->OnFindApplications(data.name, data.id);
     }
-
 }
 
 AppDataInterface* AppList::getActiveApp()
@@ -173,15 +242,12 @@ Result AppList::recvFromServer(Json::Value jsonObj)
         }else if (str_method == "UI.SetAppIcon") {
             int iAppId = jsonObj["params"]["appID"].asInt();
             std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
-            /*replace_qt_lib
+
             while (Iter != m_AppDatas.end()) {
                 if (iAppId == (*Iter)->m_iAppID) {
-                    QUrl iconPathUrl(jsonObj["params"]["syncFileName"]["value"].asString().c_str());
-#if defined(WINCE)
-                    (*Iter)->m_strAppIconFilePath = ChangeSlash(iconPathUrl.path().toLocal8Bit().data());
-#else
-                    (*Iter)->m_strAppIconFilePath = ChangeSlash(iconPathUrl.path().toStdString());
-#endif
+                    (*Iter)->m_strAppIconFilePath = ChangeSlash(
+                        ConvertPathOfURL(jsonObj["params"]["syncFileName"]["value"].asString()));
+
                     if (m_pCurApp == NULL) {
                         m_pUIManager->onAppShow(ID_APPLINK);
                     }
@@ -189,7 +255,7 @@ Result AppList::recvFromServer(Json::Value jsonObj)
                     break;
                 }
                     ++Iter;
-            }*/
+            }
         }else if (str_method == "UI.EndAudioPassThru") {
             ToSDL->OnVRCancelRecord();
             m_pUIManager->OnEndAudioPassThru();

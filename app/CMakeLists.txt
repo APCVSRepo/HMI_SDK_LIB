@@ -10,8 +10,13 @@ include_directories (
   ${JSON_INCLUDE_DIR}
   ${CMAKE_SOURCE_DIR}/include
   ${PTHREAD_INCLUDE_DIR}
+)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
+include_directories (
   ${CMAKE_SOURCE_DIR}/include/wince
 )
+endif()
 
 set (SOURCES
   main.cpp
