@@ -1,7 +1,6 @@
 ﻿#ifndef APPLISTINTERFACE_H
 #define APPLISTINTERFACE_H
 
-#include "json/json.h"
 #include <iostream>
 #include <string.h>
 #include <vector>

@@ -4,7 +4,6 @@
 #include "AppListInterface.h"
 #include "AppData.h"
 #include "UIInterface.h"
-//#include <QMutex>
 
 
 class AppData;

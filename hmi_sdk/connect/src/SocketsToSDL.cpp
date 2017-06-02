@@ -6,9 +6,6 @@
 #pragma comment(lib,"ws2.lib")
 #else
 #pragma comment(lib,"ws2_32.lib")
-#pragma comment(lib,"pthreadVC2.lib") 
-#pragma comment(lib,"pthreadVCE2.lib") 
-#pragma comment(lib,"pthreadVSE2.lib") 
 #endif
 #else
 #include <sys/select.h>

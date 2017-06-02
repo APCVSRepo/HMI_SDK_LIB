@@ -1,3 +1,5 @@
+set(APPDATA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(APPDATA_INCLUDE_DIR ${APPDATA_INCLUDE_DIR} PARENT_SCOPE)
 
 #link_directories()
 
@@ -11,18 +13,17 @@ include_directories (
   ${JSON_INCLUDE_DIR}
 )
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
-include_directories (
-  ${PTHREAD_INCLUDE_DIR}
-)
-endif()
-
 if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
 include_directories (
   ${CMAKE_SOURCE_DIR}/include/wince
 )
 endif()
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
+include_directories (
+  ${PTHREAD_INCLUDE_DIR}
+)
+endif()
 
 set (SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/AppData.cpp
