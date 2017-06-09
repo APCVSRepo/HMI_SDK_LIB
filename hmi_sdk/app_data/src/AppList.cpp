@@ -434,11 +434,11 @@ void AppList::updateDeiveList(Json::Value jsonObj)
     }
 }
 
-void AppList::IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort)
-{
-    ToSDL->ConnectToVideoStream(pMsgHandler,sIP,iPort);
-}
-void AppList::IdelConnectToVS()
-{
-    ToSDL->DelConnectToVideoStream();
-}
+// void AppList::IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort)
+// {
+//     ToSDL->ConnectToVideoStream(pMsgHandler,sIP,iPort);
+// }
+// void AppList::IdelConnectToVS()
+// {
+//     ToSDL->DelConnectToVideoStream();
+// }

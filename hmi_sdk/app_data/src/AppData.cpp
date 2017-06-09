@@ -366,7 +366,7 @@ void AppData::OnMediaClock(int code)
 //////////////////////////////////
 
 
-Json::Value AppData::getShowData()
+Json::Value& AppData::getShowData()
 {
    return m_json_show;
 }
@@ -417,28 +417,28 @@ std::vector<SMenuCommand> AppData::getCommandList(int subMenuID)
 
     return retVec;
 }
-Json::Value AppData::getAlertJson()
+Json::Value& AppData::getAlertJson()
 {
     return m_json_alert;
 }
-Json::Value AppData::getSlider()
+Json::Value& AppData::getSlider()
 {
     return m_json_slider;
 }
-Json::Value AppData::getScrollableMsgJson()
+Json::Value& AppData::getScrollableMsgJson()
 {
     return m_json_scrollableMessage;
 }
-Json::Value AppData::getAudioPassThruJson()
+Json::Value& AppData::getAudioPassThruJson()
 {
     return m_json_audioPassThru;
 }
-Json::Value AppData::getInteractionJson()
+Json::Value& AppData::getInteractionJson()
 {
     return m_json_interaction;
 }
 
-Json::Value AppData::getMediaClockJson()
+Json::Value& AppData::getMediaClockJson()
 {
     return m_json_mediaclock;
 }

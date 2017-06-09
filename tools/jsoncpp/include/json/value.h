@@ -22,6 +22,8 @@
 #include <cpptl/forwards.h>
 #endif
 
+#include "rpcValueInterface.h"
+
 //Conditional NORETURN attribute on the throw functions would:
 // a) suppress false positives from static code analysis 
 // b) possibly improve optimization opportunities.
@@ -174,7 +176,7 @@ private:
  * but the Value API does *not* check bounds. That is the responsibility
  * of the caller.
  */
-class JSON_API Value {
+class JSON_API Value : public rpcValueInterface {
   friend class ValueIteratorBase;
 public:
   typedef std::vector<JSONCPP_STRING> Members;

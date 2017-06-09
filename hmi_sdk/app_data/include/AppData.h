@@ -13,16 +13,16 @@ public:
 //    void start();
     void setUIManager(UIInterface *pcallBack);
 
-    Json::Value getShowData();
-    std::vector<SMenuCommand> getCommandList();
+    Json::Value& getShowData();
+	Json::Value& getAlertJson();
+	Json::Value& getSlider();
+	Json::Value& getScrollableMsgJson();
+	Json::Value& getAudioPassThruJson();
+	Json::Value& getInteractionJson();
+	Json::Value& getMediaClockJson();
+	std::vector<SMenuCommand> getCommandList();
     std::vector<SMenuCommand> getCommandList(int subMenuID);
-    Json::Value getAlertJson();
-    Json::Value getSlider();
-    Json::Value getScrollableMsgJson();
-    Json::Value getAudioPassThruJson();
-    Json::Value getInteractionJson();
-    std::string getUrlString();
-    Json::Value getMediaClockJson();
+	std::string getUrlString();
     std::string getAppName();
     std::string getAppIconFile();
 

@@ -31,8 +31,8 @@ public:
 
     void appUnregistered(int appId);
 
-    void IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort);
-    void IdelConnectToVS();
+//     void IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort);
+//     void IdelConnectToVS();
 
 public: //IMessageInterface
     Result onRequest(Json::Value);

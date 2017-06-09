@@ -23,13 +23,16 @@ endif()
 add_definitions(-DHMISDK_LIB)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  add_definitions(-D__STDINT_MACROS)
+  add_definitions(-DPTW32_STATIC_LIB)
+  add_definitions(-DSDL_SUPPORT_LIB)
+  option(SDL_SUPPORT_LIB "Load SDL in library mode"  ON)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   add_definitions(-DOS_WIN32)
   add_definitions(-DWIN32)
   add_definitions(-DWIN32_LEAN_AND_MEAN)
   add_definitions(-D__STDINT_MACROS)
   add_definitions(-DPTW32_STATIC_LIB)
-  add_definitions(-DSDL_CALL_BACK)
   add_definitions(-DSDL_SUPPORT_LIB)
   option(SDL_SUPPORT_LIB "Load SDL in library mode"  ON)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
@@ -45,12 +48,12 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
   add_definitions(-DUNICODE)
   add_definitions(-DWINCE)
   add_definitions(-D_WIN32)
-  add_definitions(-DSDL_CALL_BACK)
   add_definitions(-DSDL_SUPPORT_LIB)
   option(SDL_SUPPORT_LIB "Load SDL in library mode"  ON)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Android")
   add_definitions(-DANDROID)
-  add_definitions(-DSDL_CALL_BACK)
+  add_definitions(-D__STDINT_MACROS)
+  add_definitions(-DPTW32_STATIC_LIB)
   add_definitions(-DSDL_SUPPORT_LIB)
   option(SDL_SUPPORT_LIB "Load SDL in library mode"  ON)
 endif()
@@ -63,18 +66,12 @@ if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
 endif()
 
 project (${PROJECT})
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")  set(CMAKE_CXX_FLAGS "-fPIC")endif()
+
 # ---
 add_subdirectory(./tools)
 
 add_subdirectory(./hmi_sdk)
 
 add_subdirectory(./app)
-
-
-
-
-
-
-
-
-

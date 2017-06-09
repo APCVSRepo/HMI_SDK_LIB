@@ -14,6 +14,8 @@ INCLUDE(CheckTypeSize)
 INCLUDE(CheckStructHasMember)
 INCLUDE(CheckCXXSymbolExists)
 
+include_directories (${CMAKE_SOURCE_DIR}/include)
+
 if(CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
 include_directories (
   ${CMAKE_SOURCE_DIR}/include/wince

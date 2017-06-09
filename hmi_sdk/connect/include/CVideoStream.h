@@ -3,7 +3,7 @@
 
 #include "Channel.h"
 //#include <qDebug>
-#define QDBG qDebug()<<__FILE__<<__FUNCTION__<<"():"<<__LINE__
+//#define QDBG qDebug()<<__FILE__<<__FUNCTION__<<"():"<<__LINE__
 
 class CVideoStream : public Channel
 {

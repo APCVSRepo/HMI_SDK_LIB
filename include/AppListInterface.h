@@ -6,7 +6,9 @@
 #include <vector>
 #include "AppDataInterface.h"
 #include "UIInterface.h"
-#include "IMessageInterface.h"
+//#include "IMessageInterface.h"
+
+class IMessageInterface;
 
 struct DeviceData{
     std::string name;
@@ -30,8 +32,8 @@ public:
 
     virtual void appUnregistered(int appId) = 0;
 
-    virtual void IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort) = 0;
-    virtual void IdelConnectToVS() = 0;
+//     virtual void IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort) = 0;
+//     virtual void IdelConnectToVS() = 0;
 };
 
 #endif // APPLISTINTERFACE_H

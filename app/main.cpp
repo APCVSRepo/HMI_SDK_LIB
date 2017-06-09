@@ -4,6 +4,11 @@
 #include "sdl_export.h"
 #include "sdk_export.h"
 
+#ifndef OS_WIN32
+#include <unistd.h>
+#endif
+
+
 AppList *g_appList = NULL;
 
 #ifdef SDL_SUPPORT_LIB
@@ -18,7 +23,7 @@ void* SDLStartThread(void *arg)
 #else
 	sprintf(sdlconfig,"smartDeviceLink.ini");
 #endif
-	char* argv[2] = {"smartDeviceLinkCore",sdlconfig};
+	char* argv[2] = {"smartDeviceLinkCore",&sdlconfig[0]};
 	sdl_start(2,argv);
 	while (true) {
 #ifdef WIN32
