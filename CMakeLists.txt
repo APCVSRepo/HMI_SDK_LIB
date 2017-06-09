@@ -67,7 +67,9 @@ endif()
 
 project (${PROJECT})
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Linux")  set(CMAKE_CXX_FLAGS "-fPIC")endif()
+if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  set(CMAKE_CXX_FLAGS "-fPIC")
+endif()
 
 # ---
 add_subdirectory(./tools)
