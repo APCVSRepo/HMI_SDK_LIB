@@ -23,7 +23,7 @@ void* SDLStartThread(void *arg)
 #else
 	sprintf(sdlconfig,"smartDeviceLink.ini");
 #endif
-	char* argv[2] = {"smartDeviceLinkCore",&sdlconfig[0]};
+	char* argv[2] = {"smartDeviceLinkCore",sdlconfig};
 	sdl_start(2,argv);
 	while (true) {
 #ifdef WIN32
@@ -51,6 +51,9 @@ AppListInterface* HMISDK_Init(UIInterface* pUI)
 	}
 
 	g_appList->setUIManager(pUI);
+
+	pUI->SetAppListInterface(g_appList);
+	pUI->initAppHMI();
 
 #ifdef SDL_SUPPORT_LIB
 	initSDL();

@@ -1,8 +1,8 @@
 ﻿#ifndef UIINTERFACE_H
 #define UIINTERFACE_H
-#include "AppDataInterface.h"
-#include "AppCommon.h"
-
+// #include "AppDataInterface.h"
+#include "AppListInterface.h"
+// #include "AppCommon.h"
 
 class UIInterface
 {
@@ -18,6 +18,8 @@ public:
     virtual void tsSpeak(int VRID, std::string strText) = 0;
     virtual void ShowDeviceList() = 0;
     virtual void SetSDLStatus(bool bConnect) = 0;
+    virtual void SetAppListInterface(AppListInterface * pList) = 0;
+    virtual void initAppHMI() = 0;
 };
 
 #endif // UIINTERFACE_H

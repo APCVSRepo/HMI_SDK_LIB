@@ -5,10 +5,11 @@
 #include <string.h>
 #include <vector>
 #include "AppDataInterface.h"
-#include "UIInterface.h"
 //#include "IMessageInterface.h"
 
 class IMessageInterface;
+class UIInterface;
+
 
 struct DeviceData{
     std::string name;
