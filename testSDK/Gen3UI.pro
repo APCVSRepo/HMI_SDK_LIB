@@ -4,10 +4,6 @@
 #
 #-------------------------------------------------
 
-#QT       += core gui network
-#greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia
-#win32:QT += axcontainer
-
 QT += widgets network
 greaterThan(QT_MAJOR_VERSION, 4): QT +=multimedia
 
@@ -16,7 +12,7 @@ TEMPLATE = app
 
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
-CONFIG  += wince
+#CONFIG  += wince
 
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include

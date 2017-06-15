@@ -1,6 +1,4 @@
 ﻿#include "Gen3UIManager.h"
-//#include "AppData/AppList.h"
-//#include <pthread.h>
 #include <QThread>
 #ifdef ANDROID
 #include "android/log.h"
@@ -32,6 +30,7 @@
 #include "ScrollableMessage/ScollMsgView.h"
 #include "SliderView/SliderView.h"
 #include "AppListView/DeviceListView.h"
+#include <QCoreApplication>
 
 #ifdef WIN32
 #include <Windows.h>
@@ -178,64 +177,6 @@ void CGen3UIManager::onVideoStreamStop(){
 
 }
 
-//void CGen3UIManager::onVideoStreamStart()
-//{
-//    fflush(stdout);
-//    emit onVideoStartSignal();
-//}
-
-//void CGen3UIManager::onVideoStartSlots()
-//{
-//#ifndef WINCE
-
-//#ifdef ANDROID
-//    MediaCodecStream *pVideoStream = ((MediaCodecStream *)m_vUIWidgets[ID_VIDEOSTREAM]);
-//    pVideoStream->startStream();
-//    m_pList->IconnectToVS(pVideoStream, "127.0.0.1", 5050);
-//#else
-//    fflush(stdout);
-//    std::string str_url = AppControl->getUrlString();
-//    //_D("%s\n",str_url.data());
-
-//    VideoStream *pVideoStream = ((VideoStream *)m_vUIWidgets[ID_VIDEOSTREAM]);//->StartVideoStream(str_url.c_str());
-//    pVideoStream->setUrl(str_url.c_str());
-//    pVideoStream->startStream();
-
-//#endif
-
-//#else
-//    CeVideoStream *pVideoStream = ((CeVideoStream *)m_vUIWidgets[ID_VIDEOSTREAM]);
-//    pVideoStream->startStream();
-//#ifndef SDL_CALL_BACK
-//    m_pList->IconnectToVS(pVideoStream, "127.0.0.1", 5050);
-//#endif
-//#endif
-
-//}
-
-//void CGen3UIManager::onVideoStreamStop()
-//{
-//#ifndef WINCE
-
-//#ifdef ANDROID
-//    m_pList->IdelConnectToVS();
-//    ((MediaCodecStream *)m_vUIWidgets[ID_VIDEOSTREAM])->stopStream();
-//#else
-//    emit onVideoStopSignal();
-//    ((VideoStream *)m_vUIWidgets[ID_VIDEOSTREAM])->stopStream();
-//#endif
-//#else
-//#ifndef SDL_CALL_BACK
-//    m_pList->IdelConnectToVS();
-//#endif
-//    ((CeVideoStream *)m_vUIWidgets[ID_VIDEOSTREAM])->stopStream();
-//#endif
-//}
-
-//void CGen3UIManager::onVideoStopSlots()
-//{
-//}
-
 void CGen3UIManager::AppShowSlot(int type)
 {    
     if (m_vUIWidgets[m_iCurUI] == NULL) {
@@ -250,80 +191,27 @@ void CGen3UIManager::AppShowSlot(int type)
         }
     }
     else {
-        if (m_iCurUI != ID_MAIN) {
-
-/*            if (m_iCurUI == ID_VIDEOSTREAM) {
-#ifdef ANDROID
-                ((MediaCodecStream *)m_vUIWidgets[m_iCurUI])->hideActivity();
-#else
-                m_vUIWidgets[m_iCurUI]->hide();
-#endif
-            } else */{
+        if (m_iCurUI != ID_MAIN) {{
                 m_vUIWidgets[m_iCurUI]->hide();
             }
         }
-        //m_vUIWidgets[m_iCurUI]->hide();
         m_iCurUI = type;
-
-/*        if (m_iCurUI == ID_VIDEOSTREAM) {
-#ifdef ANDROID
-            ((MediaCodecStream *)m_vUIWidgets[m_iCurUI])->showActivity();
-#else
-            m_vUIWidgets[m_iCurUI]->show();
-#endif
-        } else */{
-            m_vUIWidgets[m_iCurUI]->show();
-        }
+        m_vUIWidgets[m_iCurUI]->show();
     }
 }
 
-#include <QCoreApplication>
 void CGen3UIManager::waitMSec(int ms)
 {
-    /*
-    QTime t;
-    t.start();
-    while(t.elapsed()<ms)
-        QCoreApplication::processEvents();
-        */
+
 }
 
 void CGen3UIManager::tsSpeak(int VRID, std::string strText)
 {
-    /*
-    bool ret = ts.speak(strText.c_str());
 
-
-    switch(VRID) {
-    case ID_DEFAULT:
-        if(ret)
-            AppControl->OnTTSSpeek(0);
-        else
-            AppControl->OnTTSSpeek(5);
-        break;
-    case ID_CANCEL:
-        AppControl->OnPerformAudioPassThru(PERFORMAUDIOPASSTHRU_CANCEL);
-        break;
-    case ID_HELP:
-        AppControl->OnPerformAudioPassThru(PERFORMAUDIOPASSTHRU_DONE);
-        break;
-    case ID_EXIT:
-        AppControl->OnPerformAudioPassThru(PERFORMAUDIOPASSTHRU_DONE);
-        m_pList->OnAppExit();
-        break;
-    case ID_SWITCHAPP:
-        AppControl->OnPerformAudioPassThru(PERFORMAUDIOPASSTHRU_DONE);
-        break;
-    default:
-        AppControl->OnPerformAudioPassThru(PERFORMAUDIOPASSTHRU_CANCEL);
-        break;
-    }
-    */
 }
 
 void CGen3UIManager::OnEndAudioPassThru()
 {
-    //((CAudioPassThru *)m_vUIWidgets[ID_AUDIOPASSTHRU])->onButtonClickedSlots(PERFORMAUDIOPASSTHRU_CANCEL);
 }
 
 void CGen3UIManager::ShowDeviceList()
