@@ -60,7 +60,7 @@ const std::string ConvertPathOfURL(const std::string &path)
     const std::string reserved_symbols = "!#$&'()*+,:;=?@[] ";
     std::string converted_path("");
     const char key = '%';
-    char symbols_id[2];
+	char symbols_id[3] = {0,0,0};
     char symbols;
 
     size_t pos = path.find_first_of(key);
