@@ -226,34 +226,6 @@ void AppData::OnShowCommand()
     ShowUI(ID_COMMAND);
 }
 
-//////////////////////////////////////////
-void AppData::OnMenuBtnClick(std::string btnText)
-{
-    if ("FMButton" == btnText)
-        ToSDL->OnCommandClick(m_iAppID, 101);
-    else if ("TelButton" == btnText)
-        ToSDL->OnCommandClick(m_iAppID, 102);
-    else if ("MsgButton" == btnText)
-        ToSDL->OnCommandClick(m_iAppID, 103);
-    else if ("CDButton" == btnText)
-        ToSDL->OnCommandClick(m_iAppID, 104);
-    else if ("ListButton" == btnText) {
-//        SDLConnector::getSDLConnectore()->OnCommandClick(m_i_currentAppID, 105);
-    }
-
-}
-
-void AppData::OnVRStartRecord()
-{
-    ToSDL->OnVRStartRecord();
-    ShowUI(ID_AUDIOPASSTHRU);
-}
-
-void AppData::OnVRCancelRecord()
-{
-    ToSDL->OnVRCancelRecord();
-}
-
 void AppData::OnSoftButtonClick(int sbID, int mode,std::string strName)
 {
     ToSDL->OnSoftButtonClick(sbID, mode,strName);
@@ -355,16 +327,6 @@ void AppData::OnPerformInteraction(int code, int choiceID,bool bVR)
         ShowPreviousUI();
     }
 }
-
-void AppData::OnMediaClock(int code)
-{
-    int id = m_json_mediaclock["id"].asInt();
-    ToSDL->OnMediaClockResponse(id,code);
-}
-
-
-//////////////////////////////////
-
 
 Json::Value& AppData::getShowData()
 {

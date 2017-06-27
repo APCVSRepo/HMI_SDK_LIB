@@ -88,6 +88,7 @@ void AlertView::showEvent(QShowEvent * e)
         AppBase::SetEdlidedText(m_pAppNameLab,AppControl->getAppName().c_str(),
                                 width()*0.9);
 
+        // 获取 Alert画面Rpc数据接口
         rpcValueInterface& pObj = AppControl->getAlertJson();
 
         for (int i = 0;i != 3;++i) {
@@ -100,15 +101,18 @@ void AlertView::showEvent(QShowEvent * e)
         }
 
 
-        if (pObj["params"].isMember("alertStrings")) {
-            iCount = pObj["params"]["alertStrings"].size() >
-                    3 ? 3 : pObj["params"]["alertStrings"].size();
-            for (int i = 0; i < iCount; ++i) {
-                AppBase::SetEdlidedText(m_aAlertLab+i,
-                        pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str(),
-                        width()*0.9);
-            }
+    // 判断alertStrings字段是否存在
+    if (pObj["params"].isMember("alertStrings")) {
+        // 获取alertStrings字段数组类型元素个数
+        iCount = pObj["params"]["alertStrings"].size() >
+                3 ? 3 : pObj["params"]["alertStrings"].size();
+        for (int i = 0; i < iCount; ++i) {
+            // 获取alertStrings每个元素中fieldText对应的数值
+            AppBase::SetEdlidedText(m_aAlertLab+i,
+                    pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str(),
+                    width()*0.9);
         }
+    }
 
         if (pObj["params"].isMember("softButtons")) {
             m_Timer.start(pObj["params"]["duration"].asInt() + 20000);
@@ -123,6 +127,7 @@ void AlertView::showEvent(QShowEvent * e)
                 m_aSoftBtn[i].SetId(pObj["params"]["softButtons"][i]["softButtonID"].asInt());
             }
         } else {
+            // 获取duration字段值并转换为整型
             m_Timer.start(pObj["params"]["duration"].asInt());
         }
     }

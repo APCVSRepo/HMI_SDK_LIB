@@ -37,10 +37,6 @@ public:
     void OnTTSSpeek(int code);
     void OnPerformAudioPassThru(int code);
     void OnPerformInteraction(int code, int choiceID, bool bVR = false);
-    void OnMediaClock(int code);
-    void OnMenuBtnClick(std::string btnText);
-    void OnVRStartRecord();
-    void OnVRCancelRecord();
 
     void OnSetMediaClockTimerResponse(int iCode);
 

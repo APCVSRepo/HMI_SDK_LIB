@@ -11,22 +11,23 @@ enum MenuCmdId
 };
 
 
+/**  画面ID枚举类型*/  
 enum ShowType
 {
-    ID_APPLINK = 0,
-    ID_DEVICEVIEW,
-    ID_CHOICESET,
-    ID_COMMAND,
-    ID_SHOW,
-    ID_ALERT,
-    ID_AUDIOPASSTHRU,
-    ID_CHOICESETVR,
-    ID_SCROLLMSG,
-    ID_SLIDER,
-    ID_NOTIFY,
-    ID_MEDIACLOCK,
-    ID_VIDEOSTREAM,
-    ID_MAIN,
+    ID_APPLINK = 0,	///<  App列表 
+    ID_DEVICEVIEW,	///<  设备列表
+    ID_CHOICESET,	///<  ChoiceSet画面
+    ID_COMMAND,	///<  菜单画面
+    ID_SHOW,	///<  Show画面
+    ID_ALERT,	///<  Alert画面
+    ID_AUDIOPASSTHRU,	///<  录音画面
+    ID_CHOICESETVR,	///<  保留 
+    ID_SCROLLMSG,	///<  ScrollMessage画面
+    ID_SLIDER,	///<  Slider画面
+    ID_NOTIFY,	///<  保留
+    ID_MEDIACLOCK,	///<  MediaClockTimer画面
+    ID_VIDEOSTREAM,	///<  VideoStream画面
+    ID_MAIN,	///<  Main画面
     ID_UI_MAX
 };
 
@@ -56,6 +57,7 @@ typedef enum
     ID_CHN_MAX
 }ID_CHN_TYPE;
 
+/**  执行结果枚举类型*/  
 enum RESULT_CODE
 {
     RESULT_SUCCESS=0,
