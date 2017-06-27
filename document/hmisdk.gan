@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="HMI_SDK" company="" webLink="http://" view-date="2017-05-07" view-index="0" gantt-divider-location="961" resource-divider-location="300" version="2.0" locale="zh_CN">
+    <description/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="名称" width="44" order="0"/>
+        <field id="tpd4" name="开始日期" width="12" order="1"/>
+        <field id="tpd5" name="结束日期" width="11" order="2"/>
+        <field id="tpc0" name="人员" width="19" order="3"/>
+        <field id="tpc1" name="备注" width="12" order="4"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="名称" width="50" order="0"/>
+        <field id="1" name="默认角色" width="50" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <only-show-weekends value="false"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+        <date year="2017" month="5" date="28"/>
+        <date year="2017" month="5" date="30"/>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+            <taskproperty id="tpc0" name="人员" type="custom" valuetype="text"/>
+            <taskproperty id="tpc1" name="备注" type="custom" valuetype="text"/>
+        </taskproperties>
+        <task id="82" name="计划达成目标及风险预估" color="#8cb6ce" meeting="false" start="2017-05-17" duration="2" complete="0" expand="true">
+            <customproperty taskproperty-id="tpc0" value="范强"/>
+        </task>
+        <task id="138" name="计划评审" meeting="false" start="2017-05-18" duration="1" complete="0" expand="true">
+            <customproperty taskproperty-id="tpc0" value="范强、潘亮、jeff、Brandon"/>
+        </task>
+        <task id="4" name="调查替换方案可行性" color="#8cb6ce" meeting="false" start="2017-05-22" duration="3" complete="0" expand="true">
+            <notes><![CDATA[1.调查QT依赖部分是否有能去掉的部分，去掉后是否有影响 
+2.确定定时器、信号槽、库导出函数加载、QDir、QDialog等QT相关替换实现方案]]></notes>
+            <customproperty taskproperty-id="tpc0" value="范强"/>
+            <customproperty taskproperty-id="tpc1" value="1.调查QT依赖部分是否有能去掉的部分，去掉后是否有影响  2.确定定时器、信号槽、库导出函数加载、QDir、QDialog等QT相关替换实现方案"/>
+        </task>
+        <task id="117" name="替换方案评审" color="#8cb6ce" meeting="false" start="2017-05-24" duration="1" complete="0" expand="true">
+            <customproperty taskproperty-id="tpc0" value="范强、潘亮、jeff"/>
+        </task>
+        <task id="16" name="开发环境配置" color="#8cb6ce" meeting="false" start="2017-05-19" duration="3" complete="0" expand="true">
+            <notes><![CDATA[1.主要有win32 wince ubuntu android编译环境依赖编译工具链及编译脚本生成
+2.建立git代码库
+3.各平台必要的配置说明，如何使用
+各平台测试环境的系统版本暂定为
+win7
+wince6.0
+ubuntu16
+android4.3]]></notes>
+            <customproperty taskproperty-id="tpc0" value="王顺文"/>
+            <customproperty taskproperty-id="tpc1" value="主要有win32 wince ubuntu android编译环境依赖编译工具链"/>
+        </task>
+        <task id="18" name="可行" meeting="false" start="2017-05-16" duration="51" complete="0" expand="true">
+            <task id="121" name="重构需求文档编写" color="#8cb6ce" meeting="false" start="2017-05-25" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="122" name="重构需求文档评审" color="#8cb6ce" meeting="false" start="2017-05-25" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="14" name="SDK编码实现" color="#8cb6ce" meeting="false" start="2017-05-26" duration="9" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <task id="83" name="Win32编译环境替换QT相关实现" color="#8cb6ce" meeting="false" start="2017-05-26" duration="2" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强、王顺文"/>
+                </task>
+                <task id="84" name="提取并封装SDK对外暴露接口" color="#8cb6ce" meeting="false" start="2017-05-31" duration="3" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="85" name="实现Wince编译环境移植" meeting="false" start="2017-06-05" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="86" name="实现Ubuntu编译环境移植" meeting="false" start="2017-06-06" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="87" name="实现Android平台编译环境移植" color="#8cb6ce" meeting="false" start="2017-06-07" duration="2" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+            </task>
+            <task id="34" name="SDK测试工具编写" color="#8cb6ce" meeting="false" start="2017-06-09" duration="4" complete="0" expand="true">
+                <notes><![CDATA[修改原有UI模块实现调用SDK测试]]></notes>
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <customproperty taskproperty-id="tpc1" value="修改原有UI模块实现调用SDK测试"/>
+            </task>
+            <task id="15" name="多平台联调" color="#8cb6ce" meeting="false" start="2017-06-15" duration="4" complete="0" expand="true">
+                <notes><![CDATA[手机端SPT、SDL、HMI联调]]></notes>
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <customproperty taskproperty-id="tpc1" value="手机端SPT、SDL、HMI联调"/>
+                <task id="97" name="Win32平台App注册、退出、基本Show命令通过" color="#8cb6ce" meeting="false" start="2017-06-15" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="100" name="Wince平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-16" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="107" name="Ubuntu平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-19" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="108" name="Android平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-20" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+            </task>
+            <task id="0" name="SDK接口说明文档编写" color="#8cb6ce" meeting="false" start="2017-06-21" duration="5" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="132" name="接口文档评审" meeting="false" start="2017-06-28" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强、潘亮、jeff"/>
+            </task>
+            <task id="28" name="测试" color="#8cb6ce" meeting="false" start="2017-05-16" duration="6" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="张克敏、echo"/>
+                <task id="109" name="测试计划编写" color="#8cb6ce" meeting="false" start="2017-05-23" duration="1" complete="0" expand="true">
+                    <notes><![CDATA[包括编写评审及修改完成]]></notes>
+                    <customproperty taskproperty-id="tpc1" value="包括编写评审及修改完成"/>
+                </task>
+                <task id="110" name="测试计划评审" color="#8cb6ce" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="64" name="Bug修复" color="#8cb6ce" meeting="false" start="2017-06-29" duration="20" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+        </task>
+        <task id="184" name="不可行，继续使用QT依赖库" meeting="false" start="2017-05-16" duration="49" complete="0" expand="true">
+            <task id="186" name="重构需求文档编写" color="#8cb6ce" meeting="false" start="2017-05-25" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="188" name="重构需求文档评审" color="#8cb6ce" meeting="false" start="2017-05-25" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="190" name="SDK编码实现" color="#8cb6ce" meeting="false" start="2017-05-26" duration="7" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <task id="194" name="提取并封装SDK对外暴露接口" color="#8cb6ce" meeting="false" start="2017-05-26" duration="3" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="196" name="实现Wince编译环境移植" meeting="false" start="2017-06-01" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="198" name="实现Ubuntu编译环境移植" meeting="false" start="2017-06-02" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="200" name="实现Android平台编译环境移植" color="#8cb6ce" meeting="false" start="2017-06-05" duration="2" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+            </task>
+            <task id="202" name="SDK测试工具编写" color="#8cb6ce" meeting="false" start="2017-06-07" duration="4" complete="0" expand="true">
+                <notes><![CDATA[修改原有UI模块实现调用SDK测试]]></notes>
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <customproperty taskproperty-id="tpc1" value="修改原有UI模块实现调用SDK测试"/>
+            </task>
+            <task id="204" name="多平台联调" color="#8cb6ce" meeting="false" start="2017-06-13" duration="4" complete="0" expand="true">
+                <notes><![CDATA[手机端SPT、SDL、HMI联调]]></notes>
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+                <customproperty taskproperty-id="tpc1" value="手机端SPT、SDL、HMI联调"/>
+                <task id="206" name="Win32平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-13" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="208" name="Wince平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-14" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="210" name="Ubuntu平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-15" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+                <task id="212" name="Android平台App注册、退出、基本Show命令通过" meeting="false" start="2017-06-16" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc0" value="范强"/>
+                </task>
+            </task>
+            <task id="214" name="SDK接口说明文档编写" color="#8cb6ce" meeting="false" start="2017-06-19" duration="5" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+            <task id="216" name="接口文档评审" meeting="false" start="2017-06-26" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强、潘亮、jeff"/>
+            </task>
+            <task id="218" name="测试" color="#8cb6ce" meeting="false" start="2017-05-16" duration="6" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="张克敏、echo"/>
+                <task id="220" name="测试计划编写" color="#8cb6ce" meeting="false" start="2017-05-23" duration="1" complete="0" expand="true">
+                    <notes><![CDATA[包括编写评审及修改完成]]></notes>
+                    <customproperty taskproperty-id="tpc1" value="包括编写评审及修改完成"/>
+                </task>
+                <task id="222" name="测试计划评审" color="#8cb6ce" meeting="false" start="2017-05-16" duration="1" complete="0" expand="true"/>
+            </task>
+            <task id="224" name="Bug修复" color="#8cb6ce" meeting="false" start="2017-06-27" duration="20" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="范强"/>
+            </task>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd11" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd8" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd7" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd10" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd6" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
+        <displaycolumn property-id="tpd3" order="0" width="416" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="116" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="104" visible="true"/>
+        <displaycolumn property-id="tpc0" order="3" width="185" visible="true"/>
+        <displaycolumn property-id="tpc1" order="4" width="121" visible="true"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
