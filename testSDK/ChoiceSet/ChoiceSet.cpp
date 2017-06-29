@@ -100,6 +100,10 @@ void CChoiceSet::showEvent(QShowEvent * e)
                 m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
                 m_pTopText = m_pInitEdit;
             }
+            // Bug #9701
+            else{
+                m_pListView = new CustomListView(LISTW,LISTH);
+            }
             m_pMainLayout->addWidget(m_pListView);
             m_pTopLayout->addWidget(m_pTopText,1);
             m_pTopText->show();

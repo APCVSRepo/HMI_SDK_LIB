@@ -29,10 +29,13 @@ void AppBase::setBkgImage(const char *img)
     setPalette(palette);
 }
 
-void AppBase::SetEdlidedText(QLabel *pLabel,QString strText,int iWidth)
+// Bug #9671
+void AppBase::SetEdlidedText(QLabel *pLabel,QString strText,int iWidth, Qt::AlignmentFlag alignMode)
 {
     QFontMetrics qfm(pLabel->font());
     pLabel->setText(qfm.elidedText(strText,Qt::ElideRight,iWidth));
+    // Bug #9671
+    pLabel->setAlignment(alignMode);
 }
 
 void AppBase::SetEdlidedText(QLineEdit *pEdit,QString strText,int iWidth)

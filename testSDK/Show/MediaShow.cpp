@@ -194,16 +194,27 @@ void CMediaShow::showEvent(QShowEvent * e)
             return;
         rpcValueInterface& jsonParams = pObj["params"];
 
+        // Bug #9671
+        Qt::AlignmentFlag alignMode =  Qt::AlignLeft;
+        if(jsonParams.isMember("alignment")){
+            std::string align = jsonParams["alignment"].asString();
+            if ("RIGHT_ALIGNED" == align) {
+                alignMode = Qt::AlignRight;
+            }else if ("CENTERED" == align) {
+                alignMode = Qt::AlignHCenter;
+            }
+        }
         for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
             rpcValueInterface&  fieldName = jsonParams["showStrings"][i];
+            // Bug #9671
             if ("mainField1" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_aShowLine,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                AppBase::SetEdlidedText(m_aShowLine,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mainField2" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_aShowLine+1,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                AppBase::SetEdlidedText(m_aShowLine+1,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mainField3" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_aShowLine+2,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                AppBase::SetEdlidedText(m_aShowLine+2,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mainField4" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_aShowLine+3,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                AppBase::SetEdlidedText(m_aShowLine+3,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
                 AppBase::SetEdlidedText(m_pTimeElapseLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
             } else if ("mediaClock" == fieldName["fieldName"].asString()) {

@@ -29,7 +29,8 @@ public:
     explicit AppBase(AppListInterface * pList, QWidget *parent = 0);
     ~AppBase();
 
-    static void SetEdlidedText(QLabel *pLabel,QString strText,int iWidth);
+    // Bug #9671
+    static void SetEdlidedText(QLabel *pLabel,QString strText,int iWidth, Qt::AlignmentFlag alignMode = Qt::AlignLeft);
     static void SetEdlidedText(QLineEdit *pEdit,QString strText,int iWidth);
 protected:
     //virtual void setTitle(QString title){((MainMenu*)parent()->parent()->parent())->SetTitle(title);}
