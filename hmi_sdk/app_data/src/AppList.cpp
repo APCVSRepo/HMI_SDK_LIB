@@ -71,7 +71,8 @@ const std::string ConvertPathOfURL(const std::string &path)
         converted_path += path.substr(last_pos, pos - last_pos);
         ++pos;
 
-        path.copy(symbols_id, pos, 2);
+		// Bug #9556
+        path.copy(symbols_id, 2, pos);
         symbols = static_cast<char>(atoi_hex(symbols_id));
         if (reserved_symbols.find_first_of(symbols) != std::string::npos)
         {

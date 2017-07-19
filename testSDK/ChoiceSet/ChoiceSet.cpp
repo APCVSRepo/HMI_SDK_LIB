@@ -188,6 +188,8 @@ void CChoiceSet::OnChoiceVRPressed()
     m_pChoiceVR->hide();
     if (VR_ONLY == m_iInteractionMode) {
         m_pTimer->stop();
+        // Bug #9676
+        AppControl->OnPerformInteraction(PERFORMINTERACTION_TIMEOUT, 0,true);
         AppControl->OnPerformInteraction(RESULT_ABORTED, 0);
     } else {
         AppControl->OnPerformInteraction(PERFORMINTERACTION_TIMEOUT, 0,true);
