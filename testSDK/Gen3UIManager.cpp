@@ -93,6 +93,18 @@ CGen3UIManager::CGen3UIManager(AppListInterface * pList, QWidget *parent) :
 
 CGen3UIManager::~CGen3UIManager()
 {
+    std::string strFilePath = GetSDKLibPath();
+    strFilePath += "hmi_sdk";
+    m_sdk.setFileName(strFilePath.c_str());
+
+    // 释放HMISDK，动态调用UnInitHmiSdk函数
+    CloseFunc unInit = (CloseFunc)m_sdk.resolve("UnInitHmiSdk");
+    if (unInit) {
+        unInit();
+    } else {
+        LOGE("can't load hmi sdk lib, %s", strFilePath.data());
+    }
+
     for (int i = 0; i < ID_UI_MAX; ++i) {
         if (m_vUIWidgets[i]) {            
             delete m_vUIWidgets[i];
@@ -237,12 +249,14 @@ void CGen3UIManager::loadsdk()
     strFilePath += "hmi_sdk";
     m_sdk.setFileName(strFilePath.c_str());
 
-    InitFunc Init = (InitFunc)m_sdk.resolve("HMISDK_Init");
+    // 初始化HMISDK，动态调用InitHmiSdk函数
+    InitFunc Init = (InitFunc)m_sdk.resolve("InitHmiSdk");
     if (Init) {
         AppListInterface * pApp = Init(this);
     } else {
         LOGE("can't load hmi sdk lib, %s", strFilePath.data());
     }
 
+    // 通知初始化完成
     emit finishLoadSDK();
 }

@@ -33,15 +33,15 @@
  * @see			UIInterface.h AppListInterface.h
  * @note		初始化SDK及HMI资源，并连接SDL
  */ 
-extern "C" HMISDK_EXPORT AppListInterface* HMISDK_Init(UIInterface* pUI);
+extern "C" HMISDK_EXPORT AppListInterface* InitHmiSdk(UIInterface* pUI);
 
 /** 
  * HMI SDK释放
  * @return		无
  * @ref			
  * @see			
- * @note		释放SDK资源
+ * @note		释放App数据管理等资源
  */ 
-extern "C" HMISDK_EXPORT void HMISDK_UnInit();
+extern "C" HMISDK_EXPORT void UnInitHmiSdk();
 
 #endif // HMISDKLIB_H

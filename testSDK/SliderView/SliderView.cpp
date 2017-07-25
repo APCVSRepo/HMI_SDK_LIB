@@ -126,6 +126,10 @@ void CSliderView::showEvent(QShowEvent * e)
 
 void CSliderView::UpdateFooter(int iPos)
 {
+    // Bug #9938
+    if(m_FooterStrVec.size() < 1)
+        return;
+
     if (m_bDynamic) {
         AppBase::SetEdlidedText(m_pFooterLab,m_FooterStrVec[iPos-1].c_str(),width()*0.9);
     } else {

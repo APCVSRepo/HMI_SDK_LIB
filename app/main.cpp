@@ -42,7 +42,7 @@ void initSDL()
 }
 #endif
 
-AppListInterface* HMISDK_Init(UIInterface* pUI)
+AppListInterface* InitHmiSdk(UIInterface* pUI)
 {
 	g_appList = new AppList;
 	if(!g_appList){
@@ -63,7 +63,7 @@ AppListInterface* HMISDK_Init(UIInterface* pUI)
 	return g_appList;
 }
 
-void HMISDK_UnInit()
+void UnInitHmiSdk()
 {
 	if(g_appList)
 		delete g_appList;

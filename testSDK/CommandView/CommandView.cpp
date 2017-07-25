@@ -107,8 +107,9 @@ void CCommandView::RefreshCommandList(tagCmdInf *pMenu)
         }
     } else {
         for (int i = 0;i != pMenu->CmdVec.size();++i) {
+            // Bug #9677
             m_pCommandList->AddListItem(pMenu->CmdVec[i].strCmd.c_str(),
-                                        pMenu->CmdVec[i].bMenu,m_CmdVec[i].strImagePath);
+                                        pMenu->CmdVec[i].bMenu,pMenu->CmdVec[i].strImagePath);
         }
     }
     m_pCommandList->show();

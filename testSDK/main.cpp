@@ -32,6 +32,8 @@ int main(int argc, char *argv[])
 #endif
     diaStart.setStyleSheet("border-image:url(:/images/Screen.png);");
     QObject::connect(g_pUIManager,SIGNAL(finishLoadSDK()),&diaStart, SLOT(accept()));
+
+    // 启动画面，等待HMISDK初始化完成
     diaStart.exec();
 
     g_pUIManager->onAppShow(ID_MAIN);
