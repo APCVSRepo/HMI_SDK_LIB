@@ -12,7 +12,7 @@ TEMPLATE = app
 
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
-#CONFIG  += wince
+CONFIG  += wince
 
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include
@@ -90,16 +90,6 @@ RESOURCES += \
 win32:!wince{
 DEFINES +=WIN32 \
           OS_WIN32
-INCLUDEPATH += $$PWD/../include/pthread
-
-LIBS +=  $$PWD/Library/win32/pthread/pthreadVC2.lib
-LIBS +=  $$PWD/Library/win32/pthread/pthreadVCE2.lib
-LIBS +=  $$PWD/Library/win32/pthread/pthreadVSE2.lib
-LIBS +=  $$PWD/Library/win32/pthread/WS2_32.Lib
-
-pthread.path=$$OUT_PWD/../bin/
-pthread.files=$$PWD/Library/win32/pthread/*.dll
-INSTALLS+=pthread
 }
 
 ################################for linux
@@ -111,16 +101,10 @@ unix:!android{
 wince{
 HEADERS += \
     include/global_first.h
-INCLUDEPATH += $$PWD/../include/pthread \
-               $$PWD/../include \
+INCLUDEPATH += $$PWD/../include \
                $$PWD/../include/wince
-LIBS +=  $$PWD/Library/ce/pthread.lib
-pthread.path=$$OUT_PWD/../bin
-pthread.files=$$PWD/Library/ce/*.dll
 
-INSTALLS +=pthread
 DEFINES += OS_WIN32
-
 DEFINES += SDL_SUPPORT_LIB
 }
 
