@@ -9,8 +9,8 @@ jsoncpp_lib_static
 )
 
 if(SDL_SUPPORT_LIB)
-	link_directories(${CMAKE_SOURCE_DIR}/lib)
-	list(APPEND LIBRARIES smartDeviceLinkCore)
+  link_directories(${CMAKE_SOURCE_DIR}/lib)
+  list(APPEND LIBRARIES smartDeviceLinkCore)
 endif()
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows" OR CMAKE_SYSTEM_NAME STREQUAL "WindowsCE")
