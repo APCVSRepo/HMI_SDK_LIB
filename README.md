@@ -1,32 +1,38 @@
-# hmi_sdk_lib
-
 # Getting Started
 ## Linux
 ### Environment
-* CMake
+* CMake >= VERSION 2.8.0
 ### BUILD
-Create a folder for your build and run `cmake <hmi_sdk_lib_dir>`
-
+        Create a folder for your build and run
+        `cmake -DCMAKE_SYSTEM_NAME="Linux" -DCMAKE_BUILD_TYPE="Release" <hmi_sdk_lib_dir>`
+        `make`
 
 ## WIN32
 ### Environment
 * Visual Studio 2008+
-* CMake
+* CMake >= VERSION 2.8.0
 ### BUILD
-Create a folder for your build and run `cmake -DCMAKE_SYSTEM_NAME="Windows" <hmi_sdk_lib_dir>`
+        Create a folder for your build and run
+        `cmake -DCMAKE_SYSTEM_NAME="Windows" -DCMAKE_BUILD_TYPE="Release" <hmi_sdk_lib_dir>`
+        Open project with VS to build
 
 ## WINCE
 ### Environment
 * Visual Studio 2008 or Visual Studio 2005
-* CMake
+* CMake >= VERSION 2.8.0
 ### BUILD
-Create a folder for your build and run `cmake -DCMAKE_SYSTEM_NAME="WindowsCE" <hmi_sdk_lib_dir>`
+        Create a folder for your build and run
+        `cmake -G "Visual Studio 9 2008 CHSINT SDK For WinCE 6.0 (ARMV4I)" -DCMAKE_SYSTEM_NAME="WindowsCE" -DCMAKE_BUILD_TYPE="Release" <hmi_sdk_lib_dir>`
+        Open project with VS to build
 
 ## ANDROID
 ### Environment
-* NDK
-* CMake
+* NDK(ndk_r14b)
+* CMake >= VERSION 2.8.0
 ### CREATE NDK TOOLCHAIN
-run `<ndk_dir>/build/tools/make_standalone_toolchain.py --arch arm --api <api> --install-dir <target_dir>`
+        run
+        `<ndk_dir>/build/tools/make_standalone_toolchain.py --arch arm --api 19 --install-dir <ndk_toolchain_dir>`
 ### BUILD
-Create a folder for your build and run `cmake -DSYSTEM_NAME="Android" -DCOMPILER_PATH=<ndk_toolchain_dir> <hmi_sdk_lib_dir>`
+        Create a folder for your build and run
+        `cmake -DSYSTEM_NAME="Android" -DCOMPILER_PATH=<ndk_toolchain_dir> <hmi_sdk_lib_dir>`
+        `make`
