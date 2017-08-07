@@ -1,8 +1,6 @@
 ﻿#ifndef BASECOMMUNICATIONCLIENT_H
 #define BASECOMMUNICATIONCLIENT_H
 
-#include <json/json.h>
-
 #include "Channel.h"
 
 class BasicCommunication : public Channel

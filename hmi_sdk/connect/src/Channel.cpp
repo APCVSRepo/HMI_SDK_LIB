@@ -1,28 +1,22 @@
-﻿#include "global_first.h"
-
-#ifdef WINCE
-#else
+﻿#include<Channel.h>
+#ifndef WINCE
 #include <sys/stat.h>
 #endif
-
-#include <iostream>
-#include <stdio.h>
-#include <string>
-#include <json/json.h>
-#include <fstream>
-#include <cassert>
-#include<Channel.h>
-#ifdef WIN32
-#ifdef WINCE
-//#include "unistd.h"
-#else
+#ifdef OS_WIN32
+#ifndef WINCE
 #include <direct.h>
 #endif
 #else
 #include <unistd.h>
 #endif
 #include<stdlib.h>
-//#include "Config/Config.h"
+#include <iostream>
+#include <stdio.h>
+#include <fstream>
+#include <cassert>
+#include <json/json.h>
+#include "global_first.h"
+#include "IMessageInterface.h"
 
 JsonBuffer::JsonBuffer()
 {

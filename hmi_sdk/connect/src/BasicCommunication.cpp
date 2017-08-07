@@ -1,8 +1,8 @@
-﻿#include "global_first.h"
-#include "BasicCommunication.h"
-
+﻿#include "BasicCommunication.h"
 #include <iostream>
 #include <string>
+#include <json/json.h>
+#include "global_first.h"
 
 BasicCommunication::BasicCommunication() : Channel(500,"BasicCommunication")
 {

@@ -10,7 +10,6 @@ class AppData : public AppDataInterface
 public:
     AppData();
 
-//    void start();
     void setUIManager(UIInterface *pcallBack);
 
     Json::Value& getShowData();

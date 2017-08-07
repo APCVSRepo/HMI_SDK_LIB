@@ -1,9 +1,6 @@
 ﻿#ifndef TTSCLIENT_H
 #define TTSCLIENT_H
 
-#include "json/json.h"
-
-#include "ISocketManager.h"
 #include "Channel.h"
 
 class TTS : public Channel

@@ -1,15 +1,12 @@
 ﻿#ifndef SOCKETSTOSDL
 #define SOCKETSTOSDL
-#include "ISocketManager.h"
-#include <vector>
-#include <queue>
-#include <pthread.h>
-#include "IMessageInterface.h"
 
 #ifdef WIN32
 #include <WINSOCK2.H> 
-#include <stdio.h> 
 #endif
+#include <pthread.h>
+#include <queue>
+#include "ISocketManager.h"
 
 typedef struct _SEND_DATA
 {

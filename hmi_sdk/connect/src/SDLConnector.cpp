@@ -1,13 +1,12 @@
-﻿#include "global_first.h"
-#include <SDLConnector.h>
-#include <vector>
-#include <iostream>
+﻿#include <SDLConnector.h>
 #include <pthread.h>
-
-#ifdef linux
+#ifndef OS_WIN32
 #include <sys/time.h>
 #include <unistd.h>
 #endif
+#include <vector>
+#include <iostream>
+#include "global_first.h"
 
 static SDLConnector * g_SingleConnector = 0;
 

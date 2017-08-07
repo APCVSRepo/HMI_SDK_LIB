@@ -1,12 +1,16 @@
 #ifndef __CHANNEL_H__
 #define __CHANNEL_H__
 
-#include "ISocketManager.h"
-#include "IMessageInterface.h"
 #include <vector>
-#ifdef ANDROID
-#include <unistd.h>
-#endif
+#include <string>
+#include "ISocketManager.h"
+
+class IMessageInterface;
+class ISocketManager;
+
+namespace Json{
+	class Value;
+}
 
 class JsonBuffer
 {
@@ -23,8 +27,6 @@ private:
 extern Json::Value g_StaticConfigJson;
 extern Json::Value g_VehicleInfoJson;
 extern Json::Value g_StaticResultJson;
-
-class ISocketManager;
 
 class Channel:public IChannel
 {

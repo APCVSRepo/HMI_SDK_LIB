@@ -1,6 +1,5 @@
-﻿#include "global_first.h"
-#include "AppList.h"
-//#include <QUrl>
+﻿#include "AppList.h"
+#include "global_first.h"
 
 extern std::string string_To_UTF8(const std::string & str);
 extern bool IsTextUTF8(char* str, unsigned long long length);
@@ -82,7 +81,7 @@ const std::string ConvertPathOfURL(const std::string &path)
         }
         else
         {
-            printf("---atoi error symbols\n");
+			LOGE("---atoi error symbols\n");
             break;
         }
     }

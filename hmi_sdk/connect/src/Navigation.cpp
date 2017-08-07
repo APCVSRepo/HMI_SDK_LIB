@@ -1,6 +1,4 @@
-﻿//#include "HMISDK/include/global_first.h"
-#include <Navigation.h>
-
+﻿#include <Navigation.h>
 #include <iostream>
 #include <string>
 #include "json/json.h"

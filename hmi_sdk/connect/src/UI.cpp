@@ -1,10 +1,8 @@
-﻿#include <global_first.h>
-#include <UI.h>
-
+﻿#include <UI.h>
 #include <iostream>
 #include <string>
 #include "json/json.h"
-//#include "Config/Config.h"
+#include <global_first.h>
 
 UI::UI() : Channel(600,"UI")
 {

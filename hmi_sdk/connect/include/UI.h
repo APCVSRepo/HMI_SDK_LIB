@@ -1,10 +1,7 @@
 ﻿#ifndef UICLIENT_H
 #define UICLIENT_H
 
-#include <json/json.h>
-#include "ISocketManager.h"
 #include "Channel.h"
-
 
 class UI : public Channel
 {

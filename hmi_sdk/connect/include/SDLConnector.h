@@ -1,6 +1,6 @@
 ﻿#ifndef __SDL_CONNECTOR_H__
 #define __SDL_CONNECTOR_H__
-#include "ISocketManager.h"
+
 #include "ProtocolDefines.h"
 #include "BasicCommunication.h"
 #include "Buttons.h"
@@ -11,12 +11,6 @@
 #include "VR.h"
 #include "CVideoStream.h"
 #include "SocketsToSDL.h"
-#include <string>
-#include "json/json.h"
-#include <stdio.h>
-#ifdef ANDROID
-#include <unistd.h>
-#endif
 
 #define ToSDL SDLConnector::getSDLConnector()
 

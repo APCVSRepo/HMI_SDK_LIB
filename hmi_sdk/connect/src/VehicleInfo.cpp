@@ -1,10 +1,10 @@
-﻿#include <global_first.h>
-#include <VehicleInfo.h>
-#include <iostream>
-#include <string>
-#include <fstream>
+﻿#include <VehicleInfo.h>
 #include <cassert>
+#include <string>
+#include <iostream>
+#include <fstream>
 #include "json/json.h"
+#include <global_first.h>
 
 VehicleInfo::VehicleInfo() : Channel(700,"VehicleInfo")
 {

@@ -4,7 +4,6 @@
 #include "json/json.h"
 #include <string>
 #include "AppCommon.h"
-//#define _D(msg, args...) //fprintf(stderr,"[lk]-%s-%s():%d: " msg, __FILE__, __FUNCTION__, __LINE__, ##args)
 
 class IMessageInterface
 {

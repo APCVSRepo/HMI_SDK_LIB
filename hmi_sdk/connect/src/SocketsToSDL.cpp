@@ -1,7 +1,5 @@
-﻿#include "global_first.h"
-#include <SocketsToSDL.h>
-
-#ifdef WIN32
+﻿#include <SocketsToSDL.h>
+#ifdef OS_WIN32
 #ifdef WINCE
 #pragma comment(lib,"ws2.lib")
 #else
@@ -20,13 +18,14 @@
 #include <stdlib.h>
 #include <arpa/inet.h>
 #endif
+#include "global_first.h"
+// add by fanqiang
+#include "Channel.h"
 
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR -1
 #endif
 
-// add by fanqiang
-#include "Channel.h"
 
 SocketsToSDL::SocketsToSDL()
 	:	m_Read_Sign(-1), 

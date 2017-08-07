@@ -1,7 +1,6 @@
 ﻿#ifndef VRCLIENT_H
 #define VRCLIENT_H
 
-#include "ISocketManager.h"
 #include "Channel.h"
 
 class VR : public Channel

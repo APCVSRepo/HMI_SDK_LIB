@@ -1,13 +1,11 @@
+#ifndef OS_WIN32
+#include <unistd.h>
+#endif
 #include <pthread.h>
 #include "AppList.h"
 #include "SDLConnector.h"
 #include "sdl_export.h"
 #include "sdk_export.h"
-
-#ifndef OS_WIN32
-#include <unistd.h>
-#endif
-
 
 AppList *g_appList = NULL;
 

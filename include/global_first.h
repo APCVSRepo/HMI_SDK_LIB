@@ -7,7 +7,7 @@
 # endif
 # include <winsock2.h>
 #endif
-
+#include <stdio.h>
 #include <stdarg.h>
 #ifdef ANDROID
 #include <android/log.h>

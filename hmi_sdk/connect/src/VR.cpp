@@ -1,10 +1,8 @@
-﻿#include <global_first.h>
-#include <VR.h>
-
-
-#include <iostream>
+﻿#include <VR.h>
 #include <string>
+#include <iostream>
 #include "json/json.h"
+#include <global_first.h>
 
 VR::VR() : Channel(400,"VR")
 {

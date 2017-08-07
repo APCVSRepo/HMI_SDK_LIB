@@ -1,8 +1,6 @@
 ﻿#ifndef BUTTONSCLIENT_H
 #define BUTTONSCLIENT_H
 
-#include "json/json.h"
-
 #include "Channel.h"
 
 class Buttons : public Channel
