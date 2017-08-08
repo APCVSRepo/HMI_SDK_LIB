@@ -1,5 +1,5 @@
-﻿#ifndef BUTTONSCLIENT_H
-#define BUTTONSCLIENT_H
+﻿#ifndef BUTTONSCLIENT_H_
+#define BUTTONSCLIENT_H_
 
 #include "Channel.h"
 
@@ -14,4 +14,4 @@ public:
 private:
 };
 
-#endif // BUTTONSCLIENT_H
+#endif // BUTTONSCLIENT_H_

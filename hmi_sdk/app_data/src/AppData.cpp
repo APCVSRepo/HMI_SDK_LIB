@@ -96,7 +96,7 @@ Result AppData::recvFromServer(Json::Value jsonObj)
         std::string str_method = jsonObj["method"].asString();
 
         if (str_method == "UI.Show") {
-            m_json_show = jsonObj;
+            m_JsonShow = jsonObj;
             ShowUI(ID_SHOW);
         }else if (str_method == "UI.SubscribeButton") {
         }else if (str_method == "UI.AddCommand") {
@@ -108,16 +108,16 @@ Result AppData::recvFromServer(Json::Value jsonObj)
         }else if (str_method == "UI.DeleteSubMenu") {
             delSubMenu(jsonObj);
         }else if (str_method == "UI.Alert") {
-            if (m_json_alert.isMember("id")) {
-                if (m_json_alert["id"].asInt()!=-1)
+            if (m_JsonAlert.isMember("id")) {
+                if (m_JsonAlert["id"].asInt()!=-1)
                     return RESULT_TOO_MANY_PENDING_REQUESTS;
             }
             alert(jsonObj);
             ShowUI(ID_ALERT);
             return RESULT_USER_WAIT;
         }else if (str_method == "UI.ScrollableMessage") {
-            if (m_json_scrollableMessage.isMember("id")) {
-                if (m_json_scrollableMessage["id"].asInt()!=-1)
+            if (m_JsonScrollableMessage.isMember("id")) {
+                if (m_JsonScrollableMessage["id"].asInt()!=-1)
                     return RESULT_TOO_MANY_PENDING_REQUESTS;
             }
             scrollableMessage(jsonObj);
@@ -133,7 +133,7 @@ Result AppData::recvFromServer(Json::Value jsonObj)
             ToSDL->OnVRStartRecord();
             return RESULT_USER_WAIT;
         }else if (str_method == "VR.PerformInteraction") {
-            m_json_interaction["ChoicesetVR"]=jsonObj;
+            m_JsonInteraction["ChoicesetVR"]=jsonObj;
             Json::Value initialPrompt = jsonObj["params"]["initialPrompt"];
             std::string txt = initialPrompt[0]["text"].asString();
             if (!IsTextUTF8((char *)txt.data(),txt.size()))
@@ -142,7 +142,7 @@ Result AppData::recvFromServer(Json::Value jsonObj)
             //ShowUI(ID_CHOICESETVR);
             return RESULT_USER_WAIT;
         }else if (str_method == "UI.PerformInteraction") {
-            m_json_interaction["Choiceset"]=jsonObj;
+            m_JsonInteraction["Choiceset"]=jsonObj;
             ShowUI(ID_CHOICESET);
             return RESULT_USER_WAIT;
         }else if (str_method == "Navigation.StartStream") {
@@ -150,7 +150,7 @@ Result AppData::recvFromServer(Json::Value jsonObj)
             m_pUIManager->onVideoStreamStart();
             ShowUI(ID_VIDEOSTREAM);
         }else if (str_method == "UI.SetMediaClockTimer") {
-            m_json_mediaclock = jsonObj;
+            m_JsonMediaClock = jsonObj;
             ShowUI(ID_MEDIACLOCK);
             return RESULT_USER_WAIT;
         }else if (str_method == "VR.VRStatus") {
@@ -241,55 +241,55 @@ void AppData::OnCommandClick(int cmdID)
 
 void AppData::OnAlertResponse(int reason)
 {
-    if (m_json_alert["id"].asInt() != -1) {
-        ToSDL->OnAlertResponse(m_json_alert["id"].asInt(), reason);
-        m_json_alert["id"] = -1;
+    if (m_JsonAlert["id"].asInt() != -1) {
+        ToSDL->OnAlertResponse(m_JsonAlert["id"].asInt(), reason);
+        m_JsonAlert["id"] = -1;
         ShowPreviousUI();
     }
 }
 
 void AppData::OnScrollMessageResponse(int reason)
 {
-    if (m_json_scrollableMessage["id"].asInt() != -1) {
-        ToSDL->OnScrollMessageResponse(m_json_scrollableMessage["id"].asInt(), reason);
-        m_json_scrollableMessage["id"] = -1;
+    if (m_JsonScrollableMessage["id"].asInt() != -1) {
+        ToSDL->OnScrollMessageResponse(m_JsonScrollableMessage["id"].asInt(), reason);
+        m_JsonScrollableMessage["id"] = -1;
         ShowPreviousUI();
     }
 }
 
 void AppData::OnSliderResponse( int code, int sliderPosition)
 {
-    ToSDL->OnSliderResponse(code, m_json_slider["id"].asInt(), sliderPosition);
+    ToSDL->OnSliderResponse(code, m_JsonSlider["id"].asInt(), sliderPosition);
     ShowPreviousUI();
 }
 
 void AppData::OnSetMediaClockTimerResponse(int iCode)
 {
-    ToSDL->OnSetMediaClockTimerResponse(iCode, m_json_mediaclock["id"].asInt());
+    ToSDL->OnSetMediaClockTimerResponse(iCode, m_JsonMediaClock["id"].asInt());
 }
 
 void AppData::OnTTSSpeek(int code)
 {
-    ToSDL->OnTTSSpeek(m_json_tsSpeak["id"].asInt(), code);
+    ToSDL->OnTTSSpeek(m_JsonTtsSpeak["id"].asInt(), code);
 }
 
 void AppData::OnPerformAudioPassThru(int code)
 {
-    if (m_json_audioPassThru == Json::Value::null)
+    if (m_JsonAudioPassThru == Json::Value::null)
         return;
 
-    ToSDL->OnPerformAudioPassThru(m_iAppID, m_json_audioPassThru["id"].asInt(), code);
+    ToSDL->OnPerformAudioPassThru(m_iAppID, m_JsonAudioPassThru["id"].asInt(), code);
     ToSDL->OnVRCancelRecord();
     ShowPreviousUI();
 }
 
 void AppData::OnPerformInteraction(int code, int choiceID,bool bVR)
 {
-    Json::Value jsonChoice=m_json_interaction["Choiceset"];
+    Json::Value jsonChoice=m_JsonInteraction["Choiceset"];
     Json::Value jsonChoiceVR;
-    bool isVrMode=m_json_interaction.isMember("ChoicesetVR");
+    bool isVrMode=m_JsonInteraction.isMember("ChoicesetVR");
     if (isVrMode)
-        jsonChoiceVR =m_json_interaction["ChoicesetVR"];
+        jsonChoiceVR =m_JsonInteraction["ChoicesetVR"];
     /*
     int choiceID=0;
     if (jsonChoice.isMember("choiceSet")) {
@@ -330,13 +330,13 @@ void AppData::OnPerformInteraction(int code, int choiceID,bool bVR)
 
 Json::Value& AppData::getShowData()
 {
-   return m_json_show;
+   return m_JsonShow;
 }
 std::vector<SMenuCommand> AppData::getCommandList()
 {
     static std::vector<SMenuCommand> retVec;
     retVec.clear();
-    for (std::vector <SMenuCommand>::iterator iterator = m_vec_scommand.begin(); iterator != m_vec_scommand.end(); iterator++) {
+    for (std::vector <SMenuCommand>::iterator iterator = m_MenuCommands.begin(); iterator != m_MenuCommands.end(); iterator++) {
         if (0 == (*iterator).i_parentID) {
             retVec.push_back(*iterator);
         }
@@ -360,7 +360,7 @@ std::vector<SMenuCommand> AppData::getCommandList(int subMenuID)
     static std::vector<SMenuCommand> retVec;
     retVec.clear();
     std::vector <SMenuCommand>::const_iterator  iterator;
-    for (iterator = m_vec_scommand.begin(); iterator != m_vec_scommand.end(); iterator++) {
+    for (iterator = m_MenuCommands.begin(); iterator != m_MenuCommands.end(); iterator++) {
         if (subMenuID == (*iterator).i_parentID) {
             retVec.push_back(*iterator);
         }
@@ -381,28 +381,28 @@ std::vector<SMenuCommand> AppData::getCommandList(int subMenuID)
 }
 Json::Value& AppData::getAlertJson()
 {
-    return m_json_alert;
+    return m_JsonAlert;
 }
 Json::Value& AppData::getSlider()
 {
-    return m_json_slider;
+    return m_JsonSlider;
 }
 Json::Value& AppData::getScrollableMsgJson()
 {
-    return m_json_scrollableMessage;
+    return m_JsonScrollableMessage;
 }
 Json::Value& AppData::getAudioPassThruJson()
 {
-    return m_json_audioPassThru;
+    return m_JsonAudioPassThru;
 }
 Json::Value& AppData::getInteractionJson()
 {
-    return m_json_interaction;
+    return m_JsonInteraction;
 }
 
 Json::Value& AppData::getMediaClockJson()
 {
-    return m_json_mediaclock;
+    return m_JsonMediaClock;
 }
 
 void AppData::ShowUI(int iUIType)
@@ -543,7 +543,7 @@ void AppData::addCommand(Json::Value jsonObj)
         tmpCommand.str_ImagePath = jsonObj["params"]["cmdIcon"]["value"].asString();
     }
 
-    m_vec_scommand.push_back(tmpCommand);
+    m_MenuCommands.push_back(tmpCommand);
 
 }
 
@@ -557,7 +557,7 @@ void AppData::addExitAppCommand()
     tmpCommand.i_parentID = 0;
     tmpCommand.i_position = 0;
 
-    m_vec_scommand.push_back(tmpCommand);
+    m_MenuCommands.push_back(tmpCommand);
 }
 
 //    {
@@ -586,7 +586,7 @@ void AppData::addSubMenu(Json::Value jsonObj)
     if (jsonObj["params"]["menuParams"].isMember("position"))
         tmpCommand.i_position = jsonObj["params"]["menuParams"]["position"].asInt();
 
-    m_vec_scommand.push_back(tmpCommand);
+    m_MenuCommands.push_back(tmpCommand);
 }
 
 //{
@@ -601,9 +601,9 @@ void AppData::addSubMenu(Json::Value jsonObj)
 void AppData::delCommand(Json::Value jsonObj)
 {
     int cmdID = jsonObj["params"]["cmdID"].asInt();
-    for (int i = 0; i < m_vec_scommand.size(); ++i) {
-        if (cmdID == m_vec_scommand.at(i).i_cmdID) {
-            m_vec_scommand.erase(m_vec_scommand.begin()+i);
+    for (int i = 0; i < m_MenuCommands.size(); ++i) {
+        if (cmdID == m_MenuCommands.at(i).i_cmdID) {
+            m_MenuCommands.erase(m_MenuCommands.begin()+i);
         }
     }
 }
@@ -619,9 +619,9 @@ void AppData::delCommand(Json::Value jsonObj)
 void AppData::delSubMenu(Json::Value jsonObj)
 {
     int menuID = jsonObj["params"]["menuID"].asInt();
-    for (int i = 0; i < m_vec_scommand.size(); ++i) {
-        if (menuID == m_vec_scommand.at(i).i_menuID) {
-            m_vec_scommand.erase(m_vec_scommand.begin()+i);
+    for (int i = 0; i < m_MenuCommands.size(); ++i) {
+        if (menuID == m_MenuCommands.at(i).i_menuID) {
+            m_MenuCommands.erase(m_MenuCommands.begin()+i);
         }
     }
 }
@@ -725,12 +725,12 @@ void AppData::delSubMenu(Json::Value jsonObj)
 //}
 void AppData::alert(Json::Value jsonObj)
 {
-    m_json_alert = jsonObj;
+    m_JsonAlert = jsonObj;
 }
 
 void AppData::tsSpeak(Json::Value jsonObj)
 {
-    m_json_tsSpeak = jsonObj;
+    m_JsonTtsSpeak = jsonObj;
 }
 
 
@@ -749,7 +749,7 @@ void AppData::tsSpeak(Json::Value jsonObj)
 //}
 void AppData::slider(Json::Value jsonObj)
 {
-    m_json_slider = jsonObj;
+    m_JsonSlider = jsonObj;
 }
 
 //{
@@ -810,7 +810,7 @@ void AppData::slider(Json::Value jsonObj)
 //}
 void AppData::scrollableMessage(Json::Value jsonObj)
 {
-    m_json_scrollableMessage = jsonObj;
+    m_JsonScrollableMessage = jsonObj;
 }
 
 
@@ -840,7 +840,7 @@ void AppData::scrollableMessage(Json::Value jsonObj)
 //}
 void AppData::performAudioPassThru(Json::Value jsonObj)
 {
-    m_json_audioPassThru = jsonObj;
+    m_JsonAudioPassThru = jsonObj;
 }
 
 
@@ -1151,7 +1151,7 @@ void AppData::systemRequest(Json::Value jsonObj)
 //}
 void AppData::performInteraction(Json::Value jsonObj)
 {
-    m_json_interaction = jsonObj;
+    m_JsonInteraction = jsonObj;
 }
 
 
@@ -1167,11 +1167,11 @@ void AppData::performInteraction(Json::Value jsonObj)
 //}
 void  AppData::videoStreamStart(Json::Value jsonObj)
 {
-    m_videoStreamJson = jsonObj;
+    m_JsonVideoStream = jsonObj;
 }
 std::string AppData::getUrlString()
 {
-    return m_videoStreamJson["params"]["url"].asString();
+    return m_JsonVideoStream["params"]["url"].asString();
 }
 
 //{

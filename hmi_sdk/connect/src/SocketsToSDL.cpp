@@ -28,8 +28,8 @@
 
 
 SocketsToSDL::SocketsToSDL()
-	:	m_Read_Sign(-1), 
-		m_Write_Sign(-1),
+	:	m_iReadSign(-1), 
+		m_iWriteSign(-1),
 		m_SendThread(),
         m_bTerminate(false)
 {
@@ -53,22 +53,22 @@ SocketsToSDL::~SocketsToSDL()
 
 void SocketsToSDL::CloseSockets()
 {
-    if (-1 != m_Read_Sign)
+    if (-1 != m_iReadSign)
 #if defined(WIN32)
-        closesocket(m_Read_Sign);
+        closesocket(m_iReadSign);
 #else
-        close(m_Read_Sign);
+        close(m_iReadSign);
 #endif
 
-    if (-1 != m_Write_Sign)
+    if (-1 != m_iWriteSign)
 #ifdef WIN32
-        closesocket(m_Write_Sign);
+        closesocket(m_iWriteSign);
 #else
-        close(m_Write_Sign);
+        close(m_iWriteSign);
 #endif
 
-    m_Read_Sign = -1;
-    m_Write_Sign = -1;
+    m_iReadSign = -1;
+    m_iWriteSign = -1;
     m_bTerminate = true;
 
     int iNum = m_SocketHandles.size();
@@ -82,11 +82,11 @@ void SocketsToSDL::CloseSockets()
 
 void SocketsToSDL::Notify()
 {
-    if (-1 == m_Write_Sign)
+    if (-1 == m_iWriteSign)
 		return;
 	
 	char c = 0;
-	::send(m_Write_Sign, (const char *)&c, 1, 0);
+	::send(m_iWriteSign, (const char *)&c, 1, 0);
 }
 
 bool SocketsToSDL::CreateSignal()
@@ -142,16 +142,16 @@ bool SocketsToSDL::CreateSignal()
 #endif
         goto clean;
 	}
-	m_Write_Sign = tcp1;
-	m_Read_Sign = tcp2;
+	m_iWriteSign = tcp1;
+	m_iReadSign = tcp2;
 #ifdef WIN32
     {
         u_long iMode = 1;
-        ioctlsocket(m_Read_Sign, FIONBIO, (u_long FAR*) &iMode);
+        ioctlsocket(m_iReadSign, FIONBIO, (u_long FAR*) &iMode);
     }
 #else
     #include<fcntl.h>
-    fcntl(m_Read_Sign,F_SETFL, O_NONBLOCK);
+    fcntl(m_iReadSign,F_SETFL, O_NONBLOCK);
 #endif
     return true;
 
@@ -270,7 +270,7 @@ void SocketsToSDL::RunThread()
 #else
     fd_set fdRead;
     fd_set fdWrite;
-    int fd_max = m_Read_Sign;
+    int fd_max = m_iReadSign;
 #endif
     while (!m_bTerminate) {
 		FD_ZERO(&fdRead);
@@ -288,7 +288,7 @@ void SocketsToSDL::RunThread()
 #endif
             fd_max = fd_max > socket? fd_max : socket;
 		}
-		FD_SET(m_Read_Sign, &fdRead);
+		FD_SET(m_iReadSign, &fdRead);
 
 #ifdef WIN32
         if (select(0, &fdRead, NULL, NULL, NULL) == SOCKET_ERROR) {
@@ -298,12 +298,12 @@ void SocketsToSDL::RunThread()
             goto SOCKET_WRONG;
 		}
 
-        bool bSend = FD_ISSET(m_Read_Sign, &fdRead);
+        bool bSend = FD_ISSET(m_iReadSign, &fdRead);
         if (bSend) {
 			unsigned char buffer[8];
 			int bytes_read = 0;
 			do{
-				bytes_read = recv(m_Read_Sign, (char *)buffer, sizeof(buffer), 0);
+				bytes_read = recv(m_iReadSign, (char *)buffer, sizeof(buffer), 0);
 			} while (bytes_read > 0);
             iNum = m_SocketHandles.size();
             for (int i = 0; i < iNum; ++i) {
@@ -345,8 +345,8 @@ SOCKET_WRONG:
 CSockHandle::CSockHandle(int bufSize)
     : m_SendMutex()
 {
-    m_i_recBufSize = bufSize;
-    m_recBuf = (unsigned char *)malloc(bufSize);
+    m_iBufSize = bufSize;
+    m_pRecBuf = (unsigned char *)malloc(bufSize);
 
     pthread_mutex_init(&m_SendMutex, 0);
 
@@ -354,7 +354,7 @@ CSockHandle::CSockHandle(int bufSize)
 
 CSockHandle::~CSockHandle()
 {
-    free(m_recBuf);
+    free(m_pRecBuf);
     pthread_mutex_destroy(&m_SendMutex);
 }
 
@@ -373,22 +373,22 @@ bool CSockHandle::Connect(IChannel *newChannel, std::string sIP, int iPort)
 #endif
 
     this->pDataReceiver = newChannel;
-    this->m_i_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (SOCKET_ERROR == this->m_i_socket) {
+    this->m_iSocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (SOCKET_ERROR == this->m_iSocket) {
         LOGE("SOCKET INVALID");
     }
 //    LOGE("this->m_i_socket = %d", this->m_i_socket);
     try{
-        if (SOCKET_ERROR == ::connect(this->m_i_socket, (const sockaddr *)&toLocal, namelen))
+        if (SOCKET_ERROR == ::connect(this->m_iSocket, (const sockaddr *)&toLocal, namelen))
             goto FAILED;
 #ifdef WIN32
         {
             u_long iMode = 1;
-            if (SOCKET_ERROR == ioctlsocket(this->m_i_socket, FIONBIO, (u_long FAR*) &iMode))
+            if (SOCKET_ERROR == ioctlsocket(this->m_iSocket, FIONBIO, (u_long FAR*) &iMode))
                 goto FAILED;
         }
 #else
-        fcntl(this->m_i_socket, F_SETFL, O_NONBLOCK);
+        fcntl(this->m_iSocket, F_SETFL, O_NONBLOCK);
 #endif
     }catch (...) {
         goto FAILED;
@@ -397,9 +397,9 @@ bool CSockHandle::Connect(IChannel *newChannel, std::string sIP, int iPort)
 
 FAILED:
 #if defined(WIN32)
-    closesocket(this->m_i_socket);
+    closesocket(this->m_iSocket);
 #else
-    close(this->m_i_socket);
+    close(this->m_iSocket);
 #endif
     return false;
 }
@@ -427,7 +427,7 @@ bool CSockHandle::SendData()
         try{
             int total = 0;
             do{
-                int iSent = ::send(this->m_i_socket, (const char *)data.pData + total, data.iLength - total, 0);
+                int iSent = ::send(this->m_iSocket, (const char *)data.pData + total, data.iLength - total, 0);
                 if (SOCKET_ERROR == iSent) {
                     bRet = false;
                     break;
@@ -454,13 +454,13 @@ bool CSockHandle::RecvData()
     bool bRet = false;
     do{
         try{
-            bytes_read = recv(this->m_i_socket, (char *)m_recBuf, m_i_recBufSize, 0);
+            bytes_read = recv(this->m_iSocket, (char *)m_pRecBuf, m_iBufSize, 0);
 //            LOGE("pHandle->socket = %d,   bytes_read = %d", this->socket, bytes_read);
         }catch (...) {
             return false;
         }
         if (bytes_read > 0)
-            this->pDataReceiver->onReceiveData(m_recBuf, bytes_read);
+            this->pDataReceiver->onReceiveData(m_pRecBuf, bytes_read);
         else if (SOCKET_ERROR == bytes_read)
            break;
         bRet = true;
@@ -472,9 +472,9 @@ bool CSockHandle::RecvData()
 void CSockHandle::Close()
 {
 #ifdef WIN32
-    closesocket(this->m_i_socket);
+    closesocket(this->m_iSocket);
 #else
-    close(this->m_i_socket);
+    close(this->m_iSocket);
 #endif
     while (!this->m_SendData.empty()) {
         SEND_DATA data = this->m_SendData.front();
@@ -485,5 +485,5 @@ void CSockHandle::Close()
 
 int CSockHandle::GetSocketID()
 {
-    return m_i_socket;
+    return m_iSocket;
 }

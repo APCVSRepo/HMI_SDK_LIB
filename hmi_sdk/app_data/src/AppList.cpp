@@ -142,17 +142,17 @@ void AppList::OnFindApplications(std::string name, std::string id)
 
 void AppList::getDeviceList(std::vector<DeviceData> &vDevice)
 {
-    vDevice = m_devicelist;
+    vDevice = m_DeviceList;
 }
 
 void AppList::OnDeviceSelect(const std::string id)
 {
     DeviceData data;
     bool bFind = false;
-    for (int i = 0; i < m_devicelist.size(); ++i) {
-        if (id == m_devicelist[i].id)
+    for (int i = 0; i < m_DeviceList.size(); ++i) {
+        if (id == m_DeviceList[i].id)
         {
-            data = m_devicelist[i];
+            data = m_DeviceList[i];
             bFind = true;
             break;
         }
@@ -423,14 +423,14 @@ void AppList::appUnregistered(int appId)
 
 void AppList::updateDeiveList(Json::Value jsonObj)
 {
-    m_devicelist.clear();
+    m_DeviceList.clear();
     int size = jsonObj["params"]["deviceList"].size();
     for(int i = 0; i < size; i++){
         DeviceData data;
         Json::Value device = jsonObj["params"]["deviceList"][i];
         data.name = device["name"].asString();
         data.id = device["id"].asString();
-        m_devicelist.push_back(data);
+        m_DeviceList.push_back(data);
     }
 }
 

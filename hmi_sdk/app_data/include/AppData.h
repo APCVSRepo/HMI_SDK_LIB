@@ -1,5 +1,5 @@
-﻿#ifndef APPDATA_H
-#define APPDATA_H
+﻿#ifndef APPDATA_H_
+#define APPDATA_H_
 
 #include "SDLConnector.h"
 #include "AppDataInterface.h"
@@ -54,17 +54,16 @@ private:
     std::vector<int> m_vecUIStack;
     void ShowUI(int);
 
-    Json::Value m_json_show;
-//    SShow m_struct_show;
-    std::vector <SMenuCommand > m_vec_scommand;
+    Json::Value m_JsonShow;
+    std::vector <SMenuCommand > m_MenuCommands;
 
-    Json::Value m_json_alert;
-    Json::Value m_json_slider;
-    Json::Value m_json_scrollableMessage;
-    Json::Value m_json_audioPassThru;
-    Json::Value m_json_interaction;
-    Json::Value m_json_mediaclock;
-    Json::Value m_json_tsSpeak;
+    Json::Value m_JsonAlert;
+    Json::Value m_JsonSlider;
+    Json::Value m_JsonScrollableMessage;
+    Json::Value m_JsonAudioPassThru;
+    Json::Value m_JsonInteraction;
+    Json::Value m_JsonMediaClock;
+    Json::Value m_JsonTtsSpeak;
 
     void addCommand(Json::Value jsonObj);
     void addSubMenu(Json::Value jsonObj);
@@ -78,7 +77,7 @@ private:
     void systemRequest(Json::Value jsonObj);
     void tsSpeak(Json::Value jsonObj);
 
-    Json::Value m_videoStreamJson;
+    Json::Value m_JsonVideoStream;
     void videoStreamStart(Json::Value jsonObj);
     void videoStreamStop(Json::Value jsonObj);
 
@@ -88,4 +87,4 @@ public:
     std::string m_szAppName;
 };
 
-#endif // APPDATA_H
+#endif // APPDATA_H_

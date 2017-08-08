@@ -1,5 +1,5 @@
-﻿#ifndef APPLIST_H
-#define APPLIST_H
+﻿#ifndef APPLIST_H_
+#define APPLIST_H_
 
 #include "AppListInterface.h"
 #include "AppData.h"
@@ -31,9 +31,6 @@ public:
 
     void appUnregistered(int appId);
 
-//     void IconnectToVS(IMessageInterface * pMsgHandler, std::string sIP, int iPort);
-//     void IdelConnectToVS();
-
 public: //IMessageInterface
     Result onRequest(Json::Value);
     void onNotification(Json::Value);
@@ -52,7 +49,7 @@ private:
     UIInterface *m_pUIManager;
     std::vector <AppData *> m_AppDatas;
     AppData * m_pCurApp;
-    std::vector <DeviceData> m_devicelist;
+    std::vector <DeviceData> m_DeviceList;
 };
 
-#endif // APPLIST_H
+#endif // APPLIST_H_

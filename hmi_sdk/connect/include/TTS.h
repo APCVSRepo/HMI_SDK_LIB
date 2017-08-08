@@ -1,5 +1,5 @@
-﻿#ifndef TTSCLIENT_H
-#define TTSCLIENT_H
+﻿#ifndef TTSCLIENT_H_
+#define TTSCLIENT_H_
 
 #include "Channel.h"
 
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif // TTSCLIENT_H
+#endif // TTSCLIENT_H_

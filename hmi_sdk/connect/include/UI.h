@@ -1,5 +1,5 @@
-﻿#ifndef UICLIENT_H
-#define UICLIENT_H
+﻿#ifndef UICLIENT_H_
+#define UICLIENT_H_
 
 #include "Channel.h"
 
@@ -21,4 +21,4 @@ public:
     void onSystemContext(std::string systemContext);
 };
 
-#endif // UICLIENT_H
+#endif // UICLIENT_H_

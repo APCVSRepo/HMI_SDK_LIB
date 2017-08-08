@@ -1,5 +1,5 @@
-#ifndef __CHANNEL_H__
-#define __CHANNEL_H__
+#ifndef CHANNEL_H_
+#define CHANNEL_H_
 
 #include <vector>
 #include <string>
@@ -99,4 +99,4 @@ private:
 
 };
 
-#endif
+#endif // CHANNEL_H_

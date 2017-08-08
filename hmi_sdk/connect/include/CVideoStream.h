@@ -1,5 +1,5 @@
-#ifndef CVIDEOSTREAM_H
-#define CVIDEOSTREAM_H
+#ifndef CVIDEO_STREAM_H_
+#define CVIDEO_STREAM_H_
 
 #include "Channel.h"
 
@@ -20,4 +20,4 @@ public:
 private:
 };
 
-#endif // CVIDEOSTREAM_H
+#endif // CVIDEO_STREAM_H_

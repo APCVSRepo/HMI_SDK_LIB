@@ -1,5 +1,5 @@
-﻿#ifndef VRCLIENT_H
-#define VRCLIENT_H
+﻿#ifndef VRCLIENT_H_
+#define VRCLIENT_H_
 
 #include "Channel.h"
 
@@ -18,4 +18,4 @@ private:
 
 };
 
-#endif // VRCLIENT_H
+#endif // VRCLIENT_H_

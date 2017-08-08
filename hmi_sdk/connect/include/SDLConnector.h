@@ -1,5 +1,5 @@
-﻿#ifndef __SDL_CONNECTOR_H__
-#define __SDL_CONNECTOR_H__
+﻿#ifndef SDL_CONNECTOR_H_
+#define SDL_CONNECTOR_H_
 
 #include "ProtocolDefines.h"
 #include "BasicCommunication.h"
@@ -33,8 +33,8 @@ public:
 private:
     bool m_bReleased;
     SocketsToSDL m_Sockets;
-    std::vector<IChannel*> m_channels;
-    bool    m_sdl_is_connected;
+    std::vector<IChannel*> m_Channels;
+    bool    m_bSdlConnected;
 
     VR m_VR;
     BasicCommunication m_Base;
@@ -112,4 +112,4 @@ private:
     void _buttonEventUp(std::string buttonname);
 };
 
-#endif
+#endif // SOCKETS_TO_SDL_H_

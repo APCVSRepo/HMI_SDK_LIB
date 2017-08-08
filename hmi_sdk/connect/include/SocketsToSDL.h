@@ -1,5 +1,5 @@
-﻿#ifndef SOCKETSTOSDL
-#define SOCKETSTOSDL
+﻿#ifndef SOCKETS_TO_SDL_H_
+#define SOCKETS_TO_SDL_H_
 
 #ifdef WIN32
 #include <WINSOCK2.H> 
@@ -27,11 +27,11 @@ public:
     int GetSocketID();
 private:
     IChannel * pDataReceiver;
-    int m_i_socket;
+    int m_iSocket;
     std::queue<SEND_DATA> m_SendData;
 
-    unsigned char *m_recBuf;
-    int m_i_recBufSize;
+    unsigned char *m_pRecBuf;
+    int m_iBufSize;
 
     mutable pthread_mutex_t m_SendMutex;
 };
@@ -56,8 +56,8 @@ private:
     void CloseSockets();
 
 private:
-    int m_Read_Sign;
-    int m_Write_Sign;
+    int m_iReadSign;
+    int m_iWriteSign;
 
     mutable pthread_mutex_t m_SendMutex;
     pthread_t m_SendThread;
@@ -72,5 +72,5 @@ private:
     std::vector<CSockHandle *> m_SocketHandles;
 };
 
-#endif // SOCKECTSTOSDL
+#endif // SOCKETS_TO_SDL_H_
 

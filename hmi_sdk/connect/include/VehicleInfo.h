@@ -1,5 +1,5 @@
-﻿#ifndef VEHICLEINFOCLIENT_H
-#define VEHICLEINFOCLIENT_H
+﻿#ifndef VEHICLE_INFO_H_
+#define VEHICLE_INFO_H_
 
 #include "Channel.h"
 
@@ -18,4 +18,4 @@ private:
     Json::Value vehicleInfoReadDIDResponse(Json::Value &);
 };
 
-#endif // VEHICLEINFOCLIENT_H
+#endif // VEHICLE_INFO_H_

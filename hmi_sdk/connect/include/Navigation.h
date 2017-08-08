@@ -1,5 +1,5 @@
-﻿#ifndef NAVIGATIONCLIENT_H
-#define NAVIGATIONCLIENT_H
+﻿#ifndef NAVIGATIONCLIENT_H_
+#define NAVIGATIONCLIENT_H_
 
 #include "Channel.h"
 
@@ -15,4 +15,4 @@ private:
 
 };
 
-#endif // NAVIGATIONCLIENT_H
+#endif // NAVIGATIONCLIENT_H_

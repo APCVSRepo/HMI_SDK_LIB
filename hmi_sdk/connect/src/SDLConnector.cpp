@@ -12,7 +12,7 @@ static SDLConnector * g_SingleConnector = 0;
 
 SDLConnector::SDLConnector() : m_bReleased(false), m_Sockets(), m_VR(), m_Base(), m_Buttons(), m_Navi(), m_TTS(), m_Vehicle(), m_UI()
 {
-    m_sdl_is_connected = false;
+    m_bSdlConnected = false;
 }
 
 SDLConnector::~SDLConnector()
@@ -60,13 +60,13 @@ void SDLConnector::onNetworkBroken()
         }
     }
     */
-    m_sdl_is_connected = false;
+    m_bSdlConnected = false;
     ConnectToSDL(m_pMsgHandler);
 }
 
 bool SDLConnector::IsSDLConnected()
 {
-    return m_sdl_is_connected;
+    return m_bSdlConnected;
 }
 
 bool SDLConnector::ConnectToSDL(IMessageInterface * pMsgHandler, INetworkStatus * pNetwork)
@@ -76,18 +76,18 @@ bool SDLConnector::ConnectToSDL(IMessageInterface * pMsgHandler, INetworkStatus 
 
     ChangeMsgHandler(pMsgHandler);
     //std::vector<IChannel*> m_channels;
-    m_channels.clear();
-    m_channels.push_back(&m_VR);
-    m_channels.push_back(&m_Vehicle);
-    m_channels.push_back(&m_UI);
-    m_channels.push_back(&m_TTS);
-    m_channels.push_back(&m_Navi);
-    m_channels.push_back(&m_Buttons);
-    m_channels.push_back(&m_Base);
+    m_Channels.clear();
+    m_Channels.push_back(&m_VR);
+    m_Channels.push_back(&m_Vehicle);
+    m_Channels.push_back(&m_UI);
+    m_Channels.push_back(&m_TTS);
+    m_Channels.push_back(&m_Navi);
+    m_Channels.push_back(&m_Buttons);
+    m_Channels.push_back(&m_Base);
 
     pthread_t  thread_connect;
     pthread_create(&thread_connect,NULL,SDLConnector::ConnectThread,this);
-    return m_sdl_is_connected;
+    return m_bSdlConnected;
 }
 
 bool SDLConnector::ConnectToVideoStream(IMessageInterface * pMsgHandler, std::string sIP, int iPort, INetworkStatus * pNetwork)
@@ -97,14 +97,14 @@ bool SDLConnector::ConnectToVideoStream(IMessageInterface * pMsgHandler, std::st
 
     m_VideoStream.SetCallback(pMsgHandler);
 
-    m_channels.push_back(&m_VideoStream);
+    m_Channels.push_back(&m_VideoStream);
 
-    m_sdl_is_connected = m_Sockets.ConnectToVS(&m_VideoStream, sIP, iPort, this);
-    if (m_sdl_is_connected) {
+    m_bSdlConnected = m_Sockets.ConnectToVS(&m_VideoStream, sIP, iPort, this);
+    if (m_bSdlConnected) {
 //        m_VideoStream.onOpen();
     }
 
-    return m_sdl_is_connected;
+    return m_bSdlConnected;
 }
 
 void SDLConnector::DelConnectToVideoStream()
@@ -114,8 +114,8 @@ void SDLConnector::DelConnectToVideoStream()
 
 void SDLConnector::Connect()
 {
-    m_sdl_is_connected = m_Sockets.ConnectTo(m_channels, this);
-    if (m_sdl_is_connected) {
+    m_bSdlConnected = m_Sockets.ConnectTo(m_Channels, this);
+    if (m_bSdlConnected) {
         m_VR.onOpen();
         m_Vehicle.onOpen();
         m_UI.onOpen();
