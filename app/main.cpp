@@ -2,8 +2,8 @@
 #include <unistd.h>
 #endif
 #include <pthread.h>
-#include "AppList.h"
-#include "SDLConnector.h"
+#include "app_list.h"
+#include "sdl_connector.h"
 #include "sdl_export.h"
 #include "sdk_export.h"
 

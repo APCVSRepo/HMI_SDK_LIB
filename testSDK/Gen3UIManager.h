@@ -1,7 +1,7 @@
 ﻿#ifndef CGEN3UIMANAGER_H
 #define CGEN3UIMANAGER_H
-#include "UIInterface.h"
-#include "AppListInterface.h"
+#include "ui_interface.h"
+#include "app_list_interface.h"
 #include "QMessageBox"
 
 #include <QLibrary>

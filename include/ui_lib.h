@@ -25,7 +25,7 @@
 #endif
 */
 
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 #include "UIInterface.h"
 
 

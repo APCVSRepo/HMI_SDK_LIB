@@ -1,4 +1,4 @@
-﻿#include<Channel.h>
+﻿#include<hmi_channel.h>
 #ifndef WINCE
 #include <sys/stat.h>
 #endif
@@ -16,7 +16,7 @@
 #include <cassert>
 #include <json/json.h>
 #include "global_first.h"
-#include "IMessageInterface.h"
+#include "message_interface.h"
 
 JsonBuffer::JsonBuffer()
 {

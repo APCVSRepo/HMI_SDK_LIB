@@ -1,7 +1,7 @@
 ﻿#ifndef VRCLIENT_H_
 #define VRCLIENT_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class VR : public Channel
 {

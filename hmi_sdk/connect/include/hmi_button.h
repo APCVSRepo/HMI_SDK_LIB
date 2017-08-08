@@ -1,7 +1,7 @@
 ﻿#ifndef BUTTONSCLIENT_H_
 #define BUTTONSCLIENT_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class Buttons : public Channel
 {

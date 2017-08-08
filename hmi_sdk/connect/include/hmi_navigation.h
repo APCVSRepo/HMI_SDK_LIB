@@ -1,7 +1,7 @@
 ﻿#ifndef NAVIGATIONCLIENT_H_
 #define NAVIGATIONCLIENT_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class Navigation : public Channel
 {

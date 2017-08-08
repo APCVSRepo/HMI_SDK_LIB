@@ -1,4 +1,4 @@
-﻿#include "BasicCommunication.h"
+﻿#include "basic_communication.h"
 #include <iostream>
 #include <string>
 #include <json/json.h>

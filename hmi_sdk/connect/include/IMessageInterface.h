@@ -3,7 +3,7 @@
 
 #include "json/json.h"
 #include <string>
-#include "AppCommon.h"
+#include "app_common.h"
 
 class IMessageInterface
 {

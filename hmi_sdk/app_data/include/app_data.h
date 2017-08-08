@@ -1,9 +1,9 @@
 ﻿#ifndef APPDATA_H_
 #define APPDATA_H_
 
-#include "SDLConnector.h"
-#include "AppDataInterface.h"
-#include "UIInterface.h"
+#include "sdl_connector.h"
+#include "app_data_interface.h"
+#include "ui_interface.h"
 
 class AppData : public AppDataInterface
 {

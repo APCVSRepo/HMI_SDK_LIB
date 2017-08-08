@@ -2,7 +2,7 @@
 #define CHOICESET_H
 
 #include <QWidget>
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 #include "Common/CustomButton.h"
 #include "Common/CustomListView.h"
 #include <QTimer>

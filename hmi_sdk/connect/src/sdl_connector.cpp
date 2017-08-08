@@ -1,4 +1,4 @@
-﻿#include <SDLConnector.h>
+﻿#include <sdl_connector.h>
 #include <pthread.h>
 #ifndef OS_WIN32
 #include <sys/time.h>

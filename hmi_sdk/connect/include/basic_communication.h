@@ -1,7 +1,7 @@
 ﻿#ifndef BASE_COMMUNICATIONCLIENT_H_
 #define BASE_COMMUNICATIONCLIENT_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class BasicCommunication : public Channel
 {

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "CAppButton.h"
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 
 class CDeviceListView : public QWidget
 {

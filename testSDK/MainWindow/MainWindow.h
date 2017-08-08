@@ -6,7 +6,7 @@
 #include "Common/MenuButton.h"
 #include <QTimer>
 #include <QTextEdit>
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 //#include "VideoStream/VideoStream.h"
 
 

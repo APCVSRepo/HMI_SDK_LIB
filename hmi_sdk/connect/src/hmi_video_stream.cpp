@@ -1,4 +1,4 @@
-#include "CVideoStream.h"
+#include "hmi_video_stream.h"
 
 CVideoStream::CVideoStream() : Channel(900,"VideoStream")
 {

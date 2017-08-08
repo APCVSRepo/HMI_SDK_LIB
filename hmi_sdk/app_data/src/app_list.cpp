@@ -1,4 +1,4 @@
-﻿#include "AppList.h"
+﻿#include "app_list.h"
 #include "global_first.h"
 
 extern std::string string_To_UTF8(const std::string & str);

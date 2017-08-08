@@ -1,16 +1,16 @@
 ﻿#ifndef SDL_CONNECTOR_H_
 #define SDL_CONNECTOR_H_
 
-#include "ProtocolDefines.h"
-#include "BasicCommunication.h"
-#include "Buttons.h"
-#include "Navigation.h"
-#include "TTS.h"
-#include "UI.h"
-#include "VehicleInfo.h"
-#include "VR.h"
-#include "CVideoStream.h"
-#include "SocketsToSDL.h"
+#include "protocol_defines.h"
+#include "basic_communication.h"
+#include "hmi_button.h"
+#include "hmi_navigation.h"
+#include "hmi_tts.h"
+#include "hmi_ui.h"
+#include "hmi_vehicle_info.h"
+#include "hmi_vr.h"
+#include "hmi_video_stream.h"
+#include "sockets_to_sdl.h"
 
 #define ToSDL SDLConnector::getSDLConnector()
 

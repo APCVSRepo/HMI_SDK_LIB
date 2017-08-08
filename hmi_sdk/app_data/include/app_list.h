@@ -1,9 +1,9 @@
 ﻿#ifndef APPLIST_H_
 #define APPLIST_H_
 
-#include "AppListInterface.h"
-#include "AppData.h"
-#include "UIInterface.h"
+#include "app_list_interface.h"
+#include "app_data.h"
+#include "ui_interface.h"
 
 
 class AppData;

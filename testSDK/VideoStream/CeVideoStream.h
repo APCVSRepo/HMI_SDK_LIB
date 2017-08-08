@@ -6,10 +6,10 @@
 #include <QPainter>
 #include <QQueue>
 #include <QDebug>
-//#include "IMessageInterface.h"
+//#include "message_interface.h"
 
 #include "Common/Button.h"
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 #include <QTimer>
 
 #define TEST_FILE

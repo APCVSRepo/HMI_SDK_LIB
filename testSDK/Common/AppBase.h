@@ -2,10 +2,10 @@
 #define APPBASE_H
 
 //#include "MainMenu.h"
-#include "UIInterface.h"
+#include "ui_interface.h"
 #include <QWidget>
 #include <QLabel>
-#include <AppListInterface.h>
+#include <app_list_interface.h>
 #include <QLineEdit>
 
 #define AppControl m_pList->getActiveApp()

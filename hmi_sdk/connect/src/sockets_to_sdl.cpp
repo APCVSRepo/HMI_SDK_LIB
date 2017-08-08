@@ -1,4 +1,4 @@
-﻿#include <SocketsToSDL.h>
+﻿#include <sockets_to_sdl.h>
 #ifdef OS_WIN32
 #ifdef WINCE
 #pragma comment(lib,"ws2.lib")
@@ -20,7 +20,7 @@
 #endif
 #include "global_first.h"
 // add by fanqiang
-#include "Channel.h"
+#include "hmi_channel.h"
 
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR -1

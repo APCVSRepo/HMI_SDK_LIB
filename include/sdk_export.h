@@ -22,15 +22,15 @@
 #endif
 
 
-#include "AppListInterface.h"
-#include "UIInterface.h"
+#include "app_list_interface.h"
+#include "ui_interface.h"
 
 /** 
  * HMI SDK初始化
  * @param[in]	pUI		UIInterface接口
  * @return		返回值AppListInterface可用于判断SDK初始化是否成功，失败返回NULL
  * @ref			
- * @see			UIInterface.h AppListInterface.h
+ * @see			ui_interface.h app_list_interface.h
  * @note		初始化SDK及HMI资源，并连接SDL
  */ 
 extern "C" HMISDK_EXPORT AppListInterface* InitHmiSdk(UIInterface* pUI);

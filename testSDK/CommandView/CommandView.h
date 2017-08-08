@@ -6,7 +6,7 @@
 #include "Common/Button.h"
 #include <QLabel>
 #include "CustomCombobox.h"
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 
 
 typedef struct CommandInformation

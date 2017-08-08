@@ -9,7 +9,7 @@
 
 #ifndef UIINTERFACE_H
 #define UIINTERFACE_H
-#include "AppListInterface.h"
+#include "app_list_interface.h"
 
 class UIInterface
 {
@@ -37,7 +37,7 @@ public:
 	 * @param[in]	type		画面ID
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h ShowType枚举值定义 
+	 * @see			app_common.h ShowType枚举值定义 
 	 * @note		切换到指定画面实现类实例进行显示
 	 */ 
     virtual void onAppShow(int type) = 0;
@@ -85,7 +85,7 @@ public:
 	 * @param[in]	strText		语音播放文本
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h VRID枚举值定义 
+	 * @see			app_common.h VRID枚举值定义 
 	 * @note		实现TTS语音文本的转换并进行播放
 	 */ 
     virtual void tsSpeak(int VRID, std::string strText) = 0;

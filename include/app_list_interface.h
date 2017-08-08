@@ -1,5 +1,5 @@
 ﻿/**
-* @file			AppListInterface.h  
+* @file			app_list_interface.h  
 * @brief		手机端App数据控制接口
 * @author		fanqiang
 * @date			2017-6-21 
@@ -13,7 +13,7 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
-#include "AppDataInterface.h"
+#include "app_data_interface.h"
 
 class UIInterface;
 

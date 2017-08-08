@@ -1,7 +1,7 @@
 #ifndef CVIDEO_STREAM_H_
 #define CVIDEO_STREAM_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class CVideoStream : public Channel
 {

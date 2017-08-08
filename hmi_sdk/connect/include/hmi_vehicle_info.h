@@ -1,7 +1,7 @@
 ﻿#ifndef VEHICLE_INFO_H_
 #define VEHICLE_INFO_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class VehicleInfo : public Channel
 {

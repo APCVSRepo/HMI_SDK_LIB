@@ -1,7 +1,7 @@
 ﻿#ifndef UICLIENT_H_
 #define UICLIENT_H_
 
-#include "Channel.h"
+#include "hmi_channel.h"
 
 class UI : public Channel
 {

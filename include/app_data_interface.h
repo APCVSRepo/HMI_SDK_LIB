@@ -1,5 +1,5 @@
 ﻿/**
-* @file			AppDataInterface.h  
+* @file			app_data_interface.h  
 * @brief		手机端App数据接口
 * @author		fanqiang
 * @date			2017-6-21 
@@ -10,12 +10,12 @@
 #ifndef APPDATAINTERFACE_H
 #define APPDATAINTERFACE_H
 
-#include "rpcValueInterface.h"
+#include "rpc_value_interface.h"
 #include <string.h>
 #include <vector>
 #include "global_first.h"
-#include "AppCommon.h"
-#include "ProtocolDefines.h"
+#include "app_common.h"
+#include "protocol_defines.h"
 
 /**  菜单命令项信息*/  
 typedef struct command{
@@ -157,7 +157,7 @@ public:
 	 * 获取当前手机端App显示画面的ID
 	 * @return		int		当前手机端App显示画面的ID
 	 * @ref			
-	 * @see			AppCommon.h ShowType枚举值定义 
+	 * @see			app_common.h ShowType枚举值定义 
 	 * @note		
 	 */ 
 	virtual int getCurUI() = 0;
@@ -166,7 +166,7 @@ public:
 	 * 请求展示当前App菜单列表画面
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h ShowType枚举值定义 
+	 * @see			app_common.h ShowType枚举值定义 
 	 * @note		会调用显示ID_COMMAND画面
 	 */ 
 	virtual void OnShowCommand() = 0;
@@ -178,7 +178,7 @@ public:
 	 * @param[in]	strName		软按钮名称
 	 * @return		无
 	 * @ref			
-	 * @see			ProtocolDefines.h BUTTON_SHORT BUTTON_LONG
+	 * @see			protocol_defines.h BUTTON_SHORT BUTTON_LONG
 	 * @note		用户点击画面软按钮时，调用SDK该函数将通知传递给手机端App
 	 */ 
 	virtual void OnSoftButtonClick(int sbID, int mode,std::string strName = "") = 0;
@@ -198,7 +198,7 @@ public:
 	 * @param[in]	reason		执行结果，参照RESULT_CODE
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h RESULT_CODE
+	 * @see			app_common.h RESULT_CODE
 	 * @note		将Alert画面执行的结果通知给SDK，然后回到前一画面
 	 */ 
 	virtual void OnAlertResponse(int reason) = 0;
@@ -208,7 +208,7 @@ public:
 	 * @param[in]	reason		执行结果，参照RESULT_CODE
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h RESULT_CODE
+	 * @see			app_common.h RESULT_CODE
 	 * @note		将ScrollMessage画面执行的结果通知给SDK，然后回到前一画面
 	 */ 
 	virtual void OnScrollMessageResponse(int reason) = 0;
@@ -218,7 +218,7 @@ public:
 	 * @param[in]	reason		执行结果，参照RESULT_CODE
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h RESULT_CODE
+	 * @see			app_common.h RESULT_CODE
 	 * @note		将Slider画面执行的结果通知给SDK，然后回到前一画面
 	 */ 
 	virtual void OnSliderResponse( int code, int sliderPosition) = 0;
@@ -228,7 +228,7 @@ public:
 	 * @param[in]	code		执行结果
 	 * @return		无
 	 * @ref			
-	 * @see			ProtocolDefines.h
+	 * @see			protocol_defines.h
 	 * @note		将TTSSpeek执行的结果通知给SDK，该函数保留
 	 */ 
 	virtual void OnTTSSpeek(int code) = 0;
@@ -238,7 +238,7 @@ public:
 	 * @param[in]	code		执行结果
 	 * @return		无
 	 * @ref			
-	 * @see			ProtocolDefines.h
+	 * @see			protocol_defines.h
 	 * @note		将录音执行的结果通知给SDK，该函数保留
 	 */ 
 	virtual void OnPerformAudioPassThru(int code) = 0;
@@ -248,7 +248,7 @@ public:
 	 * @param[in]	code		执行结果
 	 * @return		无
 	 * @ref			
-	 * @see			ProtocolDefines.h
+	 * @see			protocol_defines.h
 	 * @note		将ChoiceSet执行的结果通知给SDK，该函数保留
 	 */ 
 	virtual void OnPerformInteraction(int code, int choiceID, bool bVR = false) = 0;
@@ -258,7 +258,7 @@ public:
 	 * @param[in]	code		执行结果，参照RESULT_CODE
 	 * @return		无
 	 * @ref			
-	 * @see			AppCommon.h RESULT_CODE
+	 * @see			app_common.h RESULT_CODE
 	 * @note		将SetMediaClockTimer执行的结果通知给SDK
 	 */ 
 	virtual void OnSetMediaClockTimerResponse(int iCode) = 0;
@@ -270,7 +270,7 @@ public:
 	 * @param[in]	y		鼠标操作的屏幕坐标y轴位置
 	 * @return		无
 	 * @ref			
-	 * @see			ProtocolDefines.h TOUCH_TYPE
+	 * @see			protocol_defines.h TOUCH_TYPE
 	 * @note		VideoStream画面点击移动操作时通知SDK，调用SDK该函数将通知传递给手机端App
 	 */ 
 	virtual void OnVideoScreenTouch(TOUCH_TYPE touch,int x,int y) = 0;
