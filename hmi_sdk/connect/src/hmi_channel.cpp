@@ -176,7 +176,7 @@ void Channel::onMessage(Json::Value &jsonObj)
 }
 
 
-void Channel::SetStaticResult(std::string attri,std::string ref,Json::Value value)
+void Channel::setStaticResult(std::string attri,std::string ref,Json::Value value)
 {
     if (m_StaticResult.isMember(attri))
        m_StaticResult[attri][ref] = value;
@@ -228,7 +228,7 @@ void Channel::sendError(int resultCode, int id, std::string method, std::string 
     sendError(id,error);
 }
 
-void Channel::SendJson(Json::Value &data)
+void Channel::sendJson(Json::Value &data)
 {
     //LOGI("---send:%s",data.toStyledString().c_str());
     if(NULL == m_pSocketManager) {
@@ -350,7 +350,7 @@ void Channel::sendResult(int id, Json::Value &result)
     root["id"] = id;
     root["jsonrpc"] = "2.0";
     root["result"] = result;
-    SendJson(root);
+    sendJson(root);
 }
 
 void Channel::sendRequest(int id,const std::string mothod,const Json::Value &params)
@@ -361,7 +361,7 @@ void Channel::sendRequest(int id,const std::string mothod,const Json::Value &par
     root["method"] = mothod;
     if (!params.isNull())
        root["params"] = params;
-    SendJson(root);
+    sendJson(root);
 }
 
 void Channel::sendError(int id, Json::Value &error)
@@ -371,7 +371,7 @@ void Channel::sendError(int id, Json::Value &error)
     root["id"] = id;
     root["error"] = error;
 
-    SendJson(root);
+    sendJson(root);
 }
 
 void Channel::sendNotification(const std::string mothod, const Json::Value &params)
@@ -381,7 +381,7 @@ void Channel::sendNotification(const std::string mothod, const Json::Value &para
     root["method"] = mothod;
     if (!params.isNull())
        root["params"] = params;
-    SendJson(root);
+    sendJson(root);
 }
 
 void Channel::SubscribeToNotification(std::string notification)

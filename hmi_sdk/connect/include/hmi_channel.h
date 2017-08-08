@@ -64,7 +64,7 @@ public:
     virtual void onResult(Json::Value &);
 	virtual void onRawData(void * p, int iLength);
 	virtual void onError(std::string error);
-    void SendJson(Json::Value &data);
+    virtual void sendJson(Json::Value &data);
     virtual void sendError(int id,Json::Value &error);
     virtual void sendResult(int id,Json::Value &result);
     virtual void sendRequest(int id,const std::string mothod,const Json::Value &params=Json::Value::null);
@@ -72,7 +72,7 @@ public:
     virtual void onRegistered();
 	virtual void onUnregistered();
 
-    virtual void SetStaticResult(std::string attri,std::string ref,Json::Value value);
+    virtual void setStaticResult(std::string attri,std::string ref,Json::Value value);
     virtual void sendResult(int id,std::string ref,Result code=RESULT_SUCCESS);
     virtual void sendError(int id,std::string ref,std::string message,Result code = RESULT_REJECTED);
 
