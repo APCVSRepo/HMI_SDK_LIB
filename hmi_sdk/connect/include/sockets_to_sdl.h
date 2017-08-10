@@ -1,4 +1,13 @@
-﻿#ifndef SOCKETS_TO_SDL_H_
+﻿/**
+* @file			sockets_to_sdl  
+* @brief		hmi与sdl底层通信层，使用socket方式进行数据交互，发送和接收原始数据，每个通道对应一个socket进行单独的数据交互
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#ifndef SOCKETS_TO_SDL_H_
 #define SOCKETS_TO_SDL_H_
 
 #ifdef WIN32
@@ -6,7 +15,7 @@
 #endif
 #include <pthread.h>
 #include <queue>
-#include "ISocketManager.h"
+#include "socket_manager_interface.h"
 
 typedef struct _SEND_DATA
 {

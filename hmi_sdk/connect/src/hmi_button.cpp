@@ -1,4 +1,13 @@
-﻿#include "hmi_button.h"
+﻿/**
+* @file			hmi_button  
+* @brief		画面按钮事件响应通道，处理SDL发送的Buttons相关的RPC请求等
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#include "hmi_button.h"
 #include <iostream>
 #include <string>
 #include "json/json.h"

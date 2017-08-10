@@ -1,4 +1,13 @@
-﻿#include <hmi_vehicle_info.h>
+﻿/**
+* @file			hmi_vehicle_info  
+* @brief		汽车信息通道，处理SDL发送的VehicleInfo相关的RPC请求等
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#include <hmi_vehicle_info.h>
 #include <cassert>
 #include <string>
 #include <iostream>

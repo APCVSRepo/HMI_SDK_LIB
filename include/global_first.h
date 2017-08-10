@@ -1,4 +1,13 @@
-﻿#ifndef GLOBAL_FIRST
+﻿/**
+* @file			global_first  
+* @brief		全局函数及宏定义
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#ifndef GLOBAL_FIRST
 #define GLOBAL_FIRST
 
 #ifdef WINCE

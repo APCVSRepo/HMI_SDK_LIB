@@ -1,3 +1,12 @@
+/**
+* @file			sdl_export
+* @brief		sdl实现的导出函数定义文件，供hmi_sdk调用
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef SRC_APPMAIN_MAIN_H_
 #define SRC_APPMAIN_MAIN_H_
 

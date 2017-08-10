@@ -1,5 +1,14 @@
-﻿#ifndef __PROTOCOL_DEFINES_H__
-#define __PROTOCOL_DEFINES_H__
+﻿/**
+* @file			protocol_defines
+* @brief		hmi与sdl交互的RPC协议相关的宏定义，包含交互返回值状态等定义
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#ifndef PROTOCOL_DEFINES_H_
+#define PROTOCOL_DEFINES_H_
 
 /**@name    Alert画面执行状态
 * @{
@@ -63,4 +72,4 @@ typedef enum
     TOUCH_END	///<  弹起 
 }TOUCH_TYPE;
 
-#endif
+#endif // PROTOCOL_DEFINES_H_

@@ -1,4 +1,13 @@
-﻿#ifndef APPLIST_H_
+﻿/**
+* @file			app_list
+* @brief		AppListInterface接口实现类，实现手机端App数据控制，保存所有手机端App数据列表（参见AppDataInterface说明），作为UI部分控制指定App的总入口，对于公用部分的RPC请求也会在此处理，指定App的处理将会继续传递到下一层AppDataInterface中进行
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#ifndef APPLIST_H_
 #define APPLIST_H_
 
 #include "app_list_interface.h"

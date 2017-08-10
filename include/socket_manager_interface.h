@@ -1,8 +1,17 @@
+/**
+* @file			message_interface  
+* @brief		定义通道及socket通信的基本接口函数
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef ISOCKETMANAGER_H
 #define ISOCKETMANAGER_H
 #include <string>
 #include <vector>
-#include "IMessageInterface.h"
+#include "message_interface.h"
 
 
 class ISocketManager;

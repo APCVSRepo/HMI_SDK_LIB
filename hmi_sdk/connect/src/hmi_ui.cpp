@@ -1,4 +1,13 @@
-﻿#include <hmi_ui.h>
+﻿/**
+* @file			hmi_ui  
+* @brief		UI画面显示通道，处理SDL发送的UI相关的RPC请求等
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#include <hmi_ui.h>
 #include <iostream>
 #include <string>
 #include "json/json.h"

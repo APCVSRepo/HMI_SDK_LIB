@@ -1,3 +1,12 @@
+/**
+* @file			main  
+* @brief		hmi_sdk主入口，实现动态库导出函数，负责hmi_sdk初始化及与sdl的连接创建等
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef OS_WIN32
 #include <unistd.h>
 #endif

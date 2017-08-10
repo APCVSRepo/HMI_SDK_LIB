@@ -26,8 +26,8 @@ include_directories (
 endif()
 
 set (SOURCES
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/AppData.cpp
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/AppList.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/app_data.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/app_list.cpp
 )
 
 

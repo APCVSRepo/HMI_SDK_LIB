@@ -1,4 +1,13 @@
-﻿#include <sdl_connector.h>
+﻿/**
+* @file			sdl_connector  
+* @brief		管理hmi与sdl交互的各个通道，关联每个通道和对应的socket，进行数据流程的转发以及与sdl连接状态的管理
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#include <sdl_connector.h>
 #include <pthread.h>
 #ifndef OS_WIN32
 #include <sys/time.h>
@@ -537,26 +546,5 @@ void SDLConnector::OnVideoScreenTouch(TOUCH_TYPE touch,int x,int y)
      event[0]["ts"] = ts;
      params["event"] = event;
 
-   //  std::cout<<root.asString();
 	 m_UI.sendNotification("UI.OnTouchEvent", params);
 }
-
-//{
-//    "jsonrpc":"2.0",
-//    "method":"UI.OnTouchEvent",
-//    "params":
-//    {
-//        "type":"END",
-//        "event":[
-//            {"c":[
-//                {
-//                    "x":441,
-//                    "y":158
-//                }
-//                ],
-//            "id":0,
-//            "ts":[87214]
-//            }
-//            ]
-//    }
-//}

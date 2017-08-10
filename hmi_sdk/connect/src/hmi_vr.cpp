@@ -1,4 +1,13 @@
-﻿#include <hmi_vr.h>
+﻿/**
+* @file			hmi_vr  
+* @brief		VR语音识别通道，处理SDL发送的VR相关的RPC请求等
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#include <hmi_vr.h>
 #include <string>
 #include <iostream>
 #include "json/json.h"

@@ -1,3 +1,12 @@
+/**
+* @file			app_common  
+* @brief		公共的枚举及宏定义
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef APPCOMMON_H
 #define APPCOMMON_H
 

@@ -1,6 +1,6 @@
 ﻿/**
 * @file			app_data_interface.h  
-* @brief		手机端App数据接口
+* @brief		手机端App数据接口，手机端每一个App的数据都有一个该接口的实例进行保存，数据包含各个RPC请求在HMI端需要显示的属性数据，比如Show、Alert请求中的画面元素显示的内容等，在UI需要使用这些数据时，通过该接口中对应的方法取得
 * @author		fanqiang
 * @date			2017-6-21 
 * @version		A001 

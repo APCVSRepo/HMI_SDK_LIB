@@ -1,10 +1,18 @@
+/**
+* @file			message_interface  
+* @brief		定义网络状态及rpc交互通知回调的基本接口函数
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef IMESSAGEINTERFACE_H
 #define IMESSAGEINTERFACE_H
 
 #include "json/json.h"
 #include <string>
 #include "app_common.h"
-//#define _D(msg, args...) //fprintf(stderr,"[lk]-%s-%s():%d: " msg, __FILE__, __FUNCTION__, __LINE__, ##args)
 
 class IMessageInterface
 {

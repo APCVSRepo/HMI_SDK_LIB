@@ -1,4 +1,13 @@
-﻿#ifndef SDL_CONNECTOR_H_
+﻿/**
+* @file			sdl_connector  
+* @brief		管理hmi与sdl交互的各个通道，关联每个通道和对应的socket，进行数据流程的转发以及与sdl连接状态的管理
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
+#ifndef SDL_CONNECTOR_H_
 #define SDL_CONNECTOR_H_
 
 #include "protocol_defines.h"

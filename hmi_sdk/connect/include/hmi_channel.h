@@ -1,9 +1,18 @@
+/**
+* @file			hmi_channel  
+* @brief		hmi会将与sdl交互的数据分类，各种类型的数据通过不同的通道传递（UI、VR、TTS、Button等），该类为所有通过的基类
+* @author		fanqiang
+* @date			2017-6-21 
+* @version		A001 
+* @copyright	ford                                                              
+*/
+
 #ifndef CHANNEL_H_
 #define CHANNEL_H_
 
 #include <vector>
 #include <string>
-#include "ISocketManager.h"
+#include "socket_manager_interface.h"
 
 class IMessageInterface;
 class ISocketManager;
