@@ -2,9 +2,9 @@
 * @file			ui_lib
 * @brief		hmi_sdk动态库导出函数定义
 * @author		fanqiang
-* @date			2017-6-21 
-* @version		A001 
-* @copyright	ford                                                              
+* @date			2017-6-21
+* @version		A001
+* @copyright	ford
 */
 
 #ifndef UILIB_H

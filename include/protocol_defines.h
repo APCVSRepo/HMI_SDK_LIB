@@ -2,9 +2,9 @@
 * @file			protocol_defines
 * @brief		hmi与sdl交互的RPC协议相关的宏定义，包含交互返回值状态等定义
 * @author		fanqiang
-* @date			2017-6-21 
-* @version		A001 
-* @copyright	ford                                                              
+* @date			2017-6-21
+* @version		A001
+* @copyright	ford
 */
 
 #ifndef PROTOCOL_DEFINES_H_
@@ -64,12 +64,11 @@
 #define SPEEK_INTERRUPTED               5
 /** @}*/
 
-/**  屏幕操作枚举类型*/  
-typedef enum
-{
-    TOUCH_START,	///<  按下 
-    TOUCH_MOVE,	///<  移动 
-    TOUCH_END	///<  弹起 
-}TOUCH_TYPE;
+/**  屏幕操作枚举类型*/
+typedef enum {
+  TOUCH_START,	///<  按下
+  TOUCH_MOVE,	///<  移动
+  TOUCH_END	///<  弹起
+} TOUCH_TYPE;
 
 #endif // PROTOCOL_DEFINES_H_
