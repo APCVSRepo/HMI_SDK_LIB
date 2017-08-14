@@ -12,7 +12,7 @@ TEMPLATE = app
 
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
-CONFIG  += wince
+#CONFIG  += wince
 
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include
