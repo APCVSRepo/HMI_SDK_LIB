@@ -4,6 +4,7 @@
 #include <QTextCodec>
 #include <QDialog>
 #include <QTimer>
+#include "Common/AppBase.h"
 
 CGen3UIManager *g_pUIManager;
 
@@ -28,7 +29,7 @@ int main(int argc, char *argv[])
 #ifdef ANDROID
     diaStart.setGeometry(0,0,QApplication::desktop()->width(),QApplication::desktop()->height()-30);
 #else
-    diaStart.setGeometry(0,0,800,480);
+    diaStart.setGeometry(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 #endif
     diaStart.setStyleSheet("border-image:url(:/images/Screen.png);");
     QObject::connect(g_pUIManager,SIGNAL(finishLoadSDK()),&diaStart, SLOT(accept()));

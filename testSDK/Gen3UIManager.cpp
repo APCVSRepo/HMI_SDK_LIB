@@ -118,7 +118,7 @@ void CGen3UIManager::initAppHMI()
 #ifdef ANDROID
     UIConfig::loadResolution(QApplication::desktop()->width(),QApplication::desktop()->height()-30);
 #else
-    UIConfig::loadResolution(800,480);
+    UIConfig::loadResolution(SCREEN_WIDTH, SCREEN_HEIGHT);
 #endif
 
     MainWindow * pMain = new MainWindow(m_pList);

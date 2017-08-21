@@ -10,6 +10,9 @@
 
 #define AppControl m_pList->getActiveApp()
 
+#define SCREEN_WIDTH  1280
+#define SCREEN_HEIGHT  800
+
 typedef struct softButton{
     bool b_isHighlighted;
     int i_softButtonID;

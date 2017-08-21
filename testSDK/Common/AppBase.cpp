@@ -4,8 +4,8 @@
 AppBase::AppBase(AppListInterface * pList, QWidget *parent)
     : QWidget(parent)
 {
-    const int ui_app_width = 800;
-    const int ui_app_height = 480;
+    const int ui_app_width = SCREEN_WIDTH;
+    const int ui_app_height = SCREEN_HEIGHT;
     setWindowFlags(Qt::FramelessWindowHint);//去掉标题栏
     setGeometry(0,0,ui_app_width,ui_app_height);
     setBkgImage(":/images/mainbkg.png");

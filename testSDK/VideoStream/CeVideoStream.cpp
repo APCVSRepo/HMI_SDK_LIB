@@ -1,8 +1,9 @@
 #include "CeVideoStream.h"
 #include "main.h"
+#include "Common/AppBase.h"
 
 CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidget(parent)
-  ,videoWidth(800),videoHeight(480)
+  ,videoWidth(SCREEN_WIDTH),videoHeight(SCREEN_HEIGHT)
 {
     setWindowFlags(Qt::FramelessWindowHint);
     if (parent) {
