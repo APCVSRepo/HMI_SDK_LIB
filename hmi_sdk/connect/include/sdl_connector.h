@@ -114,6 +114,7 @@ class SDLConnector : public INetworkStatus {
 
  private:
   void _onButtonClickAction(std::string, std::string, int);
+  void _onButtonClickAction2(std::string, std::string, int);
   void _stopPerformAudioPassThru(int);
   void _buttonEventDown(std::string buttonname);
   void _buttonPressed(std::string buttonname, int mode);

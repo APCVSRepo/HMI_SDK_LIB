@@ -170,16 +170,16 @@ void SDLConnector::OnSoftButtonClick(int id, int mode, std::string strName) {
     _onButtonClickAction(strName, "BUTTONDOWN", id);
     _onButtonClickAction(strName, "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-      _onButtonClickAction(strName, "SHORT", id);
+		_onButtonClickAction2(strName, "SHORT", id);
     else
-      _onButtonClickAction(strName, "LONG", id);
+		_onButtonClickAction2(strName, "LONG", id);
   } else {
     _onButtonClickAction("CUSTOM_BUTTON", "BUTTONDOWN", id);
     _onButtonClickAction("CUSTOM_BUTTON", "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-      _onButtonClickAction("CUSTOM_BUTTON", "SHORT", id);
+		_onButtonClickAction2("CUSTOM_BUTTON", "SHORT", id);
     else
-      _onButtonClickAction("CUSTOM_BUTTON", "LONG", id);
+		_onButtonClickAction2("CUSTOM_BUTTON", "LONG", id);
   }
 }
 
@@ -187,9 +187,20 @@ void SDLConnector::_onButtonClickAction(std::string name, std::string mode, int 
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  params["customButtonID"] = customButtonID;
+  if (0 != customButtonID)
+	params["customButtonID"] = customButtonID;
 
   m_Buttons.sendNotification("Buttons.OnButtonEvent", params);
+}
+
+void SDLConnector::_onButtonClickAction2(std::string name, std::string mode, int customButtonID) {
+	Json::Value params;
+	params["name"] = name;
+	params["mode"] = mode;
+	if (0 != customButtonID)
+		params["customButtonID"] = customButtonID;
+
+	m_Buttons.sendNotification("Buttons.OnButtonPress", params);
 }
 
 void SDLConnector::OnAppExit(int appID) {
