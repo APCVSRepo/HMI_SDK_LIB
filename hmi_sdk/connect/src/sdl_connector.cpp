@@ -357,20 +357,22 @@ void SDLConnector::OnStartDeviceDiscovery() {
 }
 
 void SDLConnector::OnDeviceChosen(std::string name, std::string id) {
-  Json::Value params;
-  if (!name.empty())
-    params["name"] = name;
-  if (!id.empty())
-    params["id"] = id;
+  Json::Value params, device;
+  if(!name.empty())
+    device["name"] = name;
+  if(!id.empty())
+    device["id"] = id;
+  params["deviceInfo"] = device;
   m_Base.sendNotification("BasicCommunication.OnDeviceChosen", params);
 }
 
 void SDLConnector::OnFindApplications(std::string name, std::string id) {
-  Json::Value params;
-  if (!name.empty())
-    params["name"] = name;
-  if (!id.empty())
-    params["id"] = id;
+  Json::Value params, device;
+  if(!name.empty())
+    device["name"] = name;
+  if(!id.empty())
+    device["id"] = id;
+  params["deviceInfo"] = device;
   m_Base.sendNotification("BasicCommunication.OnFindApplications", params);
 }
 
