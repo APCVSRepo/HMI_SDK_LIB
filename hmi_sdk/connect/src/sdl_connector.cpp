@@ -484,11 +484,11 @@ void SDLConnector::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
   Json::Value event;
   Json::Value ts;
   static int id = 0;
-//     [{"c":[{"x":103,"y":247}]
 
+  //此处id值在sdl端会进行判断，取值范围只能是0~9
   switch (touch) {
     case TOUCH_START:
-      id++;
+      //id++;
       params["type"] = "BEGIN";
       event[0]["id"] = id;
       break;
