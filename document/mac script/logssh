@@ -1,7 +1,0 @@
-#!/usr/bin/expect
-#Usage: expect enablelog
-
-spawn ssh root@192.168.1.26
-expect -re "password"
-send "#Pasa3Ford\n"
-interact
