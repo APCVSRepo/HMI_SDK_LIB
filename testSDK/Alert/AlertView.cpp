@@ -8,7 +8,8 @@ AlertView::AlertView(AppListInterface * pList, QWidget *parent)
     : QWidget(parent)
 {
     if (parent) {
-        setGeometry(0,0,parent->width(),parent->height());
+        // Bug #9946
+        setGeometry(parent->width()/6,parent->height()/6,2*parent->width()/3,2*parent->height()/3);
     }
     m_pList = pList;
 

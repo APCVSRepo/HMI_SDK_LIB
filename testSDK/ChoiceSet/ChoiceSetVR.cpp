@@ -58,7 +58,8 @@ void CChoiceSetVR::mousePressEvent(QMouseEvent * event)
 
 void CChoiceSetVR::SetTitle(std::string strTitle)
 {
-    AppBase::SetEdlidedText(m_pTitleLab,strTitle.c_str(),width()*0.7);
+	// Bug #9947
+    AppBase::SetEdlidedText(m_pTitleLab,strTitle.c_str(),width()*0.7,Qt::AlignCenter);
 }
 
 void CChoiceSetVR::SetChoice(int iPos,std::string strChoice)
