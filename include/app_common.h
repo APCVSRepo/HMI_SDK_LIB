@@ -10,6 +10,10 @@
 #ifndef APPCOMMON_H
 #define APPCOMMON_H
 
+
+#define DEFAULT_TEMPLATE "MEDIA"
+#define DEFAULT_TEMPLATE_PROPERTY "this is media template"
+
 enum MenuCmdId {
   CMDID_MENU_FM = 101,
   CMDID_MENU_TEL,

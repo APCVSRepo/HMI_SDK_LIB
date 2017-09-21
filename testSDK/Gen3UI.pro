@@ -49,7 +49,9 @@ SOURCES += \
     SliderView/SliderView.cpp \
     AudioPassThru/AudioPassView.cpp \
     VideoStream/CeVideoStream.cpp \
-    AppListView/DeviceListView.cpp
+    AppListView/DeviceListView.cpp \
+    Template/TemplateImp.cpp \
+    Template/TemplateManager.cpp
 
 HEADERS += \
     Gen3UIManager.h \
@@ -76,7 +78,10 @@ HEADERS += \
     SliderView/SliderView.h \
     AudioPassThru/AudioPassView.h \
     VideoStream/CeVideoStream.h \
-    AppListView/DeviceListView.h
+    AppListView/DeviceListView.h \
+    Library/android/sdl/main.h \
+    Template/TemplateImp.h \
+    Template/TemplateManager.h
 
 unix {
     target.path = /usr/lib

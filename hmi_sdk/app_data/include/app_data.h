@@ -49,6 +49,8 @@ class AppData : public AppDataInterface {
   void OnPerformInteraction(int code, int choiceID, bool bVR = false);
   void OnSetMediaClockTimerResponse(int iCode);
   void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y);
+  std::string GetActiveTemplate();
+  void SetActiveTemplate(std::string);
 
  private:
   UIInterface *m_pUIManager;
@@ -84,6 +86,17 @@ class AppData : public AppDataInterface {
   std::string m_strAppIconFilePath;
   int m_iAppID;
   std::string m_szAppName;
+
+  /**
+   * App画面显示对应的模板堆栈，在每个画面显示时，会将对应的模板保存到堆栈，方便在画面返回时，进行模板的恢复
+   */
+  std::vector<std::string> m_vecTplStack;
+
+  /**
+   * 最后调用SetDisplayLayout设置的模板名
+   */
+  std::string m_sLastTpl;
+
 };
 
 #endif // APPDATA_H_

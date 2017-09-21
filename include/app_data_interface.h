@@ -272,6 +272,15 @@ class AppDataInterface {
    * @note		VideoStream画面点击移动操作时通知SDK，调用SDK该函数将通知传递给手机端App
    */
   virtual void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) = 0;
+
+  /**
+   * 获取当前App活动模板
+   * @return		当前App活动模板名
+   * @ref
+   * @see
+   * @note
+   */
+  virtual std::string GetActiveTemplate() = 0;
 };
 
 #endif // APPDATAINTERFACE_H

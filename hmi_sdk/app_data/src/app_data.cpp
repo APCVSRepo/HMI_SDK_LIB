@@ -84,6 +84,7 @@ bool IsTextUTF8(char *str, unsigned long long length) {
 }
 
 AppData::AppData() {
+  m_sLastTpl = DEFAULT_TEMPLATE;
 }
 
 void AppData::setUIManager(UIInterface *pUIManager) {
@@ -392,8 +393,10 @@ Json::Value &AppData::getMediaClockJson() {
 }
 
 void AppData::showUI(int iUIType) {
-  if (iUIType != ID_MEDIACLOCK)
+  if (iUIType != ID_MEDIACLOCK) {
     m_vecUIStack.push_back(iUIType);
+    m_vecTplStack.push_back(m_sLastTpl);
+  }
 
   m_pUIManager->onAppShow(iUIType);
 }
@@ -402,6 +405,10 @@ bool AppData::ShowPreviousUI(bool bInApp) {
   int iSize = m_vecUIStack.size();
   if (iSize > 0)
     m_vecUIStack.pop_back();
+
+  int i = m_vecTplStack.size();
+  if (i > 0)
+    m_vecTplStack.pop_back();
 
   if (iSize > 1) {
     m_pUIManager->onAppShow(m_vecUIStack[iSize - 2]);
@@ -1185,4 +1192,17 @@ std::string AppData::getAppName() {
 
 void AppData::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
   ToSDL->OnVideoScreenTouch(touch, x, y);
+}
+
+std::string AppData::GetActiveTemplate() {
+  // 取模板栈中的最后一个
+  int iSize = m_vecTplStack.size();
+  if (iSize > 0)
+    return m_vecTplStack[iSize - 1];
+
+  return DEFAULT_TEMPLATE;
+}
+
+void AppData::SetActiveTemplate(std::string tpl) {
+  m_sLastTpl = tpl;
 }

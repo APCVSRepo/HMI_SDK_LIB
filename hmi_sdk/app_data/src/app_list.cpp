@@ -237,7 +237,23 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     } else if (str_method == "BasicCommunication.UpdateDeviceList") {
       // add by fanqiang
       updateDeiveList(jsonObj);
-      m_pUIManager->ShowDeviceList();
+      m_pUIManager->onAppShow(ID_DEVICEVIEW);
+    } else if (str_method == "UI.SetDisplayLayout") {
+      int iAppId = jsonObj["params"]["appID"].asInt();
+      std::string name = jsonObj["params"]["displayLayout"].asString();
+      bool bFind = m_pUIManager->FindTemplate(name);
+      if (!bFind)
+        return RESULT_UNSUPPORTED_RESOURCE;
+
+      std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
+      while (Iter != m_AppDatas.end()) {
+        if (iAppId == (*Iter)->m_iAppID) {
+          (*Iter)->SetActiveTemplate(name);
+          printf("change template to %s\n", name.c_str());
+          break;
+        }
+        ++Iter;
+      }
     } else {
       if (m_pCurApp)
         return m_pCurApp->recvFromServer(jsonObj);

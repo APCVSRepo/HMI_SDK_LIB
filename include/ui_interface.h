@@ -126,6 +126,16 @@ class UIInterface {
    * @note		需要实现初始化HMI资源，UI部分各个画面实现类的创建及初始化，保证后续对画面的操作有效
    */
   virtual void initAppHMI() = 0;
+
+  /**
+  * 通过模板名查找模板，若找到返回true，否则返回false
+  * @param[in]	name		模板名称
+  * @return		true:查找成功, false:未找到
+  * @ref
+  * @see
+  * @note
+  */
+  virtual bool FindTemplate(std::string name) = 0;
 };
 
 #endif // UIINTERFACE_H

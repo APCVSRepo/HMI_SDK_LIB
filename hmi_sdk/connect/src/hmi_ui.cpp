@@ -105,6 +105,12 @@ void UI::onRequest(Json::Value &request) {
   } else if (method == "UI.Slider") {
     Result result = m_pCallback->onRequest(request);
     sendResult(id, "Slider", result);
+  } else if (method == "UI.SetDisplayLayout") {
+    Result result = m_pCallback->onRequest(request);
+    if (result == RESULT_UNSUPPORTED_RESOURCE)
+      sendError(RESULT_UNSUPPORTED_RESOURCE, id, "UI.SetDisplayLayout", "Unsupported display layout!");
+    else
+      sendResult(id, "SetDisplayLayout", result);
   } else {
     Channel::onRequest(request);
   }
