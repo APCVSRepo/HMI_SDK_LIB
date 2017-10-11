@@ -1,6 +1,6 @@
 /**
 * @file			sdl_export
-* @brief		sdl实现的导出函数定义文件，供hmi_sdk调用
+* @brief		sdl瀹炵幇鐨勫鍑哄嚱鏁板畾涔夋枃浠讹紝渚沨mi_sdk璋冪敤
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001

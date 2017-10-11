@@ -12,10 +12,25 @@ TEMPLATE = app
 
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
-#CONFIG  += wince
+CONFIG  += unix x86
 
 INCLUDEPATH += $$PWD/ \
-               $$PWD/../include
+               $$PWD/../include \
+               $$PWD/../hmi_sdk/gstplayer/include
+x86 {
+INCLUDEPATH += /usr/include/glib-2.0 \
+               /usr/include/gstreamer-1.0 \
+               /usr/lib/x86_64-linux-gnu/ \
+               /usr/lib/x86_64-linux-gnu/glib-2.0/include \
+               /usr/lib/x86_64-linux-gnu/gstreamer-1.0/include
+}
+
+armhf {
+INCLUDEPATH += /usr/arm-linux-gnueabihf/include \
+               /usr/arm-linux-gnueabihf/include/glib-2.0 \
+               /usr/arm-linux-gnueabihf/include/gstreamer-1.0 \
+               /usr/arm-linux-gnueabihf/lib/glib-2.0/include
+}
 
 
 MOC_DIR=temp/moc
@@ -49,6 +64,7 @@ SOURCES += \
     SliderView/SliderView.cpp \
     AudioPassThru/AudioPassView.cpp \
     VideoStream/CeVideoStream.cpp \
+    VideoStream/gst_player.cpp \
     AppListView/DeviceListView.cpp \
     Template/TemplateImp.cpp \
     Template/TemplateManager.cpp \
@@ -79,6 +95,7 @@ HEADERS += \
     SliderView/SliderView.h \
     AudioPassThru/AudioPassView.h \
     VideoStream/CeVideoStream.h \
+    VideoStream/gst_player.h \
     AppListView/DeviceListView.h \
     Library/android/sdl/main.h \
     Template/TemplateImp.h \
@@ -92,6 +109,19 @@ unix {
 RESOURCES += \
     image.qrc
 
+x86 {
+LIBS += /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so \
+        /usr/lib/x86_64-linux-gnu/libgobject-2.0.so   \
+        /usr/lib/x86_64-linux-gnu/libglib-2.0.so      \
+        /usr/lib/x86_64-linux-gnu/libgstvideo-1.0.so
+}
+
+armhf {
+LIBS += /usr/arm-linux-gnueabihf/lib/libgstreamer-1.0.so \
+        /usr/arm-linux-gnueabihf/lib/libgobject-2.0.so   \
+        /usr/arm-linux-gnueabihf/lib/libglib-2.0.so      \
+        /usr/arm-linux-gnueabihf/lib/libgstvideo-1.0.so
+}
 
 ###############################for windows
 win32:!wince{

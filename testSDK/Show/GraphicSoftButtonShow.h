@@ -36,7 +36,7 @@ private:
     QLabel m_aSplit[5];
     QLabel *m_pShadowLab;
 
-    // softbutton容器
+    // softbutton瀹瑰櫒
     std::vector <SSoftButton> m_vSoftButtons;
 };
 

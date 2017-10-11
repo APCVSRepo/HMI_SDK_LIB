@@ -1,6 +1,6 @@
 /**
 * @file			message_interface
-* @brief		¶¨ÒåÍ¨µÀ¼°socketÍ¨ĞÅµÄ»ù±¾½Ó¿Úº¯Êı
+* @brief		å®šä¹‰é€šé“åŠsocketé€šä¿¡çš„åŸºæœ¬æ¥å£å‡½æ•°
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001

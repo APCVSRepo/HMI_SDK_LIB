@@ -20,6 +20,7 @@
 #include "Show/MediaShow.h"
 #include "MainWindow/MainWindow.h"
 #include "Show/GraphicSoftButtonShow.h"
+#include "VideoStream/CeVideoStream.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -110,6 +111,8 @@ void CGen3UIManager::initAppHMI() {
 
   connect(this, SIGNAL(onAppShowSignal(int)), this, SLOT(AppShowSlot(int)));
   connect(this, SIGNAL(OnAppUnregisterSignal(int)), this, SLOT(OnAppUnregisterSlot(int)));
+  connect(this, SIGNAL(onVideoStartSignal()), this,SLOT(onVideoStartSlots()));
+  connect(this, SIGNAL(onVideoStopSignal()), this,SLOT(onVideoStopSlots()));
 }
 
 void CGen3UIManager::onAppActive() {
@@ -135,11 +138,39 @@ void CGen3UIManager::OnAppUnregisterSlot(int appId) {
 }
 
 void CGen3UIManager::onVideoStreamStart() {
-
+  emit onVideoStartSignal();
 }
 
 void CGen3UIManager::onVideoStreamStop() {
+  emit onVideoStopSignal();
+}
 
+void CGen3UIManager::onVideoStartSlots() {
+    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+    AppDataInterface *pData = m_pList->getActiveApp();
+    if (!pData) return;
+    std::string tplname = pData->GetActiveTemplate();
+    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+    if (pMain) {
+        pMain->HideAllComponent();
+    }
+    if (pVideoStream) {
+        pVideoStream->startStream();
+    }
+}
+
+void CGen3UIManager::onVideoStopSlots() {
+    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+    AppDataInterface *pData = m_pList->getActiveApp();
+    if (!pData) return;
+    std::string tplname = pData->GetActiveTemplate();
+    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+    if (pMain) {
+        pMain->ShowAllComponent();
+    }
+    if (pVideoStream) {
+        pVideoStream->stopStream();
+    }
 }
 
 void CGen3UIManager::AppShowSlot(int type) {

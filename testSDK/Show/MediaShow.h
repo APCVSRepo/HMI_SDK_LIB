@@ -62,7 +62,7 @@ private:
     int m_i_endS;
     bool m_b_countup;    
 
-    // softbutton容器
+    // softbutton瀹瑰櫒
     std::vector <SSoftButton> m_vSoftButtons;
 };
 

@@ -1,6 +1,6 @@
 /**
 * @file			ui_lib
-* @brief		hmi_sdk动态库导出函数定义
+* @brief		hmi_sdk鍔ㄦ�佸簱瀵煎嚭鍑芥暟瀹氫箟
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001

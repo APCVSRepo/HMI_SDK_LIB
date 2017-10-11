@@ -42,6 +42,10 @@ public:
     // add by fanqiang
     void SetSDLStatus(bool bConnect);
 
+    void HideAllComponent();
+    void ShowAllComponent();
+    void HideMenuBar();
+    void ShowMenuBar();
 protected:
     virtual void showEvent(QShowEvent * e);
 

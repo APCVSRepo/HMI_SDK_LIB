@@ -6,10 +6,12 @@
 #include <QPainter>
 #include <QQueue>
 #include <QDebug>
+#include <QTimer>
 //#include "message_interface.h"
 
 #include "Common/Button.h"
 #include "app_list_interface.h"
+#include "gst_player.h"
 #include <QTimer>
 
 #define TEST_FILE
@@ -37,12 +39,14 @@ public: //IMessageInterface
     void onNotification(rpcValueInterface&) {}
     void onResult(rpcValueInterface&) {}
     void onRawData(void * p, int iLength);
-    void onError(std::string error) {}
+    void onError(std::string error) {
+        Q_UNUSED(error);
+    }
 signals:
 
 public slots:
     void OnClickedMenuBtn();
-
+    void onMenuShowTimeout();
 private:
     int videoWidth;
     int videoHeight;
@@ -51,6 +55,8 @@ private:
     QImage *m_pBtnImage[4];
     unsigned char m_ucCurrentImageIndex[2];
 
+    GstPlayer m_player;
+    QTimer  m_MenuTimer;
     CButton *m_pMenuBtn;
     CButton *m_pZoomInBtn;
     CButton *m_pZoomOutBtn;
