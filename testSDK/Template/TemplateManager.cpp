@@ -51,13 +51,8 @@ void TemplateManager::CreateDefault(AppListInterface *pList) {
   tpl.SetScene(ID_MEDIACLOCK, NULL);
   tpl.SetScene(ID_MAIN, pMain);
   tpl.SetScene(ID_DEVICEVIEW, new CDeviceListView(pList, pParent));
-  tpl.SetScene(ID_VIDEOSTREAM, new CeVideoStream(pList, pMain));
+  tpl.SetScene(ID_VIDEOSTREAM, new CeVideoStream(pList, NULL));
 
-  for (int i = 0; i < ID_UI_MAX; ++i) {
-    if (tpl.GetScene(i) != NULL) {
-      tpl.GetScene(i)->hide();
-    }
-  }
   m_mapTemplates[DEFAULT_TEMPLATE] = tpl;
 }
 

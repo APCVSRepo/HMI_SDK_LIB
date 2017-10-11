@@ -54,7 +54,7 @@ class TemplateImp {
   * @see
   * @note		模板所有画面初始化会用默认模板画面填充，多次设置同一画面时，最后设置的自动覆盖前一次的，但是不负责销毁对象
   */
-  void SetScene(int id, QWidget *pScene);
+  void SetScene(int id, QWidget* pScene);
 
   /**
   * 获取当前模板的指定画面

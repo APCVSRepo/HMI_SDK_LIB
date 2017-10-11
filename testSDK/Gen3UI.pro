@@ -38,7 +38,7 @@ SOURCES += \
     Common/ScrollBar.cpp \
     Common/AppBase.cpp \
     Common/CustomButton.cpp \
-    Show/MainWidget.cpp \
+    #Show/MainWidget.cpp \
     Show/MediaShow.cpp \
     Config/Config.cpp \
     Alert/AlertView.cpp \
@@ -51,7 +51,8 @@ SOURCES += \
     VideoStream/CeVideoStream.cpp \
     AppListView/DeviceListView.cpp \
     Template/TemplateImp.cpp \
-    Template/TemplateManager.cpp
+    Template/TemplateManager.cpp \
+    Show/GraphicSoftButtonShow.cpp
 
 HEADERS += \
     Gen3UIManager.h \
@@ -66,7 +67,7 @@ HEADERS += \
     Common/ScrollBar.h \
     Common/AppBase.h \
     Common/CustomButton.h \
-    Show/MainWidget.h \
+    #Show/MainWidget.h \
     Show/MediaShow.h \
     Config/Config.h \
     main.h \
@@ -81,7 +82,8 @@ HEADERS += \
     AppListView/DeviceListView.h \
     Library/android/sdl/main.h \
     Template/TemplateImp.h \
-    Template/TemplateManager.h
+    Template/TemplateManager.h \
+    Show/GraphicSoftButtonShow.h
 
 unix {
     target.path = /usr/lib

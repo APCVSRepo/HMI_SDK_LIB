@@ -54,6 +54,7 @@ void BasicCommunication::onRequest(Json::Value &request) {
   } else if (method == "BasicCommunication.AllowDeviceToConnect") {
     sendResult(id, "AllowDeviceToConnect");
   } else if (method == "BasicCommunication.UpdateAppList") {
+    Result result = m_pCallback->onRequest(request);
     sendResult(id, "UpdateAppList");
   } else if (method == "BasicCommunication.UpdateDeviceList") {
     // add by fanqiang

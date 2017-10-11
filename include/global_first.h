@@ -27,7 +27,7 @@
 
 #else
 #define  LOGI(...)  //{printf(__VA_ARGS__);printf(" %s():%d\n",__FUNCTION__,__LINE__);fflush(stdout);}while(0)
-#define  LOGD(...)  {printf(__VA_ARGS__);printf(" %s():%d\n",__FUNCTION__,__LINE__);fflush(stdout);}while(0)
+#define  LOGD(...)  //{printf(__VA_ARGS__);printf(" %s():%d\n",__FUNCTION__,__LINE__);fflush(stdout);}while(0)
 #define  LOGE(...)  //{printf(__VA_ARGS__);printf(" %s():%d\n",__FUNCTION__,__LINE__);fflush(stderr);}while(0)
 #endif
 

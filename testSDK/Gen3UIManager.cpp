@@ -19,6 +19,7 @@
 #include "Common/AppBase.h"
 #include "Show/MediaShow.h"
 #include "MainWindow/MainWindow.h"
+#include "Show/GraphicSoftButtonShow.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -66,7 +67,7 @@ void CGen3UIManager::SetAppListInterface(AppListInterface *pList) {
 }
 
 bool CGen3UIManager::FindTemplate(std::string name) {
-  return m_TplManager.Find(name);
+    return m_TplManager.Find(name);
 }
 
 CGen3UIManager::CGen3UIManager(AppListInterface *pList, QWidget *parent) :
@@ -96,8 +97,16 @@ void CGen3UIManager::initAppHMI() {
 #endif
 
   m_TplManager.CreateDefault(m_pList);
+  if(m_TplManager.Create("LARGE_GRAPHIC_WITH_SOFTBUTTONS", "this is large graphic template")){
+      TemplateImp& tpl = m_TplManager.Get("LARGE_GRAPHIC_WITH_SOFTBUTTONS");
+      MainWindow* pMain = (MainWindow*)tpl.GetScene(ID_MAIN);
+      QWidget* pParent = pMain->CenterWidget();
+
+      tpl.SetScene(ID_SHOW, new CGraphicSoftButtonShow(m_pList, pParent));
+  }
 
   m_iCurUI = ID_MAIN;
+  m_sCurTpln = DEFAULT_TEMPLATE;
 
   connect(this, SIGNAL(onAppShowSignal(int)), this, SLOT(AppShowSlot(int)));
   connect(this, SIGNAL(OnAppUnregisterSignal(int)), this, SLOT(OnAppUnregisterSlot(int)));
@@ -134,15 +143,17 @@ void CGen3UIManager::onVideoStreamStop() {
 }
 
 void CGen3UIManager::AppShowSlot(int type) {
+
+  TemplateImp& curTpl = m_TplManager.Get(m_sCurTpln);
+
   // 画面是MAIN或APPLINK时，使用全局的默认模板画面
-  if (ID_MAIN == type || ID_APPLINK == type) {
-    TemplateImp tpl = m_TplManager.Get(DEFAULT_TEMPLATE);
-    if (m_iCurUI != ID_MAIN) {
-      {
-        tpl.GetScene(m_iCurUI)->hide();
-      }
-    }
+  if (ID_MAIN == type || ID_APPLINK == type || ID_DEVICEVIEW == type) {
+    TemplateImp& tpl = m_TplManager.Get(DEFAULT_TEMPLATE);
+   if (m_iCurUI != ID_MAIN) {
+        curTpl.GetScene(m_iCurUI)->hide();
+   }
     m_iCurUI = type;
+    m_sCurTpln = DEFAULT_TEMPLATE;
     tpl.GetScene(m_iCurUI)->show();
     return;
   }
@@ -153,7 +164,7 @@ void CGen3UIManager::AppShowSlot(int type) {
     return;
 
   std::string tplname = pData->GetActiveTemplate();
-  TemplateImp tpl = m_TplManager.Get(tplname);
+  TemplateImp& tpl = m_TplManager.Get(tplname);
 
   if (tpl.GetScene(m_iCurUI) == NULL)
     return;
@@ -166,11 +177,10 @@ void CGen3UIManager::AppShowSlot(int type) {
     }
   } else {
     if (m_iCurUI != ID_MAIN) {
-      {
-        tpl.GetScene(m_iCurUI)->hide();
-      }
+        curTpl.GetScene(m_iCurUI)->hide();
     }
     m_iCurUI = type;
+    m_sCurTpln = tplname;
     tpl.GetScene(m_iCurUI)->show();
   }
 }
@@ -188,22 +198,17 @@ void CGen3UIManager::OnEndAudioPassThru() {
 
 void CGen3UIManager::ShowDeviceList() {
   if (m_iCurUI == ID_DEVICEVIEW) {
-    // 获取当前App使用的模板
-    AppDataInterface *pData = m_pList->getActiveApp();
-    if (!pData)
-      return;
+      TemplateImp& tpl = m_TplManager.Get(DEFAULT_TEMPLATE);
 
-    std::string tplname = pData->GetActiveTemplate();
-    TemplateImp tpl = m_TplManager.Get(tplname);
-
-    if (tpl.GetScene(m_iCurUI))
-      tpl.GetScene(m_iCurUI)->show();
+      m_iCurUI = ID_DEVICEVIEW;
+      m_sCurTpln = DEFAULT_TEMPLATE;
+      tpl.GetScene(ID_DEVICEVIEW)->show();
   }
 }
 
 void CGen3UIManager::SetSDLStatus(bool bConnect) {
   // 使用默认模板的MAIN画面
-  TemplateImp tpl = m_TplManager.Get(DEFAULT_TEMPLATE);
+  TemplateImp& tpl = m_TplManager.Get(DEFAULT_TEMPLATE);
 
   if (tpl.GetScene(ID_MAIN)) {
     MainWindow *pMain = (MainWindow *)tpl.GetScene(ID_MAIN);

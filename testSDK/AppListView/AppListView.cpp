@@ -1,5 +1,7 @@
 #include "AppListView.h"
-//#include "Notify/Notify.h"
+#include "Gen3UIManager.h"
+
+extern CGen3UIManager *g_pUIManager;
 
 CAppListView::CAppListView(AppListInterface * pList,QWidget *parent)
     : QWidget(parent)

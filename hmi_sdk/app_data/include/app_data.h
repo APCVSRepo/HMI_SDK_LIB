@@ -17,6 +17,7 @@
 class AppData : public AppDataInterface {
  public:
   AppData();
+  ~AppData();
 
   // 增加一个退出app的指令
   void addExitAppCommand();
@@ -56,6 +57,7 @@ class AppData : public AppDataInterface {
   UIInterface *m_pUIManager;
   std::vector<int> m_vecUIStack;
   Json::Value m_JsonShow;
+  Json::Value* m_pShowData;
   std::vector <SMenuCommand > m_MenuCommands;
 
   Json::Value m_JsonAlert;

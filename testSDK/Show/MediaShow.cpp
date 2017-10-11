@@ -13,6 +13,8 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
     if (parent) {
         setGeometry(0,0,parent->width(),parent->height());
     }
+
+    m_timerId = 0;
     m_pList = pList;
 
     setAutoFillBackground(true);
@@ -61,9 +63,9 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
 
     pLeftCenterLayout->addLayout(pTimeShowLayout);
     pLeftCenterLayout->addWidget(m_pMusicPB);
-    for (int i = 0;i != 4;++i) {
+    for (int i = 0;i != 5;++i) {
         pLeftCenterLayout->addWidget(m_aShowLine + i);
-        m_aShowLine[i].setStyleSheet("border:0px;font: 28px \"Liberation Serif\";color:rgb(0,0,0)");
+        m_aShowLine[i].setStyleSheet("border:0px;font: 24px \"Liberation Serif\";color:rgb(0,0,0)");
     }
     pLeftCenterLayout->addStretch(1);
     pLeftCenterLayout->setContentsMargins(0,10,65,0);
@@ -81,10 +83,12 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
     pBottomCenterLayout->addWidget(m_pShadowLab);
     pBottomCenterLayout->addStretch(1);
 
+    m_vSoftButtons.clear();
+
     for (int i = 0;i != 6;++i) {
         m_pBtnLayout->addWidget(m_aSoftBtn + i);
         m_aSoftBtn[i].setSize(0,0);
-        m_aSoftBtn[i].setTextStyle("border:0px;font: 32px \"Liberation Serif\";color:rgb(0,0,0)");
+        m_aSoftBtn[i].setTextStyle("border:0px;font: 28px \"Liberation Serif\";color:rgb(0,0,0)");
 
         if (i != 5) {
             m_pBtnLayout->addWidget(m_aSplit + i);
@@ -99,7 +103,7 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
 
     m_pAppNameLab->setStyleSheet("background:transparent;font:28px \"Liberation Serif\";color:rgb(0,0,0)");
 
-    m_pMenuBtn->Init(185,iTopLayoutHeight,"Menu",":/images/MediaShow/menu_normal.png",":/images/MediaShow/menu_press.png");
+    m_pMenuBtn->Init(185,iTopLayoutHeight,"菜单",":/images/MediaShow/menu_normal.png",":/images/MediaShow/menu_press.png");
     m_pMenuBtn->SetTextStyle("border:0px;font: 28px \"Liberation Serif\";color:rgb(0,0,0)");
     m_pMenuBtn->SetPadding(0,0,0,5);
 
@@ -109,8 +113,7 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
     m_pMusicPB->setStyleSheet("QProgressBar{height:8px;border-color:rgb(240,240,240)}\
                               QProgressBar::chunk{background-color:rgb(8,79,130)}");
     m_pMusicPB->setTextVisible(false);
-
-    //m_pMusicPB->setValue(30);
+    m_pMusicPB->hide();
 
     m_pMusicPicLab->setMinimumSize(MUSICPICWIDTH,MUSICPICWIDTH);
     m_pMusicPicLab->setMaximumSize(MUSICPICWIDTH,MUSICPICWIDTH);
@@ -153,13 +156,13 @@ CMediaShow::CMediaShow(AppListInterface * pList, QWidget *parent)
 
 void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID,std::string strName)
 {
-    m_pList->getActiveApp()->OnSoftButtonClick(iSoftBtnID,0,strName);
+    AppControl->OnSoftButtonClick(iSoftBtnID,BUTTON_SHORT,strName);
 }
 
 void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID)
 {
     if (iSoftBtnID != 0) {
-        m_pList->getActiveApp()->OnSoftButtonClick(iSoftBtnID,0);
+        AppControl->OnSoftButtonClick(iSoftBtnID,BUTTON_SHORT);
     }
 }
 
@@ -175,16 +178,12 @@ void CMediaShow::SetAppName(QString strName)
 
 void CMediaShow::showEvent(QShowEvent * e)
 {
-    for (int i = 0;i != 4;++i) {
-        m_aShowLine[i].setText("");
-    }
     for (int i = 0;i != 9;++i) {
         m_aSoftBtn[i].setText("");
     }
     m_pTimeElapseLab->setText("");
     m_pTimeRemainLab->setText("");
 
-    std::vector <SSoftButton > vec_softButtons;
     if (m_pList->getActiveApp()) {
         m_pSourceBtn->SetLeftIcon(m_pList->getActiveApp()->getAppIconFile());
         SetAppName(m_pList->getActiveApp()->getAppName().c_str());
@@ -216,37 +215,40 @@ void CMediaShow::showEvent(QShowEvent * e)
             } else if ("mainField4" == fieldName["fieldName"].asString()) {
                 AppBase::SetEdlidedText(m_aShowLine+3,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_pTimeElapseLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                AppBase::SetEdlidedText(m_aShowLine+4,fieldName["fieldText"].asString().c_str(),width()*0.3, alignMode);
             } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-                AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
+                //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
             }
         }
 
         if (jsonParams.isMember("graphic")) {
             QUrl graphicUrl(jsonParams["graphic"]["value"].asString().c_str());
-#if defined(WINCE)
-            QString strStyle = QString("background:transparent;border-image:url(%1)").arg(ChangeSlash(graphicUrl.path().toLocal8Bit().data()).c_str());
-#else
-            QString strStyle = QString("background:transparent;border-image:url(%1)").arg(ChangeSlash(graphicUrl.path().toStdString()).c_str());
-#endif
-            m_pMusicPicLab->setStyleSheet(strStyle);
-        } else {
-            m_pMusicPicLab->setStyleSheet("background:transparent");
+            if(graphicUrl.isEmpty()){
+                m_pMusicPicLab->setStyleSheet("background:transparent");
+            }else{
+    #if defined(WINCE)
+                QString strStyle = QString("background:transparent;border-image:url(%1)").arg(ChangeSlash(graphicUrl.path().toLocal8Bit().data()).c_str());
+    #else
+                QString strStyle = QString("background:transparent;border-image:url(%1)").arg(ChangeSlash(graphicUrl.path().toStdString()).c_str());
+    #endif
+                m_pMusicPicLab->setStyleSheet(strStyle);
+            }
         }
 
         if (jsonParams.isMember("softButtons")) {
+            m_vSoftButtons.clear();
             for (int i = 0; i < jsonParams["softButtons"].size(); ++i) {
                 SSoftButton tmpSoftButton;
                 tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
                 tmpSoftButton.i_softButtonID = jsonParams["softButtons"][i]["softButtonID"].asInt();
                 tmpSoftButton.str_text = jsonParams["softButtons"][i]["text"].asString();
-                vec_softButtons.push_back(tmpSoftButton);
+                m_vSoftButtons.push_back(tmpSoftButton);
             }
             m_pShadowLab->setStyleSheet("max-height:6px;border-image:url(:/images/MediaShow/shadow.png)");
         } else {
             m_pShadowLab->setStyleSheet("background:transparent");
         }
-        setSoftButtons(vec_softButtons);
+        setSoftButtons(m_vSoftButtons);
     }
 }
 
@@ -263,6 +265,8 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons)
     if (vec_softButtons.size() == 1) {
         m_aSoftBtn[0].initParameter(125,50,":/images/MediaShow/center_normal.png",":/images/MediaShow/center_press.png","",vec_softButtons[0].str_text.c_str());
         m_aSoftBtn[0].setId(vec_softButtons[0].i_softButtonID);
+        if(vec_softButtons[0].b_isHighlighted)
+            m_aSoftBtn[0].changeToPressed();
     } else {
         int iSize = vec_softButtons.size()>6?6:vec_softButtons.size();
         for(int i = 0;i != iSize;++i) {
@@ -274,6 +278,9 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons)
                 m_aSoftBtn[i].initParameter(125,50,":/images/MediaShow/center_normal.png",":/images/MediaShow/center_press.png","",vec_softButtons[i].str_text.c_str());
             }
             m_aSoftBtn[i].setId(vec_softButtons[i].i_softButtonID);
+
+            if(vec_softButtons[i].b_isHighlighted)
+                m_aSoftBtn[i].changeToPressed();
 
             if (i < iSize - 1) {
                 m_aSplit[i].setStyleSheet("max-width:1px;border-image:url(:/images/MediaShow/split.png)");
@@ -289,11 +296,17 @@ void CMediaShow::UpdateMediaColckTimer()
     m_i_startH = jsonObj["params"]["startTime"]["hours"].asInt();
     m_i_startM = jsonObj["params"]["startTime"]["minutes"].asInt();
     m_i_startS = jsonObj["params"]["startTime"]["seconds"].asInt();
-    m_i_endH = jsonObj["params"]["endTime"]["hours"].asInt();
-    m_i_endM = jsonObj["params"]["endTime"]["minutes"].asInt();
-    m_i_endS = jsonObj["params"]["endTime"]["seconds"].asInt();
-    m_MediaClockEndTime.setHMS(m_i_endH,m_i_endM,m_i_endS);
+    if(jsonObj["params"].isMember("endTime")){
+        m_i_endH = jsonObj["params"]["endTime"]["hours"].asInt();
+        m_i_endM = jsonObj["params"]["endTime"]["minutes"].asInt();
+        m_i_endS = jsonObj["params"]["endTime"]["seconds"].asInt();
 
+        m_pMusicPB->show();
+    }else{
+        m_i_endH = m_i_endM = m_i_endS = -1;
+    }
+
+    m_MediaClockEndTime.setHMS(m_i_endH,m_i_endM,m_i_endS);
 
     if (jsonObj["params"]["updateMode"].asString() == "COUNTUP") {
         if (nowMeidaClockTime.setHMS(m_i_startH, m_i_startM, m_i_startS)) {
@@ -321,7 +334,8 @@ void CMediaShow::UpdateMediaColckTimer()
         AppControl->OnSetMediaClockTimerResponse(RESULT_SUCCESS);
     } else if (jsonObj["params"]["updateMode"].asString() == "CLEAR") {
         emit startMediaClock(false);
-        setMediaClock(false,"");
+        setMediaClock("","");
+        m_pMusicPB->hide();
         AppControl->OnSetMediaClockTimerResponse(RESULT_SUCCESS);
     }
 }
@@ -333,8 +347,10 @@ void CMediaShow::mediaClockSlots(bool isStart)
         this->killTimer(m_timerId);
       m_timerId=this->startTimer(1000);
 
-      m_pMusicPB->setRange(0,m_i_endH*3600+m_i_endM*60+m_i_endS);
-      m_pMusicPB->setValue(m_i_startH*3600+m_i_startM*60+m_i_startS);
+      if(-1 != m_i_endH || -1 != m_i_endM || -1 != m_i_endS){
+          m_pMusicPB->setRange(0,m_i_endH*3600+m_i_endM*60+m_i_endS);
+          m_pMusicPB->setValue(m_i_startH*3600+m_i_startM*60+m_i_startS);
+      }
     } else {
         if (m_timerId!=0)
           this->killTimer(m_timerId);
@@ -350,9 +366,11 @@ void CMediaShow::timerEvent(QTimerEvent *e)
     } else {
         nowMeidaClockTime = nowMeidaClockTime.addSecs(-1);
     }
-    m_pMusicPB->setValue(nowMeidaClockTime.hour()*3600 +
-                         nowMeidaClockTime.minute()*60 +
-                         nowMeidaClockTime.second());
+
+    if(-1 == m_i_endH && -1 == m_i_endM && -1 == m_i_endS){
+        setMediaClock(nowMeidaClockTime.toString("HH:mm:ss"),"");
+        return;
+    }
 
     if (nowMeidaClockTime.hour() == m_i_endH
             && nowMeidaClockTime.minute() == m_i_endM
@@ -370,13 +388,13 @@ void CMediaShow::timerEvent(QTimerEvent *e)
     QTime timeRemain;
     timeRemain.setHMS(iHour,iMinute,iSecond);
 
-    setMediaClock(nowMeidaClockTime.toString("HH:mm:ss"),timeRemain.toString("HH:mm:ss"));
+    setMediaClock(nowMeidaClockTime.toString("HH:mm:ss"),"-" + timeRemain.toString("HH:mm:ss"));
 }
 
 void CMediaShow::setMediaClock(QString strElapseTime,QString strRemainTime)
 {
     AppBase::SetEdlidedText(m_pTimeElapseLab,strElapseTime,width()*0.3);
-    AppBase::SetEdlidedText(m_pTimeRemainLab,"-" + strRemainTime,width()*0.3);
+    AppBase::SetEdlidedText(m_pTimeRemainLab,strRemainTime,width()*0.3);
 }
 
 void CMediaShow::SetPlayBtnID(bool bPlay)

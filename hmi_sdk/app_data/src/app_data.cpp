@@ -85,6 +85,14 @@ bool IsTextUTF8(char *str, unsigned long long length) {
 
 AppData::AppData() {
   m_sLastTpl = DEFAULT_TEMPLATE;
+  m_pShowData = NULL;
+}
+
+AppData::~AppData() {
+  if (m_pShowData) {
+    delete m_pShowData;
+    m_pShowData = NULL;
+  }
 }
 
 void AppData::setUIManager(UIInterface *pUIManager) {
@@ -100,7 +108,14 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
     std::string str_method = jsonObj["method"].asString();
 
     if (str_method == "UI.Show") {
+      Json::Value preShow = m_JsonShow;
       m_JsonShow = jsonObj;
+      if(preShow["params"].isMember("showStrings") && !m_JsonShow["params"].isMember("showStrings"))
+        m_JsonShow["params"]["showStrings"] = preShow["params"]["showStrings"];
+
+      if(preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))
+        m_JsonShow["params"]["softButtons"] = preShow["params"]["softButtons"];
+
       showUI(ID_SHOW);
     } else if (str_method == "UI.SubscribeButton") {
     } else if (str_method == "UI.AddCommand") {
@@ -137,14 +152,16 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
       ToSDL->OnVRStartRecord();
       return RESULT_USER_WAIT;
     } else if (str_method == "VR.PerformInteraction") {
-      m_JsonInteraction["ChoicesetVR"] = jsonObj;
-      Json::Value initialPrompt = jsonObj["params"]["initialPrompt"];
-      std::string txt = initialPrompt[0]["text"].asString();
-      if (!IsTextUTF8((char *)txt.data(), txt.size()))
-        txt = string_To_UTF8(txt);
-      m_pUIManager->tsSpeak(ID_DEFAULT, txt);
-      //showUI(ID_CHOICESETVR);
-      return RESULT_USER_WAIT;
+      return RESULT_SUCCESS;
+
+      //m_JsonInteraction["ChoicesetVR"] = jsonObj;
+      //Json::Value initialPrompt = jsonObj["params"]["initialPrompt"];
+      //std::string txt = initialPrompt[0]["text"].asString();
+      //if (!IsTextUTF8((char *)txt.data(), txt.size()))
+      //  txt = string_To_UTF8(txt);
+      //m_pUIManager->tsSpeak(ID_DEFAULT, txt);
+      ////showUI(ID_CHOICESETVR);
+      //return RESULT_USER_WAIT;
     } else if (str_method == "UI.PerformInteraction") {
       m_JsonInteraction["Choiceset"] = jsonObj;
       showUI(ID_CHOICESET);
@@ -221,7 +238,7 @@ int AppData::getCurUI() {
   int iSize = m_vecUIStack.size();
   if (iSize > 0)
     return m_vecUIStack[iSize - 1];
-  return ID_MAIN;
+  return ID_APPLINK;
 }
 
 void AppData::OnShowCommand() {
@@ -229,7 +246,7 @@ void AppData::OnShowCommand() {
 }
 
 void AppData::OnSoftButtonClick(int sbID, int mode, std::string strName) {
-  ToSDL->OnSoftButtonClick(sbID, mode, strName);
+	ToSDL->OnSoftButtonClick(m_iAppID, sbID, mode, strName);
 }
 
 void AppData::OnCommandClick(int cmdID) {
@@ -241,7 +258,7 @@ void AppData::OnCommandClick(int cmdID) {
 
 void AppData::OnAlertResponse(int reason) {
   if (m_JsonAlert["id"].asInt() != -1) {
-    ToSDL->OnAlertResponse(m_JsonAlert["id"].asInt(), reason);
+    ToSDL->OnAlertResponse(m_JsonAlert["id"].asInt(), reason, m_iAppID);
     m_JsonAlert["id"] = -1;
     ShowPreviousUI();
   }
@@ -249,7 +266,7 @@ void AppData::OnAlertResponse(int reason) {
 
 void AppData::OnScrollMessageResponse(int reason) {
   if (m_JsonScrollableMessage["id"].asInt() != -1) {
-    ToSDL->OnScrollMessageResponse(m_JsonScrollableMessage["id"].asInt(), reason);
+    ToSDL->OnScrollMessageResponse(m_JsonScrollableMessage["id"].asInt(), reason, m_iAppID);
     m_JsonScrollableMessage["id"] = -1;
     ShowPreviousUI();
   }
@@ -313,14 +330,20 @@ void AppData::OnPerformInteraction(int code, int choiceID, bool bVR) {
   if (bVR) {
     ToSDL->OnVRPerformInteraction(code, jsonChoiceVR["id"].asInt(), choiceID);
   } else {
-    ToSDL->OnPerformInteraction(code, jsonChoice["id"].asInt(), choiceID);
+    ToSDL->OnPerformInteraction(code, jsonChoice["id"].asInt(), choiceID, m_iAppID);
     ShowPreviousUI();
   }
 }
 
 Json::Value &AppData::getShowData() {
-  return m_JsonShow;
+  if(m_pShowData){
+    delete m_pShowData;
+    m_pShowData = NULL;
+  }
+  m_pShowData = new Json::Value(m_JsonShow);
+  return *m_pShowData;
 }
+
 std::vector<SMenuCommand> AppData::getCommandList() {
   static std::vector<SMenuCommand> retVec;
   retVec.clear();
@@ -418,7 +441,7 @@ bool AppData::ShowPreviousUI(bool bInApp) {
   if (!bInApp)
     return false;
 
-  showUI(ID_MAIN);
+  m_pUIManager->onAppShow(ID_APPLINK);
   return true;
 }
 

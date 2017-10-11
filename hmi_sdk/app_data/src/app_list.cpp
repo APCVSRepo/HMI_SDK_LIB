@@ -178,6 +178,8 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     if (str_method == "BasicCommunication.OnAppRegistered") {
       newAppRegistered(jsonObj);
       m_pUIManager->onAppShow(ID_APPLINK);
+    } else if (str_method == "BasicCommunication.UpdateAppList") {
+		  updateAppList(jsonObj);
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
       int appID = jsonObj["params"]["appID"].asInt();
       m_pUIManager->onAppUnregister(appID);
@@ -237,7 +239,7 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     } else if (str_method == "BasicCommunication.UpdateDeviceList") {
       // add by fanqiang
       updateDeiveList(jsonObj);
-      m_pUIManager->onAppShow(ID_DEVICEVIEW);
+      m_pUIManager->ShowDeviceList();
     } else if (str_method == "UI.SetDisplayLayout") {
       int iAppId = jsonObj["params"]["appID"].asInt();
       std::string name = jsonObj["params"]["displayLayout"].asString();
@@ -334,12 +336,56 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
     AppData *pOne = *i;
     if (pOne->m_iAppID == pData->m_iAppID) {
       m_AppDatas.erase(i);
+      if(m_pCurApp == pOne)
+        m_pCurApp = pData;
       delete pOne;
       break;
     }
   }
 
   m_AppDatas.push_back(pData);
+}
+
+void AppList::updateAppList(Json::Value jsonObj) {
+  int size = jsonObj["params"]["applications"].size();
+
+  if(size <= 0)
+    return;
+
+  for (int i = 0; i < size; i++) {
+    AppData *pData = new AppData();
+    pData->setUIManager(m_pUIManager);
+    pData->m_iAppID = jsonObj["params"]["applications"][i]["appID"].asInt();
+    pData->m_szAppName = jsonObj["params"]["applications"][i]["appName"].asString();
+	if (jsonObj["params"]["applications"][i].isMember("icon"))
+		pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
+	pData->addExitAppCommand();
+
+    std::vector <AppData *>::iterator it;
+    bool bFind = false;
+    for (it = m_AppDatas.begin(); it != m_AppDatas.end(); ++it) {
+      AppData *pOne = *it;
+      if (pOne->m_iAppID == pData->m_iAppID) {
+        bFind = true;
+        break;
+/*
+		  if (pData->m_strAppIconFilePath == "")
+			  pData->m_strAppIconFilePath = pOne->m_strAppIconFilePath;
+        m_AppDatas.erase(it);
+        if(m_pCurApp == pOne)
+          m_pCurApp = pData;
+        delete pOne;
+        break;*/
+      }
+    }
+
+    if(bFind){
+      delete pData;
+      continue;
+    }
+
+    m_AppDatas.push_back(pData);
+  }
 }
 
 void AppList::OnAppActivated(int iAppID) {
@@ -359,7 +405,9 @@ void AppList::OnAppActivated(int iAppID) {
     ToSDL->OnAppOut(m_pCurApp->m_iAppID);
   m_pCurApp = pData;
   ToSDL->OnAppActivated(iAppID);
-  m_pUIManager->onAppShow(m_pCurApp->getCurUI());
+  int preScene = m_pCurApp->getCurUI();
+  if(ID_APPLINK != preScene)
+    m_pUIManager->onAppShow(preScene);
   m_pUIManager->onAppActive();
 }
 

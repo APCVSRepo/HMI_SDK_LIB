@@ -43,13 +43,11 @@ private:
     QLabel *m_pTimeElapseLab;
     QLabel *m_pTimeRemainLab;
     QProgressBar *m_pMusicPB;
-    QLabel m_aShowLine[4];
+    QLabel m_aShowLine[5];
     QLabel *m_pMusicPicLab;
     CButton m_aSoftBtn[9];
     QHBoxLayout *m_pBtnLayout;
     QLabel m_aSplit[5];
-
-    std::vector<SSoftButton> m_SoftBtnVec;
     QLabel *m_pShadowLab;
 
     //timer
@@ -63,6 +61,9 @@ private:
     int m_i_endM;
     int m_i_endS;
     bool m_b_countup;    
+
+    // softbutton容器
+    std::vector <SSoftButton> m_vSoftButtons;
 };
 
 #endif // MEDIASHOW_H

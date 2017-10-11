@@ -93,6 +93,10 @@ void UI::onRequest(Json::Value &request) {
   } else if (method == "UI.PerformInteraction") {
     Result result = m_pCallback->onRequest(request);
     sendResult(id, "PerformInteraction", result);
+
+    if (request["params"].isMember("appID")) {
+      onSystemContext("HMI_OBSCURED", request["params"]["appID"].asInt());
+    }
   } else if (method == "UI.SetMediaClockTimer") {
     Result result = m_pCallback->onRequest(request);
     sendResult(id, "SetMediaClockTimer", result);
@@ -107,6 +111,7 @@ void UI::onRequest(Json::Value &request) {
     sendResult(id, "Slider", result);
   } else if (method == "UI.SetDisplayLayout") {
     Result result = m_pCallback->onRequest(request);
+    //std::string name = request["params"]["displayLayout"].asString();
     if (result == RESULT_UNSUPPORTED_RESOURCE)
       sendError(RESULT_UNSUPPORTED_RESOURCE, id, "UI.SetDisplayLayout", "Unsupported display layout!");
     else
@@ -116,9 +121,10 @@ void UI::onRequest(Json::Value &request) {
   }
 }
 
-void UI::onSystemContext(std::string systemContext) {
+void UI::onSystemContext(std::string systemContext, int appID) {
   Json::Value params;
   params["systemContext"] = systemContext;
+  params["appID"] = appID;
   sendNotification("UI.OnSystemContext", params);
 }
 

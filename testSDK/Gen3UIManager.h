@@ -50,6 +50,7 @@ class CGen3UIManager : public QWidget, public UIInterface {
   void loadsdk();
  private:
   int m_iCurUI;
+  std::string m_sCurTpln;
   AppListInterface *m_pList;
   QLibrary m_sdk;
   TemplateManager m_TplManager;

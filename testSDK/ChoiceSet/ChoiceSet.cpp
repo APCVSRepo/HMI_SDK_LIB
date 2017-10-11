@@ -80,35 +80,39 @@ void CChoiceSet::showEvent(QShowEvent * e)
             m_iInteractionMode = VR_ONLY;
         }
 
-        if (jsonChoice.isMember("interactionLayout")) {
-            m_pMainLayout->removeWidget(m_pListView);
-            delete m_pListView;
-            m_pTopLayout->removeWidget(m_pTopText);
-            m_pTopText->hide();
 
-            std::string strLayout = jsonChoice["interactionLayout"].asString();
-            if (strcmp(strLayout.c_str(),"LIST_ONLY") == 0) {
-                m_pListView = new CustomListView(LISTW,LISTH,CustomListView::LIST);
-                m_pTopText = m_pInitText;
-            }else if (strcmp(strLayout.c_str(),"ICON_ONLY") == 0) {
-                m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
-                m_pTopText = m_pInitText;
-            }else if (strcmp(strLayout.c_str(),"LIST_WITH_SEARCH") == 0) {
-                m_pListView = new CustomListView(LISTW,LISTH,CustomListView::LIST);
-                m_pTopText = m_pInitEdit;
-            }else if (strcmp(strLayout.c_str(),"ICON_WITH_SEARCH") == 0) {
-                m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
-                m_pTopText = m_pInitEdit;
-            }
-            // Bug #9701
-            else{
-                m_pListView = new CustomListView(LISTW,LISTH);
-            }
-            m_pMainLayout->addWidget(m_pListView);
-            m_pTopLayout->addWidget(m_pTopText,1);
-            m_pTopText->show();
-            connect(m_pListView,SIGNAL(ItemClicked(int)),SLOT(OnListItemClicked(int)));
+        m_pMainLayout->removeWidget(m_pListView);
+        delete m_pListView;
+        m_pTopLayout->removeWidget(m_pTopText);
+        m_pTopText->hide();
+
+        std::string strLayout = "DEFAULT";
+        if(jsonChoice.isMember("interactionLayout"))
+            strLayout = jsonChoice["interactionLayout"].asString();
+
+        if (strcmp(strLayout.c_str(),"LIST_ONLY") == 0) {
+            m_pListView = new CustomListView(LISTW,LISTH,CustomListView::LIST);
+            m_pTopText = m_pInitText;
+        }else if (strcmp(strLayout.c_str(),"ICON_ONLY") == 0) {
+            m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
+            m_pTopText = m_pInitText;
+        }else if (strcmp(strLayout.c_str(),"LIST_WITH_SEARCH") == 0) {
+            m_pListView = new CustomListView(LISTW,LISTH,CustomListView::LIST);
+            m_pTopText = m_pInitEdit;
+        }else if (strcmp(strLayout.c_str(),"ICON_WITH_SEARCH") == 0) {
+            m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
+            m_pTopText = m_pInitEdit;
         }
+        // Bug #9701
+        else{
+            m_pListView = new CustomListView(LISTW,LISTH,CustomListView::ICON);
+            m_pTopText = m_pInitText;
+        }
+        m_pMainLayout->addWidget(m_pListView);
+        m_pTopLayout->addWidget(m_pTopText,1);
+        m_pTopText->show();
+        connect(m_pListView,SIGNAL(ItemClicked(int)),SLOT(OnListItemClicked(int)));
+
 
         if (jsonChoice.isMember("initialText")) {
             AppBase::SetEdlidedText(m_pInitText,
@@ -127,7 +131,13 @@ void CChoiceSet::showEvent(QShowEvent * e)
         if (jsonChoice.isMember("choiceSet")) {
             for (unsigned int i = 0; i < jsonChoice["choiceSet"].size(); ++i) {
                 if (m_pListView) {
-                    m_pListView->AddItem(
+                    if(jsonChoice["choiceSet"][i].isMember("image"))
+                        m_pListView->AddItem(
+                            jsonChoice["choiceSet"][i]["menuName"].asString(),
+                            jsonChoice["choiceSet"][i]["choiceID"].asInt(),
+                            jsonChoice["choiceSet"][i]["image"]["value"].asString());
+                    else
+                        m_pListView->AddItem(
                             jsonChoice["choiceSet"][i]["menuName"].asString(),
                             jsonChoice["choiceSet"][i]["choiceID"].asInt());
                 }

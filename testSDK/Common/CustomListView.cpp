@@ -2,9 +2,13 @@
 #include "Common/CustomButton.h"
 #include "AppListView/CAppButton.h"
 
+#define ICON_PAGE 8
+
 CustomListView::CustomListView(int iWidth,int iHeight,int iMode,QWidget *parent) :
     QWidget(parent),m_iItemSpace(0)
 {
+    m_pressx = m_pressy = 0;
+    m_curpage = 1;
     setMinimumSize(iWidth,iHeight);
     setMaximumSize(iWidth,iHeight);
     m_iMode = iMode;
@@ -107,8 +111,8 @@ void CustomListView::UpdateItemShow(int iStartItemIndex)
 
         int r = 0,c = 0;
         if (iStartItemIndex < m_pItemShowVec->size()) {
-            for(int i = iStartItemIndex;i != m_pItemShowVec->size();++i) {
-                r = i / 4;
+            for(int i = iStartItemIndex;i != m_pItemShowVec->size() && i < ICON_PAGE+iStartItemIndex;++i) {
+                r = (i / 4)%2;
                 c = i % 4;
                 m_pItemShowVec->at(i)->show();
                 m_pItemShowVec->at(i)->setGeometry(5 + m_iItemWidth*c,
@@ -201,5 +205,33 @@ void CustomListView::UpdateScrollParam(int iItemCount)
         m_pScrollBar->setMaximum(iItemCount - m_pScrollBar->pageStep());
     } else {
         m_pScrollBar->hide();
+    }
+}
+
+void CustomListView::mousePressEvent(QMouseEvent *e)
+{
+    if(m_iMode != ICON)
+        return;
+
+    m_pressx = e->x();
+    m_pressy = e->y();
+}
+
+void CustomListView::mouseReleaseEvent(QMouseEvent *e)
+{
+    if(m_iMode != ICON)
+        return;
+
+    int x = e->x();
+    int y = e->y();
+    int page = (m_ListItemVec.size() + (ICON_PAGE-1))/ICON_PAGE;
+    if((m_pressx - x) > 10 && page>m_curpage){
+        // 下页
+        UpdateItemShow(m_curpage*ICON_PAGE);
+        m_curpage++;
+    }else if((x - m_pressx) > 10 && m_curpage>1){
+        // 上页
+        UpdateItemShow((m_curpage-2)*ICON_PAGE);
+        m_curpage--;
     }
 }
