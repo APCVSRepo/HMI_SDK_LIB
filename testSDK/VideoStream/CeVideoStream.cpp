@@ -10,7 +10,6 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     if (parent) {
         setGeometry(0,0,parent->width(),parent->height());
     }
-    printf("!!! parent->width = %d, parent->height = %d\n", parent->width(),parent->height());
 
 #ifdef SDL_CALL_BACK
     sdl_set_videostream_callback(callBack_send_data);
