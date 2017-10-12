@@ -23,6 +23,7 @@ INCLUDEPATH += /usr/include/glib-2.0 \
                /usr/lib/x86_64-linux-gnu/ \
                /usr/lib/x86_64-linux-gnu/glib-2.0/include \
                /usr/lib/x86_64-linux-gnu/gstreamer-1.0/include
+DEFINES += ARCH_X86
 }
 
 armhf {
@@ -30,6 +31,7 @@ INCLUDEPATH += /usr/arm-linux-gnueabihf/include \
                /usr/arm-linux-gnueabihf/include/glib-2.0 \
                /usr/arm-linux-gnueabihf/include/gstreamer-1.0 \
                /usr/arm-linux-gnueabihf/lib/glib-2.0/include
+DEFINES += ARCH_ARMHF
 }
 
 

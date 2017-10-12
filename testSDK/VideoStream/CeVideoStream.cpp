@@ -85,7 +85,11 @@ void CeVideoStream::startStream()
     if (pMain) {
         pMain->HideAllComponent();
     }
+#ifdef ARCH_X86
     m_player.open("./storage/video_stream_pipe", "ximagesink", false, this->winId());
+#elif ARCH_ARMHF
+    m_player.open("./storage/video_stream_pipe", "rkximagesink", false, this->winId());
+#endif
     m_player.play();
     m_pZoomInBtn->show();
     m_pZoomOutBtn->show();
