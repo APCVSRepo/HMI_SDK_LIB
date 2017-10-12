@@ -130,6 +130,7 @@ void CGen3UIManager::onAppShow(int type) {
 }
 
 void CGen3UIManager::onAppUnregister(int appId) {
+  emit onVideoStopSignal();
   emit OnAppUnregisterSignal(appId);
 }
 
