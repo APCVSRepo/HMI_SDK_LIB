@@ -49,10 +49,6 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
                               ":/images/BtnPress.png","","Menu");
     m_pMenuBtn->setTextStyle("border:0px;font: 20px \"Liberation Serif\";color:rgb(0,0,0)");
 
-    m_pZoomInBtn->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    m_pZoomOutBtn->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    m_pMenuBtn->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-
     m_pZoomInBtn->setParent(parent);
     m_pZoomOutBtn->setParent(parent);
     m_pMenuBtn->setParent(parent);

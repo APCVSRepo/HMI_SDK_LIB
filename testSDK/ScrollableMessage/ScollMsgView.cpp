@@ -91,6 +91,7 @@ void CScollMsgView::SetTimeOut(int iDuration)
 
 void CScollMsgView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     if (AppControl) {
         AppBase::SetEdlidedText(m_pAppNameLab,AppControl->getAppName().c_str(),width()*0.7);
 
@@ -102,7 +103,7 @@ void CScollMsgView::showEvent(QShowEvent * e)
 
         if (jsonParams.isMember("softButtons")) {
             m_vSoftButtons.clear();
-            for (int i = 0; i < jsonParams["softButtons"].size(); ++i) {
+            for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
                 SSoftButton tmpSoftButton;
                 tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
                 tmpSoftButton.i_softButtonID = jsonParams["softButtons"][i]["softButtonID"].asInt();

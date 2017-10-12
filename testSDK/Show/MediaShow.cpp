@@ -178,6 +178,7 @@ void CMediaShow::SetAppName(QString strName)
 
 void CMediaShow::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     for (int i = 0;i != 9;++i) {
         m_aSoftBtn[i].setText("");
     }
@@ -237,7 +238,7 @@ void CMediaShow::showEvent(QShowEvent * e)
 
         if (jsonParams.isMember("softButtons")) {
             m_vSoftButtons.clear();
-            for (int i = 0; i < jsonParams["softButtons"].size(); ++i) {
+            for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
                 SSoftButton tmpSoftButton;
                 tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
                 tmpSoftButton.i_softButtonID = jsonParams["softButtons"][i]["softButtonID"].asInt();
@@ -361,6 +362,7 @@ void CMediaShow::mediaClockSlots(bool isStart)
 
 void CMediaShow::timerEvent(QTimerEvent *e)
 {
+    Q_UNUSED(e);
     if (m_b_countup) {
         nowMeidaClockTime = nowMeidaClockTime.addSecs(1);
     } else {

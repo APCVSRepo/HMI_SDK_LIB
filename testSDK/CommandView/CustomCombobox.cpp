@@ -4,7 +4,7 @@
 #define PAGEITEMWEIGHT 0.2
 
 CustomCombobox::CustomCombobox(int iMaxHeight,bool bUp,QWidget *parent) : QListWidget(parent)
-  ,m_iHeight(0),m_iStartX(0),m_iStartY(0),m_iWidth(0),m_iOldHoverItemIndex(-1)
+  ,m_iOldHoverItemIndex(-1), m_iStartX(0),m_iStartY(0),m_iWidth(0),m_iHeight(0)
 {
     m_bUp = bUp;
     m_iMaxHeight = iMaxHeight / PAGEITEM * PAGEITEM;
@@ -148,6 +148,8 @@ void CustomCombobox::SetPos(int iStartX,int iStartY,int iWidth,int iHeight)
 
 void CustomCombobox::SetScrollParams(int page,int range)
 {
+    Q_UNUSED(page);
+    Q_UNUSED(range);
     /*
     if (page<=0 || range<=0)
         return;

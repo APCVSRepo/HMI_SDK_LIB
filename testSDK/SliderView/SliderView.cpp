@@ -92,6 +92,7 @@ void CSliderView::OnSoftBtnClicked(int iSoftBtnID)
 
 void CSliderView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     if (AppControl) {
         AppBase::SetEdlidedText(m_pAppNameLab,AppControl->getAppName().c_str(),width()*0.9);
 
@@ -113,7 +114,7 @@ void CSliderView::showEvent(QShowEvent * e)
             } else {
                 m_bDynamic = true;
             }
-            for (int i = 0; i < m_jsonData["params"]["sliderFooter"].size(); ++i) {
+            for (unsigned int i = 0; i < m_jsonData["params"]["sliderFooter"].size(); ++i) {
                 m_FooterStrVec.push_back(m_jsonData["params"]["sliderFooter"][i].asString());
             }
         }

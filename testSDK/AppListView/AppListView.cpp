@@ -100,6 +100,7 @@ void CAppListView::DeleteChildApp(int index)
 
 void CAppListView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     std::vector<int> vAppIDs;
     std::vector<std::string> vAppNames;
     std::vector<std::string> vIconPath;
@@ -109,7 +110,7 @@ void CAppListView::showEvent(QShowEvent * e)
         DeleteChildApp(2);
     }
     if (vAppIDs.size() > 0) {
-        for (int i = 0; i < vAppIDs.size(); ++i) {
+        for (unsigned int i = 0; i < vAppIDs.size(); ++i) {
             InsertChildApp(2+i,vAppIDs.at(i),
                            vAppNames.at(i).c_str(),
                            vIconPath.at(i).c_str(),

@@ -2,7 +2,7 @@
 
 CButton::CButton(QWidget *parent) :
     QWidget(parent),
-    m_BtnStatus(BTN_STAT_UNKNOW),m_i_clickX(0),m_i_clickY(0),m_pLeftIconLab(NULL),m_bLeftIcon(false),m_pIconLayout(NULL)
+    m_pIconLayout(NULL),m_pLeftIconLab(NULL),m_BtnStatus(BTN_STAT_UNKNOW),m_i_clickX(0),m_i_clickY(0),m_bLeftIcon(false)
 {
     m_IconLabel.setParent(this);
     //m_TextLabel.setParent(this);
@@ -37,10 +37,10 @@ CButton::CButton(QWidget *parent) :
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
 CButton::CButton(int W, int H, QString normalIcon, QString pressedIcon, QString disableIcon) :
+    m_Id(0),
     m_BtnStatus(BTN_STAT_UNKNOW),
     m_i_clickX(0),
-    m_i_clickY(0),
-    m_Id(0)
+    m_i_clickY(0)
 {
     setSize(W, H);
     setIconNormal(normalIcon, true);

@@ -221,11 +221,12 @@ void CGen3UIManager::AppShowSlot(int type) {
 }
 
 void CGen3UIManager::waitMSec(int ms) {
-
+  Q_UNUSED(ms);
 }
 
 void CGen3UIManager::tsSpeak(int VRID, std::string strText) {
-
+  Q_UNUSED(VRID);
+  Q_UNUSED(strText);
 }
 
 void CGen3UIManager::OnEndAudioPassThru() {
@@ -259,7 +260,7 @@ void CGen3UIManager::loadsdk() {
   // 初始化HMISDK，动态调用InitHmiSdk函数
   InitFunc Init = (InitFunc)m_sdk.resolve("InitHmiSdk");
   if (Init) {
-    AppListInterface *pApp = Init(this);
+    /*AppListInterface *pApp = */Init(this);
   } else {
     LOGE("can't load hmi sdk lib, %s", strFilePath.data());
   }
