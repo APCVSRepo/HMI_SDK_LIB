@@ -175,7 +175,6 @@ void CGen3UIManager::onVideoStopSlots() {
 }
 
 void CGen3UIManager::AppShowSlot(int type) {
-
   TemplateImp& curTpl = m_TplManager.Get(m_sCurTpln);
 
   // 画面是MAIN或APPLINK时，使用全局的默认模板画面
@@ -200,6 +199,10 @@ void CGen3UIManager::AppShowSlot(int type) {
 
   if (tpl.GetScene(m_iCurUI) == NULL)
     return;
+
+  if (type == ID_VIDEOSTREAM) {
+      emit onVideoStartSignal();
+  }
 
   // 特殊处理MEDIA模板Show画面的mediaclock请求
   if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
