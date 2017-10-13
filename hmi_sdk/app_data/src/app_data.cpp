@@ -110,10 +110,10 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
     if (str_method == "UI.Show") {
       Json::Value preShow = m_JsonShow;
       m_JsonShow = jsonObj;
-      if(preShow["params"].isMember("showStrings") && !m_JsonShow["params"].isMember("showStrings"))
+      if (preShow["params"].isMember("showStrings") && !m_JsonShow["params"].isMember("showStrings"))
         m_JsonShow["params"]["showStrings"] = preShow["params"]["showStrings"];
 
-      if(preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))
+      if (preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))
         m_JsonShow["params"]["softButtons"] = preShow["params"]["softButtons"];
 
       showUI(ID_SHOW);
@@ -246,7 +246,7 @@ void AppData::OnShowCommand() {
 }
 
 void AppData::OnSoftButtonClick(int sbID, int mode, std::string strName) {
-	ToSDL->OnSoftButtonClick(m_iAppID, sbID, mode, strName);
+  ToSDL->OnSoftButtonClick(m_iAppID, sbID, mode, strName);
 }
 
 void AppData::OnCommandClick(int cmdID) {
@@ -336,7 +336,7 @@ void AppData::OnPerformInteraction(int code, int choiceID, bool bVR) {
 }
 
 Json::Value &AppData::getShowData() {
-  if(m_pShowData){
+  if (m_pShowData) {
     delete m_pShowData;
     m_pShowData = NULL;
   }

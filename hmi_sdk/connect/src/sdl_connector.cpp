@@ -167,19 +167,19 @@ void SDLConnector::OnAppActivated(int appID) {
 
 void SDLConnector::OnSoftButtonClick(int appID, int id, int mode, std::string strName) {
   if (!strName.empty()) {
-	  _onButtonClickAction(appID, strName, "BUTTONDOWN", id);
-	  _onButtonClickAction(appID, strName, "BUTTONUP", id);
+    _onButtonClickAction(appID, strName, "BUTTONDOWN", id);
+    _onButtonClickAction(appID, strName, "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-		_onButtonClickAction2(appID, strName, "SHORT", id);
+      _onButtonClickAction2(appID, strName, "SHORT", id);
     else
-		_onButtonClickAction2(appID, strName, "LONG", id);
+      _onButtonClickAction2(appID, strName, "LONG", id);
   } else {
-	  _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONDOWN", id);
-	  _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONUP", id);
+    _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONDOWN", id);
+    _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-		_onButtonClickAction2(appID, "CUSTOM_BUTTON", "SHORT", id);
+      _onButtonClickAction2(appID, "CUSTOM_BUTTON", "SHORT", id);
     else
-		_onButtonClickAction2(appID, "CUSTOM_BUTTON", "LONG", id);
+      _onButtonClickAction2(appID, "CUSTOM_BUTTON", "LONG", id);
   }
 }
 
@@ -187,9 +187,9 @@ void SDLConnector::_onButtonClickAction(int appID, std::string name, std::string
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  if (0 != customButtonID){
-	  params["customButtonID"] = customButtonID;
-	  params["appID"] = appID;
+  if (0 != customButtonID) {
+    params["customButtonID"] = customButtonID;
+    params["appID"] = appID;
   }
 
   m_Buttons.sendNotification("Buttons.OnButtonEvent", params);
@@ -199,9 +199,9 @@ void SDLConnector::_onButtonClickAction2(int appID, std::string name, std::strin
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  if (0 != customButtonID){
-	  params["customButtonID"] = customButtonID;
-	  params["appID"] = appID;
+  if (0 != customButtonID) {
+    params["customButtonID"] = customButtonID;
+    params["appID"] = appID;
   }
 
   m_Buttons.sendNotification("Buttons.OnButtonPress", params);

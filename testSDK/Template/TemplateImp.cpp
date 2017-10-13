@@ -35,7 +35,7 @@ TemplateImp::~TemplateImp() {
 
 }
 
-void TemplateImp::SetScene(int id, QWidget* pScene) {
+void TemplateImp::SetScene(int id, QWidget *pScene) {
   if (id >= 0 && id < ID_UI_MAX && pScene) {
     pScene->hide();
     m_vScenes[id] = pScene;

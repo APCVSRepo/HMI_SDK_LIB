@@ -179,7 +179,7 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       newAppRegistered(jsonObj);
       m_pUIManager->onAppShow(ID_APPLINK);
     } else if (str_method == "BasicCommunication.UpdateAppList") {
-		  updateAppList(jsonObj);
+      updateAppList(jsonObj);
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
       int appID = jsonObj["params"]["appID"].asInt();
       m_pUIManager->onAppUnregister(appID);
@@ -336,7 +336,7 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
     AppData *pOne = *i;
     if (pOne->m_iAppID == pData->m_iAppID) {
       m_AppDatas.erase(i);
-      if(m_pCurApp == pOne)
+      if (m_pCurApp == pOne)
         m_pCurApp = pData;
       delete pOne;
       break;
@@ -349,7 +349,7 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
 void AppList::updateAppList(Json::Value jsonObj) {
   int size = jsonObj["params"]["applications"].size();
 
-  if(size <= 0)
+  if (size <= 0)
     return;
 
   for (int i = 0; i < size; i++) {
@@ -357,9 +357,9 @@ void AppList::updateAppList(Json::Value jsonObj) {
     pData->setUIManager(m_pUIManager);
     pData->m_iAppID = jsonObj["params"]["applications"][i]["appID"].asInt();
     pData->m_szAppName = jsonObj["params"]["applications"][i]["appName"].asString();
-	if (jsonObj["params"]["applications"][i].isMember("icon"))
-		pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
-	pData->addExitAppCommand();
+    if (jsonObj["params"]["applications"][i].isMember("icon"))
+      pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
+    pData->addExitAppCommand();
 
     std::vector <AppData *>::iterator it;
     bool bFind = false;
@@ -368,18 +368,18 @@ void AppList::updateAppList(Json::Value jsonObj) {
       if (pOne->m_iAppID == pData->m_iAppID) {
         bFind = true;
         break;
-/*
-		  if (pData->m_strAppIconFilePath == "")
-			  pData->m_strAppIconFilePath = pOne->m_strAppIconFilePath;
-        m_AppDatas.erase(it);
-        if(m_pCurApp == pOne)
-          m_pCurApp = pData;
-        delete pOne;
-        break;*/
+        /*
+        		  if (pData->m_strAppIconFilePath == "")
+        			  pData->m_strAppIconFilePath = pOne->m_strAppIconFilePath;
+                m_AppDatas.erase(it);
+                if(m_pCurApp == pOne)
+                  m_pCurApp = pData;
+                delete pOne;
+                break;*/
       }
     }
 
-    if(bFind){
+    if (bFind) {
       delete pData;
       continue;
     }
@@ -406,7 +406,7 @@ void AppList::OnAppActivated(int iAppID) {
   m_pCurApp = pData;
   ToSDL->OnAppActivated(iAppID);
   int preScene = m_pCurApp->getCurUI();
-  if(ID_APPLINK != preScene)
+  if (ID_APPLINK != preScene)
     m_pUIManager->onAppShow(preScene);
   m_pUIManager->onAppActive();
 }
