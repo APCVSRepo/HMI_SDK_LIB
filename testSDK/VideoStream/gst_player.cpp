@@ -2,7 +2,11 @@
 #include "gst_player.h"
 
 GstPlayer::GstPlayer()
-  : state_(STATE_NULL) {
+  : state_(STATE_NULL)
+  , m_x_(0)
+  , m_y_(0)
+  , m_width_(0)
+  , m_height_(0) {
 }
 
 GstPlayer::GstPlayer(const std::string& file_path, const std::string& sink, bool sync, guintptr xwinid)
@@ -10,7 +14,11 @@ GstPlayer::GstPlayer(const std::string& file_path, const std::string& sink, bool
   , sink_(sink)
   , sync_(sync)
   , xwinid_(xwinid)
-  , state_(STATE_NULL) {
+  , state_(STATE_NULL)
+  , m_x_(0)
+  , m_y_(0)
+  , m_width_(0)
+  , m_height_(0) {
   Init();
 }
 
@@ -83,6 +91,15 @@ bool GstPlayer::stop() {
   return Release();
 }
 
+bool GstPlayer::setRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height) {
+  m_x_ = x;
+  m_y_ = y;
+  m_width_ = width;
+  m_height_ = height;
+
+  return true;
+}
+
 MediaState GstPlayer::get_state() {
   return state_;
 }
@@ -110,7 +127,13 @@ bool GstPlayer::Init() {
   GstElement *sink = gst_bin_get_by_name(GST_BIN (pipeline_), "videosink");
   if (sink && xwinid_) {
     printf("-- GST: Set overlay, wID = %lu\n", xwinid_);
-    gst_video_overlay_set_window_handle (GST_VIDEO_OVERLAY (sink), xwinid_);
+    gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(sink), xwinid_);
+    if (m_width_ && m_height_) {
+      printf("!!! set rectangle: x = %d, y = %d, width = %d, height = %d\n", m_x_, m_y_, m_width_, m_height_);
+      gboolean bRet = gst_video_overlay_set_render_rectangle(GST_VIDEO_OVERLAY(sink), m_x_, m_y_, m_width_, m_height_);
+      gst_video_overlay_expose(GST_VIDEO_OVERLAY(sink));
+      printf("!!! set rectangle: %s\n", bRet ? "true" : "false");
+    }
   }
 
   // Add watch

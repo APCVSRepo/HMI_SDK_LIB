@@ -8,7 +8,7 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
 {
     setWindowFlags(Qt::FramelessWindowHint);
     if (parent) {
-        setGeometry(0,0,parent->width(),parent->height());
+        setGeometry(80,0,parent->width() - 90,parent->height() - 80);
     }
 
 #ifdef SDL_CALL_BACK
@@ -30,20 +30,20 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     m_pZoomOutBtn = new CButton(this);
 
 
-    int iBtnHeight = 60;
-    int iBtnWidth = 80;
+    int iBtnHeight = 40;
+    int iBtnWidth = 60;
 
-    m_pZoomInBtn->setGeometry(QRect(40,height()*0.3-10,iBtnWidth,iBtnHeight));
+    m_pZoomInBtn->setGeometry(QRect(10,height()*0.3-10,iBtnWidth,iBtnHeight));
     m_pZoomInBtn->initParameter(iBtnWidth,iBtnHeight,
                                 ":/images/ZoomInBtnNormal.png",
                                 ":/images/ZoomInBtnPress.png","","");
 
-    m_pZoomOutBtn->setGeometry(QRect(40,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
+    m_pZoomOutBtn->setGeometry(QRect(10,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
     m_pZoomOutBtn->initParameter(iBtnWidth,iBtnHeight,
                                  ":/images/ZoomOutBtnNormal.png",
                                  ":/images/ZoomOutBtnPress.png","","");
 
-    m_pMenuBtn->setGeometry(QRect(40,height()*0.6+10,iBtnWidth,iBtnHeight));
+    m_pMenuBtn->setGeometry(QRect(10,height()*0.8,iBtnWidth,iBtnHeight));
     m_pMenuBtn->initParameter(iBtnWidth,iBtnHeight,
                               ":/images/BtnNormal.png",
                               ":/images/BtnPress.png","","Menu");
@@ -72,8 +72,8 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     connect(m_pTimer,SIGNAL(timeout()),this,SLOT(onUpdateTime()));
 
 #ifdef OS_LINUX
-    m_MenuTimer.setInterval(5000);
-    connect(&m_MenuTimer,SIGNAL(timeout()),this,SLOT(onMenuShowTimeout()));
+//    m_MenuTimer.setInterval(5000);
+//    connect(&m_MenuTimer,SIGNAL(timeout()),this,SLOT(onMenuShowTimeout()));
 #endif
 }
 
@@ -88,6 +88,7 @@ void CeVideoStream::startStream()
     if (pMain) {
         pMain->HideAllComponent();
     }
+    m_player.setRectangle(40, 0, this->width(), this->height());
 #ifdef ARCH_X86
     m_player.open("./storage/video_stream_pipe", "ximagesink", false, this->winId());
 #elif ARCH_ARMHF
@@ -97,7 +98,7 @@ void CeVideoStream::startStream()
     m_pZoomInBtn->show();
     m_pZoomOutBtn->show();
     m_pMenuBtn->show();
-    m_MenuTimer.start();
+    // m_MenuTimer.start();
 #endif
 }
 
@@ -109,9 +110,9 @@ void CeVideoStream::stopStream()
     m_pZoomInBtn->hide();
     m_pZoomOutBtn->hide();
     m_pMenuBtn->hide();
-    if (m_MenuTimer.isActive()) {
-        m_MenuTimer.stop();
-    }
+//    if (m_MenuTimer.isActive()) {
+//        m_MenuTimer.stop();
+//    }
     if (pMain) {
         pMain->ShowAllComponent();
         pMain->ShowMenuBar();
@@ -121,7 +122,7 @@ void CeVideoStream::stopStream()
 
 #ifdef OS_LINUX
 void CeVideoStream::onMenuShowTimeout() {
-    m_MenuTimer.stop();
+//    m_MenuTimer.stop();
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     pMain->HideMenuBar();
 }
@@ -167,7 +168,7 @@ void CeVideoStream::mousePressEvent(QMouseEvent *e)
     y = y*videoHeight/height();
     m_pList->getActiveApp()->OnVideoScreenTouch(TOUCH_START,x,y);
 #ifdef OS_LINUX
-    m_MenuTimer.start();
+//    m_MenuTimer.start();
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     pMain->ShowMenuBar();
 #endif

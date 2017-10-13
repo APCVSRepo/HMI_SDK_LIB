@@ -23,6 +23,7 @@ public:
   bool play();
   bool pause();
   bool stop();
+  bool setRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
   MediaState get_state();
 private:
   GMainLoop*  main_loop_;
@@ -36,6 +37,10 @@ private:
   bool sync_;
   guintptr xwinid_;
   MediaState state_;
+  unsigned int m_x_;
+  unsigned int m_y_;
+  unsigned int m_width_;
+  unsigned int m_height_;
 
   bool Init();
   bool Release();
