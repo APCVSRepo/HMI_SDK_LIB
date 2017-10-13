@@ -71,8 +71,10 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     m_pTimer->start(1000);
     connect(m_pTimer,SIGNAL(timeout()),this,SLOT(onUpdateTime()));
 
+#ifdef OS_LINUX
     m_MenuTimer.setInterval(5000);
     connect(&m_MenuTimer,SIGNAL(timeout()),this,SLOT(onMenuShowTimeout()));
+#endif
 }
 
 CeVideoStream::~CeVideoStream()
@@ -81,6 +83,7 @@ CeVideoStream::~CeVideoStream()
 
 void CeVideoStream::startStream()
 {
+#ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     if (pMain) {
         pMain->HideAllComponent();
@@ -95,10 +98,12 @@ void CeVideoStream::startStream()
     m_pZoomOutBtn->show();
     m_pMenuBtn->show();
     m_MenuTimer.start();
+#endif
 }
 
 void CeVideoStream::stopStream()
 {
+#ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     //m_player.stop();
     m_pZoomInBtn->hide();
@@ -111,13 +116,16 @@ void CeVideoStream::stopStream()
         pMain->ShowAllComponent();
         pMain->ShowMenuBar();
     }
+#endif
 }
 
+#ifdef OS_LINUX
 void CeVideoStream::onMenuShowTimeout() {
     m_MenuTimer.stop();
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     pMain->HideMenuBar();
 }
+#endif
 
 #ifdef SDL_CALL_BACK
 #define TMP_BUF_LEN 100
@@ -145,7 +153,9 @@ void CeVideoStream::onRawData(void *p, int iLength)
 
 void CeVideoStream::OnClickedMenuBtn()
 {
+#ifdef OS_LINUX
     stopStream();
+#endif
     m_pList->getActiveApp()->OnShowCommand();
 }
 
@@ -156,9 +166,11 @@ void CeVideoStream::mousePressEvent(QMouseEvent *e)
     x = x*videoWidth/width();
     y = y*videoHeight/height();
     m_pList->getActiveApp()->OnVideoScreenTouch(TOUCH_START,x,y);
+#ifdef OS_LINUX
     m_MenuTimer.start();
     MainWindow* pMain = (MainWindow*)this->parentWidget();
     pMain->ShowMenuBar();
+#endif
 }
 
 void CeVideoStream::mouseMoveEvent(QMouseEvent *e)

@@ -147,6 +147,7 @@ void CGen3UIManager::onVideoStreamStop() {
 }
 
 void CGen3UIManager::onVideoStartSlots() {
+#ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
     AppDataInterface *pData = m_pList->getActiveApp();
     if (!pData) return;
@@ -158,9 +159,11 @@ void CGen3UIManager::onVideoStartSlots() {
     if (pVideoStream) {
         pVideoStream->startStream();
     }
+#endif
 }
 
 void CGen3UIManager::onVideoStopSlots() {
+#ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
     AppDataInterface *pData = m_pList->getActiveApp();
     if (!pData) return;
@@ -172,6 +175,7 @@ void CGen3UIManager::onVideoStopSlots() {
     if (pVideoStream) {
         pVideoStream->stopStream();
     }
+#endif
 }
 
 void CGen3UIManager::AppShowSlot(int type) {

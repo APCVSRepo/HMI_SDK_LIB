@@ -17,23 +17,25 @@ CONFIG  += unix x86
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include \
                $$PWD/../hmi_sdk/gstplayer/include
-x86 {
-INCLUDEPATH += /usr/include/glib-2.0 \
-               /usr/include/gstreamer-1.0 \
-               /usr/lib/x86_64-linux-gnu/ \
-               /usr/lib/x86_64-linux-gnu/glib-2.0/include \
-               /usr/lib/x86_64-linux-gnu/gstreamer-1.0/include
-DEFINES += ARCH_X86
-}
+unix {
+  DEFINES += OS_LINUX
+  x86 {
+  INCLUDEPATH += /usr/include/glib-2.0 \
+                 /usr/include/gstreamer-1.0 \
+                 /usr/lib/x86_64-linux-gnu/ \
+                 /usr/lib/x86_64-linux-gnu/glib-2.0/include \
+                 /usr/lib/x86_64-linux-gnu/gstreamer-1.0/include
+  DEFINES += ARCH_X86
+  }
 
-armhf {
-INCLUDEPATH += /usr/arm-linux-gnueabihf/include \
-               /usr/arm-linux-gnueabihf/include/glib-2.0 \
-               /usr/arm-linux-gnueabihf/include/gstreamer-1.0 \
-               /usr/arm-linux-gnueabihf/lib/glib-2.0/include
-DEFINES += ARCH_ARMHF
+  armhf {
+  INCLUDEPATH += /usr/arm-linux-gnueabihf/include \
+                 /usr/arm-linux-gnueabihf/include/glib-2.0 \
+                 /usr/arm-linux-gnueabihf/include/gstreamer-1.0 \
+                 /usr/arm-linux-gnueabihf/lib/glib-2.0/include
+  DEFINES += ARCH_ARMHF
+  }
 }
-
 
 MOC_DIR=temp/moc
 RCC_DIR=temp/rcc
@@ -66,11 +68,14 @@ SOURCES += \
     SliderView/SliderView.cpp \
     AudioPassThru/AudioPassView.cpp \
     VideoStream/CeVideoStream.cpp \
-    VideoStream/gst_player.cpp \
     AppListView/DeviceListView.cpp \
     Template/TemplateImp.cpp \
     Template/TemplateManager.cpp \
     Show/GraphicSoftButtonShow.cpp
+
+unix {
+    SOURCES += VideoStream/gst_player.cpp
+}
 
 HEADERS += \
     Gen3UIManager.h \
@@ -97,12 +102,15 @@ HEADERS += \
     SliderView/SliderView.h \
     AudioPassThru/AudioPassView.h \
     VideoStream/CeVideoStream.h \
-    VideoStream/gst_player.h \
     AppListView/DeviceListView.h \
     Library/android/sdl/main.h \
     Template/TemplateImp.h \
     Template/TemplateManager.h \
     Show/GraphicSoftButtonShow.h
+
+unix {
+    SOURCES += VideoStream/gst_player.h
+}
 
 unix {
     target.path = /usr/lib
@@ -111,18 +119,20 @@ unix {
 RESOURCES += \
     image.qrc
 
-x86 {
-LIBS += /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so \
-        /usr/lib/x86_64-linux-gnu/libgobject-2.0.so   \
-        /usr/lib/x86_64-linux-gnu/libglib-2.0.so      \
-        /usr/lib/x86_64-linux-gnu/libgstvideo-1.0.so
-}
+unix {
+  x86 {
+  LIBS += /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so \
+          /usr/lib/x86_64-linux-gnu/libgobject-2.0.so   \
+          /usr/lib/x86_64-linux-gnu/libglib-2.0.so      \
+          /usr/lib/x86_64-linux-gnu/libgstvideo-1.0.so
+  }
 
-armhf {
-LIBS += /usr/arm-linux-gnueabihf/lib/libgstreamer-1.0.so \
-        /usr/arm-linux-gnueabihf/lib/libgobject-2.0.so   \
-        /usr/arm-linux-gnueabihf/lib/libglib-2.0.so      \
-        /usr/arm-linux-gnueabihf/lib/libgstvideo-1.0.so
+  armhf {
+  LIBS += /usr/arm-linux-gnueabihf/lib/libgstreamer-1.0.so \
+          /usr/arm-linux-gnueabihf/lib/libgobject-2.0.so   \
+          /usr/arm-linux-gnueabihf/lib/libglib-2.0.so      \
+          /usr/arm-linux-gnueabihf/lib/libgstvideo-1.0.so
+  }
 }
 
 ###############################for windows
