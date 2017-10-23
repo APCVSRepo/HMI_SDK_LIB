@@ -33,6 +33,7 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
   QHBoxLayout *pBottomLayout = new QHBoxLayout;
   QVBoxLayout *pLeftCenterLayout = new QVBoxLayout;
   QHBoxLayout *pTimeShowLayout = new QHBoxLayout;
+  QVBoxLayout *pStringsLayout = new QVBoxLayout;
   QVBoxLayout *pBottomCenterLayout = new QVBoxLayout;
   m_pBtnLayout = new QHBoxLayout;
 
@@ -61,12 +62,16 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
   //pCenterLayout->setContentsMargins(0,10,0,0);
 
   pLeftCenterLayout->addLayout(pTimeShowLayout);
-  pLeftCenterLayout->addWidget(m_pMusicPB);
+  m_pMusicPB->setParent(this);
+  m_pMusicPB->setGeometry(10, 110, 510, 14);
+  //pLeftCenterLayout->addWidget(m_pMusicPB);
+  pLeftCenterLayout->addLayout(pStringsLayout);
+  pStringsLayout->setContentsMargins(0, 32, 0, 10);
   for (int i = 0; i != 5; ++i) {
-    pLeftCenterLayout->addWidget(m_aShowLine + i);
+    pStringsLayout->addWidget(m_aShowLine + i);
     m_aShowLine[i].setStyleSheet("border:0px;font: 24px \"Liberation Serif\";color:rgb(0,0,0)");
   }
-  pLeftCenterLayout->addStretch(1);
+  //pLeftCenterLayout->addStretch(1);
   pLeftCenterLayout->setContentsMargins(0, 10, 65, 0);
 
   pTimeShowLayout->addWidget(m_pTimeElapseLab);
@@ -96,7 +101,7 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
     }
   }
 
-  m_pSourceBtn->Init(250, iTopLayoutHeight, "Sources", ":images/MediaShow/source_normal.png");
+  m_pSourceBtn->Init(250, iTopLayoutHeight, "来源", ":images/MediaShow/source_normal.png");
   m_pSourceBtn->SetTextStyle("font: 28px \"Liberation Serif\";color:rgb(0,0,0)");
   m_pSourceBtn->SetPadding(0, 0, 0, 5);
 
@@ -109,8 +114,8 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
   m_pTimeElapseLab->setStyleSheet("border:0px;font: 20px \"Liberation Serif\";color:rgb(0,0,0)");
   m_pTimeRemainLab->setStyleSheet("border:0px;font: 20px \"Liberation Serif\";color:rgb(0,0,0)");
 
-  m_pMusicPB->setStyleSheet("QProgressBar{height:8px;border-color:rgb(240,240,240)}\
-                              QProgressBar::chunk{background-color:rgb(8,79,130)}");
+  m_pMusicPB->setStyleSheet("QProgressBar{height:14px;border-color:rgb(240,240,240)}\
+                              QProgressBar::chunk{width:0.5px;background-color:rgb(8,79,130)}");
   m_pMusicPB->setTextVisible(false);
   m_pMusicPB->hide();
 
@@ -175,8 +180,8 @@ void CMediaShow::showEvent(QShowEvent *e) {
   for (int i = 0; i != 9; ++i) {
     m_aSoftBtn[i].setText("");
   }
-  m_pTimeElapseLab->setText("");
-  m_pTimeRemainLab->setText("");
+  m_pTimeElapseLab->setText(" ");
+  m_pTimeRemainLab->setText(" ");
 
   if (m_pList->getActiveApp()) {
     m_pSourceBtn->SetLeftIcon(m_pList->getActiveApp()->getAppIconFile());
@@ -227,10 +232,12 @@ void CMediaShow::showEvent(QShowEvent *e) {
 #endif
         m_pMusicPicLab->setStyleSheet(strStyle);
       }
+    } else {
+      m_pMusicPicLab->setStyleSheet("background:transparent");
     }
 
+    m_vSoftButtons.clear();
     if (jsonParams.isMember("softButtons")) {
-      m_vSoftButtons.clear();
       for (int i = 0; i < jsonParams["softButtons"].size(); ++i) {
         SSoftButton tmpSoftButton;
         tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
@@ -296,6 +303,8 @@ void CMediaShow::UpdateMediaColckTimer() {
     m_pMusicPB->show();
   } else {
     m_i_endH = m_i_endM = m_i_endS = -1;
+
+    m_pMusicPB->hide();
   }
 
   m_MediaClockEndTime.setHMS(m_i_endH, m_i_endM, m_i_endS);
@@ -326,7 +335,7 @@ void CMediaShow::UpdateMediaColckTimer() {
     AppControl->OnSetMediaClockTimerResponse(RESULT_SUCCESS);
   } else if (jsonObj["params"]["updateMode"].asString() == "CLEAR") {
     emit startMediaClock(false);
-    setMediaClock("", "");
+    setMediaClock(" ", " ");
     m_pMusicPB->hide();
     AppControl->OnSetMediaClockTimerResponse(RESULT_SUCCESS);
   }
@@ -361,6 +370,11 @@ void CMediaShow::timerEvent(QTimerEvent *e) {
     setMediaClock(nowMeidaClockTime.toString("HH:mm:ss"), "");
     return;
   }
+
+  m_pMusicPB->setValue(nowMeidaClockTime.hour() * 3600 +
+                       nowMeidaClockTime.minute() * 60 +
+                       nowMeidaClockTime.second());
+  m_pMusicPB->update();
 
   if (nowMeidaClockTime.hour() == m_i_endH
       && nowMeidaClockTime.minute() == m_i_endM

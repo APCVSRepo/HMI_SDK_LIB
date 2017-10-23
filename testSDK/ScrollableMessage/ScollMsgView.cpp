@@ -131,8 +131,12 @@ void CScollMsgView::OnReturnBtnClicked()
 
 void CScollMsgView::OnSoftBtnClicked(int iBtnId)
 {
-    //m_pTimer->stop();
-    if (iBtnId != 0) {
+    if (1 == iBtnId) {
+        // 特殊处理关闭按钮
+        m_pTimer->stop();
+        AppControl->OnScrollMessageResponse(RESULT_ABORTED);
+    }
+    else if (iBtnId != 0) {
         AppControl->OnSoftButtonClick(iBtnId,BUTTON_SHORT);
     }
 }

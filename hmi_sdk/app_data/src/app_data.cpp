@@ -8,6 +8,9 @@
 */
 
 #include "app_data.h"
+#include "app_list.h"
+
+extern AppList *g_appList;
 
 std::string string_To_UTF8(const std::string &str) {
 #ifdef WIN32
@@ -115,6 +118,9 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
 
       if (preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))
         m_JsonShow["params"]["softButtons"] = preShow["params"]["softButtons"];
+
+      if (preShow["params"].isMember("graphic") && !m_JsonShow["params"].isMember("graphic"))
+        m_JsonShow["params"]["graphic"] = preShow["params"]["graphic"];
 
       showUI(ID_SHOW);
     } else if (str_method == "UI.SubscribeButton") {
@@ -238,6 +244,8 @@ int AppData::getCurUI() {
   int iSize = m_vecUIStack.size();
   if (iSize > 0)
     return m_vecUIStack[iSize - 1];
+
+  LOGD("####AppData::getCurUI use default scene\n");
   return ID_APPLINK;
 }
 
@@ -421,7 +429,10 @@ void AppData::showUI(int iUIType) {
     m_vecTplStack.push_back(m_sLastTpl);
   }
 
-  m_pUIManager->onAppShow(iUIType);
+  // 过滤掉非当前活动App的画面显示
+  AppData *pCur = (AppData *)g_appList->getActiveApp();
+  if (pCur && pCur->m_iAppID == m_iAppID)
+    m_pUIManager->onAppShow(iUIType);
 }
 
 bool AppData::ShowPreviousUI(bool bInApp) {
@@ -560,7 +571,7 @@ void AppData::addExitAppCommand() {
   SMenuCommand tmpCommand;
   tmpCommand.i_appID = m_iAppID;
   tmpCommand.i_cmdID = 101;
-  std::string strMenuName = "Exit " + m_szAppName;
+  std::string strMenuName = "退出 " + m_szAppName;
   tmpCommand.str_menuName = strMenuName;
   tmpCommand.i_parentID = 0;
   tmpCommand.i_position = 0;
@@ -1223,6 +1234,7 @@ std::string AppData::GetActiveTemplate() {
   if (iSize > 0)
     return m_vecTplStack[iSize - 1];
 
+  LOGD("####AppData::GetActiveTemplate use default template\n");
   return DEFAULT_TEMPLATE;
 }
 

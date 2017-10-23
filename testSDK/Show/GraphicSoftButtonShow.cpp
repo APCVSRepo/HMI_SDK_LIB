@@ -42,7 +42,7 @@ CGraphicSoftButtonShow::CGraphicSoftButtonShow(AppListInterface *pList, QWidget 
   pTopLayout->setSpacing(5);
 
   pCenterLayout->addWidget(m_pMusicPicLab);
-  pCenterLayout->setContentsMargins(10, 20, 10, 20);
+  pCenterLayout->setContentsMargins(5, 20, 5, 20);
 
   //pBottomLayout->addStretch(1);
   pBottomLayout->addLayout(pBottomCenterLayout);

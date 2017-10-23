@@ -20,12 +20,12 @@ void CAppButton::setIcon(const QString on,const QString off,bool bPaint)
     if (bPaint) {
         //if (!img_on.load(on))
         {
-            QUrl qurl(on);
+            //QUrl qurl(on);
             img_on.load(":images/app_on.png");
             img_on = img_on.scaled(width(),height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             //QImage onImage(qurl.path());
             QImage onImage(on);
-            //onImage = onImage.scaled(height()*0.4,height()*0.4);
+            onImage = onImage.scaled(height() * 0.6, height() * 0.6, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             do{
                 QPainter painter(&img_on);
                 QRect irect=onImage.rect();
@@ -38,12 +38,12 @@ void CAppButton::setIcon(const QString on,const QString off,bool bPaint)
 
         //if (!img_off.load(off))
         {
-            QUrl qurl(off);
+            //QUrl qurl(off);
             img_off.load(":images/app_off.png");
             img_off = img_off.scaled(width(),height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             //QImage offImage(qurl.path());
             QImage offImage(off);
-            //offImage = offImage.scaled(width()*0.6,height()*0.6,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+            offImage = offImage.scaled(width() * 0.6, height() * 0.6, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             do{
                 QPainter painter(&img_off);
                 QRect irect = offImage.rect();

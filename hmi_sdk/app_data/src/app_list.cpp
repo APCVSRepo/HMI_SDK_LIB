@@ -251,16 +251,30 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       while (Iter != m_AppDatas.end()) {
         if (iAppId == (*Iter)->m_iAppID) {
           (*Iter)->SetActiveTemplate(name);
-          printf("change template to %s\n", name.c_str());
+          LOGD("change template to %s\n", name.c_str());
           break;
         }
         ++Iter;
       }
     } else {
-      if (m_pCurApp)
-        return m_pCurApp->recvFromServer(jsonObj);
-      else
-        return RESULT_APPLICATION_NOT_REGISTERED;
+      if (jsonObj["params"].isMember("appID")) {
+        int iAppId = jsonObj["params"]["appID"].asInt();
+        std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
+
+        while (Iter != m_AppDatas.end()) {
+          if (iAppId == (*Iter)->m_iAppID) {
+            return (*Iter)->recvFromServer(jsonObj);
+          }
+          ++Iter;
+        }
+      } else {
+        if (m_pCurApp) {
+          LOGD("rpc request no appid\n");
+          return m_pCurApp->recvFromServer(jsonObj);
+        } else {
+          return RESULT_APPLICATION_NOT_REGISTERED;
+        }
+      }
     }
     return  RESULT_SUCCESS;
   }
@@ -335,11 +349,14 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
   for (i = m_AppDatas.begin(); i != m_AppDatas.end(); ++i) {
     AppData *pOne = *i;
     if (pOne->m_iAppID == pData->m_iAppID) {
-      m_AppDatas.erase(i);
-      if (m_pCurApp == pOne)
-        m_pCurApp = pData;
-      delete pOne;
-      break;
+      delete pData;
+      return;
+      /*
+            m_AppDatas.erase(i);
+            if (m_pCurApp == pOne)
+              m_pCurApp = pData;
+            delete pOne;
+            break;*/
     }
   }
 
@@ -405,9 +422,9 @@ void AppList::OnAppActivated(int iAppID) {
     ToSDL->OnAppOut(m_pCurApp->m_iAppID);
   m_pCurApp = pData;
   ToSDL->OnAppActivated(iAppID);
-  int preScene = m_pCurApp->getCurUI();
-  if (ID_APPLINK != preScene)
-    m_pUIManager->onAppShow(preScene);
+//   int preScene = m_pCurApp->getCurUI();
+//   if (ID_APPLINK != preScene)
+//     m_pUIManager->onAppShow(preScene);
   m_pUIManager->onAppActive();
 }
 
