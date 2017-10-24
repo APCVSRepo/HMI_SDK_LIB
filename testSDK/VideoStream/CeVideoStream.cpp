@@ -37,17 +37,17 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     int iBtnHeight = 40;
     int iBtnWidth = 60;
 
-    m_pZoomInBtn->setGeometry(QRect(20,height()*0.3-10,iBtnWidth,iBtnHeight));
+    m_pZoomInBtn->setGeometry(QRect(10,height()*0.3-10,iBtnWidth,iBtnHeight));
     m_pZoomInBtn->initParameter(iBtnWidth,iBtnHeight,
                                 ":/images/ZoomInBtnNormal.png",
                                 ":/images/ZoomInBtnPress.png","","");
 
-    m_pZoomOutBtn->setGeometry(QRect(20,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
+    m_pZoomOutBtn->setGeometry(QRect(10,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
     m_pZoomOutBtn->initParameter(iBtnWidth,iBtnHeight,
                                  ":/images/ZoomOutBtnNormal.png",
                                  ":/images/ZoomOutBtnPress.png","","");
 
-    m_pMenuBtn->setGeometry(QRect(20,height()*0.8,iBtnWidth,iBtnHeight));
+    m_pMenuBtn->setGeometry(QRect(10,height()*0.8,iBtnWidth,iBtnHeight));
     m_pMenuBtn->initParameter(iBtnWidth,iBtnHeight,
                               ":/images/BtnNormal.png",
                               ":/images/BtnPress.png","","Menu");
