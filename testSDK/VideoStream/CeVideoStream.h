@@ -63,7 +63,7 @@ private:
 
 #ifdef OS_LINUX
     GstPlayer m_player;
-//    QTimer  m_MenuTimer;
+    QTimer  m_MenuTimer;
 #endif
     CButton *m_pMenuBtn;
     CButton *m_pZoomInBtn;

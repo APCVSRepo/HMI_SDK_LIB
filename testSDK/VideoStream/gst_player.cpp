@@ -128,12 +128,6 @@ bool GstPlayer::Init() {
   if (sink && xwinid_) {
     printf("-- GST: Set overlay, wID = %lu\n", xwinid_);
     gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(sink), xwinid_);
-    if (m_width_ && m_height_) {
-      printf("!!! set rectangle: x = %d, y = %d, width = %d, height = %d\n", m_x_, m_y_, m_width_, m_height_);
-      gboolean bRet = gst_video_overlay_set_render_rectangle(GST_VIDEO_OVERLAY(sink), m_x_, m_y_, m_width_, m_height_);
-      gst_video_overlay_expose(GST_VIDEO_OVERLAY(sink));
-      printf("!!! set rectangle: %s\n", bRet ? "true" : "false");
-    }
   }
 
   // Add watch
