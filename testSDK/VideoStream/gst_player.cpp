@@ -11,7 +11,7 @@ GstPlayer::GstPlayer()
 
 GstPlayer::GstPlayer(const std::string& file_path, const std::string& sink, bool sync, guintptr xwinid)
   : file_path_(file_path)
-  , sink_(sink)
+  , sink_name_(sink)
   , sync_(sync)
   , xwinid_(xwinid)
   , state_(STATE_NULL)
@@ -35,7 +35,7 @@ bool GstPlayer::open(const std::string& file_path, const std::string& sink, bool
   if (state_ != STATE_NULL) return false;
 
   file_path_ = file_path;
-  sink_ = sink;
+  sink_name_ = sink;
   sync_ = sync;
   xwinid_ = xwinid;
 
@@ -111,7 +111,7 @@ bool GstPlayer::Init() {
   gst_init(NULL, NULL);
 
   // Create pipeline
-  description = std::string("filesrc location=") + file_path_ + std::string(" ! decodebin ! videoconvert ! ") + sink_ + std::string(" name=videosink");
+  description = std::string("filesrc location=") + file_path_ + std::string(" ! decodebin ! videoconvert ! ") + sink_name_ + std::string(" name=videosink");
   if (!sync_) {
     description += std::string(" sync=false");
   }
@@ -120,13 +120,14 @@ bool GstPlayer::Init() {
   // Get bus
   bus_ = gst_element_get_bus(pipeline_);
 
-  // Create main loop
-  main_loop_ = g_main_loop_new(NULL, FALSE);
-
   // Get sink to set display window
   GstElement *sink = gst_bin_get_by_name(GST_BIN (pipeline_), "videosink");
   if (sink && xwinid_) {
+#ifdef ARCH_X86
     printf("-- GST: Set overlay, wID = %lu\n", xwinid_);
+#elif ARCH_ARMHF
+    printf("-- GST: Set overlay, wID = %u\n", xwinid_);
+#endif
     gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(sink), xwinid_);
   }
 
@@ -148,10 +149,9 @@ bool GstPlayer::Release() {
   if (state_ == STATE_NULL) {
     return true;
   }
-  g_main_loop_unref (main_loop_);
-  gst_object_unref (bus_);
+  gst_object_unref(bus_);
   gst_element_set_state (pipeline_, GST_STATE_NULL);
-  gst_object_unref (pipeline_);
+  gst_object_unref(pipeline_);
 
   state_ = STATE_NULL;
 
@@ -161,6 +161,7 @@ bool GstPlayer::Release() {
 gboolean GstPlayer::bus_callback(GstBus* bus, GstMessage* msg, gpointer data) {
   GstPlayer* media = (GstPlayer*)data;
 
+  bus = bus; // Avoid warning: -Wunused-parameter
   switch (GST_MESSAGE_TYPE (msg)) {
   case GST_MESSAGE_ERROR: {
     printf("-- MSG: ERROR\n");

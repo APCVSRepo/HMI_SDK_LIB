@@ -8,7 +8,11 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
 {
     setWindowFlags(Qt::FramelessWindowHint);
     if (parent) {
-        setGeometry(80,0,parent->width() - 90,parent->height() - 80);
+#ifdef ARCH_X86
+        setGeometry(80, 0, parent->width() - 90, parent->height() - 80);
+#elif ARCH_ARMHF
+        setGeometry(80, 0, parent->width() - 90, parent->height() - 90);
+#endif
     }
 
 #ifdef SDL_CALL_BACK
@@ -33,17 +37,17 @@ CeVideoStream::CeVideoStream(AppListInterface * pList, QWidget *parent) : QWidge
     int iBtnHeight = 40;
     int iBtnWidth = 60;
 
-    m_pZoomInBtn->setGeometry(QRect(10,height()*0.3-10,iBtnWidth,iBtnHeight));
+    m_pZoomInBtn->setGeometry(QRect(20,height()*0.3-10,iBtnWidth,iBtnHeight));
     m_pZoomInBtn->initParameter(iBtnWidth,iBtnHeight,
                                 ":/images/ZoomInBtnNormal.png",
                                 ":/images/ZoomInBtnPress.png","","");
 
-    m_pZoomOutBtn->setGeometry(QRect(10,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
+    m_pZoomOutBtn->setGeometry(QRect(20,height()*0.3+iBtnHeight+10,iBtnWidth,iBtnHeight));
     m_pZoomOutBtn->initParameter(iBtnWidth,iBtnHeight,
                                  ":/images/ZoomOutBtnNormal.png",
                                  ":/images/ZoomOutBtnPress.png","","");
 
-    m_pMenuBtn->setGeometry(QRect(10,height()*0.8,iBtnWidth,iBtnHeight));
+    m_pMenuBtn->setGeometry(QRect(20,height()*0.8,iBtnWidth,iBtnHeight));
     m_pMenuBtn->initParameter(iBtnWidth,iBtnHeight,
                               ":/images/BtnNormal.png",
                               ":/images/BtnPress.png","","Menu");
@@ -88,7 +92,6 @@ void CeVideoStream::startStream()
     if (pMain) {
         pMain->HideAllComponent();
     }
-    m_player.setRectangle(40, 0, this->width(), this->height());
 #ifdef ARCH_X86
     m_player.open("./storage/video_stream_pipe", "ximagesink", false, this->winId());
 #elif ARCH_ARMHF
@@ -178,7 +181,11 @@ void CeVideoStream::mousePressEvent(QMouseEvent *e)
     m_pZoomOutBtn->show();
     m_pMenuBtn->show();
     pMain->ShowMenuBar();
+#ifdef ARCH_X86
     setGeometry(80, 0, parentWidget()->width() - 90, parentWidget()->height() - 80);
+#elif ARCH_ARMHF
+    setGeometry(80, 0, parentWidget()->width() - 90, parentWidget()->height() - 90);
+#endif
 #endif
 }
 

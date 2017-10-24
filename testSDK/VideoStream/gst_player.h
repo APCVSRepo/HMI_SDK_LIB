@@ -26,14 +26,13 @@ public:
   bool setRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
   MediaState get_state();
 private:
-  GMainLoop*  main_loop_;
   GstElement* pipeline_;
   GstBus* bus_;
   
   double volume_;
 
   std::string file_path_;
-  std::string sink_;
+  std::string sink_name_;
   bool sync_;
   guintptr xwinid_;
   MediaState state_;
