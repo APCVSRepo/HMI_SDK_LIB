@@ -84,6 +84,7 @@ void AlertView::OnTimeOut()
 
 void AlertView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     int iCount = 0;
     if (AppControl) {
         AppBase::SetEdlidedText(m_pAppNameLab,AppControl->getAppName().c_str(),

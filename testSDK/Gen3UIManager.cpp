@@ -20,6 +20,7 @@
 #include "Show/MediaShow.h"
 #include "MainWindow/MainWindow.h"
 #include "Show/GraphicSoftButtonShow.h"
+#include "VideoStream/CeVideoStream.h"
 
 #ifdef WIN32
 #include <Windows.h>
@@ -110,6 +111,8 @@ void CGen3UIManager::initAppHMI() {
 
   connect(this, SIGNAL(onAppShowSignal(int)), this, SLOT(AppShowSlot(int)));
   connect(this, SIGNAL(OnAppUnregisterSignal(int)), this, SLOT(OnAppUnregisterSlot(int)));
+  connect(this, SIGNAL(onVideoStartSignal()), this,SLOT(onVideoStartSlots()));
+  connect(this, SIGNAL(onVideoStopSignal()), this,SLOT(onVideoStopSlots()));
 }
 
 void CGen3UIManager::onAppActive() {
@@ -127,6 +130,7 @@ void CGen3UIManager::onAppShow(int type) {
 }
 
 void CGen3UIManager::onAppUnregister(int appId) {
+  emit onVideoStopSignal();
   emit OnAppUnregisterSignal(appId);
 }
 
@@ -135,16 +139,47 @@ void CGen3UIManager::OnAppUnregisterSlot(int appId) {
 }
 
 void CGen3UIManager::onVideoStreamStart() {
-
+  emit onVideoStartSignal();
 }
 
 void CGen3UIManager::onVideoStreamStop() {
+  emit onVideoStopSignal();
+}
 
+void CGen3UIManager::onVideoStartSlots() {
+#ifdef OS_LINUX
+    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+    AppDataInterface *pData = m_pList->getActiveApp();
+    if (!pData) return;
+    std::string tplname = pData->GetActiveTemplate();
+    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+    if (pMain) {
+        pMain->HideAllComponent();
+    }
+    if (pVideoStream) {
+        pVideoStream->startStream();
+    }
+#endif
+}
+
+void CGen3UIManager::onVideoStopSlots() {
+#ifdef OS_LINUX
+    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+    AppDataInterface *pData = m_pList->getActiveApp();
+    if (!pData) return;
+    std::string tplname = pData->GetActiveTemplate();
+    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+    if (pMain) {
+        pMain->ShowAllComponent();
+    }
+    if (pVideoStream) {
+        pVideoStream->stopStream();
+    }
+#endif
 }
 
 void CGen3UIManager::AppShowSlot(int type) {
-
-  TemplateImp &curTpl = m_TplManager.Get(m_sCurTpln);
+  TemplateImp& curTpl = m_TplManager.Get(m_sCurTpln);
 
   // 画面是MAIN或APPLINK时，使用全局的默认模板画面
   if (ID_MAIN == type || ID_APPLINK == type || ID_DEVICEVIEW == type) {
@@ -169,6 +204,10 @@ void CGen3UIManager::AppShowSlot(int type) {
   if (tpl.GetScene(m_iCurUI) == NULL)
     return;
 
+  if (type == ID_VIDEOSTREAM) {
+      emit onVideoStartSignal();
+  }
+
   // 特殊处理MEDIA模板Show画面的mediaclock请求
   if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
     if (ID_SHOW == m_iCurUI) {
@@ -186,11 +225,12 @@ void CGen3UIManager::AppShowSlot(int type) {
 }
 
 void CGen3UIManager::waitMSec(int ms) {
-
+  Q_UNUSED(ms);
 }
 
 void CGen3UIManager::tsSpeak(int VRID, std::string strText) {
-
+  Q_UNUSED(VRID);
+  Q_UNUSED(strText);
 }
 
 void CGen3UIManager::OnEndAudioPassThru() {
@@ -224,7 +264,7 @@ void CGen3UIManager::loadsdk() {
   // 初始化HMISDK，动态调用InitHmiSdk函数
   InitFunc Init = (InitFunc)m_sdk.resolve("InitHmiSdk");
   if (Init) {
-    AppListInterface *pApp = Init(this);
+    /*AppListInterface *pApp = */Init(this);
   } else {
     LOGE("can't load hmi sdk lib, %s", strFilePath.data());
   }

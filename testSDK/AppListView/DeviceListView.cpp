@@ -106,6 +106,7 @@ void CDeviceListView::ClearDeviceList()
 
 void CDeviceListView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     ClearDeviceList();
 
     QString appsheet_on[2] = {":/images/phonechild_on.png",
@@ -121,7 +122,7 @@ void CDeviceListView::showEvent(QShowEvent * e)
     m_pList->getDeviceList(DeviceList);
 
     if (DeviceList.size() > 0) {
-        for (int i = 0; i < DeviceList.size(); ++i) {
+        for (unsigned int i = 0; i < DeviceList.size(); ++i) {
             InsertDevice(1+i,DeviceList[i].id,
                            DeviceList[i].name.c_str(),
                            appsheet_on[0],

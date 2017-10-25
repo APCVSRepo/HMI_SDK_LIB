@@ -1,6 +1,6 @@
 /**
 * @file			message_interface
-* @brief		¶¨ÒåÍøÂç×´Ì¬¼°rpc½»»¥Í¨Öª»Øµ÷µÄ»ù±¾½Ó¿Úº¯Êı
+* @brief		å®šä¹‰ç½‘ç»œçŠ¶æ€åŠrpcäº¤äº’é€šçŸ¥å›è°ƒçš„åŸºæœ¬æ¥å£å‡½æ•°
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001

@@ -19,7 +19,7 @@ std::string ChangeSlash(std::string strSrc)
 
 
 CCustomButton::CCustomButton(QWidget *parent) : QWidget(parent),
-    m_point(0,0),m_iOldState(-1),m_iId(0)
+    m_iOldState(-1),m_point(0,0),m_iId(0)
 {
     m_pMainLayout = new QHBoxLayout(this);
     m_pLeftIconLab = new QLabel;

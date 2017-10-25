@@ -1,6 +1,6 @@
 /**
 * @file			sdk_export.h
-* @brief		HMI SDK¶¯Ì¬¿âµ¼³öº¯Êı
+* @brief		HMI SDKåŠ¨æ€åº“å¯¼å‡ºå‡½æ•°
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001
@@ -26,21 +26,21 @@
 #include "ui_interface.h"
 
 /**
- * HMI SDK³õÊ¼»¯
- * @param[in]	pUI		UIInterface½Ó¿Ú
- * @return		·µ»ØÖµAppListInterface¿ÉÓÃÓÚÅĞ¶ÏSDK³õÊ¼»¯ÊÇ·ñ³É¹¦£¬Ê§°Ü·µ»ØNULL
+ * HMI SDKåˆå§‹åŒ–
+ * @param[in]	pUI		UIInterfaceæ¥å£
+ * @return		è¿”å›å€¼AppListInterfaceå¯ç”¨äºåˆ¤æ–­SDKåˆå§‹åŒ–æ˜¯å¦æˆåŠŸï¼Œå¤±è´¥è¿”å›NULL
  * @ref
  * @see			ui_interface.h app_list_interface.h
- * @note		³õÊ¼»¯SDK¼°HMI×ÊÔ´£¬²¢Á¬½ÓSDL
+ * @note		åˆå§‹åŒ–SDKåŠHMIèµ„æºï¼Œå¹¶è¿æ¥SDL
  */
 extern "C" HMISDK_EXPORT AppListInterface *InitHmiSdk(UIInterface *pUI);
 
 /**
- * HMI SDKÊÍ·Å
- * @return		ÎŞ
+ * HMI SDKé‡Šæ”¾
+ * @return		æ— 
  * @ref
  * @see
- * @note		ÊÍ·ÅAppÊı¾İ¹ÜÀíµÈ×ÊÔ´
+ * @note		é‡Šæ”¾Appæ•°æ®ç®¡ç†ç­‰èµ„æº
  */
 extern "C" HMISDK_EXPORT void UnInitHmiSdk();
 

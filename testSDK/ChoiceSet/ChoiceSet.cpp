@@ -7,7 +7,7 @@
 #define LISTH 280
 
 CChoiceSet::CChoiceSet(AppListInterface *pList,QWidget *parent) :
-    QWidget(parent),m_pListView(NULL),m_iInteractionMode(BOTH)
+    QWidget(parent),m_iInteractionMode(BOTH),m_pListView(NULL)
 {    
     if (parent) {
         setGeometry(0,0,parent->width(),parent->height());
@@ -68,6 +68,7 @@ CChoiceSet::~CChoiceSet()
 
 void CChoiceSet::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     if (AppControl) {
         rpcValueInterface& jsonData = AppControl->getInteractionJson();
         rpcValueInterface& jsonChoice= jsonData["Choiceset"]["params"];

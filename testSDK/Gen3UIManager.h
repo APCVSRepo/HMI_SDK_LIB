@@ -47,6 +47,8 @@ class CGen3UIManager : public QWidget, public UIInterface {
   void AppShowSlot(int type);
   void OnAppUnregisterSlot(int appId);
 
+    void onVideoStartSlots();
+    void onVideoStopSlots();
   void loadsdk();
  private:
   int m_iCurUI;

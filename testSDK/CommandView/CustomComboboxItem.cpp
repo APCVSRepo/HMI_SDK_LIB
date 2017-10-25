@@ -96,11 +96,13 @@ QString CustomComboboxItem::GetItemText()
 
 void CustomComboboxItem::mousePressEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     ChangeBkPic(PRESS_STATE);
 }
 
 void CustomComboboxItem::mouseReleaseEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event);
     ChangeBkPic(NORMAL_STATE);
     emit ItemClicked(this);
     // Bug #9677

@@ -1,6 +1,6 @@
 /**
 * @file			app_common
-* @brief		¹«¹²µÄÃ¶¾Ù¼°ºê¶¨Òå
+* @brief		å…¬å…±çš„æšä¸¾åŠå®å®šä¹‰
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001
@@ -23,22 +23,22 @@ enum MenuCmdId {
 };
 
 
-/**  »­ÃæIDÃ¶¾ÙÀàĞÍ*/
+/**  ç”»é¢IDæšä¸¾ç±»å‹*/
 enum ShowType {
-  ID_APPLINK = 0,	///<  AppÁĞ±í
-  ID_DEVICEVIEW,	///<  Éè±¸ÁĞ±í
-  ID_CHOICESET,	///<  ChoiceSet»­Ãæ
-  ID_COMMAND,	///<  ²Ëµ¥»­Ãæ
-  ID_SHOW,	///<  Show»­Ãæ
-  ID_ALERT,	///<  Alert»­Ãæ
-  ID_AUDIOPASSTHRU,	///<  Â¼Òô»­Ãæ
-  ID_CHOICESETVR,	///<  ±£Áô
-  ID_SCROLLMSG,	///<  ScrollMessage»­Ãæ
-  ID_SLIDER,	///<  Slider»­Ãæ
-  ID_NOTIFY,	///<  ±£Áô
-  ID_MEDIACLOCK,	///<  MediaClockTimer»­Ãæ
-  ID_VIDEOSTREAM,	///<  VideoStream»­Ãæ
-  ID_MAIN,	///<  Main»­Ãæ
+  ID_APPLINK = 0,	///<  Appåˆ—è¡¨
+  ID_DEVICEVIEW,	///<  è®¾å¤‡åˆ—è¡¨
+  ID_CHOICESET,	///<  ChoiceSetç”»é¢
+  ID_COMMAND,	///<  èœå•ç”»é¢
+  ID_SHOW,	///<  Showç”»é¢
+  ID_ALERT,	///<  Alertç”»é¢
+  ID_AUDIOPASSTHRU,	///<  å½•éŸ³ç”»é¢
+  ID_CHOICESETVR,	///<  ä¿ç•™
+  ID_SCROLLMSG,	///<  ScrollMessageç”»é¢
+  ID_SLIDER,	///<  Sliderç”»é¢
+  ID_NOTIFY,	///<  ä¿ç•™
+  ID_MEDIACLOCK,	///<  MediaClockTimerç”»é¢
+  ID_VIDEOSTREAM,	///<  VideoStreamç”»é¢
+  ID_MAIN,	///<  Mainç”»é¢
   ID_UI_MAX
 };
 
@@ -66,7 +66,7 @@ typedef enum {
   ID_CHN_MAX
 } ID_CHN_TYPE;
 
-/**  Ö´ĞĞ½á¹ûÃ¶¾ÙÀàĞÍ*/
+/**  æ‰§è¡Œç»“æœæšä¸¾ç±»å‹*/
 enum RESULT_CODE {
   RESULT_SUCCESS = 0,
   RESULT_UNSUPPORTED_REQUEST = 1,
