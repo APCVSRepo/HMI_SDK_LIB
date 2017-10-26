@@ -424,6 +424,10 @@ Json::Value &AppData::getMediaClockJson() {
 }
 
 void AppData::showUI(int iUIType) {
+  //特殊处理alert画面，显示在前端操作前不让覆盖
+  if (ID_ALERT == getCurUI())
+    return;
+
   // 特殊处理mediaclock画面以及重复画面
   if (iUIType != ID_MEDIACLOCK && iUIType != getCurUI()) {
     m_vecUIStack.push_back(iUIType);
