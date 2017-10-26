@@ -61,7 +61,9 @@ void BasicCommunication::onRequest(Json::Value &request) {
     Result result = m_pCallback->onRequest(request);
     sendResult(id, "UpdateDeviceList", result);
   } else if (method == "BasicCommunication.ActivateApp") {
-    sendResult(id, "ActivateApp");
+    Result result = m_pCallback->onRequest(request);
+    // 不需要回复
+    //sendResult(id, "ActivateApp");
   } else if (method == "BasicCommunication.IsReady") {
     sendResult(id, "IsReady");
   } else if (method == "BasicCommunication.GetSystemInfo") {

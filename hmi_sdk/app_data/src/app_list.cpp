@@ -240,7 +240,25 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       // add by fanqiang
       updateDeiveList(jsonObj);
       m_pUIManager->ShowDeviceList();
-    } else if (str_method == "UI.SetDisplayLayout") {
+    } else if (str_method == "BasicCommunication.ActivateApp") {
+      int iAppID = jsonObj["params"]["appID"].asInt();
+      AppData *pData;
+      int i;
+      for (i = 0; i < m_AppDatas.size(); ++i) {
+        pData = m_AppDatas[i];
+        if (pData->m_iAppID == iAppID)
+          break;
+      }
+
+      if (i >= m_AppDatas.size()) {
+        return RESULT_SUCCESS;
+      }
+
+      // 设置当前活动App
+      if (m_pCurApp != NULL && m_pCurApp->m_iAppID != iAppID)
+        ToSDL->OnAppOut(m_pCurApp->m_iAppID);
+      m_pCurApp = pData;
+    }  else if (str_method == "UI.SetDisplayLayout") {
       int iAppId = jsonObj["params"]["appID"].asInt();
       std::string name = jsonObj["params"]["displayLayout"].asString();
       bool bFind = m_pUIManager->FindTemplate(name);
@@ -248,14 +266,20 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
         return RESULT_UNSUPPORTED_RESOURCE;
 
       std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
+      AppData* pData = NULL;
       while (Iter != m_AppDatas.end()) {
         if (iAppId == (*Iter)->m_iAppID) {
-          (*Iter)->SetActiveTemplate(name);
+          pData = (*Iter);
+          pData->SetActiveTemplate(name);
           LOGD("change template to %s\n", name.c_str());
           break;
         }
         ++Iter;
       }
+
+      // 强制刷新当前画面
+      if (pData && pData == m_pCurApp && ID_APPLINK != pData->getCurUI())
+        m_pUIManager->onAppShow(pData->getCurUI());
     } else {
       if (jsonObj["params"].isMember("appID")) {
         int iAppId = jsonObj["params"]["appID"].asInt();
@@ -418,13 +442,24 @@ void AppList::OnAppActivated(int iAppID) {
     return;
   }
 
-  if (m_pCurApp != NULL)
+  if (m_pCurApp != NULL && m_pCurApp->m_iAppID != iAppID)
     ToSDL->OnAppOut(m_pCurApp->m_iAppID);
   m_pCurApp = pData;
   ToSDL->OnAppActivated(iAppID);
-//   int preScene = m_pCurApp->getCurUI();
-//   if (ID_APPLINK != preScene)
-//     m_pUIManager->onAppShow(preScene);
+  int curScene = m_pCurApp->getCurUI();
+  
+  if (ID_APPLINK != curScene) {
+    if (ID_COMMAND == curScene)
+      // 防止画面点不进去或者停留在菜单画面(测试发现从菜单退出应用后再次进入不应该停留在菜单画面，这样体验不好)
+      m_pCurApp->ShowPreviousUI();
+    else
+      // 强制刷新当前画面
+      m_pUIManager->onAppShow(curScene);
+  } else {
+    // 第一次启动App，此处逻辑根据需求来定，一般在收到UI.Show后才显示App画面，但有时App依赖网络但网络不好时，一直不发送Show请求，造成App点击进不去的假象
+    // m_pUIManager->onAppShow(ID_SHOW);
+  }
+
   m_pUIManager->onAppActive();
 }
 

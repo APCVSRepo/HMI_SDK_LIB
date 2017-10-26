@@ -424,9 +424,11 @@ Json::Value &AppData::getMediaClockJson() {
 }
 
 void AppData::showUI(int iUIType) {
-  if (iUIType != ID_MEDIACLOCK) {
+  // 特殊处理mediaclock画面以及重复画面
+  if (iUIType != ID_MEDIACLOCK && iUIType != getCurUI()) {
     m_vecUIStack.push_back(iUIType);
-    m_vecTplStack.push_back(m_sLastTpl);
+    LOGD("###app=%d,push scene %d\n", m_iAppID, iUIType);
+    //m_vecTplStack.push_back(m_sLastTpl);
   }
 
   // 过滤掉非当前活动App的画面显示
@@ -440,12 +442,13 @@ bool AppData::ShowPreviousUI(bool bInApp) {
   if (iSize > 0)
     m_vecUIStack.pop_back();
 
-  int i = m_vecTplStack.size();
-  if (i > 0)
-    m_vecTplStack.pop_back();
+//   int i = m_vecTplStack.size();
+//   if (i > 0)
+//     m_vecTplStack.pop_back();
 
   if (iSize > 1) {
     m_pUIManager->onAppShow(m_vecUIStack[iSize - 2]);
+    LOGD("###app=%d,show previous scene %d\n", m_iAppID, m_vecUIStack[iSize - 2]);
     return true;
   }
 
@@ -1229,13 +1232,14 @@ void AppData::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
 }
 
 std::string AppData::GetActiveTemplate() {
-  // 取模板栈中的最后一个
-  int iSize = m_vecTplStack.size();
-  if (iSize > 0)
-    return m_vecTplStack[iSize - 1];
-
-  LOGD("####AppData::GetActiveTemplate use default template\n");
-  return DEFAULT_TEMPLATE;
+//   // 取模板栈中的最后一个
+//   int iSize = m_vecTplStack.size();
+//   if (iSize > 0)
+//     return m_vecTplStack[iSize - 1];
+// 
+//   LOGD("####AppData::GetActiveTemplate use default template\n");
+//   return DEFAULT_TEMPLATE;
+  return m_sLastTpl;
 }
 
 void AppData::SetActiveTemplate(std::string tpl) {
