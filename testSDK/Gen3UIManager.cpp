@@ -171,9 +171,12 @@ void CGen3UIManager::AppShowSlot(int type) {
 
   // 特殊处理MEDIA模板Show画面的mediaclock请求
   if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
+    CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
     if (ID_SHOW == m_iCurUI) {
-      CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
       pShow->UpdateMediaColckTimer();
+    } else {
+      //先标记延后显示，待合适的show画面显示时生效
+      pShow->UpdateMediaColckTimer(true);
     }
   } else {
     if (m_iCurUI != ID_MAIN) {

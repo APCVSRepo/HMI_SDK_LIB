@@ -48,7 +48,7 @@ AlertView::AlertView(AppListInterface * pList, QWidget *parent)
     m_pAppNameLab->setAlignment(Qt::AlignCenter);
 
     for (int i = 0; i != 3; ++i) {
-        m_aAlertLab[i].setStyleSheet("font: 32px \"Liberation Serif\";color:rgb(0,0,0)");
+        m_aAlertLab[i].setStyleSheet("font: 28px \"Liberation Serif\";color:rgb(0,0,0)");
         m_aAlertLab[i].setAlignment(Qt::AlignCenter);
     }
 
@@ -109,9 +109,10 @@ void AlertView::showEvent(QShowEvent * e)
                 3 ? 3 : pObj["params"]["alertStrings"].size();
         for (int i = 0; i < iCount; ++i) {
             // 获取alertStrings每个元素中fieldText对应的数值
-            AppBase::SetEdlidedText(m_aAlertLab+i,
-                    pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str(),
-                    width()*0.9);
+            m_aAlertLab[i].setText(pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str());
+//            AppBase::SetEdlidedText(m_aAlertLab+i,
+//                    pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str(),
+//                    width()*0.9);
         }
     }
 

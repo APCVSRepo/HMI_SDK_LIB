@@ -15,6 +15,7 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
 
   m_timerId = 0;
   m_pList = pList;
+  m_bDelayShowMedia = false;
 
   setAutoFillBackground(true);
   QPixmap pixmap(":/images/MainWidget/Backgroud.png");
@@ -69,10 +70,11 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
   pStringsLayout->setContentsMargins(0, 32, 0, 10);
   for (int i = 0; i != 5; ++i) {
     pStringsLayout->addWidget(m_aShowLine + i);
-    m_aShowLine[i].setStyleSheet("border:0px;font: 24px \"Liberation Serif\";color:rgb(0,0,0)");
+    m_aShowLine[i].setStyleSheet("border:0px;font: 20px \"Liberation Serif\";color:rgb(0,0,0)");
+    m_aShowLine[i].setFixedHeight(27);
   }
   //pLeftCenterLayout->addStretch(1);
-  pLeftCenterLayout->setContentsMargins(0, 10, 65, 0);
+  pLeftCenterLayout->setContentsMargins(0, 10, 65, 10);
 
   pTimeShowLayout->addWidget(m_pTimeElapseLab);
   pTimeShowLayout->addStretch(1);
@@ -251,6 +253,9 @@ void CMediaShow::showEvent(QShowEvent *e) {
     }
     setSoftButtons(m_vSoftButtons);
   }
+
+  if (m_bDelayShowMedia)
+    UpdateMediaColckTimer();
 }
 
 void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
@@ -289,7 +294,14 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
   }
 }
 
-void CMediaShow::UpdateMediaColckTimer() {
+void CMediaShow::UpdateMediaColckTimer(bool bDelay) {
+  if (bDelay) {
+    m_bDelayShowMedia = true;
+    return;
+  }
+
+  m_bDelayShowMedia = false;
+
   rpcValueInterface &jsonObj = AppControl->getMediaClockJson();
 
   m_i_startH = jsonObj["params"]["startTime"]["hours"].asInt();
