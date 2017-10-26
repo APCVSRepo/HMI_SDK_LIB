@@ -83,12 +83,14 @@ int CAppButton::getFuncId()
 
 void CAppButton::mousePressEvent(QMouseEvent *e)
 {
+    Q_UNUSED(e);
     setActive(true);
     //MenuButton::mousePressEvent(e);
 }
 
 void CAppButton::mouseReleaseEvent(QMouseEvent *e)
 {
+    Q_UNUSED(e);
     //MenuButton::mouseReleaseEvent(e);
     setActive(false);
     emit OnClicked(m_strId);

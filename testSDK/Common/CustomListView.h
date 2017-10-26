@@ -35,7 +35,7 @@ public slots:
 private:
     enum SCROLLBARPOS {TOP = 0,MIDDLE,BOTTOM};
     void SetScrollBarStyle(int iMode);
-    void UpdateItemShow(int iStartItemIndex = 0);
+    void UpdateItemShow(unsigned int iStartItemIndex = 0);
     void InitScroll();
     void UpdateScrollParam(int iItemCount);
 

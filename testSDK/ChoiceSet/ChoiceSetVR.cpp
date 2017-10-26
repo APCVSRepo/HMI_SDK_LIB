@@ -53,6 +53,7 @@ CChoiceSetVR::~CChoiceSetVR()
 
 void CChoiceSetVR::mousePressEvent(QMouseEvent * event)
 {
+    Q_UNUSED(event);
     emit pressed();
 }
 
