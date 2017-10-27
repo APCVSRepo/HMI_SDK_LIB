@@ -81,7 +81,10 @@ void MenuButton::paintEvent(QPaintEvent *e)
     //font.setBold(true);
     painter.setFont(font);
     QRectF rect = QRectF(0,1.0*height()*15/24,width(),height()/3);
-    painter.drawText(rect,m_text,QTextOption(Qt::AlignCenter));
+    // 隐藏超范围的显示文本
+    QFontMetrics qfm(font);
+    QString strShow = qfm.elidedText(m_text,Qt::ElideRight,width());
+    painter.drawText(rect,strShow,QTextOption(Qt::AlignCenter));
 }
 
 std::string MenuButton::Text()

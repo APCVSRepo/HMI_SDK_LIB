@@ -183,6 +183,11 @@ void CMediaShow::showEvent(QShowEvent *e) {
   for (int i = 0; i != 9; ++i) {
     m_aSoftBtn[i].setText("");
   }
+
+//  for (int i = 0; i != 5; ++i) {
+//    m_aShowLine[i].setText(" ");
+//  }
+
   m_pTimeElapseLab->setText(" ");
   m_pTimeRemainLab->setText(" ");
 
