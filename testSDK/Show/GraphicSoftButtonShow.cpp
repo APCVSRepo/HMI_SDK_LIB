@@ -126,8 +126,8 @@ void CGraphicSoftButtonShow::showEvent(QShowEvent *e) {
       }
     }
 
+    m_vSoftButtons.clear();
     if (jsonParams.isMember("softButtons")) {
-      m_vSoftButtons.clear();
       for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
         SSoftButton tmpSoftButton;
         tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();

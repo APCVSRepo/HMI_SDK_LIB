@@ -15,7 +15,6 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
 
   m_timerId = 0;
   m_pList = pList;
-  m_bDelayShowMedia = false;
 
   setAutoFillBackground(true);
   QPixmap pixmap(":/images/MainWidget/Backgroud.png");
@@ -184,9 +183,9 @@ void CMediaShow::showEvent(QShowEvent *e) {
     m_aSoftBtn[i].setText("");
   }
 
-//  for (int i = 0; i != 5; ++i) {
-//    m_aShowLine[i].setText(" ");
-//  }
+  for (int i = 0; i != 5; ++i) {
+    m_aShowLine[i].setText(" ");
+  }
 
   m_pTimeElapseLab->setText(" ");
   m_pTimeRemainLab->setText(" ");
@@ -210,21 +209,25 @@ void CMediaShow::showEvent(QShowEvent *e) {
         alignMode = Qt::AlignHCenter;
       }
     }
-    for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
-      rpcValueInterface  &fieldName = jsonParams["showStrings"][i];
-      // Bug #9671
-      if ("mainField1" == fieldName["fieldName"].asString()) {
-        AppBase::SetEdlidedText(m_aShowLine, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
-      } else if ("mainField2" == fieldName["fieldName"].asString()) {
-        AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
-      } else if ("mainField3" == fieldName["fieldName"].asString()) {
-        AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
-      } else if ("mainField4" == fieldName["fieldName"].asString()) {
-        AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
-      } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-        AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
-      } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-        //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
+
+    if (jsonParams.isMember("showStrings")) {
+      for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
+        rpcValueInterface  &fieldName = jsonParams["showStrings"][i];
+        // Bug #9671
+        if ("mainField1" == fieldName["fieldName"].asString()) {
+          AppBase::SetEdlidedText(m_aShowLine, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
+        } else if ("mainField2" == fieldName["fieldName"].asString()) {
+          AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
+        } else if ("mainField3" == fieldName["fieldName"].asString()) {
+          AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
+        } else if ("mainField4" == fieldName["fieldName"].asString()) {
+          AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
+        } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
+          AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), width() * 0.3, alignMode);
+        } else if ("mediaClock" == fieldName["fieldName"].asString()) {
+          //该字段暂未使用
+          //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
+        }
       }
     }
 
@@ -259,9 +262,6 @@ void CMediaShow::showEvent(QShowEvent *e) {
     }
     setSoftButtons(m_vSoftButtons);
   }
-
-  if (m_bDelayShowMedia)
-    UpdateMediaColckTimer();
 }
 
 void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
@@ -300,13 +300,7 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
   }
 }
 
-void CMediaShow::UpdateMediaColckTimer(bool bDelay) {
-  if (bDelay) {
-    m_bDelayShowMedia = true;
-    return;
-  }
-
-  m_bDelayShowMedia = false;
+void CMediaShow::UpdateMediaColckTimer() {
 
   rpcValueInterface &jsonObj = AppControl->getMediaClockJson();
 

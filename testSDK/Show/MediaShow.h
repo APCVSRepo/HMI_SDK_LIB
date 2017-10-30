@@ -16,7 +16,7 @@ class CMediaShow : public QWidget {
 
   void SetAppName(QString strName);
 
-  void UpdateMediaColckTimer(bool bDelay = false);
+  void UpdateMediaColckTimer();
  protected:
   virtual void showEvent(QShowEvent *e);
 
@@ -60,7 +60,6 @@ class CMediaShow : public QWidget {
   int m_i_endM;
   int m_i_endS;
   bool m_b_countup;
-  bool m_bDelayShowMedia;
 
   // softbutton容器
   std::vector <SSoftButton> m_vSoftButtons;
