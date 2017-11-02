@@ -132,7 +132,12 @@ unix {
   LIBS += /usr/arm-linux-gnueabihf/lib/libgstreamer-1.0.so \
           /usr/arm-linux-gnueabihf/lib/libgobject-2.0.so   \
           /usr/arm-linux-gnueabihf/lib/libglib-2.0.so      \
-          /usr/arm-linux-gnueabihf/lib/libgstvideo-1.0.so
+          /usr/arm-linux-gnueabihf/lib/libgstvideo-1.0.so  \
+          /usr/arm-linux-gnueabihf/lib/libffi.so.6         \
+          /usr/arm-linux-gnueabihf/lib/libgmodule-2.0.so.0 \
+          /lib/arm-linux-gnueabihf/libpcre.so.3        \
+          /usr/arm-linux-gnueabihf/lib/libgstbase-1.0.so.0 \
+          /usr/arm-linux-gnueabihf/lib/liborc-0.4.so.0
   }
 }
 
