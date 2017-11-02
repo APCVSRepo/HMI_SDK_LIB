@@ -187,7 +187,7 @@ void SDLConnector::_onButtonClickAction(int appID, std::string name, std::string
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  if (0 != customButtonID) {
+  if (customButtonID >= 0 ) {
     params["customButtonID"] = customButtonID;
     params["appID"] = appID;
   }
@@ -199,7 +199,7 @@ void SDLConnector::_onButtonClickAction2(int appID, std::string name, std::strin
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  if (0 != customButtonID) {
+  if (customButtonID >= 0 ) {
     params["customButtonID"] = customButtonID;
     params["appID"] = appID;
   }

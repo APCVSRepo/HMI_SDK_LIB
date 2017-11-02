@@ -139,7 +139,7 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
 
   //set softBtnId
   for (int i = 0; i != 6; ++i) {
-    m_aSoftBtn[i].setId(0);
+    m_aSoftBtn[i].setId(-1);
   }
   m_aSoftBtn[6].setId(CMD_PREV);
   m_aSoftBtn[8].setId(CMD_NEXT);
@@ -164,7 +164,7 @@ void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID, std::string strName) {
 }
 
 void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID) {
-  if (iSoftBtnID != 0) {
+  if (iSoftBtnID >= 0) {
     AppControl->OnSoftButtonClick(iSoftBtnID, BUTTON_SHORT);
   }
 }

@@ -37,7 +37,7 @@ CButton::CButton(QWidget *parent) :
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
 CButton::CButton(int W, int H, QString normalIcon, QString pressedIcon, QString disableIcon) :
-    m_Id(0),
+    m_Id(-1),
     m_BtnStatus(BTN_STAT_UNKNOW),
     m_i_clickX(0),
     m_i_clickY(0)
