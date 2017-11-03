@@ -149,7 +149,7 @@ void CGen3UIManager::onVideoStreamStop() {
 void CGen3UIManager::onVideoStartSlots() {
 #ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
-    AppDataInterface *pData = m_pList->getActiveApp();
+    AppDataInterface *pData = AppControl;
     if (!pData) return;
     std::string tplname = pData->GetActiveTemplate();
     CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
@@ -165,7 +165,7 @@ void CGen3UIManager::onVideoStartSlots() {
 void CGen3UIManager::onVideoStopSlots() {
 #ifdef OS_LINUX
     MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
-    AppDataInterface *pData = m_pList->getActiveApp();
+    AppDataInterface *pData = AppControl;
     if (!pData) return;
     std::string tplname = pData->GetActiveTemplate();
     CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
@@ -195,7 +195,7 @@ void CGen3UIManager::AppShowSlot(int type) {
   }
 
   // 获取当前App使用的模板
-  AppDataInterface *pData = m_pList->getActiveApp();
+  AppDataInterface *pData = AppControl;
   if (!pData)
     return;
 

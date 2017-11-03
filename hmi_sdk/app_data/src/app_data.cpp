@@ -113,7 +113,8 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
     if (str_method == "UI.Show") {
       Json::Value preShow = m_JsonShow;
       m_JsonShow = jsonObj;
-      if (preShow["params"].isMember("showStrings") && !m_JsonShow["params"].isMember("showStrings"))
+      // 特殊处理showstring，showStrings设置了为空及不设置都不清空之前的内容
+      if (preShow["params"].isMember("showStrings") && (!m_JsonShow["params"].isMember("showStrings") || (m_JsonShow["params"].isMember("showStrings") && 0 == m_JsonShow["params"]["showStrings"].size())))
         m_JsonShow["params"]["showStrings"] = preShow["params"]["showStrings"];
 
       if (preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))

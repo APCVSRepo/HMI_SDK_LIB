@@ -170,7 +170,7 @@ void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID) {
 }
 
 void CMediaShow::BtnMenuClickedSlots() {
-  m_pList->getActiveApp()->OnShowCommand();
+  AppControl->OnShowCommand();
 }
 
 void CMediaShow::SetAppName(QString strName) {
@@ -190,11 +190,11 @@ void CMediaShow::showEvent(QShowEvent *e) {
   m_pTimeElapseLab->setText(" ");
   m_pTimeRemainLab->setText(" ");
 
-  if (m_pList->getActiveApp()) {
-    m_pSourceBtn->SetLeftIcon(m_pList->getActiveApp()->getAppIconFile());
-    SetAppName(m_pList->getActiveApp()->getAppName().c_str());
+  if (AppControl) {
+    m_pSourceBtn->SetLeftIcon(AppControl->getAppIconFile());
+    SetAppName(AppControl->getAppName().c_str());
 
-    rpcValueInterface &pObj = m_pList->getActiveApp()->getShowData();
+    rpcValueInterface &pObj = AppControl->getShowData();
     if (pObj.isNull())
       return;
     rpcValueInterface &jsonParams = pObj["params"];
@@ -261,6 +261,8 @@ void CMediaShow::showEvent(QShowEvent *e) {
       m_pShadowLab->setStyleSheet("background:transparent");
     }
     setSoftButtons(m_vSoftButtons);
+
+    UpdateMediaColckTimer();
   }
 }
 
@@ -304,9 +306,18 @@ void CMediaShow::UpdateMediaColckTimer() {
 
   rpcValueInterface &jsonObj = AppControl->getMediaClockJson();
 
-  m_i_startH = jsonObj["params"]["startTime"]["hours"].asInt();
-  m_i_startM = jsonObj["params"]["startTime"]["minutes"].asInt();
-  m_i_startS = jsonObj["params"]["startTime"]["seconds"].asInt();
+  if (jsonObj["params"].isMember("startTime")) {
+    m_i_startH = jsonObj["params"]["startTime"]["hours"].asInt();
+    m_i_startM = jsonObj["params"]["startTime"]["minutes"].asInt();
+    m_i_startS = jsonObj["params"]["startTime"]["seconds"].asInt();
+  } else {
+    m_i_startH = m_i_startM = m_i_startS = 0;
+    emit startMediaClock(false);
+    setMediaClock(" ", " ");
+    m_pMusicPB->hide();
+    return;
+  }
+
   if (jsonObj["params"].isMember("endTime")) {
     m_i_endH = jsonObj["params"]["endTime"]["hours"].asInt();
     m_i_endM = jsonObj["params"]["endTime"]["minutes"].asInt();

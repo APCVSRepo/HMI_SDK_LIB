@@ -164,7 +164,7 @@ void CeVideoStream::OnClickedMenuBtn()
 #ifdef OS_LINUX
     stopStream();
 #endif
-    m_pList->getActiveApp()->OnShowCommand();
+    AppControl->OnShowCommand();
 }
 
 void CeVideoStream::mousePressEvent(QMouseEvent *e)
@@ -173,7 +173,7 @@ void CeVideoStream::mousePressEvent(QMouseEvent *e)
     int y = e->y();
     x = x*videoWidth/width();
     y = y*videoHeight/height();
-    m_pList->getActiveApp()->OnVideoScreenTouch(TOUCH_START,x,y);
+    AppControl->OnVideoScreenTouch(TOUCH_START,x,y);
 #ifdef OS_LINUX
     m_MenuTimer.start();
     MainWindow* pMain = (MainWindow*)this->parentWidget();
@@ -196,7 +196,7 @@ void CeVideoStream::mouseMoveEvent(QMouseEvent *e)
     x = x*videoWidth/width();
     y = y*videoHeight/height();
 
-    m_pList->getActiveApp()->OnVideoScreenTouch(TOUCH_MOVE,x,y);
+    AppControl->OnVideoScreenTouch(TOUCH_MOVE,x,y);
 }
 
 #define ZOOMINBTNID 3
@@ -209,5 +209,5 @@ void CeVideoStream::mouseReleaseEvent(QMouseEvent *e)
     x = x*videoWidth/width();
     y = y*videoHeight/height();
 
-    m_pList->getActiveApp()->OnVideoScreenTouch(TOUCH_END,x,y);
+    AppControl->OnVideoScreenTouch(TOUCH_END,x,y);
 }

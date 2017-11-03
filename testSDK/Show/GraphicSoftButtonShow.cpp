@@ -91,7 +91,7 @@ void CGraphicSoftButtonShow::SoftBtnClickedSlot(int iSoftBtnID) {
 }
 
 void CGraphicSoftButtonShow::BtnMenuClickedSlots() {
-  m_pList->getActiveApp()->OnShowCommand();
+  AppControl->OnShowCommand();
 }
 
 void CGraphicSoftButtonShow::SetAppName(QString strName) {
@@ -104,10 +104,10 @@ void CGraphicSoftButtonShow::showEvent(QShowEvent *e) {
     m_aSoftBtn[i].setText("");
   }
 
-  if (m_pList->getActiveApp()) {
-    SetAppName(m_pList->getActiveApp()->getAppName().c_str());
+  if (AppControl) {
+    SetAppName(AppControl->getAppName().c_str());
 
-    rpcValueInterface &pObj = m_pList->getActiveApp()->getShowData();
+    rpcValueInterface &pObj = AppControl->getShowData();
     if (pObj.isNull())
       return;
     rpcValueInterface &jsonParams = pObj["params"];

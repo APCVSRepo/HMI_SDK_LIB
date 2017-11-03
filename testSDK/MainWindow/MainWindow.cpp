@@ -288,7 +288,7 @@ void MainWindow::OnVideoStreamMenuBtnClicked()
 {
     //videoWidget->hide();
     //m_bInVideoStream = true;
-    //m_pList->getActiveApp()->OnShowCommand();
+    //AppControl->OnShowCommand();
 }
 
 void MainWindow::BackToVideoStream()
