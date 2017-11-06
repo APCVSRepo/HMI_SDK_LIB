@@ -293,9 +293,10 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
         }
       } else {
         if (m_pCurApp) {
-          LOGD("rpc request no appid\n");
+          LOGD("#####%s rpc request no appid, goto current app\n", str_method.c_str());
           return m_pCurApp->recvFromServer(jsonObj);
         } else {
+          LOGD("#####%s rpc request no appid, no current app\n", str_method.c_str());
           return RESULT_APPLICATION_NOT_REGISTERED;
         }
       }

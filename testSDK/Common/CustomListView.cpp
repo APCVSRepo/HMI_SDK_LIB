@@ -2,8 +2,6 @@
 #include "Common/CustomButton.h"
 #include "AppListView/CAppButton.h"
 
-#define ICON_PAGE 8
-
 CustomListView::CustomListView(int iWidth,int iHeight,int iMode,QWidget *parent) :
     QWidget(parent),m_iItemSpace(0)
 {
@@ -224,7 +222,6 @@ void CustomListView::mouseReleaseEvent(QMouseEvent *e)
         return;
 
     int x = e->x();
-    // int y = e->y();
     int page = (m_ListItemVec.size() + (ICON_PAGE-1))/ICON_PAGE;
     if((m_pressx - x) > 10 && page>m_curpage){
         // 下页

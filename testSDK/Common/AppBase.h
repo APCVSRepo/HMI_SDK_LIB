@@ -8,7 +8,7 @@
 #include <app_list_interface.h>
 #include <QLineEdit>
 
-#define AppControl (m_pList->getActiveApp() ? m_pList->getActiveApp() : (printf("######%s():%d,error, current app is NULL!\n", __FUNCTION__,__LINE__), (AppDataInterface*)NULL))
+#define AppControl (m_pList->getActiveApp() ? m_pList->getActiveApp() : (printf("######%s:%s():%d,error, current app is NULL!\n",  __FILE__, __FUNCTION__, __LINE__), (AppDataInterface*)NULL))
 
 #define SCREEN_WIDTH  800//1280
 #define SCREEN_HEIGHT  480//800

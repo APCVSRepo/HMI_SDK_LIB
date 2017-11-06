@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "Common/MenuButton.h"
 
+#define ICON_PAGE 8
+
 class CAppButton : public MenuButton
 {
     Q_OBJECT
