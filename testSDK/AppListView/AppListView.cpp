@@ -122,6 +122,8 @@ void CAppListView::showEvent(QShowEvent * e)
                            true);
         }
     }
+
+    UpdateItemShow(0);
 }
 
 void CAppListView::UpdateItemShow(unsigned int iStartItemIndex)
@@ -154,11 +156,11 @@ void CAppListView::mouseReleaseEvent(QMouseEvent *e)
 {
     int x = e->x();
     int page = (m_pChildApps.size() + (ICON_PAGE-1))/ICON_PAGE;
-    if((m_pressx - x) > 10 && page>m_curpage){
+    if((m_pressx - x) > 30 && page>m_curpage){
         // 下页
         UpdateItemShow(m_curpage*ICON_PAGE);
         m_curpage++;
-    }else if((x - m_pressx) > 10 && m_curpage>1){
+    }else if((x - m_pressx) > 30 && m_curpage>1){
         // 上页
         UpdateItemShow((m_curpage-2)*ICON_PAGE);
         m_curpage--;

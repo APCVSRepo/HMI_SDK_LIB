@@ -2,6 +2,7 @@
 #define CAPPBUTTON_H
 
 #include <QWidget>
+#include <QMouseEvent>
 #include "Common/MenuButton.h"
 
 #define ICON_PAGE 8
@@ -29,6 +30,9 @@ protected:
 private:
     int    m_FuncId;
     std::string m_strId;
+    int m_pressx;
+    int m_pressy;
+    bool m_bPressDown;
 };
 
 #endif // CAPPBUTTON_H

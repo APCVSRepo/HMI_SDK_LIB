@@ -7,6 +7,8 @@
 CAppButton::CAppButton(QWidget *pParent):MenuButton(pParent)
 {
     m_FuncId = -1;
+    m_pressx = m_pressy = 0;
+    m_bPressDown = false;
 }
 
 CAppButton::~CAppButton()
@@ -83,16 +85,22 @@ int CAppButton::getFuncId()
 
 void CAppButton::mousePressEvent(QMouseEvent *e)
 {
-    Q_UNUSED(e);
+    m_pressx = e->x();
+    m_pressy = e->y();
+    m_bPressDown = true;
     setActive(true);
-    //MenuButton::mousePressEvent(e);
+    e->ignore();
 }
 
 void CAppButton::mouseReleaseEvent(QMouseEvent *e)
 {
-    Q_UNUSED(e);
-    //MenuButton::mouseReleaseEvent(e);
     setActive(false);
-    emit OnClicked(m_strId);
-    emit clickedWitchFuncId(m_FuncId);
+    if(m_bPressDown && (abs(e->x() - m_pressx) < 20 && abs(e->y() - m_pressy) < 20)){
+        emit OnClicked(m_strId);
+        emit clickedWitchFuncId(m_FuncId);
+        m_bPressDown = false;
+        m_pressx = m_pressy = 0;
+    } else {
+        e->ignore();
+    }
 }
