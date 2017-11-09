@@ -13,7 +13,7 @@ TEMPLATE = app
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
 #CONFIG  += wince
-#CONFIG  += unix x86
+CONFIG  += unix armhf
 
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include \
