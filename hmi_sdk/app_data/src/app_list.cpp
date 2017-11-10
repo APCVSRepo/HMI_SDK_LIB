@@ -178,9 +178,9 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     if (str_method == "BasicCommunication.OnAppRegistered") {
       newAppRegistered(jsonObj);
       // 防止在其他App画面弹回到App列表画面
-//       if (m_pCurApp == NULL) {
-//         m_pUIManager->onAppShow(ID_APPLINK);
-//       }
+      if (m_pCurApp == NULL) {
+        m_pUIManager->onAppShow(ID_APPLINK);
+      }
     } else if (str_method == "BasicCommunication.UpdateAppList") {
       updateAppList(jsonObj);
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {

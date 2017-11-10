@@ -11,6 +11,7 @@
 #include <QThread>
 #include <QCoreApplication>
 #include <QDir>
+#include <QMessageBox>
 
 #ifdef SDL_SUPPORT_LIB
 #include "main.h"
@@ -111,8 +112,8 @@ void CGen3UIManager::initAppHMI() {
 
   connect(this, SIGNAL(onAppShowSignal(int)), this, SLOT(AppShowSlot(int)));
   connect(this, SIGNAL(OnAppUnregisterSignal(int)), this, SLOT(OnAppUnregisterSlot(int)));
-  connect(this, SIGNAL(onVideoStartSignal()), this,SLOT(onVideoStartSlots()));
-  connect(this, SIGNAL(onVideoStopSignal()), this,SLOT(onVideoStopSlots()));
+  connect(this, SIGNAL(onVideoStartSignal()), this, SLOT(onVideoStartSlots()));
+  connect(this, SIGNAL(onVideoStopSignal()), this, SLOT(onVideoStopSlots()));
 }
 
 void CGen3UIManager::onAppActive() {
@@ -135,6 +136,11 @@ void CGen3UIManager::onAppUnregister(int appId) {
 }
 
 void CGen3UIManager::OnAppUnregisterSlot(int appId) {
+  AppDataInterface *pData = AppControl;
+  if (pData && appId == pData->getAppID()) {
+    // App异常退出提示框
+    QMessageBox::about(this, "通知", QString(pData->getAppName().c_str()) + "App异常断开!");
+  }
   m_pList->appUnregistered(appId);
 }
 
@@ -148,33 +154,33 @@ void CGen3UIManager::onVideoStreamStop() {
 
 void CGen3UIManager::onVideoStartSlots() {
 #ifdef OS_LINUX
-    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
-    AppDataInterface *pData = AppControl;
-    if (!pData) return;
-    std::string tplname = pData->GetActiveTemplate();
-    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
-    if (pMain) {
-        pMain->HideAllComponent();
-    }
-    if (pVideoStream) {
-        pVideoStream->startStream();
-    }
+  MainWindow *pMain = (MainWindow *)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+  AppDataInterface *pData = AppControl;
+  if (!pData) return;
+  std::string tplname = pData->GetActiveTemplate();
+  CeVideoStream *pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+  if (pMain) {
+    pMain->HideAllComponent();
+  }
+  if (pVideoStream) {
+    pVideoStream->startStream();
+  }
 #endif
 }
 
 void CGen3UIManager::onVideoStopSlots() {
 #ifdef OS_LINUX
-    MainWindow* pMain = (MainWindow*)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
-    AppDataInterface *pData = AppControl;
-    if (!pData) return;
-    std::string tplname = pData->GetActiveTemplate();
-    CeVideoStream* pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
-    if (pMain) {
-        pMain->ShowAllComponent();
-    }
-    if (pVideoStream) {
-        pVideoStream->stopStream();
-    }
+  MainWindow *pMain = (MainWindow *)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
+  AppDataInterface *pData = AppControl;
+  if (!pData) return;
+  std::string tplname = pData->GetActiveTemplate();
+  CeVideoStream *pVideoStream = (CeVideoStream *)m_TplManager.Get(tplname).GetScene(ID_VIDEOSTREAM);
+  if (pMain) {
+    pMain->ShowAllComponent();
+  }
+  if (pVideoStream) {
+    pVideoStream->stopStream();
+  }
 #endif
 }
 
@@ -206,7 +212,7 @@ void CGen3UIManager::AppShowSlot(int type) {
     return;
 
   if (type == ID_VIDEOSTREAM) {
-      emit onVideoStartSignal();
+    emit onVideoStartSignal();
   }
 
   // 特殊处理MEDIA模板Show画面的mediaclock请求

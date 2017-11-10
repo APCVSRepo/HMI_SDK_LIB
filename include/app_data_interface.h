@@ -281,6 +281,15 @@ class AppDataInterface {
    * @note
    */
   virtual std::string GetActiveTemplate() = 0;
+
+  /**
+   * 获取当前手机端App的ID
+   * @return		int		当前手机端App的ID
+   * @ref
+   * @see
+   * @note
+   */
+  virtual int getAppID() = 0;
 };
 
 #endif // APPDATAINTERFACE_H

@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 #ifdef ANDROID
   diaStart.setGeometry(0, 0, QApplication::desktop()->width(), QApplication::desktop()->height() - 30);
 #else
-  diaStart.setGeometry((1280 - SCREEN_WIDTH) / 2, (800 - SCREEN_HEIGHT) / 2, SCREEN_WIDTH, SCREEN_HEIGHT);
+  diaStart.setGeometry(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 #endif
   diaStart.setStyleSheet("border-image:url(:/images/Screen.png);");
   QObject::connect(g_pUIManager, SIGNAL(finishLoadSDK()), &diaStart, SLOT(accept()));

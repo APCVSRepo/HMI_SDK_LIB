@@ -14,6 +14,8 @@ class AlertView : public QWidget {
 
  protected:
   void showEvent(QShowEvent *e);
+  void hideEvent(QHideEvent *);
+
  signals:
 
  public slots:

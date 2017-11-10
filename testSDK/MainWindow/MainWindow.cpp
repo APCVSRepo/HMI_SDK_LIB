@@ -14,7 +14,7 @@ MainWindow::MainWindow(AppListInterface * pList,QWidget *parent) : QWidget(paren
     int margin=10;
     int inter=5;
     // setWindowFlags(Qt::FramelessWindowHint);//
-    setGeometry((1280 - ui_res_width) / 2, (800 - ui_res_height) / 2, ui_res_width, ui_res_height);
+    setGeometry(0,0,ui_res_width,ui_res_height);
     this->setAutoFillBackground(true);
     QPixmap pixmap(":/images/mainmenu.png");
     QPixmap fitpixmap=pixmap.scaled(this->width(),this->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);

@@ -35,6 +35,7 @@ class AppData : public AppDataInterface {
   std::string getAppIconFile();
   Result recvFromServer(Json::Value);
   int getCurUI();
+  int getAppID();
   void setUIManager(UIInterface *pcallBack);
 
   // bInApp: just show the UI of the app, or could bjump to the applist.

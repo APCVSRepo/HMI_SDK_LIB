@@ -250,6 +250,10 @@ int AppData::getCurUI() {
   return ID_APPLINK;
 }
 
+int AppData::getAppID() {
+	return m_iAppID;
+}
+
 void AppData::OnShowCommand() {
   showUI(ID_COMMAND);
 }

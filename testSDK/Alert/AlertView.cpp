@@ -142,4 +142,9 @@ void AlertView::showEvent(QShowEvent *e) {
   }
 }
 
+void AlertView::hideEvent(QHideEvent *) {
+  if (m_Timer.isActive())
+    m_Timer.stop();
+}
+
 
