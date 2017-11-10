@@ -56,6 +56,7 @@ public slots:
 private:
     int videoWidth;
     int videoHeight;
+    bool m_ClickStatus;
 
     QRect m_BtnRect[3];
     QImage *m_pBtnImage[4];
