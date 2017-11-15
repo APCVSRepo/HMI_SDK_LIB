@@ -138,7 +138,7 @@ void Channel::onReceiveData(void *pData, int iLength) {
 }
 
 void Channel::onMessage(Json::Value &jsonObj) {
-  //LOGD("%s:receive:%s",m_sComponentName.c_str(),jsonObj.toStyledString().data());
+  LOGD("%s:receive:%s", m_sComponentName.c_str(), jsonObj.toStyledString().data());
   bool run = false;
   // id
   if (jsonObj.isMember("id")) {
@@ -218,7 +218,7 @@ void Channel::sendError(int resultCode, int id, std::string method, std::string 
 }
 
 void Channel::sendJson(Json::Value &data) {
-  //LOGI("---send:%s",data.toStyledString().c_str());
+  LOGD("---send:%s", data.toStyledString().c_str());
   if (NULL == m_pSocketManager) {
     return;
   }

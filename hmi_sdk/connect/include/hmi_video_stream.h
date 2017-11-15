@@ -1,6 +1,6 @@
 /**
 * @file			hmi_video_stream
-* @brief		VideoStreamÍ¨µÀ£¬´¦ÀíSDL·¢ËÍµÄVideoStreamÏà¹ØµÄRPCÇëÇóµÈ
+* @brief		VideoStreamé€šé“ï¼Œå¤„ç†SDLå‘é€çš„VideoStreamç›¸å…³çš„RPCè¯·æ±‚ç­‰
 * @author		fanqiang
 * @date			2017-6-21
 * @version		A001

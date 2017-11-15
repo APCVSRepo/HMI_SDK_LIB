@@ -7,6 +7,8 @@
 CAppButton::CAppButton(QWidget *pParent):MenuButton(pParent)
 {
     m_FuncId = -1;
+    m_pressx = m_pressy = 0;
+    m_bPressDown = false;
 }
 
 CAppButton::~CAppButton()
@@ -20,12 +22,12 @@ void CAppButton::setIcon(const QString on,const QString off,bool bPaint)
     if (bPaint) {
         //if (!img_on.load(on))
         {
-            QUrl qurl(on);
+            //QUrl qurl(on);
             img_on.load(":images/app_on.png");
             img_on = img_on.scaled(width(),height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             //QImage onImage(qurl.path());
             QImage onImage(on);
-            //onImage = onImage.scaled(height()*0.4,height()*0.4);
+            onImage = onImage.scaled(height() * 0.6, height() * 0.6, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             do{
                 QPainter painter(&img_on);
                 QRect irect=onImage.rect();
@@ -38,12 +40,12 @@ void CAppButton::setIcon(const QString on,const QString off,bool bPaint)
 
         //if (!img_off.load(off))
         {
-            QUrl qurl(off);
+            //QUrl qurl(off);
             img_off.load(":images/app_off.png");
             img_off = img_off.scaled(width(),height(),Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             //QImage offImage(qurl.path());
             QImage offImage(off);
-            //offImage = offImage.scaled(width()*0.6,height()*0.6,Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+            offImage = offImage.scaled(width() * 0.6, height() * 0.6, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
             do{
                 QPainter painter(&img_off);
                 QRect irect = offImage.rect();
@@ -83,14 +85,22 @@ int CAppButton::getFuncId()
 
 void CAppButton::mousePressEvent(QMouseEvent *e)
 {
+    m_pressx = e->x();
+    m_pressy = e->y();
+    m_bPressDown = true;
     setActive(true);
-    //MenuButton::mousePressEvent(e);
+    e->ignore();
 }
 
 void CAppButton::mouseReleaseEvent(QMouseEvent *e)
 {
-    //MenuButton::mouseReleaseEvent(e);
     setActive(false);
-    emit clickedWitchFuncId(m_FuncId);
-    emit OnClicked(m_strId);
+    if(m_bPressDown && (abs(e->x() - m_pressx) < 20 && abs(e->y() - m_pressy) < 20)){
+        emit OnClicked(m_strId);
+        emit clickedWitchFuncId(m_FuncId);
+        m_bPressDown = false;
+        m_pressx = m_pressy = 0;
+    } else {
+        e->ignore();
+    }
 }

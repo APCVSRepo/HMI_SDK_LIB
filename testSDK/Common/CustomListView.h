@@ -22,6 +22,9 @@ public:
     void SetSpace(int iSpace);
     void SetScrollBarStyle(QString strStyle);
     void ItemFilter(std::string strKey);
+
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 protected:
     void showEvent(QShowEvent * event);
 signals:
@@ -32,7 +35,7 @@ public slots:
 private:
     enum SCROLLBARPOS {TOP = 0,MIDDLE,BOTTOM};
     void SetScrollBarStyle(int iMode);
-    void UpdateItemShow(int iStartItemIndex = 0);
+    void UpdateItemShow(unsigned int iStartItemIndex = 0);
     void InitScroll();
     void UpdateScrollParam(int iItemCount);
 
@@ -53,6 +56,10 @@ private:
     std::vector<QWidget *> *m_pItemShowVec;
     std::vector<QWidget *> m_ListItemVec;
     std::vector<QWidget *> m_FilterItemVec;
+
+    int m_pressx;
+    int m_pressy;
+    int m_curpage;
 };
 
 #endif // CUSTOMLISTVIEW_H

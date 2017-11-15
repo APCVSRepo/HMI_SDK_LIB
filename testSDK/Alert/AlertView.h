@@ -6,28 +6,29 @@
 #include <Common/CustomButton.h>
 #include "Common/AppBase.h"
 
-class AlertView : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit AlertView(AppListInterface *pList,QWidget *parent = 0);
-    ~AlertView();
+class AlertView : public QWidget {
+  Q_OBJECT
+ public:
+  explicit AlertView(AppListInterface *pList, QWidget *parent = 0);
+  ~AlertView();
 
-protected:
-    void showEvent(QShowEvent * e);
-signals:
+ protected:
+  void showEvent(QShowEvent *e);
+  void hideEvent(QHideEvent *);
 
-public slots:
-    void OnSoftBtnClicked(int iSoftBtnID);
-    void OnTimeOut();
-private:
-    QLabel *m_pAppNameLab;
-    QLabel m_aAlertLab[3];
-    CCustomButton m_aSoftBtn[6];
+ signals:
 
-    AppListInterface *m_pList;
+ public slots:
+  void OnSoftBtnClicked(int iSoftBtnID);
+  void OnTimeOut();
+ private:
+  QLabel *m_pAppNameLab;
+  QLabel m_aAlertLab[3];
+  CCustomButton m_aSoftBtn[6];
 
-    QTimer m_Timer;
+  AppListInterface *m_pList;
+
+  QTimer m_Timer;
 };
 
 #endif // ALERTVIEW_H

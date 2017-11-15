@@ -13,7 +13,7 @@ MainWindow::MainWindow(AppListInterface * pList,QWidget *parent) : QWidget(paren
     int center_height=ui_res_height-status_height-title_height;
     int margin=10;
     int inter=5;
-    setWindowFlags(Qt::FramelessWindowHint);//
+    // setWindowFlags(Qt::FramelessWindowHint);//
     setGeometry(0,0,ui_res_width,ui_res_height);
     this->setAutoFillBackground(true);
     QPixmap pixmap(":/images/mainmenu.png");
@@ -108,6 +108,58 @@ MainWindow::~MainWindow()
     //delete videoWidget;
 }
 
+void MainWindow::HideAllComponent() {
+    if (m_pIcon) {
+        m_pIcon->hide();
+    }
+
+    if (m_pTime) {
+        m_pTime->hide();
+    }
+
+    if (m_pSDLStatus) {
+        m_pSDLStatus->hide();
+    }
+
+    if (m_pNetStatus) {
+        m_pNetStatus->hide();
+    }
+
+    if (m_pCenter) {
+        m_pCenter->hide();
+    }
+}
+
+void MainWindow::ShowAllComponent() {
+    if (m_pIcon) {
+        m_pIcon->show();
+    }
+
+    if (m_pTime) {
+        m_pTime->show();
+    }
+
+    if (m_pSDLStatus) {
+        m_pSDLStatus->show();
+    }
+
+    if (m_pNetStatus) {
+        m_pNetStatus->show();
+    }
+
+    if (m_pCenter) {
+        m_pCenter->show();
+    }
+}
+
+void MainWindow::HideMenuBar() {
+    m_pMainMenu->hide();
+}
+
+void MainWindow::ShowMenuBar() {
+    m_pMainMenu->show();
+}
+
 QWidget* MainWindow::CenterWidget()
 {
     return m_pCenter;
@@ -199,7 +251,7 @@ void MainWindow::DeleteChildApp(int index)
 
 void MainWindow::showEvent(QShowEvent * e)
 {
-
+    Q_UNUSED(e);
     /*
     std::vector<int> vAppIDs;
     std::vector<std::string> vAppNames;
@@ -222,6 +274,7 @@ void MainWindow::showEvent(QShowEvent * e)
 
 void MainWindow::StartVideoStream(const char* url)
 {
+    Q_UNUSED(url);
     //videoWidget->setUrl(url);
     //videoWidget->startStream();
 }
@@ -235,7 +288,7 @@ void MainWindow::OnVideoStreamMenuBtnClicked()
 {
     //videoWidget->hide();
     //m_bInVideoStream = true;
-    //m_pList->getActiveApp()->OnShowCommand();
+    //AppControl->OnShowCommand();
 }
 
 void MainWindow::BackToVideoStream()

@@ -5,6 +5,8 @@
 CustomListView::CustomListView(int iWidth,int iHeight,int iMode,QWidget *parent) :
     QWidget(parent),m_iItemSpace(0)
 {
+    m_pressx = m_pressy = 0;
+    m_curpage = 1;
     setMinimumSize(iWidth,iHeight);
     setMaximumSize(iWidth,iHeight);
     m_iMode = iMode;
@@ -85,15 +87,15 @@ void CustomListView::SetScrollBarStyle(int iMode)
     }
 }
 
-void CustomListView::UpdateItemShow(int iStartItemIndex)
+void CustomListView::UpdateItemShow(unsigned int iStartItemIndex)
 {
     if (m_iMode == LIST) {
-        for (int i = 0;i != m_ListItemVec.size();++i) {
+        for (unsigned int i = 0;i != m_ListItemVec.size();++i) {
             ((CCustomButton *)m_ListItemVec[i])->SetSize(0,0);
         }
 
         if (iStartItemIndex < m_pItemShowVec->size()) {
-            for(int i = iStartItemIndex;i != m_pItemShowVec->size();++i) {
+            for(unsigned int i = iStartItemIndex;i != m_pItemShowVec->size();++i) {
                 ((CCustomButton *)m_pItemShowVec->at(i))->SetSize(m_iItemWidth,m_iItemHeight);
                 m_pItemShowVec->at(i)->setGeometry(0,(i-iStartItemIndex)*(m_iItemHeight+m_iItemSpace),m_iItemWidth,m_iItemHeight);
             }
@@ -101,14 +103,14 @@ void CustomListView::UpdateItemShow(int iStartItemIndex)
 
         UpdateScrollParam(m_pItemShowVec->size());
     } else if (m_iMode == ICON) {
-        for(int i = 0;i != m_ListItemVec.size();++i) {
+        for(unsigned int i = 0;i != m_ListItemVec.size();++i) {
             m_ListItemVec[i]->hide();
         }
 
         int r = 0,c = 0;
         if (iStartItemIndex < m_pItemShowVec->size()) {
-            for(int i = iStartItemIndex;i != m_pItemShowVec->size();++i) {
-                r = i / 4;
+            for(unsigned int i = iStartItemIndex;i != m_pItemShowVec->size() && i < ICON_PAGE+iStartItemIndex;++i) {
+                r = (i / 4)%2;
                 c = i % 4;
                 m_pItemShowVec->at(i)->show();
                 m_pItemShowVec->at(i)->setGeometry(5 + m_iItemWidth*c,
@@ -164,7 +166,8 @@ void CustomListView::OnChoiceSelected(int iIndex)
 }
 
 void CustomListView::showEvent(QShowEvent * event)
-{    
+{
+    Q_UNUSED(event);
     m_pItemShowVec = &m_ListItemVec;
     if (m_iMode == LIST) {
         UpdateItemShow();
@@ -176,7 +179,7 @@ void CustomListView::ItemFilter(std::string strKey)
     m_FilterItemVec.clear();
     std::string strText;
     if (!strKey.empty()) {
-        for(int i = 0;i != m_ListItemVec.size();++i) {
+        for(unsigned int i = 0;i != m_ListItemVec.size();++i) {
             if (m_iMode == LIST) {
                 strText = ((CCustomButton *)m_ListItemVec[i])->Text();
             } else if (m_iMode == ICON) {
@@ -201,5 +204,32 @@ void CustomListView::UpdateScrollParam(int iItemCount)
         m_pScrollBar->setMaximum(iItemCount - m_pScrollBar->pageStep());
     } else {
         m_pScrollBar->hide();
+    }
+}
+
+void CustomListView::mousePressEvent(QMouseEvent *e)
+{
+    if(m_iMode != ICON)
+        return;
+
+    m_pressx = e->x();
+    m_pressy = e->y();
+}
+
+void CustomListView::mouseReleaseEvent(QMouseEvent *e)
+{
+    if(m_iMode != ICON)
+        return;
+
+    int x = e->x();
+    int page = (m_ListItemVec.size() + (ICON_PAGE-1))/ICON_PAGE;
+    if((m_pressx - x) > 30 && page>m_curpage){
+        // 下页
+        UpdateItemShow(m_curpage*ICON_PAGE);
+        m_curpage++;
+    }else if((x - m_pressx) > 30 && m_curpage>1){
+        // 上页
+        UpdateItemShow((m_curpage-2)*ICON_PAGE);
+        m_curpage--;
     }
 }

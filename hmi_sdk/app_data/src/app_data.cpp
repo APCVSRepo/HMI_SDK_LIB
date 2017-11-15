@@ -8,6 +8,9 @@
 */
 
 #include "app_data.h"
+#include "app_list.h"
+
+extern AppList *g_appList;
 
 std::string string_To_UTF8(const std::string &str) {
 #ifdef WIN32
@@ -84,6 +87,15 @@ bool IsTextUTF8(char *str, unsigned long long length) {
 }
 
 AppData::AppData() {
+  m_sLastTpl = DEFAULT_TEMPLATE;
+  m_pShowData = NULL;
+}
+
+AppData::~AppData() {
+  if (m_pShowData) {
+    delete m_pShowData;
+    m_pShowData = NULL;
+  }
 }
 
 void AppData::setUIManager(UIInterface *pUIManager) {
@@ -99,7 +111,18 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
     std::string str_method = jsonObj["method"].asString();
 
     if (str_method == "UI.Show") {
+      Json::Value preShow = m_JsonShow;
       m_JsonShow = jsonObj;
+      // 特殊处理showstring，showStrings设置了为空及不设置都不清空之前的内容
+      if (preShow["params"].isMember("showStrings") && (!m_JsonShow["params"].isMember("showStrings") || (m_JsonShow["params"].isMember("showStrings") && 0 == m_JsonShow["params"]["showStrings"].size())))
+        m_JsonShow["params"]["showStrings"] = preShow["params"]["showStrings"];
+
+      if (preShow["params"].isMember("softButtons") && !m_JsonShow["params"].isMember("softButtons"))
+        m_JsonShow["params"]["softButtons"] = preShow["params"]["softButtons"];
+
+      if (preShow["params"].isMember("graphic") && !m_JsonShow["params"].isMember("graphic"))
+        m_JsonShow["params"]["graphic"] = preShow["params"]["graphic"];
+
       showUI(ID_SHOW);
     } else if (str_method == "UI.SubscribeButton") {
     } else if (str_method == "UI.AddCommand") {
@@ -136,14 +159,16 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
       ToSDL->OnVRStartRecord();
       return RESULT_USER_WAIT;
     } else if (str_method == "VR.PerformInteraction") {
-      m_JsonInteraction["ChoicesetVR"] = jsonObj;
-      Json::Value initialPrompt = jsonObj["params"]["initialPrompt"];
-      std::string txt = initialPrompt[0]["text"].asString();
-      if (!IsTextUTF8((char *)txt.data(), txt.size()))
-        txt = string_To_UTF8(txt);
-      m_pUIManager->tsSpeak(ID_DEFAULT, txt);
-      //showUI(ID_CHOICESETVR);
-      return RESULT_USER_WAIT;
+      return RESULT_SUCCESS;
+
+      //m_JsonInteraction["ChoicesetVR"] = jsonObj;
+      //Json::Value initialPrompt = jsonObj["params"]["initialPrompt"];
+      //std::string txt = initialPrompt[0]["text"].asString();
+      //if (!IsTextUTF8((char *)txt.data(), txt.size()))
+      //  txt = string_To_UTF8(txt);
+      //m_pUIManager->tsSpeak(ID_DEFAULT, txt);
+      ////showUI(ID_CHOICESETVR);
+      //return RESULT_USER_WAIT;
     } else if (str_method == "UI.PerformInteraction") {
       m_JsonInteraction["Choiceset"] = jsonObj;
       showUI(ID_CHOICESET);
@@ -220,7 +245,13 @@ int AppData::getCurUI() {
   int iSize = m_vecUIStack.size();
   if (iSize > 0)
     return m_vecUIStack[iSize - 1];
-  return ID_MAIN;
+
+  LOGD("####AppData::getCurUI use default scene\n");
+  return ID_APPLINK;
+}
+
+int AppData::getAppID() {
+	return m_iAppID;
 }
 
 void AppData::OnShowCommand() {
@@ -228,7 +259,7 @@ void AppData::OnShowCommand() {
 }
 
 void AppData::OnSoftButtonClick(int sbID, int mode, std::string strName) {
-  ToSDL->OnSoftButtonClick(sbID, mode, strName);
+  ToSDL->OnSoftButtonClick(m_iAppID, sbID, mode, strName);
 }
 
 void AppData::OnCommandClick(int cmdID) {
@@ -240,7 +271,7 @@ void AppData::OnCommandClick(int cmdID) {
 
 void AppData::OnAlertResponse(int reason) {
   if (m_JsonAlert["id"].asInt() != -1) {
-    ToSDL->OnAlertResponse(m_JsonAlert["id"].asInt(), reason);
+    ToSDL->OnAlertResponse(m_JsonAlert["id"].asInt(), reason, m_iAppID);
     m_JsonAlert["id"] = -1;
     ShowPreviousUI();
   }
@@ -248,7 +279,7 @@ void AppData::OnAlertResponse(int reason) {
 
 void AppData::OnScrollMessageResponse(int reason) {
   if (m_JsonScrollableMessage["id"].asInt() != -1) {
-    ToSDL->OnScrollMessageResponse(m_JsonScrollableMessage["id"].asInt(), reason);
+    ToSDL->OnScrollMessageResponse(m_JsonScrollableMessage["id"].asInt(), reason, m_iAppID);
     m_JsonScrollableMessage["id"] = -1;
     ShowPreviousUI();
   }
@@ -312,14 +343,20 @@ void AppData::OnPerformInteraction(int code, int choiceID, bool bVR) {
   if (bVR) {
     ToSDL->OnVRPerformInteraction(code, jsonChoiceVR["id"].asInt(), choiceID);
   } else {
-    ToSDL->OnPerformInteraction(code, jsonChoice["id"].asInt(), choiceID);
+    ToSDL->OnPerformInteraction(code, jsonChoice["id"].asInt(), choiceID, m_iAppID);
     ShowPreviousUI();
   }
 }
 
 Json::Value &AppData::getShowData() {
-  return m_JsonShow;
+  if (m_pShowData) {
+    delete m_pShowData;
+    m_pShowData = NULL;
+  }
+  m_pShowData = new Json::Value(m_JsonShow);
+  return *m_pShowData;
 }
+
 std::vector<SMenuCommand> AppData::getCommandList() {
   static std::vector<SMenuCommand> retVec;
   retVec.clear();
@@ -392,10 +429,21 @@ Json::Value &AppData::getMediaClockJson() {
 }
 
 void AppData::showUI(int iUIType) {
-  if (iUIType != ID_MEDIACLOCK)
-    m_vecUIStack.push_back(iUIType);
+  //特殊处理alert画面，显示在前端操作前不让覆盖
+  if (ID_ALERT == getCurUI())
+    return;
 
-  m_pUIManager->onAppShow(iUIType);
+  // 特殊处理mediaclock画面以及重复画面
+  if (iUIType != ID_MEDIACLOCK && iUIType != getCurUI()) {
+    m_vecUIStack.push_back(iUIType);
+    LOGD("###app=%d,push scene %d\n", m_iAppID, iUIType);
+    //m_vecTplStack.push_back(m_sLastTpl);
+  }
+
+  // 过滤掉非当前活动App的画面显示
+  AppData *pCur = (AppData *)g_appList->getActiveApp();
+  if (pCur && pCur->m_iAppID == m_iAppID)
+    m_pUIManager->onAppShow(iUIType);
 }
 
 bool AppData::ShowPreviousUI(bool bInApp) {
@@ -403,15 +451,20 @@ bool AppData::ShowPreviousUI(bool bInApp) {
   if (iSize > 0)
     m_vecUIStack.pop_back();
 
+//   int i = m_vecTplStack.size();
+//   if (i > 0)
+//     m_vecTplStack.pop_back();
+
   if (iSize > 1) {
     m_pUIManager->onAppShow(m_vecUIStack[iSize - 2]);
+    LOGD("###app=%d,show previous scene %d\n", m_iAppID, m_vecUIStack[iSize - 2]);
     return true;
   }
 
   if (!bInApp)
     return false;
 
-  showUI(ID_MAIN);
+  m_pUIManager->onAppShow(ID_APPLINK);
   return true;
 }
 
@@ -530,7 +583,7 @@ void AppData::addExitAppCommand() {
   SMenuCommand tmpCommand;
   tmpCommand.i_appID = m_iAppID;
   tmpCommand.i_cmdID = 101;
-  std::string strMenuName = "Exit " + m_szAppName;
+  std::string strMenuName = "退出 " + m_szAppName;
   tmpCommand.str_menuName = strMenuName;
   tmpCommand.i_parentID = 0;
   tmpCommand.i_position = 0;
@@ -1185,4 +1238,19 @@ std::string AppData::getAppName() {
 
 void AppData::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
   ToSDL->OnVideoScreenTouch(touch, x, y);
+}
+
+std::string AppData::GetActiveTemplate() {
+//   // 取模板栈中的最后一个
+//   int iSize = m_vecTplStack.size();
+//   if (iSize > 0)
+//     return m_vecTplStack[iSize - 1];
+// 
+//   LOGD("####AppData::GetActiveTemplate use default template\n");
+//   return DEFAULT_TEMPLATE;
+  return m_sLastTpl;
+}
+
+void AppData::SetActiveTemplate(std::string tpl) {
+  m_sLastTpl = tpl;
 }

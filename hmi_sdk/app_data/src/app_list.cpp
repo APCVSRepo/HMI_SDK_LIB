@@ -177,7 +177,12 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
 
     if (str_method == "BasicCommunication.OnAppRegistered") {
       newAppRegistered(jsonObj);
-      m_pUIManager->onAppShow(ID_APPLINK);
+      // 防止在其他App画面弹回到App列表画面
+      if (m_pCurApp == NULL) {
+        m_pUIManager->onAppShow(ID_APPLINK);
+      }
+    } else if (str_method == "BasicCommunication.UpdateAppList") {
+      updateAppList(jsonObj);
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
       int appID = jsonObj["params"]["appID"].asInt();
       m_pUIManager->onAppUnregister(appID);
@@ -238,11 +243,66 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       // add by fanqiang
       updateDeiveList(jsonObj);
       m_pUIManager->ShowDeviceList();
+    } else if (str_method == "BasicCommunication.ActivateApp") {
+      int iAppID = jsonObj["params"]["appID"].asInt();
+      AppData *pData;
+      int i;
+      for (i = 0; i < m_AppDatas.size(); ++i) {
+        pData = m_AppDatas[i];
+        if (pData->m_iAppID == iAppID)
+          break;
+      }
+
+      if (i >= m_AppDatas.size()) {
+        return RESULT_SUCCESS;
+      }
+
+      // 设置当前活动App
+      if (m_pCurApp != NULL && m_pCurApp->m_iAppID != iAppID)
+        ToSDL->OnAppOut(m_pCurApp->m_iAppID);
+      m_pCurApp = pData;
+    }  else if (str_method == "UI.SetDisplayLayout") {
+      int iAppId = jsonObj["params"]["appID"].asInt();
+      std::string name = jsonObj["params"]["displayLayout"].asString();
+      bool bFind = m_pUIManager->FindTemplate(name);
+      if (!bFind)
+        return RESULT_UNSUPPORTED_RESOURCE;
+
+      std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
+      AppData* pData = NULL;
+      while (Iter != m_AppDatas.end()) {
+        if (iAppId == (*Iter)->m_iAppID) {
+          pData = (*Iter);
+          pData->SetActiveTemplate(name);
+          LOGD("change template to %s\n", name.c_str());
+          break;
+        }
+        ++Iter;
+      }
+
+      // 强制刷新当前画面
+      if (pData && pData == m_pCurApp && ID_APPLINK != pData->getCurUI())
+        m_pUIManager->onAppShow(pData->getCurUI());
     } else {
-      if (m_pCurApp)
-        return m_pCurApp->recvFromServer(jsonObj);
-      else
-        return RESULT_APPLICATION_NOT_REGISTERED;
+      if (jsonObj["params"].isMember("appID")) {
+        int iAppId = jsonObj["params"]["appID"].asInt();
+        std::vector <AppData *>::iterator Iter = m_AppDatas.begin();
+
+        while (Iter != m_AppDatas.end()) {
+          if (iAppId == (*Iter)->m_iAppID) {
+            return (*Iter)->recvFromServer(jsonObj);
+          }
+          ++Iter;
+        }
+      } else {
+        if (m_pCurApp) {
+          LOGD("#####%s rpc request no appid, goto current app\n", str_method.c_str());
+          return m_pCurApp->recvFromServer(jsonObj);
+        } else {
+          LOGD("#####%s rpc request no appid, no current app\n", str_method.c_str());
+          return RESULT_APPLICATION_NOT_REGISTERED;
+        }
+      }
     }
     return  RESULT_SUCCESS;
   }
@@ -317,13 +377,60 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
   for (i = m_AppDatas.begin(); i != m_AppDatas.end(); ++i) {
     AppData *pOne = *i;
     if (pOne->m_iAppID == pData->m_iAppID) {
-      m_AppDatas.erase(i);
-      delete pOne;
-      break;
+      delete pData;
+      return;
+      /*
+            m_AppDatas.erase(i);
+            if (m_pCurApp == pOne)
+              m_pCurApp = pData;
+            delete pOne;
+            break;*/
     }
   }
 
   m_AppDatas.push_back(pData);
+}
+
+void AppList::updateAppList(Json::Value jsonObj) {
+  int size = jsonObj["params"]["applications"].size();
+
+  if (size <= 0)
+    return;
+
+  for (int i = 0; i < size; i++) {
+    AppData *pData = new AppData();
+    pData->setUIManager(m_pUIManager);
+    pData->m_iAppID = jsonObj["params"]["applications"][i]["appID"].asInt();
+    pData->m_szAppName = jsonObj["params"]["applications"][i]["appName"].asString();
+    if (jsonObj["params"]["applications"][i].isMember("icon"))
+      pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
+    pData->addExitAppCommand();
+
+    std::vector <AppData *>::iterator it;
+    bool bFind = false;
+    for (it = m_AppDatas.begin(); it != m_AppDatas.end(); ++it) {
+      AppData *pOne = *it;
+      if (pOne->m_iAppID == pData->m_iAppID) {
+        bFind = true;
+        break;
+        /*
+        		  if (pData->m_strAppIconFilePath == "")
+        			  pData->m_strAppIconFilePath = pOne->m_strAppIconFilePath;
+                m_AppDatas.erase(it);
+                if(m_pCurApp == pOne)
+                  m_pCurApp = pData;
+                delete pOne;
+                break;*/
+      }
+    }
+
+    if (bFind) {
+      delete pData;
+      continue;
+    }
+
+    m_AppDatas.push_back(pData);
+  }
 }
 
 void AppList::OnAppActivated(int iAppID) {
@@ -339,11 +446,24 @@ void AppList::OnAppActivated(int iAppID) {
     return;
   }
 
-  if (m_pCurApp != NULL)
+  if (m_pCurApp != NULL && m_pCurApp->m_iAppID != iAppID)
     ToSDL->OnAppOut(m_pCurApp->m_iAppID);
   m_pCurApp = pData;
   ToSDL->OnAppActivated(iAppID);
-  m_pUIManager->onAppShow(m_pCurApp->getCurUI());
+  int curScene = m_pCurApp->getCurUI();
+  
+  if (ID_APPLINK != curScene) {
+    if (ID_COMMAND == curScene)
+      // 防止画面点不进去或者停留在菜单画面(测试发现从菜单退出应用后再次进入不应该停留在菜单画面，这样体验不好)
+      m_pCurApp->ShowPreviousUI();
+    else
+      // 强制刷新当前画面
+      m_pUIManager->onAppShow(curScene);
+  } else {
+    // 第一次启动App，此处逻辑根据需求来定，一般在收到UI.Show后才显示App画面，但有时App依赖网络但网络不好时，一直不发送Show请求，造成App点击进不去的假象
+    // m_pUIManager->onAppShow(ID_SHOW);
+  }
+
   m_pUIManager->onAppActive();
 }
 

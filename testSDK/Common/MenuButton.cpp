@@ -47,24 +47,25 @@ void MenuButton::setIcon(QImage on, QImage off)
 
 void MenuButton::paintEvent(QPaintEvent *e)
 {
+    Q_UNUSED(e);
     //QPushButton::paintEvent(e);
     QPainter painter(this);
     QColor   wordColor;
 
     if (m_isActive) {
-        QRect irect = m_pOnImage.rect();
+        // QRect irect = m_pOnImage.rect();
         QRect orect = rect();
-        int sx = (irect.width()-orect.width())/2;
-        int sy = (irect.height()-orect.height())/2;
+        // int sx = (irect.width()-orect.width())/2;
+        // int sy = (irect.height()-orect.height())/2;
         m_pOnImage = m_pOnImage.scaled(width(),height());
        //painter.drawImage(0,0,orect.width(),orect.height(),m_pOnImage,sx,sy);
         painter.drawImage(orect,m_pOnImage);
        wordColor = Qt::white;
     } else {
-        QRect irect = m_pOffImage.rect();
+        // QRect irect = m_pOffImage.rect();
         QRect orect = rect();
-        int sx = (irect.width()-orect.width())/2;
-        int sy = (irect.height()-orect.height())/2;
+        // int sx = (irect.width()-orect.width())/2;
+        // int sy = (irect.height()-orect.height())/2;
         m_pOffImage = m_pOffImage.scaled(width(),height());
        //painter.drawImage(0,0,orect.width(),orect.height(),m_pOffImage,sx,sy);
         painter.drawImage(orect,m_pOffImage);
@@ -80,7 +81,10 @@ void MenuButton::paintEvent(QPaintEvent *e)
     //font.setBold(true);
     painter.setFont(font);
     QRectF rect = QRectF(0,1.0*height()*15/24,width(),height()/3);
-    painter.drawText(rect,m_text,QTextOption(Qt::AlignCenter));
+    // 隐藏超范围的显示文本
+    QFontMetrics qfm(font);
+    QString strShow = qfm.elidedText(m_text,Qt::ElideRight,width());
+    painter.drawText(rect,strShow,QTextOption(Qt::AlignCenter));
 }
 
 std::string MenuButton::Text()

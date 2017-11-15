@@ -8,10 +8,10 @@
 #include <app_list_interface.h>
 #include <QLineEdit>
 
-#define AppControl m_pList->getActiveApp()
+#define AppControl (m_pList->getActiveApp() ? m_pList->getActiveApp() : (printf("######%s:%s():%d,error, current app is NULL!\n",  __FILE__, __FUNCTION__, __LINE__), (AppDataInterface*)NULL))
 
-#define SCREEN_WIDTH  1280
-#define SCREEN_HEIGHT  800
+#define SCREEN_WIDTH  800//1280
+#define SCREEN_HEIGHT  480//800
 
 typedef struct softButton{
     bool b_isHighlighted;

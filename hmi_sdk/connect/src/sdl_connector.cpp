@@ -165,42 +165,46 @@ void SDLConnector::OnAppActivated(int appID) {
   m_Base.sendRequest(m_Base.GenerateId(), "SDL.ActivateApp", params);
 }
 
-void SDLConnector::OnSoftButtonClick(int id, int mode, std::string strName) {
+void SDLConnector::OnSoftButtonClick(int appID, int id, int mode, std::string strName) {
   if (!strName.empty()) {
-    _onButtonClickAction(strName, "BUTTONDOWN", id);
-    _onButtonClickAction(strName, "BUTTONUP", id);
+    _onButtonClickAction(appID, strName, "BUTTONDOWN", id);
+    _onButtonClickAction(appID, strName, "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-		_onButtonClickAction2(strName, "SHORT", id);
+      _onButtonClickAction2(appID, strName, "SHORT", id);
     else
-		_onButtonClickAction2(strName, "LONG", id);
+      _onButtonClickAction2(appID, strName, "LONG", id);
   } else {
-    _onButtonClickAction("CUSTOM_BUTTON", "BUTTONDOWN", id);
-    _onButtonClickAction("CUSTOM_BUTTON", "BUTTONUP", id);
+    _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONDOWN", id);
+    _onButtonClickAction(appID, "CUSTOM_BUTTON", "BUTTONUP", id);
     if (mode == BUTTON_SHORT)
-		_onButtonClickAction2("CUSTOM_BUTTON", "SHORT", id);
+      _onButtonClickAction2(appID, "CUSTOM_BUTTON", "SHORT", id);
     else
-		_onButtonClickAction2("CUSTOM_BUTTON", "LONG", id);
+      _onButtonClickAction2(appID, "CUSTOM_BUTTON", "LONG", id);
   }
 }
 
-void SDLConnector::_onButtonClickAction(std::string name, std::string mode, int customButtonID) {
+void SDLConnector::_onButtonClickAction(int appID, std::string name, std::string mode, int customButtonID) {
   Json::Value params;
   params["name"] = name;
   params["mode"] = mode;
-  if (0 != customButtonID)
-	params["customButtonID"] = customButtonID;
+  if (customButtonID >= 0 ) {
+    params["customButtonID"] = customButtonID;
+    params["appID"] = appID;
+  }
 
   m_Buttons.sendNotification("Buttons.OnButtonEvent", params);
 }
 
-void SDLConnector::_onButtonClickAction2(std::string name, std::string mode, int customButtonID) {
-	Json::Value params;
-	params["name"] = name;
-	params["mode"] = mode;
-	if (0 != customButtonID)
-		params["customButtonID"] = customButtonID;
+void SDLConnector::_onButtonClickAction2(int appID, std::string name, std::string mode, int customButtonID) {
+  Json::Value params;
+  params["name"] = name;
+  params["mode"] = mode;
+  if (customButtonID >= 0 ) {
+    params["customButtonID"] = customButtonID;
+    params["appID"] = appID;
+  }
 
-	m_Buttons.sendNotification("Buttons.OnButtonPress", params);
+  m_Buttons.sendNotification("Buttons.OnButtonPress", params);
 }
 
 void SDLConnector::OnAppExit(int appID) {
@@ -218,7 +222,7 @@ void SDLConnector::OnAppOut(int appID) {
 }
 
 // reason 0:timeout 1:aborted 2:clickSB
-void SDLConnector::OnAlertResponse(int id, int reason) {
+void SDLConnector::OnAlertResponse(int id, int reason, int appID) {
   if (reason == RESULT_SUCCESS) {
     Json::Value result;
     result["code"] = 0;
@@ -233,7 +237,7 @@ void SDLConnector::OnAlertResponse(int id, int reason) {
     error["data"] = data;
     m_UI.sendError(id, error);
   }
-  m_UI.onSystemContext("MAIN");
+  m_UI.onSystemContext("MAIN", appID);
 }
 
 void SDLConnector::OnMediaClockResponse(int id, int code) {
@@ -243,7 +247,7 @@ void SDLConnector::OnMediaClockResponse(int id, int code) {
   m_UI.sendResult(id, result);
 }
 
-void SDLConnector::OnScrollMessageResponse(int id, int reason) {
+void SDLConnector::OnScrollMessageResponse(int id, int reason, int appID) {
   /*
   Json::Value root;
   if(reason == SCROLLMESSAGE_TIMEOUT || reason == SCROLLMESSAGE_CLICK_SOFTBUTTON) {
@@ -268,7 +272,7 @@ void SDLConnector::OnScrollMessageResponse(int id, int reason) {
   result["code"] = reason;
   result["method"] = "UI.ScrollableMessage";
   m_UI.sendResult(id, result);
-  m_UI.onSystemContext("MAIN");
+  m_UI.onSystemContext("MAIN", appID);
 }
 
 void SDLConnector::OnCommandClick(int appID, int cmdID) {
@@ -279,7 +283,7 @@ void SDLConnector::OnCommandClick(int appID, int cmdID) {
   m_UI.sendNotification("UI.OnCommand", params);
 }
 
-void SDLConnector::OnPerformInteraction(int code, int performInteractionID, int choiceID) {
+void SDLConnector::OnPerformInteraction(int code, int performInteractionID, int choiceID, int appID) {
   Json::Value result;
   result["code"] = code;
   result["method"] = "UI.PerformInteraction";
@@ -287,6 +291,7 @@ void SDLConnector::OnPerformInteraction(int code, int performInteractionID, int 
     result["choiceID"] = choiceID;
   }
   m_UI.sendResult(performInteractionID, result);
+  m_UI.onSystemContext("MAIN", appID);
 }
 
 void SDLConnector::OnVRPerformInteraction(int code, int performInteractionID, int choiceID) {
@@ -358,9 +363,9 @@ void SDLConnector::OnStartDeviceDiscovery() {
 
 void SDLConnector::OnDeviceChosen(std::string name, std::string id) {
   Json::Value params, device;
-  if(!name.empty())
+  if (!name.empty())
     device["name"] = name;
-  if(!id.empty())
+  if (!id.empty())
     device["id"] = id;
   params["deviceInfo"] = device;
   m_Base.sendNotification("BasicCommunication.OnDeviceChosen", params);
@@ -368,9 +373,9 @@ void SDLConnector::OnDeviceChosen(std::string name, std::string id) {
 
 void SDLConnector::OnFindApplications(std::string name, std::string id) {
   Json::Value params, device;
-  if(!name.empty())
+  if (!name.empty())
     device["name"] = name;
-  if(!id.empty())
+  if (!id.empty())
     device["id"] = id;
   params["deviceInfo"] = device;
   m_Base.sendNotification("BasicCommunication.OnFindApplications", params);

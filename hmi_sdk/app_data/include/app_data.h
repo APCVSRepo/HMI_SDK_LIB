@@ -17,6 +17,7 @@
 class AppData : public AppDataInterface {
  public:
   AppData();
+  ~AppData();
 
   // 增加一个退出app的指令
   void addExitAppCommand();
@@ -34,6 +35,7 @@ class AppData : public AppDataInterface {
   std::string getAppIconFile();
   Result recvFromServer(Json::Value);
   int getCurUI();
+  int getAppID();
   void setUIManager(UIInterface *pcallBack);
 
   // bInApp: just show the UI of the app, or could bjump to the applist.
@@ -49,11 +51,14 @@ class AppData : public AppDataInterface {
   void OnPerformInteraction(int code, int choiceID, bool bVR = false);
   void OnSetMediaClockTimerResponse(int iCode);
   void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y);
+  std::string GetActiveTemplate();
+  void SetActiveTemplate(std::string);
 
  private:
   UIInterface *m_pUIManager;
   std::vector<int> m_vecUIStack;
   Json::Value m_JsonShow;
+  Json::Value *m_pShowData;
   std::vector <SMenuCommand > m_MenuCommands;
 
   Json::Value m_JsonAlert;
@@ -84,6 +89,17 @@ class AppData : public AppDataInterface {
   std::string m_strAppIconFilePath;
   int m_iAppID;
   std::string m_szAppName;
+
+  /**
+   * App画面显示对应的模板堆栈，在每个画面显示时，会将对应的模板保存到堆栈，方便在画面返回时，进行模板的恢复
+   */
+  std::vector<std::string> m_vecTplStack;
+
+  /**
+   * 最后调用SetDisplayLayout设置的模板名
+   */
+  std::string m_sLastTpl;
+
 };
 
 #endif // APPDATA_H_

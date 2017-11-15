@@ -69,24 +69,24 @@ class SDLConnector : public INetworkStatus {
   void OnAppOut(int appID);
 
   // mode: SHORT or LONG
-  void OnSoftButtonClick(int id, int mode, std::string strName = "");
+  void OnSoftButtonClick(int appID, int id, int mode, std::string strName = "");
 
   // mode: SHORT or LONG
   void OnButtonClick(std::string buttonname, int mode);
 
   // reason: timeout clickSB and aborted
-  void OnAlertResponse(int alertID, int reason);
+  void OnAlertResponse(int alertID, int reason, int appID);
 
   void OnMediaClockResponse(int id, int code);
 
   // reason: timeout clickSB and rejected
-  void OnScrollMessageResponse(int smID, int reason);
+  void OnScrollMessageResponse(int smID, int reason, int appID);
 
   void OnCommandClick(int appID, int cmdID);
   void OnVRCommand(int appID, int cmdID);
 
   // code: timeout or choice
-  void OnPerformInteraction(int code, int performInteractionID, int choiceID);
+  void OnPerformInteraction(int code, int performInteractionID, int choiceID, int appID);
   void OnVRPerformInteraction(int code, int performInteractionID, int choiceID);
 
   // code: timeout sborted select someone
@@ -113,8 +113,8 @@ class SDLConnector : public INetworkStatus {
   void OnFindApplications(std::string name, std::string id);
 
  private:
-  void _onButtonClickAction(std::string, std::string, int);
-  void _onButtonClickAction2(std::string, std::string, int);
+  void _onButtonClickAction(int appID, std::string, std::string, int);
+  void _onButtonClickAction2(int appID, std::string, std::string, int);
   void _stopPerformAudioPassThru(int);
   void _buttonEventDown(std::string buttonname);
   void _buttonPressed(std::string buttonname, int mode);

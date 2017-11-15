@@ -25,7 +25,7 @@ class UI : public Channel {
   Json::Value startRecordingNotify(Json::Value &);
 
  public:
-  void onSystemContext(std::string systemContext);
+  void onSystemContext(std::string systemContext, int appID);
 };
 
 #endif // UICLIENT_H_

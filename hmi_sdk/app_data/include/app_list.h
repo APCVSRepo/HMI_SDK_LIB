@@ -52,6 +52,7 @@ class AppList : public IMessageInterface, public AppListInterface {
   Result recvFromServer(Json::Value);
   void newAppRegistered(Json::Value jsonObj);
   void appUnregistered(Json::Value jsonObj);
+  void updateAppList(Json::Value jsonObj);
 
  private:
   UIInterface *m_pUIManager;

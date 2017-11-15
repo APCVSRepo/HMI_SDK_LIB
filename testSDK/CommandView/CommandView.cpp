@@ -88,7 +88,7 @@ void CCommandView::AddSubCommand(int iParentId,int iCmdId,std::string strName,st
     tempCmdInf.iId = iCmdId;
     tempCmdInf.iParentId = iParentId;
     tempCmdInf.strImagePath = strImagePath;
-    for (int i = 0; i != m_CmdVec.size(); ++i) {
+    for (unsigned int i = 0; i != m_CmdVec.size(); ++i) {
         if (m_CmdVec[i].bMenu && m_CmdVec[i].iId == iParentId) {
             m_CmdVec[i].CmdVec.push_back(tempCmdInf);
             return;
@@ -101,12 +101,12 @@ void CCommandView::RefreshCommandList(tagCmdInf *pMenu)
     m_pCommandList->ClearAllItem();
 
     if (NULL == pMenu) {
-        for (int i = 0;i != m_CmdVec.size();++i) {
+        for (unsigned int i = 0;i != m_CmdVec.size();++i) {
             m_pCommandList->AddListItem(m_CmdVec[i].strCmd.c_str(),
                                         m_CmdVec[i].bMenu,m_CmdVec[i].strImagePath);
         }
     } else {
-        for (int i = 0;i != pMenu->CmdVec.size();++i) {
+        for (unsigned int i = 0;i != pMenu->CmdVec.size();++i) {
             // Bug #9677
             m_pCommandList->AddListItem(pMenu->CmdVec[i].strCmd.c_str(),
                                         pMenu->CmdVec[i].bMenu,pMenu->CmdVec[i].strImagePath);
@@ -117,10 +117,11 @@ void CCommandView::RefreshCommandList(tagCmdInf *pMenu)
 
 void CCommandView::showEvent(QShowEvent * e)
 {
+    Q_UNUSED(e);
     //m_pCommandList->SetPos(m_pMenuBtn->geometry().left(),m_pMenuBtn->geometry().top(),m_pMenuBtn->geometry().width()*2.5,0);
     m_CmdVec.clear();
 
-    std::vector<SMenuCommand> CmdList = m_pList->getActiveApp()->getCommandList();
+    std::vector<SMenuCommand> CmdList = AppControl->getCommandList();
     std::vector<SMenuCommand> TmpCmdList;
     for (unsigned int i = 0; i < CmdList.size(); ++i) {
         if (0 != CmdList.at(i).i_cmdID && 0 == CmdList.at(i).i_menuID) {
@@ -128,7 +129,7 @@ void CCommandView::showEvent(QShowEvent * e)
         }else if (0 == CmdList.at(i).i_cmdID && 0 != CmdList.at(i).i_menuID) {
             AddMenu(CmdList.at(i).i_menuID,CmdList.at(i).str_menuName);
 
-            TmpCmdList = m_pList->getActiveApp()->getCommandList(CmdList.at(i).i_menuID);
+            TmpCmdList = AppControl->getCommandList(CmdList.at(i).i_menuID);
             for(unsigned int j = 0; j < TmpCmdList.size(); j++) {
                 AddSubCommand(CmdList.at(i).i_menuID,
                               TmpCmdList.at(j).i_cmdID,
@@ -140,13 +141,13 @@ void CCommandView::showEvent(QShowEvent * e)
     RefreshCommandList();
 
     AppBase::SetEdlidedText(m_pAppNameLab,
-                            m_pList->getActiveApp()->getAppName().c_str(),
+                            AppControl->getAppName().c_str(),
                             width()*0.8);
 }
 
 void CCommandView::OnReturnBtnClicked()
 {
-    m_pList->getActiveApp()->OnCommandClick(-1);
+    AppControl->OnCommandClick(-1);
 }
 
 void CCommandView::OnCommandListItemClicked(QListWidgetItem *pItem)
@@ -161,10 +162,10 @@ void CCommandView::OnCommandListItemClicked(QListWidgetItem *pItem)
                 m_pCurrentMenu = &m_CmdVec[iRow];
                 RefreshCommandList(m_pCurrentMenu);
             } else {
-                m_pList->getActiveApp()->OnCommandClick(m_CmdVec[iRow].iId);
+                AppControl->OnCommandClick(m_CmdVec[iRow].iId);
             }
         }
     } else {
-        m_pList->getActiveApp()->OnCommandClick(m_pCurrentMenu->CmdVec[iRow].iId);
+        AppControl->OnCommandClick(m_pCurrentMenu->CmdVec[iRow].iId);
     }
 }
