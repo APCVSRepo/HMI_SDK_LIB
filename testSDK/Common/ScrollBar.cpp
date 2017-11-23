@@ -1,23 +1,15 @@
 #include "ScrollBar.h"
 
-ScrollBar::ScrollBar(QWidget *parent):QScrollBar(parent)
-{
-    this->setStyleSheet(ScrollBar::cssString());
-
-//QScrollBar::up-arrow:vertical{ subcontrol-origin: margin; \
-//background-image:url(:/images/uparrow.png);\
-//height:13px;}\
-//QScrollBar::down-arrow:vertical{ background-image:url(:/images/downarrow.png); }
+ScrollBar::ScrollBar(QWidget *parent): QScrollBar(parent) {
+  this->setStyleSheet(ScrollBar::cssString());
 }
 
-ScrollBar::~ScrollBar()
-{
+ScrollBar::~ScrollBar() {
 
 }
 
-QString ScrollBar::cssString()
-{
-    return QString::fromUtf8("\
+QString ScrollBar::cssString() {
+  return QString::fromUtf8("\
                              QScrollBar::vertical {\
                                 background:rgb(63,70,87);\
                                 border:0px solid grey;\
@@ -59,17 +51,15 @@ QString ScrollBar::cssString()
                   ");
 }
 
-void ScrollBar::init(int h)
-{
-   this->setOrientation(Qt::Vertical);
-   this->setFixedHeight(h);
+void ScrollBar::init(int h) {
+  this->setOrientation(Qt::Vertical);
+  this->setFixedHeight(h);
 }
 
-void ScrollBar::flushScroll(int page,int currentNo, int totalNum)
-{
-    this->setPageStep(page);
-    this->setRange(0,totalNum-1);
-    this->setValue(currentNo-1);
+void ScrollBar::flushScroll(int page, int currentNo, int totalNum) {
+  this->setPageStep(page);
+  this->setRange(0, totalNum - 1);
+  this->setValue(currentNo - 1);
 }
 
 

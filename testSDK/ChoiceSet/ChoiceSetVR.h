@@ -1,9 +1,9 @@
 #ifndef CHOICESETVR_H
 #define CHOICESETVR_H
 
+#include <string>
 #include <QWidget>
 #include <QLabel>
-#include <string>
 
 class CChoiceSetVR : public QWidget {
   Q_OBJECT

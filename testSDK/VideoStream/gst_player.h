@@ -5,8 +5,7 @@
 #include <gst/video/videooverlay.h>
 #include <string>
 
-enum MediaState
-{
+enum MediaState {
   STATE_NULL,
   STATE_READY,
   STATE_PLAYING,
@@ -14,21 +13,21 @@ enum MediaState
 };
 
 class GstPlayer {
-public:
+ public:
   GstPlayer();
-  GstPlayer(const std::string& file_path, const std::string& sink, bool sync = true, guintptr xwinid = 0);
+  GstPlayer(const std::string &file_path, const std::string &sink, bool sync = true, guintptr xwinid = 0);
   ~GstPlayer();
 
-  bool open(const std::string& file_path, const std::string& sink, bool sync = true, guintptr xwinid = 0);
+  bool open(const std::string &file_path, const std::string &sink, bool sync = true, guintptr xwinid = 0);
   bool play();
   bool pause();
   bool stop();
   bool setRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height);
   MediaState get_state();
-private:
-  GstElement* pipeline_;
-  GstBus* bus_;
-  
+ private:
+  GstElement *pipeline_;
+  GstBus *bus_;
+
   double volume_;
 
   std::string file_path_;
@@ -43,7 +42,7 @@ private:
 
   bool Init();
   bool Release();
-  static gboolean bus_callback(GstBus* bus, GstMessage* msg, gpointer data);
+  static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data);
 };
 
 #endif // SRC_GST_PLAYER_H

@@ -4,18 +4,17 @@
 #include <QWidget>
 #include "Common/AppBase.h"
 
-class CAudioPassView : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit CAudioPassView(AppListInterface *pList,QWidget *parent = 0);
+class CAudioPassView : public QWidget {
+  Q_OBJECT
+ public:
+  explicit CAudioPassView(AppListInterface *pList, QWidget *parent = 0);
 
-signals:
+ signals:
 
-public slots:
+ public slots:
 
-private:
-    AppListInterface *m_pList;
+ private:
+  AppListInterface *m_pList;
 
 
 };

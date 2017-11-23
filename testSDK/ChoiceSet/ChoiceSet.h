@@ -2,12 +2,12 @@
 #define CHOICESET_H
 
 #include <QWidget>
-#include "app_list_interface.h"
-#include "Common/CustomButton.h"
-#include "Common/CustomListView.h"
 #include <QTimer>
 #include <QLabel>
 #include <QLineEdit>
+#include "app_list_interface.h"
+#include "Common/CustomButton.h"
+#include "Common/CustomListView.h"
 #include "ChoiceSetVR.h"
 
 class CChoiceSet : public QWidget {

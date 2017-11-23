@@ -183,6 +183,10 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       }
     } else if (str_method == "BasicCommunication.UpdateAppList") {
       updateAppList(jsonObj);
+      // 防止在其他App画面弹回到App列表画面，强制图标更新
+      if (m_pCurApp == NULL) {
+        m_pUIManager->onAppShow(ID_APPLINK);
+      }
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
       int appID = jsonObj["params"]["appID"].asInt();
       m_pUIManager->onAppUnregister(appID);
@@ -372,6 +376,8 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
   pData->m_iAppID = jsonObj["params"]["application"]["appID"].asInt();
   pData->m_szAppName = jsonObj["params"]["application"]["appName"].asString();
   pData->addExitAppCommand();
+  if (jsonObj["params"]["application"].isMember("icon") && !jsonObj["params"]["application"]["icon"].asString().empty())
+    pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["application"]["icon"].asString()));
 
   std::vector <AppData *>::iterator i;
   for (i = m_AppDatas.begin(); i != m_AppDatas.end(); ++i) {
@@ -411,6 +417,10 @@ void AppList::updateAppList(Json::Value jsonObj) {
     for (it = m_AppDatas.begin(); it != m_AppDatas.end(); ++it) {
       AppData *pOne = *it;
       if (pOne->m_iAppID == pData->m_iAppID) {
+        if (!pData->m_strAppIconFilePath.empty()) {
+          // 更新图标
+          pOne->m_strAppIconFilePath = pData->m_strAppIconFilePath;
+        }
         bFind = true;
         break;
         /*

@@ -9,7 +9,7 @@ GstPlayer::GstPlayer()
   , m_height_(0) {
 }
 
-GstPlayer::GstPlayer(const std::string& file_path, const std::string& sink, bool sync, guintptr xwinid)
+GstPlayer::GstPlayer(const std::string &file_path, const std::string &sink, bool sync, guintptr xwinid)
   : file_path_(file_path)
   , sink_name_(sink)
   , sync_(sync)
@@ -23,14 +23,14 @@ GstPlayer::GstPlayer(const std::string& file_path, const std::string& sink, bool
 }
 
 GstPlayer::~GstPlayer() {
-  if(state_ != STATE_READY) {
+  if (state_ != STATE_READY) {
     stop();
   }
 
   Release();
 }
 
-bool GstPlayer::open(const std::string& file_path, const std::string& sink, bool sync, guintptr xwinid) {
+bool GstPlayer::open(const std::string &file_path, const std::string &sink, bool sync, guintptr xwinid) {
 
   if (state_ != STATE_NULL) return false;
 
@@ -45,18 +45,16 @@ bool GstPlayer::open(const std::string& file_path, const std::string& sink, bool
 bool GstPlayer::play() {
   if (state_ == STATE_PLAYING) {
     return true;
-  }
-  else if (state_ == STATE_NULL) {
+  } else if (state_ == STATE_NULL) {
     Init();
   }
 
   GstStateChangeReturn ret = gst_element_set_state(pipeline_, GST_STATE_PLAYING);
-  if(GST_STATE_CHANGE_FAILURE != ret) {
+  if (GST_STATE_CHANGE_FAILURE != ret) {
     printf("-- GST: playing.\n");
     state_ = STATE_PLAYING;
     return true;
-  }
-  else {
+  } else {
     printf("-- GST: Failed to play.\n");
     Release();
   }
@@ -75,8 +73,7 @@ bool GstPlayer::pause() {
     printf("-- GST: paused.\n");
     state_ = STATE_PAUSED;
     return true;
-  }
-  else {
+  } else {
     printf("-- GST: Failed to pause.\n");
   }
 
@@ -158,23 +155,23 @@ bool GstPlayer::Release() {
   return true;
 }
 
-gboolean GstPlayer::bus_callback(GstBus* bus, GstMessage* msg, gpointer data) {
-  GstPlayer* media = (GstPlayer*)data;
+gboolean GstPlayer::bus_callback(GstBus *bus, GstMessage *msg, gpointer data) {
+  GstPlayer *media = (GstPlayer *)data;
 
   bus = bus; // Avoid warning: -Wunused-parameter
   switch (GST_MESSAGE_TYPE (msg)) {
-  case GST_MESSAGE_ERROR: {
-    printf("-- MSG: ERROR\n");
-    media->stop();
-    break;
-  }
-  case GST_MESSAGE_EOS:
-    printf("-- MSG: EOS\n");
-    media->stop();
-    break;
-  default:
-    /* Unhandled message */
-    break;
+    case GST_MESSAGE_ERROR: {
+      printf("-- MSG: ERROR\n");
+      media->stop();
+      break;
     }
+    case GST_MESSAGE_EOS:
+      printf("-- MSG: EOS\n");
+      media->stop();
+      break;
+    default:
+      /* Unhandled message */
+      break;
+  }
   return true;
 }

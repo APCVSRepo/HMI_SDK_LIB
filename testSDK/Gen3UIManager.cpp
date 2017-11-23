@@ -5,7 +5,15 @@
 #endif
 #if defined(WINCE)
 #else
-#include<sys/stat.h>
+#include <sys/stat.h>
+#endif
+
+#ifdef WIN32
+#include <qt_windows.h>
+#endif
+
+#ifdef linux
+#include <unistd.h>
 #endif
 
 #include <QThread>
@@ -22,14 +30,6 @@
 #include "MainWindow/MainWindow.h"
 #include "Show/GraphicSoftButtonShow.h"
 #include "VideoStream/CeVideoStream.h"
-
-#ifdef WIN32
-#include <Windows.h>
-#endif
-
-#ifdef linux
-#include <unistd.h>
-#endif
 
 typedef AppListInterface *(*InitFunc)(UIInterface *);
 typedef void  (*CloseFunc)();

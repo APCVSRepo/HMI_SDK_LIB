@@ -9,17 +9,17 @@
 
 
 #include "TemplateManager.h"
-#include "../Config/Config.h"
-#include "../VideoStream/CeVideoStream.h"
-#include "../MainWindow/MainWindow.h"
-#include "../AppListView/AppListView.h"
-#include "../CommandView/CommandView.h"
-#include "../Show/MediaShow.h"
-#include "../Alert/AlertView.h"
-#include "../ChoiceSet/ChoiceSet.h"
-#include "../ScrollableMessage/ScollMsgView.h"
-#include "../SliderView/SliderView.h"
-#include "../AppListView/DeviceListView.h"
+#include "Config/Config.h"
+#include "VideoStream/CeVideoStream.h"
+#include "MainWindow/MainWindow.h"
+#include "AppListView/AppListView.h"
+#include "CommandView/CommandView.h"
+#include "Show/MediaShow.h"
+#include "Alert/AlertView.h"
+#include "ChoiceSet/ChoiceSet.h"
+#include "ScrollableMessage/ScollMsgView.h"
+#include "SliderView/SliderView.h"
+#include "AppListView/DeviceListView.h"
 #include "TemplateImp.h"
 
 TemplateManager::TemplateManager() {
