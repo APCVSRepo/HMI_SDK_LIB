@@ -412,7 +412,7 @@ void AppList::updateAppList(Json::Value jsonObj) {
       pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
     pData->addExitAppCommand();
 
-    std::vector <AppData *>::iterator it;
+    std::vector <AppData *>::const_iterator it;
     bool bFind = false;
     for (it = m_AppDatas.begin(); it != m_AppDatas.end(); ++it) {
       AppData *pOne = *it;
