@@ -2,7 +2,6 @@
 #include <QBoxLayout>
 #include "Common/AppBase.h"
 
-
 #define LISTW 740
 #define LISTH 280
 

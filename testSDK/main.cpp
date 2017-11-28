@@ -1,9 +1,9 @@
-#include "Gen3UIManager.h"
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QTextCodec>
 #include <QDialog>
 #include <QTimer>
+#include "Gen3UIManager.h"
 #include "Common/AppBase.h"
 
 CGen3UIManager *g_pUIManager;

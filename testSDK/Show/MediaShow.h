@@ -16,7 +16,7 @@ class CMediaShow : public QWidget {
 
   void SetAppName(QString strName);
 
-  void UpdateMediaColckTimer();
+  void UpdateMediaClockTimer();
  protected:
   virtual void showEvent(QShowEvent *e);
 

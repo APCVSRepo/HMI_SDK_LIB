@@ -1,27 +1,25 @@
 #include "Button.h"
 
 CButton::CButton(QWidget *parent) :
-    QWidget(parent),
-    m_pIconLayout(NULL),m_pLeftIconLab(NULL),m_BtnStatus(BTN_STAT_UNKNOW),m_i_clickX(0),m_i_clickY(0),m_bLeftIcon(false)
-{
-    m_IconLabel.setParent(this);
-    //m_TextLabel.setParent(this);
+  QWidget(parent),
+  m_pIconLayout(NULL), m_pLeftIconLab(NULL), m_BtnStatus(BTN_STAT_UNKNOW), m_i_clickX(0), m_i_clickY(0), m_bLeftIcon(false) {
+  m_IconLabel.setParent(this);
 
-    m_pMainLayout = new QHBoxLayout(&m_IconLabel);
-    m_pMainLayout->setSpacing(0);
-    m_pMainLayout->setContentsMargins(0,0,0,0);
-    m_pIconLayout = new QVBoxLayout;
-    m_pIconLayout->setSpacing(0);
-    m_pIconLayout->setMargin(0);
-    m_pTextLayout = new QVBoxLayout;
-    m_pTextLayout->setSpacing(0);
-    m_pTextLayout->setMargin(0);
+  m_pMainLayout = new QHBoxLayout(&m_IconLabel);
+  m_pMainLayout->setSpacing(0);
+  m_pMainLayout->setContentsMargins(0, 0, 0, 0);
+  m_pIconLayout = new QVBoxLayout;
+  m_pIconLayout->setSpacing(0);
+  m_pIconLayout->setMargin(0);
+  m_pTextLayout = new QVBoxLayout;
+  m_pTextLayout->setSpacing(0);
+  m_pTextLayout->setMargin(0);
 
-    m_pLeftIconLab = new QLabel;
-    m_pMainLayout->addLayout(m_pIconLayout);
-    m_pMainLayout->addLayout(m_pTextLayout,1);
-    m_pTextLayout->addWidget(&m_TextLabel);
-    m_pLeftIconLab->setStyleSheet("background:transparent");
+  m_pLeftIconLab = new QLabel;
+  m_pMainLayout->addLayout(m_pIconLayout);
+  m_pMainLayout->addLayout(m_pTextLayout, 1);
+  m_pTextLayout->addWidget(&m_TextLabel);
+  m_pLeftIconLab->setStyleSheet("background:transparent");
 }
 
 /***********************************************************************************************************
@@ -37,20 +35,18 @@ CButton::CButton(QWidget *parent) :
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
 CButton::CButton(int W, int H, QString normalIcon, QString pressedIcon, QString disableIcon) :
-    m_Id(-1),
-    m_BtnStatus(BTN_STAT_UNKNOW),
-    m_i_clickX(0),
-    m_i_clickY(0)
-{
-    setSize(W, H);
-    setIconNormal(normalIcon, true);
-    setIconPressed(pressedIcon, false);
-    setIconDisable(disableIcon, false);
+  m_Id(-1),
+  m_BtnStatus(BTN_STAT_UNKNOW),
+  m_i_clickX(0),
+  m_i_clickY(0) {
+  setSize(W, H);
+  setIconNormal(normalIcon, true);
+  setIconPressed(pressedIcon, false);
+  setIconDisable(disableIcon, false);
 }
 
-CButton::~CButton()
-{
-    delete m_pMainLayout;
+CButton::~CButton() {
+  delete m_pMainLayout;
 }
 
 /***********************************************************************************************************
@@ -65,18 +61,16 @@ CButton::~CButton()
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::initParameter(int W, int H, QString normalIcon, QString pressedIcon, QString disableIcon, QString text)
-{
-    setSize(W, H);
-    setIconNormal(normalIcon, true);
-    setIconPressed(pressedIcon, false);
-    setIconDisable(disableIcon, false);
-    setText(text);
+void CButton::initParameter(int W, int H, QString normalIcon, QString pressedIcon, QString disableIcon, QString text) {
+  setSize(W, H);
+  setIconNormal(normalIcon, true);
+  setIconPressed(pressedIcon, false);
+  setIconDisable(disableIcon, false);
+  setText(text);
 }
 
-void CButton::setId(int id)
-{
-    m_Id = id;
+void CButton::setId(int id) {
+  m_Id = id;
 }
 
 /***********************************************************************************************************
@@ -88,14 +82,13 @@ void CButton::setId(int id)
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::setSize(int W, int H)
-{
-    this->setMaximumSize(W, H);
-    this->setMinimumSize(W, H);
-    m_IconLabel.setMaximumSize(W, H);
-    m_IconLabel.setMinimumSize(W, H);
-    m_IconLabelExtra.setMaximumSize(W, H);
-    m_IconLabelExtra.setMinimumSize(W, H);
+void CButton::setSize(int W, int H) {
+  this->setMaximumSize(W, H);
+  this->setMinimumSize(W, H);
+  m_IconLabel.setMaximumSize(W, H);
+  m_IconLabel.setMinimumSize(W, H);
+  m_IconLabelExtra.setMaximumSize(W, H);
+  m_IconLabelExtra.setMinimumSize(W, H);
 }
 
 /***********************************************************************************************************
@@ -107,13 +100,11 @@ void CButton::setSize(int W, int H)
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::setIconNormal(QString imagePath, bool flag)
-{
-    m_IconNormalPath = imagePath;
-    if (flag)
-    {
-        changeToNormal();
-    }
+void CButton::setIconNormal(QString imagePath, bool flag) {
+  m_IconNormalPath = imagePath;
+  if (flag) {
+    changeToNormal();
+  }
 }
 
 /***********************************************************************************************************
@@ -125,13 +116,11 @@ void CButton::setIconNormal(QString imagePath, bool flag)
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::setIconPressed(QString imagePath, bool flag)
-{
-    m_IconPressedPath = imagePath;
-    if (flag)
-    {
-        changeToPressed();
-    }
+void CButton::setIconPressed(QString imagePath, bool flag) {
+  m_IconPressedPath = imagePath;
+  if (flag) {
+    changeToPressed();
+  }
 }
 
 /***********************************************************************************************************
@@ -143,19 +132,16 @@ void CButton::setIconPressed(QString imagePath, bool flag)
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::setIconDisable(QString imagePath, bool flag)
-{
-    m_IconDisablePath = imagePath;
-    if (flag)
-    {
-        changeToDisable();
-    }
+void CButton::setIconDisable(QString imagePath, bool flag) {
+  m_IconDisablePath = imagePath;
+  if (flag) {
+    changeToDisable();
+  }
 }
 
-void CButton::setIconExtra(QString imagePath)
-{
-    m_IconExtraPath = imagePath;
-    changeToExtra();
+void CButton::setIconExtra(QString imagePath) {
+  m_IconExtraPath = imagePath;
+  changeToExtra();
 }
 
 /***********************************************************************************************************
@@ -166,53 +152,48 @@ void CButton::setIconExtra(QString imagePath)
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::changeToExtra(bool flag)
-{
-    QImage image;
-    if (flag) {
-        image.load(m_IconExtraPath);
-    } else {
-        image.load("");
-    }
-    QPixmap pixmap(QPixmap::fromImage(image));
-    QPixmap fitpixmap=pixmap.scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    m_IconLabelExtra.setPixmap(fitpixmap);
-    m_IconLabelExtra.setParent(this);
-    m_IconLabelExtra.setGeometry((this->width() - m_IconLabelExtra.width()) / 2, (this->height() - m_IconLabelExtra.height()) / 2, m_IconLabelExtra.width(), m_IconLabelExtra.height());
-    m_IconLabelExtra.setWindowFlags(Qt::WindowStaysOnTopHint);
-    m_IconLabelExtra.setAlignment(Qt::AlignCenter);
+void CButton::changeToExtra(bool flag) {
+  QImage image;
+  if (flag) {
+    image.load(m_IconExtraPath);
+  } else {
+    image.load("");
+  }
+  QPixmap pixmap(QPixmap::fromImage(image));
+  QPixmap fitpixmap = pixmap.scaled(image.width(), image.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_IconLabelExtra.setPixmap(fitpixmap);
+  m_IconLabelExtra.setParent(this);
+  m_IconLabelExtra.setGeometry((this->width() - m_IconLabelExtra.width()) / 2, (this->height() - m_IconLabelExtra.height()) / 2, m_IconLabelExtra.width(), m_IconLabelExtra.height());
+  m_IconLabelExtra.setWindowFlags(Qt::WindowStaysOnTopHint);
+  m_IconLabelExtra.setAlignment(Qt::AlignCenter);
 }
 
-void CButton::setText(QString text, bool flag)
-{
-    m_Text = text;
+void CButton::setText(QString text, bool flag) {
+  m_Text = text;
 
-    if (flag) {
-        updateText();
-    }
+  if (flag) {
+    updateText();
+  }
 }
 
-void CButton::setTextStyle(QString style, bool flag)
-{
-    m_Style = style;
-    if (flag) {
-        updateTextStyle();
-    }
+void CButton::setTextStyle(QString style, bool flag) {
+  m_Style = style;
+  if (flag) {
+    updateTextStyle();
+  }
 }
 
-void CButton::updateText()
-{
-    QFontMetrics qfm(m_TextLabel.font());
-    QString strTemp(qfm.elidedText(m_Text,Qt::ElideRight,GetTextWidth()));
-    m_TextLabel.setText(strTemp);
-    m_TextLabel.setAlignment(Qt::AlignCenter);
-    //m_TextLabel.setGeometry((this->width() - m_TextLabel.width()) / 2, (this->height() - m_TextLabel.height()) / 2, m_TextLabel.width(), m_TextLabel.height());
-    m_TextLabel.setAttribute(Qt::WA_TranslucentBackground, true);
+void CButton::updateText() {
+  QFontMetrics qfm(m_TextLabel.font());
+  QString strTemp(qfm.elidedText(m_Text, Qt::ElideRight, GetTextWidth()));
+  m_TextLabel.setText(strTemp);
+  m_TextLabel.setAlignment(Qt::AlignCenter);
+  //m_TextLabel.setGeometry((this->width() - m_TextLabel.width()) / 2, (this->height() - m_TextLabel.height()) / 2, m_TextLabel.width(), m_TextLabel.height());
+  m_TextLabel.setAttribute(Qt::WA_TranslucentBackground, true);
 }
 
-void CButton::updateTextStyle()
-{
-    m_TextLabel.setStyleSheet(m_Style);
+void CButton::updateTextStyle() {
+  m_TextLabel.setStyleSheet(m_Style);
 }
 
 /***********************************************************************************************************
@@ -223,12 +204,11 @@ void CButton::updateTextStyle()
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::changeToNormal()
-{
-    QPixmap pixmap(m_IconNormalPath);
-    QPixmap fitpixmap=pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    m_IconLabel.setPixmap(fitpixmap);
-    m_BtnStatus = BTN_STAT_NORMAL;
+void CButton::changeToNormal() {
+  QPixmap pixmap(m_IconNormalPath);
+  QPixmap fitpixmap = pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_IconLabel.setPixmap(fitpixmap);
+  m_BtnStatus = BTN_STAT_NORMAL;
 }
 
 /***********************************************************************************************************
@@ -239,12 +219,11 @@ void CButton::changeToNormal()
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::changeToPressed()
-{
-    QPixmap pixmap(m_IconPressedPath);
-    QPixmap fitpixmap=pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    m_IconLabel.setPixmap(fitpixmap);
-    m_BtnStatus = BTN_STAT_PRESSED;
+void CButton::changeToPressed() {
+  QPixmap pixmap(m_IconPressedPath);
+  QPixmap fitpixmap = pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_IconLabel.setPixmap(fitpixmap);
+  m_BtnStatus = BTN_STAT_PRESSED;
 }
 
 /***********************************************************************************************************
@@ -255,87 +234,77 @@ void CButton::changeToPressed()
  * Auther:
  *         001 LUWANJIA 2015.04.22 新规
  ***********************************************************************************************************/
-void CButton::changeToDisable()
-{
-    QPixmap pixmap(m_IconDisablePath);
-    QPixmap fitpixmap=pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    m_IconLabel.setPixmap(fitpixmap);
-    m_BtnStatus = BTN_STAT_DISABLE;
+void CButton::changeToDisable() {
+  QPixmap pixmap(m_IconDisablePath);
+  QPixmap fitpixmap = pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_IconLabel.setPixmap(fitpixmap);
+  m_BtnStatus = BTN_STAT_DISABLE;
 }
 
-bool CButton::isNormal()
-{
-    return m_BtnStatus == BTN_STAT_NORMAL ? true : false;
+bool CButton::isNormal() {
+  return m_BtnStatus == BTN_STAT_NORMAL ? true : false;
 }
 
-bool CButton::isPressed()
-{
-    return m_BtnStatus == BTN_STAT_PRESSED ? true : false;
+bool CButton::isPressed() {
+  return m_BtnStatus == BTN_STAT_PRESSED ? true : false;
 }
 
-bool CButton::isDisable()
-{
-    return m_BtnStatus == BTN_STAT_DISABLE ? true : false;
+bool CButton::isDisable() {
+  return m_BtnStatus == BTN_STAT_DISABLE ? true : false;
 }
 
-void CButton::mousePressEvent(QMouseEvent *e)
-{
-    m_i_clickX = e->x();
-    m_i_clickY = e->y();
-    //点击不触发事件，释放按钮才触发事件；
-    QPixmap pixmap(m_IconPressedPath);
-    QPixmap fitpixmap=pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    m_IconLabel.setPixmap(fitpixmap);
+void CButton::mousePressEvent(QMouseEvent *e) {
+  m_i_clickX = e->x();
+  m_i_clickY = e->y();
+  //点击不触发事件，释放按钮才触发事件；
+  QPixmap pixmap(m_IconPressedPath);
+  QPixmap fitpixmap = pixmap.scaled(m_IconLabel.width(), m_IconLabel.height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_IconLabel.setPixmap(fitpixmap);
 
-    m_i_time = QTime::currentTime().secsTo(QTime(2000,1,1));
+  m_i_time = QTime::currentTime().secsTo(QTime(2000, 1, 1));
 }
 
-void CButton::mouseReleaseEvent(QMouseEvent *e)
-{
-    if (e->button() == Qt::LeftButton) {
-        setIconNormal(m_IconNormalPath);
-        if ((0 <= e->x()) && (e->x() <= this->width())
-            && (0 <= e->y())  && (e->y() <= this->height())) {
-            if (m_i_time - (unsigned int)QTime::currentTime().secsTo(QTime(1970,1,1)) >=2 ) {
+void CButton::mouseReleaseEvent(QMouseEvent *e) {
+  if (e->button() == Qt::LeftButton) {
+    setIconNormal(m_IconNormalPath);
+    if ((0 <= e->x()) && (e->x() <= this->width())
+        && (0 <= e->y())  && (e->y() <= this->height())) {
+      if (m_i_time - (unsigned int)QTime::currentTime().secsTo(QTime(1970, 1, 1)) >= 2 ) {
 
-                emit clickedLong();
-                emit clickedLong(m_Id);
-            } else {
-                emit clicked();
-                emit clicked(m_Id);
-                emit clicked(m_Id,m_strCustomName);
-            }
-            m_i_clickX = 0;
-            m_i_clickY = 0;
-        }
+        emit clickedLong();
+        emit clickedLong(m_Id);
+      } else {
+        emit clicked();
+        emit clicked(m_Id);
+        emit clicked(m_Id, m_strCustomName);
+      }
+      m_i_clickX = 0;
+      m_i_clickY = 0;
     }
+  }
 }
 
-void CButton::mouseMoveEvent(QMouseEvent *event)
-{
-    if (event->x() > this->width() || event->y() > this->height() || event->x() < 0 || event->y() < 0) {
-        setIconNormal(m_IconNormalPath);
-    }
+void CButton::mouseMoveEvent(QMouseEvent *event) {
+  if (event->x() > this->width() || event->y() > this->height() || event->x() < 0 || event->y() < 0) {
+    setIconNormal(m_IconNormalPath);
+  }
 }
 
-void CButton::SetLeftIcon(QString strIconPath)
-{
-    if (!m_bLeftIcon) {
-        m_pIconLayout->addWidget(m_pLeftIconLab,0,Qt::AlignCenter);
-        m_pIconLayout->setContentsMargins(8,0,0,2);
-    }
-    QPixmap pixmap(strIconPath);
-    pixmap = pixmap.scaled(height()*0.6,height()*0.6,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    m_pLeftIconLab->setPixmap(pixmap);
-    m_bLeftIcon = true;
+void CButton::SetLeftIcon(QString strIconPath) {
+  if (!m_bLeftIcon) {
+    m_pIconLayout->addWidget(m_pLeftIconLab, 0, Qt::AlignCenter);
+    m_pIconLayout->setContentsMargins(8, 0, 0, 2);
+  }
+  QPixmap pixmap(strIconPath);
+  pixmap = pixmap.scaled(height() * 0.6, height() * 0.6, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+  m_pLeftIconLab->setPixmap(pixmap);
+  m_bLeftIcon = true;
 }
 
-int CButton::GetTextWidth()
-{
-    return m_bLeftIcon?(width()-height()*0.8):(width());
+int CButton::GetTextWidth() {
+  return m_bLeftIcon ? (width() - height() * 0.8) : (width());
 }
 
-void CButton::SetCustomName(std::string strName)
-{
-    m_strCustomName = strName;
+void CButton::SetCustomName(std::string strName) {
+  m_strCustomName = strName;
 }

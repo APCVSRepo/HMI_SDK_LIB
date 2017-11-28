@@ -5,7 +5,15 @@
 #endif
 #if defined(WINCE)
 #else
-#include<sys/stat.h>
+#include <sys/stat.h>
+#endif
+
+#ifdef WIN32
+#include <qt_windows.h>
+#endif
+
+#ifdef linux
+#include <unistd.h>
 #endif
 
 #include <QThread>
@@ -22,14 +30,6 @@
 #include "MainWindow/MainWindow.h"
 #include "Show/GraphicSoftButtonShow.h"
 #include "VideoStream/CeVideoStream.h"
-
-#ifdef WIN32
-#include <Windows.h>
-#endif
-
-#ifdef linux
-#include <unistd.h>
-#endif
 
 typedef AppListInterface *(*InitFunc)(UIInterface *);
 typedef void  (*CloseFunc)();
@@ -218,7 +218,7 @@ void CGen3UIManager::AppShowSlot(int type) {
   // 特殊处理MEDIA模板Show画面的mediaclock请求
   if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
     CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
-    pShow->UpdateMediaColckTimer();
+    pShow->UpdateMediaClockTimer();
   } else {
     if (m_iCurUI != ID_MAIN) {
       curTpl.GetScene(m_iCurUI)->hide();

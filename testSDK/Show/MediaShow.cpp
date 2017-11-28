@@ -262,7 +262,7 @@ void CMediaShow::showEvent(QShowEvent *e) {
     }
     setSoftButtons(m_vSoftButtons);
 
-    UpdateMediaColckTimer();
+    UpdateMediaClockTimer();
   }
 }
 
@@ -302,7 +302,7 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
   }
 }
 
-void CMediaShow::UpdateMediaColckTimer() {
+void CMediaShow::UpdateMediaClockTimer() {
 
   rpcValueInterface &jsonObj = AppControl->getMediaClockJson();
 
