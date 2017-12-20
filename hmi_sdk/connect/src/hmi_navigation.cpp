@@ -27,6 +27,8 @@ void Navigation::onRequest(Json::Value &request) {
     sendResult(id, "IsReady");
   } else if (method == "Navigation.ShowConstantTBT") {
     sendResult(id, "ShowConstantTBT");
+  } else if (method == "Navigation.SetVideoConfig") {
+    sendResult(id, "SetVideoConfig");
   } else if (method == "Navigation.UpdateTurnList") {
     sendResult(id, "UpdateTurnList");
   } else if (method == "Navigation.AlertManeuver") {

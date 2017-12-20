@@ -940,6 +940,10 @@
         }
     },
     "Navigation": {
+        "SetVideoConfig": {
+            "code": 0,
+            "method": "Navigation.SetVideoConfig"
+        },    
         "IsReady": {
             "available": true,
             "code": 0,
