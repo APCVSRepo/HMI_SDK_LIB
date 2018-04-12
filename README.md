@@ -8,6 +8,11 @@ Create a folder for your build and run:
 $cmake -DCMAKE_SYSTEM_NAME="Linux" -DCMAKE_BUILD_TYPE="Release" <hmi_sdk_lib_dir>
 $make
 ```
+### INSTALL
+If you need to specify the installed directory 
+$cmake -DCMAKE_INSTALL_PREFIX=<install_dir> -DCMAKE_SYSTEM_NAME="Linux" -DCMAKE_BUILD_TYPE="Release" <hmi_sdk_lib_dir>
+$make
+$make install
 
 ## WIN32
 ### Environment
