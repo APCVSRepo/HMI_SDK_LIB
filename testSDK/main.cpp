@@ -6,6 +6,12 @@
 #include "Gen3UIManager.h"
 #include "Common/AppBase.h"
 
+#ifdef HMI_TEST
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+#include "test/StartTest.h"
+#endif
+
 CGen3UIManager *g_pUIManager;
 
 int main(int argc, char *argv[]) {
@@ -38,6 +44,12 @@ int main(int argc, char *argv[]) {
 
   g_pUIManager->onAppShow(ID_MAIN);
   g_pUIManager->onAppShow(ID_APPLINK);
+
+#ifdef HMI_TEST
+  //  testing::GTEST_FLAG(output) = "xml:";
+  testing::InitGoogleMock(&argc, argv);
+  StartTest::Inst()->Start();
+#endif
 
   return a.exec();
 }

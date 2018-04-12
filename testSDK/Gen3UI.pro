@@ -13,7 +13,7 @@ TEMPLATE = app
 DEFINES += HMIUI_LIBRARY __STDC_CONSTANT_MACROS
 
 #CONFIG  += wince
-#CONFIG  += unix x86
+CONFIG  += unix x86
 
 INCLUDEPATH += $$PWD/ \
                $$PWD/../include \
@@ -72,7 +72,33 @@ SOURCES += \
     AppListView/DeviceListView.cpp \
     Template/TemplateImp.cpp \
     Template/TemplateManager.cpp \
-    Show/GraphicSoftButtonShow.cpp
+    Show/GraphicSoftButtonShow.cpp \
+    Alert/test/AlertViewTest.cpp \
+    test/StartTest.cpp \
+    AppListView/test/AppListViewTest.cpp \
+    AppListView/test/CAppButtonTest.cpp \
+    AppListView/test/DeviceListViewTest.cpp \
+    ChoiceSet/test/ChoiceSetTest.cpp \
+    ChoiceSet/test/ChoiceSetVRTest.cpp \
+    CommandView/test/CommandViewTest.cpp \
+    CommandView/test/CustomComboboxTest.cpp \
+    CommandView/test/CustomComboboxItemTest.cpp \
+    Common/test/AppBaseTest.cpp \
+    Common/test/ButtonTest.cpp \
+    Common/test/CustomButtonTest.cpp \
+    Common/test/CustomListViewTest.cpp \
+    Common/test/MenuButtonTest.cpp \
+    Common/test/ScrollBarTest.cpp \
+    Config/test/ConfigTest.cpp \
+    MainWindow/test/MainWindowTest.cpp \
+    ScrollableMessage/test/ScollMsgViewTest.cpp \
+    Show/test/GraphicSoftButtonShowTest.cpp \
+    Show/test/MediaShowTest.cpp \
+    SliderView/test/SliderViewTest.cpp \
+    Template/test/TemplateImpTest.cpp \
+    Template/test/TemplateManagerTest.cpp \
+    AudioPassThru/test/AudioPassViewTest.cpp \
+    VideoStream/test/CeVideoStreamTest.cpp
 
 unix {
     SOURCES += VideoStream/gst_player.cpp
@@ -107,7 +133,34 @@ HEADERS += \
     Library/android/sdl/main.h \
     Template/TemplateImp.h \
     Template/TemplateManager.h \
-    Show/GraphicSoftButtonShow.h
+    Show/GraphicSoftButtonShow.h \
+    Alert/test/AlertViewTest.h \
+    test/MockModule.h \
+    test/StartTest.h \
+    AppListView/test/AppListViewTest.h \
+    AppListView/test/CAppButtonTest.h \
+    AppListView/test/DeviceListViewTest.h \
+    ChoiceSet/test/ChoiceSetTest.h \
+    ChoiceSet/test/ChoiceSetVRTest.h \
+    CommandView/test/CommandViewTest.h \
+    CommandView/test/CustomComboboxTest.h \
+    CommandView/test/CustomComboboxItemTest.h \
+    Common/test/AppBaseTest.h \
+    Common/test/ButtonTest.h \
+    Common/test/CustomButtonTest.h \
+    Common/test/CustomListViewTest.h \
+    Common/test/MenuButtonTest.h \
+    Common/test/ScrollBarTest.h \
+    Config/test/ConfigTest.h \
+    MainWindow/test/MainWindowTest.h \
+    ScrollableMessage/test/ScollMsgViewTest.h \
+    Show/test/GraphicSoftButtonShowTest.h \
+    Show/test/MediaShowTest.h \
+    SliderView/test/SliderViewTest.h \
+    Template/test/TemplateImpTest.h \
+    Template/test/TemplateManagerTest.h \
+    AudioPassThru/test/AudioPassViewTest.h \
+    VideoStream/test/CeVideoStreamTest.h
 
 unix {
     SOURCES += VideoStream/gst_player.h
@@ -141,6 +194,33 @@ unix {
   }
 }
 
+###############################for test
+unix{
+
+DEFINES += HMI_TEST
+
+INCLUDEPATH += $$PWD/../googletest/include \
+               $$PWD/../hmi_sdk/connect/include \
+               $$PWD/../hmi_sdk/app_data/include
+
+DEPENDPATH += $$PWD/../googletest/include
+
+unix:!macx: LIBS += -L$$PWD/../googletest/lib/ -lgmock -lgmock_main -lgtest -lgtest_main -ljsoncpp
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../googletest/lib/libgmock.a
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../googletest/lib/libgmock_main.a
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../googletest/lib/libgtest.a
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../googletest/lib/libgtest_main.a
+
+unix:!macx: PRE_TARGETDEPS += $$PWD/../googletest/lib/libjsoncpp.a
+
+unix:!macx: LIBS += -L$$PWD/../googletest/bin/ -lhmi_sdk
+
+
+}
 ###############################for windows
 win32:!wince{
 DEFINES +=WIN32 \
@@ -174,4 +254,3 @@ ANDROID_EXTRA_LIBS = $$PWD/../lib/android/libhmi_sdk.so \
     $$PWD/../lib/android/libsmartDeviceLinkCore.so
 
 }
-
