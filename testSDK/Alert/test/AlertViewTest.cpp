@@ -64,7 +64,7 @@ TEST_F(AlertViewTest,OnSoftBtnClicked_NoId)
 
 }
 
-TEST_F(AlertViewTest,OnSoftBtnClicked_SendRequest)
+TEST_F(AlertViewTest,OnSoftBtnClicked_sendNotification)
 {
     AppListMock appListMock;
     AppDataMock appDataMock;
