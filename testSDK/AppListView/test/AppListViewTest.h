@@ -3,7 +3,7 @@
 
 #include "test/MockModule.h"
 #include "AppListView/AppListView.h"
-
+#include "Gen3UIManager.h"
 using ::testing::Return;
 using ::testing::AtLeast;
 using ::testing::_;

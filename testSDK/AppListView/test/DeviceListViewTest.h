@@ -2,7 +2,7 @@
 #define CDEVICELISTVIEWTEST_H
 
 #include "test/MockModule.h"
-
+#include "AppListView/DeviceListView.h"
 using ::testing::Return;
 using ::testing::AtLeast;
 using ::testing::_;
