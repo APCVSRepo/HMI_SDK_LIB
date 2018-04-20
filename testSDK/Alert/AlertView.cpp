@@ -9,7 +9,7 @@ AlertView::AlertView(AppListInterface *pList, QWidget *parent)
   if (parent) {
     // Bug #9946
     //setGeometry(parent->width()/6,parent->height()/6,2*parent->width()/3,2*parent->height()/3);
-    // 暂时使用满尺寸显示alert框，防止背景出现黑屏
+    // Use the full-size display alert box to prevent the background from appearing black background
     setGeometry(0, 0, parent->width(), parent->height());
   }
   m_pList = pList;
