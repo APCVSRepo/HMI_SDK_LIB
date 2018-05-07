@@ -1,5 +1,5 @@
-#ifndef CAPPLISTVIEWTEST_H
-#define CAPPLISTVIEWTEST_H
+#ifndef GEN3UI_CAPPLISTVIEWTEST_H
+#define GEN3UI_CAPPLISTVIEWTEST_H
 
 #include "test/MockModule.h"
 #include "AppListView/AppListView.h"
@@ -30,4 +30,4 @@ namespace test {
     }
 }
 
-#endif // CAPPLISTVIEWTEST_H
+#endif // GEN3UI_CAPPLISTVIEWTEST_H

@@ -1,5 +1,5 @@
-#ifndef MOCKMODULE_H
-#define MOCKMODULE_H
+#ifndef GEN3UI_MOCKMODULE_H
+#define GEN3UI_MOCKMODULE_H
 #include "app_list.h"
 #include "app_data.h"
 #include "hmi_ui.h"
@@ -190,4 +190,4 @@ namespace test {
         }
     }
 }
-#endif // MOCKMODULE_H
+#endif // GEN3UI_MOCKMODULE_H

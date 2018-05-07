@@ -28,7 +28,7 @@ void CAppListViewTest::TearDown()
 
 }
 
-TEST_F(CAppListViewTest,onChildAppSelected_NegativeOne)
+TEST_F(CAppListViewTest,onChildAppSelected_NegativeOne_SUCCESS)
 {
     AppListMock appListMock;
 
@@ -39,7 +39,7 @@ TEST_F(CAppListViewTest,onChildAppSelected_NegativeOne)
     cAppListView.onChildAppSelected(-1);
 }
 
-TEST_F(CAppListViewTest,onChildAppSelected_NegativeTwo)
+TEST_F(CAppListViewTest,onChildAppSelected_NegativeTwo_SUCCESS)
 {
     AppListMock appListMock;
 
@@ -50,7 +50,7 @@ TEST_F(CAppListViewTest,onChildAppSelected_NegativeTwo)
     cAppListView.onChildAppSelected(-2);
 }
 
-TEST_F(CAppListViewTest,onChildAppSelected_Hundred)
+TEST_F(CAppListViewTest,onChildAppSelected_Hundred_SUCCESS)
 {
     AppListMock appListMock;
 
@@ -61,7 +61,7 @@ TEST_F(CAppListViewTest,onChildAppSelected_Hundred)
 }
 
 //BasicCommunication.OnStartDeviceDiscovery
-TEST_F(CAppListViewTest,onChildAppSelected_sendNotification)
+TEST_F(CAppListViewTest,onChildAppSelected_sendNotification_SUCCESS)
 {
     AppListMock appListMock;
     appListMock.DelegateOnStartDeviceDiscovery();
@@ -72,7 +72,7 @@ TEST_F(CAppListViewTest,onChildAppSelected_sendNotification)
     cAppListView.onChildAppSelected(-1);
 }
 
-TEST_F(CAppListViewTest,onChildAppSelected_onAppShow)
+TEST_F(CAppListViewTest,onChildAppSelected_onAppShow_DEVICEVIEW)
 {
     AppListMock appListMock;
     AppList appList;
