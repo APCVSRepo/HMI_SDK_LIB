@@ -1,5 +1,5 @@
-#ifndef ALERTVIEWTEST_H
-#define ALERTVIEWTEST_H
+#ifndef GEN3UI_ALERTVIEWTEST_H
+#define GEN3UI_ALERTVIEWTEST_H
 
 #include "test/MockModule.h"
 #include "Alert/AlertView.h"
@@ -30,4 +30,4 @@ namespace test {
     }
 }
 
-#endif // ALERTVIEWTEST_H
+#endif // GEN3UI_ALERTVIEWTEST_H

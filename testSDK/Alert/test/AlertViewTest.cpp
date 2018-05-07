@@ -1,5 +1,4 @@
 #include "AlertViewTest.h"
-#include "global_first.h"
 
 using namespace test;
 using namespace hmi_sdk;
@@ -64,7 +63,7 @@ TEST_F(AlertViewTest,OnSoftBtnClicked_NoId)
 
 }
 
-TEST_F(AlertViewTest,OnSoftBtnClicked_sendNotification)
+TEST_F(AlertViewTest,OnSoftBtnClicked_sendNotification_SUCCESS)
 {
     AppListMock appListMock;
     AppDataMock appDataMock;
