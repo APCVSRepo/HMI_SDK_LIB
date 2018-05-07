@@ -22,7 +22,6 @@ namespace test {
                 static void TearDownTestCase();
                 virtual void SetUp();
                 virtual void TearDown();
-
             };
 
         }

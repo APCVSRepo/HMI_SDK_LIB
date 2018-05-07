@@ -88,7 +88,6 @@ TEST_F(CAppListViewTest,onChildAppSelected_onAppShow_DEVICEVIEW)
 
     appListMock.setUIManager(&uiInterfaceMock);
 
-
     CAppListView cAppListView(&appListMock);
     cAppListView.onChildAppSelected(-1);
 }
