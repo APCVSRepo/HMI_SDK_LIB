@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/QuickLanuch/Source">
+        <file>images/Home_ButtonAppClimate.png</file>
+        <file>images/Home_ButtonAppGallery.png</file>
+        <file>images/Home_ButtonAppMedia.png</file>
+        <file>images/Home_ButtonAppNavi.png</file>
+        <file>images/Home_ButtonAppPhone.png</file>
+        <file>images/Home_ButtonAppSettings.png</file>
+        <file>images/Home_ButtonAppText.png</file>
+        <file>images/Home_Weather.png</file>
+    </qresource>
+</RCC>
