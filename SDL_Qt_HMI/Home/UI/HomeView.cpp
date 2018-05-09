@@ -2,7 +2,7 @@
 #include <QDebug>
 #include<unistd.h>
 #include <QFont>
-#include "AppViewManager.h"
+#include "AppLayer.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 HomeView::HomeView(QWidget *parent)

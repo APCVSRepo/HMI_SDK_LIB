@@ -83,7 +83,6 @@ SOURCES += main.cpp\
     HMIFrameWork/HMIFrameWork.cpp \
     HMIFrameWork/CView.cpp \
     HMIFrameWork/ViewFactory.cpp \
-    AppViewManager.cpp \
     HMIWidgets/CCButton.cpp \
     Home/app/Home.cpp \
     Home/Factory/HomeVFactory.cpp \
@@ -96,7 +95,8 @@ SOURCES += main.cpp\
     SDLApps/app/SDLApps.cpp \
     SDLApps/Factory/SDLVFactory.cpp \
     SDLApps/UI/SDLAppsView.cpp \
-    SDLApps/UI/SDLAppsWindow.cpp
+    SDLApps/UI/SDLAppsWindow.cpp \
+    AppLayer.cpp
 
 unix {
     SOURCES += SDLApps/VideoStream/gst_player.cpp
@@ -142,7 +142,6 @@ HEADERS  +=  \
     HMIFrameWork/HMIFrameWork.h \
     HMIFrameWork/CView.h \
     HMIFrameWork/ViewFactory.h \
-    AppViewManager.h \
     HMIWidgets/CCButton.h \
     Home/app/Home.h \
     Home/Factory/HomeVFactory.h \
@@ -155,7 +154,8 @@ HEADERS  +=  \
     SDLApps/app/SDLApps.h \
     SDLApps/Factory/SDLVFactory.h \
     SDLApps/UI/SDLAppsView.h \
-    SDLApps/UI/SDLAppsWindow.h
+    SDLApps/UI/SDLAppsWindow.h \
+    AppLayer.h
 
 
 

@@ -6,7 +6,7 @@
 #include "QuickLanuch/app/QuickLanuch.h"
 #include "HMIFrameWork/AppManager.h"
 #include "HMIFrameWork/HMIFrameWork.h"
-#include "AppViewManager.h"
+#include "AppLayer.h"
 #include "SDLApps/app/SDLApps.h"
 namespace Ui {
 class MainWindow;
@@ -25,7 +25,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    AppViewManager *m_pAppViewManager;
+    AppLayer *m_pAppLayer;
 };
 
 #endif // MAINWINDOW_H

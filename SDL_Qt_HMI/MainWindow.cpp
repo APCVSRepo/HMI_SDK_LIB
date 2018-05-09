@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->resize(800,480);
 
-    m_pAppViewManager = new AppViewManager(this);
-    m_pAppViewManager->setGeometry(QRect(0,0,800,480));
-    m_pAppViewManager->show();
-    HMIFrameWork::Inst()->SetMain(reinterpret_cast<void*>(m_pAppViewManager));
+    m_pAppLayer = new AppLayer(this);
+    m_pAppLayer->setGeometry(QRect(0,0,800,480));
+    m_pAppLayer->show();
+    HMIFrameWork::Inst()->SetMain(reinterpret_cast<void*>(m_pAppLayer));
 
     InitHome();
     InitQuickLanuch();
