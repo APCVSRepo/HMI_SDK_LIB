@@ -5,8 +5,8 @@
 #include <Home/UI/HomeView.h>
 #include <QProcess>
 #include "HMIFrameWork/AppConfig.h"
-#include "SDLApps/Gen3UIManager.h"
-#include "SDLApps/Common/AppBase.h"
+#include "SDLApps/Templates/UIManager.h"
+#include "SDLApps/Templates/Common/AppBase.h"
 #include <QDialog>
 #include "HMIFrameWork/AppManager.h"
 

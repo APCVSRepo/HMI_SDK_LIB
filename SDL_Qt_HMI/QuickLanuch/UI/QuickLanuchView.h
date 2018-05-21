@@ -43,8 +43,8 @@ public:
     bool containsType(QString type);
 
 
-    void CreatePullBackBtn(CCButton* btn);
-    void CreatePullVoiceBtn(CCButton* btn);
+    void CreatePullBack(CCButton* btn);
+    void CreateVoice(CCButton* btn);
 
     CCButton* Index(int x,int y);
 

@@ -50,32 +50,31 @@ DESTDIR=bin
 
 SOURCES += main.cpp\
        # mainwindow.cpp \
-    SDLApps/Alert/AlertView.cpp \
-    SDLApps/AppListView/AppListView.cpp \
-    SDLApps/AppListView/CAppButton.cpp \
-    SDLApps/AppListView/DeviceListView.cpp \
-    SDLApps/AudioPassThru/AudioPassView.cpp \
-    SDLApps/ChoiceSet/ChoiceSet.cpp \
-    SDLApps/ChoiceSet/ChoiceSetVR.cpp \
-    SDLApps/CommandView/CommandView.cpp \
-    SDLApps/CommandView/CustomCombobox.cpp \
-    SDLApps/CommandView/CustomComboboxItem.cpp \
-    SDLApps/Common/AppBase.cpp \
-    SDLApps/Common/Button.cpp \
-    SDLApps/Common/CustomButton.cpp \
-    SDLApps/Common/CustomListView.cpp \
-    SDLApps/Common/MenuButton.cpp \
-    SDLApps/Common/ScrollBar.cpp \
-    SDLApps/Config/Config.cpp \
-    SDLApps/ScrollableMessage/ScollMsgView.cpp \
-    SDLApps/Show/GraphicSoftButtonShow.cpp \
-    #SDLApps/Show/MainWidget.cpp \
-    SDLApps/Show/MediaShow.cpp \
-    SDLApps/SliderView/SliderView.cpp \
-    SDLApps/Template/TemplateImp.cpp \
-    SDLApps/Template/TemplateManager.cpp \
-    SDLApps/VideoStream/CeVideoStream.cpp \
-    SDLApps/Gen3UIManager.cpp \
+    SDLApps/Templates/Alert/AlertView.cpp \
+    SDLApps/Templates/AppListView/AppListView.cpp \
+    SDLApps/Templates/AppListView/CAppButton.cpp \
+    SDLApps/Templates/AppListView/DeviceListView.cpp \
+    SDLApps/Templates/AudioPassThru/AudioPassView.cpp \
+    SDLApps/Templates/ChoiceSet/ChoiceSet.cpp \
+    SDLApps/Templates/ChoiceSet/ChoiceSetVR.cpp \
+    SDLApps/Templates/CommandView/CommandView.cpp \
+    SDLApps/Templates/CommandView/CustomCombobox.cpp \
+    SDLApps/Templates/CommandView/CustomComboboxItem.cpp \
+    SDLApps/Templates/Common/AppBase.cpp \
+    SDLApps/Templates/Common/Button.cpp \
+    SDLApps/Templates/Common/CustomButton.cpp \
+    SDLApps/Templates/Common/CustomListView.cpp \
+    SDLApps/Templates/Common/MenuButton.cpp \
+    SDLApps/Templates/Common/ScrollBar.cpp \
+    SDLApps/Templates/Config/Config.cpp \
+    SDLApps/Templates/ScrollableMessage/ScollMsgView.cpp \
+    SDLApps/Templates/Show/GraphicSoftButtonShow.cpp \
+    #SDLApps/Templates/Show/MainWidget.cpp \
+    SDLApps/Templates/Show/MediaShow.cpp \
+    SDLApps/Templates/SliderView/SliderView.cpp \
+    SDLApps/Templates/Template/TemplateImp.cpp \
+    SDLApps/Templates/Template/TemplateManager.cpp \
+    SDLApps/Templates/utils/VideoStream/CeVideoStream.cpp \
     HMIFrameWork/AppManager.cpp \
     HMIFrameWork/log_interface.cpp \
     HMIFrameWork/App.cpp \
@@ -96,42 +95,42 @@ SOURCES += main.cpp\
     SDLApps/Factory/SDLVFactory.cpp \
     SDLApps/UI/SDLAppsView.cpp \
     SDLApps/UI/SDLAppsWindow.cpp \
-    AppLayer.cpp
+    AppLayer.cpp \
+    SDLApps/Templates/UIManager.cpp
 
 unix {
-    SOURCES += SDLApps/VideoStream/gst_player.cpp
+    SOURCES += SDLApps/Templates/utils/VideoStream/gst_player.cpp
 }
 
 
 
 HEADERS  +=  \
     #mainwindow.h \
-    SDLApps/Alert/AlertView.h \
-    SDLApps/AppListView/AppListView.h \
-    SDLApps/AppListView/CAppButton.h \
-    SDLApps/AppListView/DeviceListView.h \
-    SDLApps/AudioPassThru/AudioPassView.h \
-    SDLApps/ChoiceSet/ChoiceSet.h \
-    SDLApps/ChoiceSet/ChoiceSetVR.h \
-    SDLApps/CommandView/CommandView.h \
-    SDLApps/CommandView/CustomCombobox.h \
-    SDLApps/CommandView/CustomComboboxItem.h \
-    SDLApps/Common/AppBase.h \
-    SDLApps/Common/Button.h \
-    SDLApps/Common/CustomButton.h \
-    SDLApps/Common/CustomListView.h \
-    SDLApps/Common/MenuButton.h \
-    SDLApps/Common/ScrollBar.h \
-    SDLApps/Config/Config.h \
-    SDLApps/ScrollableMessage/ScollMsgView.h \
-    SDLApps/Show/GraphicSoftButtonShow.h \
-    #SDLApps/Show/MainWidget.h \
-    SDLApps/Show/MediaShow.h \
-    SDLApps/SliderView/SliderView.h \
-    SDLApps/Template/TemplateImp.h \
-    SDLApps/Template/TemplateManager.h \
-    SDLApps/VideoStream/CeVideoStream.h \
-    SDLApps/Gen3UIManager.h \
+    SDLApps/Templates/Alert/AlertView.h \
+    SDLApps/Templates/AppListView/AppListView.h \
+    SDLApps/Templates/AppListView/CAppButton.h \
+    SDLApps/Templates/AppListView/DeviceListView.h \
+    SDLApps/Templates/AudioPassThru/AudioPassView.h \
+    SDLApps/Templates/ChoiceSet/ChoiceSet.h \
+    SDLApps/Templates/ChoiceSet/ChoiceSetVR.h \
+    SDLApps/Templates/CommandView/CommandView.h \
+    SDLApps/Templates/CommandView/CustomCombobox.h \
+    SDLApps/Templates/CommandView/CustomComboboxItem.h \
+    SDLApps/Templates/Common/AppBase.h \
+    SDLApps/Templates/Common/Button.h \
+    SDLApps/Templates/Common/CustomButton.h \
+    SDLApps/Templates/Common/CustomListView.h \
+    SDLApps/Templates/Common/MenuButton.h \
+    SDLApps/Templates/Common/ScrollBar.h \
+    SDLApps/Templates/Config/Config.h \
+    SDLApps/Templates/ScrollableMessage/ScollMsgView.h \
+    SDLApps/Templates/Show/GraphicSoftButtonShow.h \
+    #SDLApps/Templates/Show/MainWidget.h \
+    SDLApps/Templates/Show/MediaShow.h \
+    SDLApps/Templates/SliderView/SliderView.h \
+    SDLApps/Templates/Template/TemplateImp.h \
+    SDLApps/Templates/Template/TemplateManager.h \
+    SDLApps/Templates/utils/VideoStream/CeVideoStream.h \
     main.h \
     HMIFrameWork/AppConfig.h \
     HMIFrameWork/AppManager.h \
@@ -155,12 +154,13 @@ HEADERS  +=  \
     SDLApps/Factory/SDLVFactory.h \
     SDLApps/UI/SDLAppsView.h \
     SDLApps/UI/SDLAppsWindow.h \
-    AppLayer.h
+    AppLayer.h \
+    SDLApps/Templates/UIManager.h
 
 
 
 unix {
-    HEADERS += SDLApps/VideoStream/gst_player.h
+    HEADERS += SDLApps/Templates/utils/VideoStream/gst_player.h
 }
 
 unix {
@@ -169,7 +169,7 @@ unix {
 
 
 RESOURCES += \
-    SDLApps/image.qrc \
+    SDLApps/Templates/image.qrc \
     Home/Source/HomeImages.qrc \
     QuickLanuch/Source/QuickLanuchImages.qrc
 

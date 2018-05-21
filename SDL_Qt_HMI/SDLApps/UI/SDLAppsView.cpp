@@ -1,6 +1,6 @@
 #include "SDLAppsView.h"
 #include <QTime>
-#include "SDLApps/Config/Config.h"
+#include "SDLApps/Templates/Config/Config.h"
 #include "SDLApps/app/SDLApps.h"
 SDLAppsView::SDLAppsView(AppListInterface *pList, QWidget *parent)
     :QWidget(parent)

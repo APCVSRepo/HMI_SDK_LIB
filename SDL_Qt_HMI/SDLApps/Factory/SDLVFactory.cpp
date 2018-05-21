@@ -1,7 +1,7 @@
 #include "SDLVFactory.h"
 #include "SDLApps/UI/SDLAppsView.h"
 #include "SDLApps/app/SDLApps.h"
-#include "SDLApps/Gen3UIManager.h"
+#include "SDLApps/Templates/UIManager.h"
 #include <QDialog>
 #include "HMIFrameWork/HMIFrameWork.h"
 SDLVFactory::SDLVFactory()
@@ -25,7 +25,7 @@ void *SDLVFactory::CreateProduct(int viewId)
     case SDLApps::eViewId_SDL_Main:
     {
 
-           CGen3UIManager *g_pUIManager  = new CGen3UIManager;
+           UIManager *g_pUIManager  = new UIManager;
             QTimer::singleShot(500, g_pUIManager, SLOT(loadsdk()));
 
             QDialog diaStart(mainwin);

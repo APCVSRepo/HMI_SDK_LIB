@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QTimer>
 #include <QTextEdit>
-#include "SDLApps/Common/MenuButton.h"
+#include "SDLApps/Templates/Common/MenuButton.h"
 #include "app_list_interface.h"
 #include "HMIFrameWork/CView.h"
 

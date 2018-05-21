@@ -35,6 +35,9 @@ QuickLanuchView::QuickLanuchView(QWidget *parent)
     connect(QuickLanuch::Inst(),SIGNAL(SigAppInfo(int,int,string)),this,SLOT(OnReplaceInfo(int,int,string)),Qt::UniqueConnection);
     connect(this,SIGNAL(SigRelease(int,QString,QString)),this,SLOT(OnAppClick(int,QString,QString)),Qt::UniqueConnection);
     this->show();
+    this->raise();
+    this->SetViewGeometry(QRect(0,0,160,480));
+
 
 }
 
@@ -222,10 +225,20 @@ void QuickLanuchView::InitQuickLanuchView()
 
         INFO("apps index = %d",i);
     }
+    CCButton* pullBackBtn = new CCButton(this);
+    pullBackBtn->SetAppGeometry(QRect(120,220,40,40));
+    pullBackBtn->InsertType("PullBack");
+    pullBackBtn->InsertName("PullBack");
+    pullBackBtn->InsertText(QRect(0,0,40,40),"PullBack",true);
 
-    this->SetViewGeometry(QRect(0,0,160,480));
-    this->raise();
-    this->show();
+    CreatePullBack(pullBackBtn);
+    CCButton* voiceBtn = new CCButton(this);
+    voiceBtn->SetAppGeometry(QRect(60,440,40,40));
+    voiceBtn->InsertType("Voice");
+    voiceBtn->InsertName("Voice");
+    voiceBtn->InsertText(QRect(0,0,40,40),"Voice",true);
+
+    CreateVoice(voiceBtn);
 
 }
 
@@ -366,7 +379,7 @@ bool QuickLanuchView::containsType(QString type)
     return false;
 }
 
-void QuickLanuchView::CreatePullBackBtn(CCButton *btn)
+void QuickLanuchView::CreatePullBack(CCButton *btn)
 {
     if(btn)
     {
@@ -376,7 +389,7 @@ void QuickLanuchView::CreatePullBackBtn(CCButton *btn)
     }
 }
 
-void QuickLanuchView::CreatePullVoiceBtn(CCButton *btn)
+void QuickLanuchView::CreateVoice(CCButton *btn)
 {
     if(btn)
     {
