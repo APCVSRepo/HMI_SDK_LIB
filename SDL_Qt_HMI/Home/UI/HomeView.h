@@ -112,7 +112,8 @@ public  slots:
    void OnMoving();
    void OnMoveParentFinish(int index);
    void OnMoveAppFinish(int index);
-
+   void OnQuickMove(QString type);
+   void OnEnterTriggerDomainStatus(bool,QString type);
 
 signals:
     void SigRelease(int,QString,QString);
@@ -123,7 +124,7 @@ signals:
     void SigMovingPos(int x ,int y,QString Type);
     void SigReleasePos(int x,int y,QString Type);
     void SigTriggerDomain(int x,int y,CCButton::CCBtnInfo);
-    void SigEnterTriggerDomain(bool);
+    void SigEnterTriggerDomain(bool,QString type);
 
 public slots:
     void OnAppClick(int,QString,QString);

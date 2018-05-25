@@ -31,7 +31,7 @@ HomeView::HomeView(QWidget *parent)
     ,m_bIsStartShadow(false)
     ,m_bIsStartZoom(false)
     ,m_flip(eAFlipModeKnown)
-    ,m_editMode(eEdit_SINGLE)
+    ,m_editMode(eEdit_ALL)
     ,m_iMovingIndex(-1)
     ,m_bIsMoving(false)
     ,m_bIsPageMoving(false)
@@ -68,7 +68,10 @@ HomeView::HomeView(QWidget *parent)
     SetPageSize(QSize(800,480));
     InitHomeView();
     StartUpTriggerDomain(true);
-    SetTriggerDomain(QRect(0,0,160,480));
+    SetTriggerDomain(QRect(0,40,160,440));
+
+
+    connect(Home::Inst(),SIGNAL(SigQuickMove(QString)),this,SLOT(OnQuickMove(QString)),Qt::UniqueConnection);
    // this->show();
 }
 
@@ -88,71 +91,61 @@ void HomeView::InitHomeView()
 
     QList<AppInfo> listApps;
     {
+        AppInfo appInfo3;
+        appInfo3.AppBgPathNormal = ":/Home/Source/images/phone.png";
+        appInfo3.AppBgPathPush = ":/Home/Source/images/phone_push.png";
+        appInfo3.AppEditPath = "";
+        appInfo3.AppIconPath = "";
+        appInfo3.AppName =QObject::tr(PHONE_NAME);
+        appInfo3.AppType =PHONE_ID;
+        listApps.append(appInfo3);
+    }
+    {
         AppInfo appInfo1;
-        appInfo1.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppMedia.png";
-        appInfo1.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppMedia.png";
-        appInfo1.AppEditPath = ":/Home/Source/images/Home_ButtonAppMedia.png";
-        appInfo1.AppIconPath = ":/Home/Source/images/Home_ButtonAppMedia.png";
+        appInfo1.AppBgPathNormal = ":/Home/Source/images/Media.png";
+        appInfo1.AppBgPathPush = ":/Home/Source/images/Media_push.png";
+        appInfo1.AppEditPath = "";
+        appInfo1.AppIconPath = "";
         appInfo1.AppName =QObject::tr(MEDIA_NAME);
         appInfo1.AppType = MEDIA_ID;
         listApps.append(appInfo1);
     }
     {
         AppInfo appInfo2;
-        appInfo2.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppNavi.png";
-        appInfo2.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppNavi.png";
-        appInfo2.AppEditPath = ":/Home/Source/images/Home_ButtonAppNavi.png";
-        appInfo2.AppIconPath = ":/Home/Source/images/Home_ButtonAppNavi.png";
+        appInfo2.AppBgPathNormal = ":/Home/Source/images/nav.png";
+        appInfo2.AppBgPathPush = ":/Home/Source/images/nav_push.png";
+        appInfo2.AppEditPath = "";
+        appInfo2.AppIconPath = "";
         appInfo2.AppName =QObject::tr(NAV_NAME);
         appInfo2.AppType =NAV_ID;
         listApps.append(appInfo2);
     }
     {
-        AppInfo appInfo3;
-        appInfo3.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppPhone.png";
-        appInfo3.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppPhone.png";
-        appInfo3.AppEditPath = ":/Home/Source/images/Home_ButtonAppPhone.png";
-        appInfo3.AppIconPath = ":/Home/Source/images/Home_ButtonAppPhone.png";
-        appInfo3.AppName =QObject::tr(PHONE_NAME);
-        appInfo3.AppType =PHONE_ID;
-        listApps.append(appInfo3);
-    }
-    {
-        AppInfo appInfo4;
-        appInfo4.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppGallery.png";
-        appInfo4.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppGallery.png";
-        appInfo4.AppEditPath = ":/Home/Source/images/Home_ButtonAppGallery.png";
-        appInfo4.AppIconPath = ":/Home/Source/images/Home_ButtonAppGallery.png";
-        appInfo4.AppName =QObject::tr(SDLAPPS_NAME);
-        appInfo4.AppType =SDLAPPS_ID;
-        listApps.append(appInfo4);
-    }
-    {
         AppInfo appInfo5;
-        appInfo5.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppSettings.png";
-        appInfo5.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppSettings.png";
-        appInfo5.AppEditPath = ":/Home/Source/images/Home_ButtonAppSettings.png";
-        appInfo5.AppIconPath = ":/Home/Source/images/Home_ButtonAppSettings.png";
+        appInfo5.AppBgPathNormal = ":/Home/Source/images/Setting.png";
+        appInfo5.AppBgPathPush = ":/Home/Source/images/Setting_push.png";
+        appInfo5.AppEditPath = "";
+        appInfo5.AppIconPath = "";
         appInfo5.AppName =QObject::tr(SETTINGS_NAME);
         appInfo5.AppType =SETTINGS_ID;
         listApps.append(appInfo5);
     }
     {
         AppInfo appInfo6;
-        appInfo6.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppClimate.png";
-        appInfo6.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppClimate.png";
-        appInfo6.AppEditPath = ":/Home/Source/images/Home_ButtonAppClimate.png";
-        appInfo6.AppIconPath = ":/Home/Source/images/Home_ButtonAppClimate.png";
+        appInfo6.AppBgPathNormal = ":/Home/Source/images/HVAC.png";
+        appInfo6.AppBgPathPush = ":/Home/Source/images/HVAC_push.png";
+        appInfo6.AppEditPath = "";
+        appInfo6.AppIconPath = "";
         appInfo6.AppName =QObject::tr(HVAC_NAME);
         appInfo6.AppType =HVAC_ID;
         listApps.append(appInfo6);
     }
     {
         AppInfo appInfo7;
-        appInfo7.AppBgPathNormal = ":/Home/Source/images/Home_ButtonAppText.png";
-        appInfo7.AppBgPathPush = ":/Home/Source/images/Home_ButtonAppText.png";
-        appInfo7.AppEditPath = ":/Home/Source/images/Home_ButtonAppText.png";
-        appInfo7.AppIconPath = ":/Home/Source/images/Home_ButtonAppText.png";
+        appInfo7.AppBgPathNormal = ":/Home/Source/images/message.png";
+        appInfo7.AppBgPathPush = ":/Home/Source/images/message_push.png";
+        appInfo7.AppEditPath = "";
+        appInfo7.AppIconPath = "";
         appInfo7.AppName =QObject::tr(MESSAGE_NAME);
         appInfo7.AppType =MESSAGE_ID;
         listApps.append(appInfo7);
@@ -160,13 +153,23 @@ void HomeView::InitHomeView()
 
     {
         AppInfo appInfo8;
-        appInfo8.AppBgPathNormal = ":/Home/Source/images/Home_Weather.png";
-        appInfo8.AppBgPathPush = ":/Home/Source/images/Home_Weather.png";
-        appInfo8.AppEditPath = ":/Home/Source/images/Home_Weather.png";
-        appInfo8.AppIconPath = ":/Home/Source/images/Home_Weather.png";
+        appInfo8.AppBgPathNormal = ":/Home/Source/images/weather.png";
+        appInfo8.AppBgPathPush = ":/Home/Source/images/weather_push.png";
+        appInfo8.AppEditPath = "";
+        appInfo8.AppIconPath = "";
         appInfo8.AppName =QObject::tr(WEATHER_NAME);
         appInfo8.AppType =WEATHER_ID;
         listApps.append(appInfo8);
+    }
+    {
+        AppInfo appInfo4;
+        appInfo4.AppBgPathNormal = ":/Home/Source/images/application.png";
+        appInfo4.AppBgPathPush = ":/Home/Source/images/application_push.png";
+        appInfo4.AppEditPath = "";
+        appInfo4.AppIconPath = "";
+        appInfo4.AppName =QObject::tr(SDLAPPS_NAME);
+        appInfo4.AppType =SDLAPPS_ID;
+        listApps.append(appInfo4);
     }
 
     for(int i = 0;i<listApps.size();++i)
@@ -174,15 +177,21 @@ void HomeView::InitHomeView()
         int nRow = i / 4;
         int nClomn = i % 4;
         int nPage = (nRow + 1) / 2 + (nRow + 1) % 2;
+        INFO()<<"ncol = "<<nClomn;
         CCButton * app = new CCButton(this);
-        app->SetAppGeometry(QRect(160  + (nPage -1)*800 + COLUMN_SPACE*nClomn,98 + ROW_SPACE*(nRow%2),MULTI_BT_SIZE,MULTI_BT_SIZE));
-        app->InsertEditStyle(QRect(0,0,142,142),listApps.at(i).AppEditPath);
-        app->InsertNormalStyle(QRect(12,14,117,114),listApps.at(i).AppBgPathNormal);
-        app->InsertPushStyle(QRect(12,14,117,114),listApps.at(i).AppBgPathPush);
-        app->InsertIconStyle(QRect(12,14,117,114),listApps.at(i).AppIconPath);
-        app->InsertText(QRect(0,113,142,20),listApps.at(i).AppName,true);
+        app->SetAppGeometry(QRect(OFFSET_POS_X +HOME_PAGE_OFFSET_POS_X + (nPage -1)*800 + (APP_BT_W + COLUMN_SPACE)*nClomn,OFFSET_POS_Y + (APP_BT_H + ROW_SPACE)*nRow,APP_BT_W,APP_BT_H));
+        app->SetViewStatusStyle(CCButton::ViewStatusStyle_Change);
+        app->InsertEditStyle(QRect(76,6,30,30),listApps.at(i).AppEditPath);
+        app->InsertNormalStyle(QRect(0,0,APP_ICON_W,APP_ICON_H),listApps.at(i).AppBgPathNormal);
+        app->InsertPushStyle(QRect(0,0,APP_ICON_W,APP_ICON_H),listApps.at(i).AppBgPathPush);
+        app->InsertIconStyle(QRect(0,0,APP_ICON_W,APP_ICON_H),listApps.at(i).AppIconPath);
+        app->InsertText(QRect(0,APP_ICON_H,APP_BT_W,31),listApps.at(i).AppName,true);
         app->InsertType(listApps.at(i).AppType);
         app->InsertName(listApps.at(i).AppName);
+        if(listApps.at(i).AppType == WEATHER_ID)
+        {
+           app->AddExtendedText(QRect(0,71,120,20),"19℃",18);
+        }
         InsertApp(i,app);
     }
 
@@ -227,8 +236,9 @@ void HomeView::InsertApp(int index, CCButton *app)
 void HomeView::InsertAppFinish()
 {
     INFO("page width size = %d, height size = %d ,page num =%d.",m_pageSize.width(),m_pageSize.height(),m_iPageTotalNum);
-    this->resize(QSize(m_pageSize.width()*m_iPageTotalNum,m_pageSize.height()));
-    m_viewRect.setRect(m_viewRect.x(),m_viewRect.y(),m_pageSize.width()*m_iPageTotalNum,m_pageSize.height());
+    this->resize(QSize(m_pageSize.width()*m_iPageTotalNum+HOME_PAGE_OFFSET_POS_X,m_pageSize.height()));
+    this->move(-HOME_PAGE_OFFSET_POS_X,0);
+    m_viewRect.setRect(m_viewRect.x()+HOME_PAGE_OFFSET_POS_X,m_viewRect.y(),m_pageSize.width()*m_iPageTotalNum,m_pageSize.height());
     update();
     INFO("create home view  finish. ");
 }
@@ -264,6 +274,7 @@ void HomeView::GoToEditStatus()
            for(;it != m_ListBtn.end();++it)
            {
                (*it)->SetEditStatus(true);
+               (*it)->JitterAnimation(500);
            }
         }
     }
@@ -291,7 +302,7 @@ void HomeView::ExitEditStatus()
     if(GetApp())
     {
         GetApp()->OpacityAnimation(0.5,1,500);
-        GetApp()->UpdateText(GetApp()->GetText());
+       // GetApp()->UpdateText(GetApp()->GetText());
         GetApp()->MoveAnimation(QPoint(GetApp()->geometry().x(),GetApp()->geometry().y()),QPoint(GetApp()->GetViewRect().x(),GetApp()->GetViewRect().y()),500);
         GetApp()->SizeAnimation(QSize(APP_BT_W+10, APP_BT_H+10), QSize(APP_BT_W, APP_BT_H),300,false);
     }
@@ -768,7 +779,15 @@ QList<CCButton *> HomeView::GetAppList()
 
 void HomeView::StartUpTriggerDomain(bool isStartUpTriggerDomain)
 {
+    if(m_bIsStartUpTriggerDomain)
+    {
+        disconnect(this,SIGNAL(SigEnterTriggerDomain(bool,QString)),this,SLOT(OnEnterTriggerDomainStatus(bool,QString)));
+    }
     m_bIsStartUpTriggerDomain = isStartUpTriggerDomain;
+    if(m_bIsStartUpTriggerDomain)
+    {
+        connect(this,SIGNAL(SigEnterTriggerDomain(bool,QString)),this,SLOT(OnEnterTriggerDomainStatus(bool,QString)),Qt::UniqueConnection);
+    }
 }
 
 void HomeView::SetTriggerDomain(QRect r)
@@ -823,6 +842,10 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
         m_bIsStartZoom = false;
         m_iGlobalX = 0;
         m_bIsMoving = false;
+        if(GetApp())
+        {
+            GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
+        }
         if(GetIsEditStatus())
         {
             m_movingTimer.stop();
@@ -833,9 +856,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                emit SigPress(GetApp()->GetIndex(),GetApp()->GetType(),GetApp()->GetName());
                m_iPosDiffX = m_iPosX-GetApp()->geometry().x();
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
-               GetApp()->OpacityAnimation(1,0.5,500);
-               GetApp()->SizeAnimation(QSize(APP_BT_W, APP_BT_H), QSize(APP_BT_W+10, APP_BT_H+10),300,false);
-               GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
                GetApp()->SetIsPress(true);
                GetApp()->UpdateText("",true);
 
@@ -848,7 +868,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                emit SigPress(GetApp()->GetIndex(),GetApp()->GetType(),GetApp()->GetName());
                m_iPosDiffX = m_iPosX-GetApp()->geometry().x();
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
-               GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
                GetApp()->SetIsPress(true);
                m_pressTimer.start();
             }
@@ -863,15 +882,14 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
             if(GetApp())
             {
                 GetApp()->move(globalPos.x()-m_iPosDiffX,globalPos.y()-m_iPosDiffY);
-                AppBtnShadow(GetApp());
+                //AppBtnShadow(GetApp());
                 m_stayPos.setX((globalPos2.x())%m_pageSize.width());
                 m_stayPos.setY(globalPos2.y());
-
-               if(IsTriggerDomain(GetApp()->x()+20,GetApp()->y()+20)&&!m_bIsPageMoving) {
+               if(IsTriggerDomain(GetApp()->x()+20,GetApp()->y()+20)&&!m_bIsPageMoving&&((this->geometry().x()+ m_pageSize.width()*(m_iCurrentPageNum - 1)) >=0)) {
                   if(!m_bEnterTriggerDomain)
                   {
                     m_bEnterTriggerDomain = true;
-                    emit SigEnterTriggerDomain(true);
+                    emit SigEnterTriggerDomain(true,GetApp()->GetType());
                   }
 
                 }else
@@ -879,7 +897,7 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                    if(m_bEnterTriggerDomain)
                    {
                        m_bEnterTriggerDomain = false;
-                       emit SigEnterTriggerDomain(false);
+                       emit SigEnterTriggerDomain(false,"");
                    }
 
                 }
@@ -892,12 +910,18 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
     {
         m_pressTimer.stop();
         m_flipTimer.stop();
+        if(GetApp())
+        {
+           GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
+           GetApp()->SetIsPress(false);
+        }
+        qDebug() << "x = " << m_stayPos.x() << " y = " << m_stayPos.y();
         if(GetIsEditStatus())
         {
             if(GetApp())
             {
 
-               if(IsTriggerDomain(m_stayPos.x(),m_stayPos.y())&&!m_bIsPageMoving) {
+               if(IsTriggerDomain(m_stayPos.x(),m_stayPos.y())&&!m_bIsPageMoving&&((this->geometry().x()+ m_pageSize.width()*(m_iCurrentPageNum - 1)) >=0)) {
 
                    INFO()<<"replace start .";
                    map<string,string> p;
@@ -912,7 +936,7 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
             if(m_bEnterTriggerDomain)
             {
                 m_bEnterTriggerDomain = false;
-                emit SigEnterTriggerDomain(false);
+                emit SigEnterTriggerDomain(false,"");
             }
         }
         if(GetApp()&&!GetIsEditStatus())
@@ -923,16 +947,10 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
               emit SigRelease(GetApp()->GetIndex(),GetApp()->GetType(),GetApp()->GetName());
            }
         }
-        if(GetApp())
-        {
-           GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
-           GetApp()->SetIsPress(false);
-        }
-        if(GetIsEditStatus()&&m_editMode == eEdit_SINGLE)
+        if(GetIsEditStatus())
         {
             ExitEditStatus();
         }
-
         m_bIsPageMoving = false;
         m_bIsMoving = false;
         SetApp(NULL);
@@ -1198,8 +1216,8 @@ void HomeView::PressTimeout()
     if(GetApp())
     {
         GetApp()->UpdateText("",true);
-        GetApp()->SizeAnimation(QSize(APP_BT_W, APP_BT_H), QSize(APP_BT_W+10, APP_BT_H+10),300,false);
-        GetApp()->OpacityAnimation(1,0.5,500);
+//        GetApp()->SizeAnimation(QSize(APP_BT_W, APP_BT_H), QSize(APP_BT_W+10, APP_BT_H+10),300,false);
+//        GetApp()->OpacityAnimation(1,0.5,500);
     }
 }
 
@@ -1311,6 +1329,26 @@ void HomeView::OnMoveAppFinish(int index)
                this->ToNextPage();
        }
     }
+}
+
+void HomeView::OnQuickMove(QString type)
+{
+    if("PULL" == type)
+    {
+        this->MoveAnimation(QPoint(this->geometry().x(),0),QPoint((-(m_iCurrentPageNum-1)*m_pageSize.width()),0),300);
+
+    }else if("BACK" == type)
+    {
+        this->MoveAnimation(QPoint(this->geometry().x(),0),QPoint((-(m_iCurrentPageNum-1)*m_pageSize.width())-80,0),300);
+    }
+}
+
+void HomeView::OnEnterTriggerDomainStatus(bool status,QString type)
+{
+    map<string,string> p ;
+    p.insert(make_pair("QuickTriggerDomainStatus",status?"True":"False"));
+    p.insert(make_pair("Type",type.toStdString()));
+    HMIFrameWork::Inst()->Notify(QUICKLANUCH_ID,p);
 }
 
 void HomeView::OnAppClick(int index, QString type, QString name)

@@ -49,32 +49,7 @@ OBJECTS_DIR=temp/obj
 DESTDIR=bin
 
 SOURCES += main.cpp\
-       # mainwindow.cpp \
-    SDLApps/Templates/Alert/AlertView.cpp \
-    SDLApps/Templates/AppListView/AppListView.cpp \
-    SDLApps/Templates/AppListView/CAppButton.cpp \
-    SDLApps/Templates/AppListView/DeviceListView.cpp \
-    SDLApps/Templates/AudioPassThru/AudioPassView.cpp \
-    SDLApps/Templates/ChoiceSet/ChoiceSet.cpp \
-    SDLApps/Templates/ChoiceSet/ChoiceSetVR.cpp \
-    SDLApps/Templates/CommandView/CommandView.cpp \
-    SDLApps/Templates/CommandView/CustomCombobox.cpp \
-    SDLApps/Templates/CommandView/CustomComboboxItem.cpp \
-    SDLApps/Templates/Common/AppBase.cpp \
-    SDLApps/Templates/Common/Button.cpp \
-    SDLApps/Templates/Common/CustomButton.cpp \
-    SDLApps/Templates/Common/CustomListView.cpp \
-    SDLApps/Templates/Common/MenuButton.cpp \
-    SDLApps/Templates/Common/ScrollBar.cpp \
-    SDLApps/Templates/Config/Config.cpp \
-    SDLApps/Templates/ScrollableMessage/ScollMsgView.cpp \
-    SDLApps/Templates/Show/GraphicSoftButtonShow.cpp \
-    #SDLApps/Templates/Show/MainWidget.cpp \
-    SDLApps/Templates/Show/MediaShow.cpp \
-    SDLApps/Templates/SliderView/SliderView.cpp \
-    SDLApps/Templates/Template/TemplateImp.cpp \
-    SDLApps/Templates/Template/TemplateManager.cpp \
-    SDLApps/Templates/utils/VideoStream/CeVideoStream.cpp \
+    AppLayer.cpp \
     HMIFrameWork/AppManager.cpp \
     HMIFrameWork/log_interface.cpp \
     HMIFrameWork/App.cpp \
@@ -101,16 +76,65 @@ SOURCES += main.cpp\
     Home/Factory/HomeVFactory.cpp \
     Home/UI/HomeView.cpp \
     Home/UI/HomeWindow.cpp \
+    Home/UI/Settings/SettingsDateTimeUI.cpp \
+    Home/UI/Settings/SettingsMainUI.cpp \
+    Home/UI/Settings/SettingsSoundUI.cpp \
+    Home/UI/Settings/SettingsBTUI.cpp \
+    Home/UI/Settings/SettingsWifiAddHotSpotsUI.cpp \
+    Home/UI/Settings/SettingsWifiPasswordUI.cpp \
+    Home/UI/Settings/SettingsWifiUI.cpp \
+    Home/UI/Settings/SettingsSpeechRecognitionUI.cpp \
+    Home/UI/Settings/SettingsRoutineSettingUI.cpp \
+    Home/UI/Settings/SettingsEmergencyUI.cpp \
+    Home/UI/Settings/SettingsDisplayUI.cpp \
+    Home/UI/PlayVedio/BootAnimation.cpp \
+    Home/UI/PlayVedio/BootAnimationUI.cpp \
+    Home/data/Settings/SettingsWifiData.cpp \
+    Home/data/Settings/SettingsBTData.cpp \
+    Home/data/Settings/SettingsDateTimeData.cpp \
+    Home/data/Settings/SettingsRoutineSettingData.cpp \
+    Home/data/Settings/SettingsDisplayData.cpp \
+    Home/data/Settings/SettingsMobileApplicationsData.cpp \
+    Home/UI/Settings/SettingsMobileApplicationsUI.cpp \
+    Home/data/Settings/SettingsEmergencyData.cpp \
     QuickLanuch/app/QuickLanuch.cpp \
     QuickLanuch/Factory/QuickVFactory.cpp \
     QuickLanuch/UI/QuickLanuchView.cpp \
     QuickLanuch/UI/QuickLanuchWindow.cpp \
+    StatusBar/app/StatusBar.cpp \
+    StatusBar/Factory/StatusBarVFactory.cpp \
+    StatusBar/UI/StatusBarView.cpp \
+    StatusBar/UI/StatusBarWindow.cpp \
+    SDLApps/Templates/Alert/AlertView.cpp \
+    SDLApps/Templates/AppListView/AppListView.cpp \
+    SDLApps/Templates/AppListView/CAppButton.cpp \
+    SDLApps/Templates/AppListView/DeviceListView.cpp \
+    SDLApps/Templates/AudioPassThru/AudioPassView.cpp \
+    SDLApps/Templates/ChoiceSet/ChoiceSet.cpp \
+    SDLApps/Templates/ChoiceSet/ChoiceSetVR.cpp \
+    SDLApps/Templates/CommandView/CommandView.cpp \
+    SDLApps/Templates/CommandView/CustomCombobox.cpp \
+    SDLApps/Templates/CommandView/CustomComboboxItem.cpp \
+    SDLApps/Templates/Common/AppBase.cpp \
+    SDLApps/Templates/Common/Button.cpp \
+    SDLApps/Templates/Common/CustomButton.cpp \
+    SDLApps/Templates/Common/CustomListView.cpp \
+    SDLApps/Templates/Common/MenuButton.cpp \
+    SDLApps/Templates/Common/ScrollBar.cpp \
+    SDLApps/Templates/Config/Config.cpp \
+    SDLApps/Templates/ScrollableMessage/ScollMsgView.cpp \
+    SDLApps/Templates/Show/GraphicSoftButtonShow.cpp \
+    #SDLApps/Templates/Show/MainWidget.cpp \
+    SDLApps/Templates/Show/MediaShow.cpp \
+    SDLApps/Templates/SliderView/SliderView.cpp \
+    SDLApps/Templates/Template/TemplateImp.cpp \
+    SDLApps/Templates/Template/TemplateManager.cpp \
+    SDLApps/Templates/utils/VideoStream/CeVideoStream.cpp \
     SDLApps/app/SDLApps.cpp \
     SDLApps/Factory/SDLVFactory.cpp \
     SDLApps/UI/SDLAppsView.cpp \
     SDLApps/UI/SDLAppsWindow.cpp \
-    AppLayer.cpp \
-    SDLApps/Templates/UIManager.cpp
+    SDLApps/Templates/UIManager.cpp 
 
 unix {
     SOURCES += SDLApps/Templates/utils/VideoStream/gst_player.cpp
@@ -119,7 +143,71 @@ unix {
 
 
 HEADERS  +=  \
-    #mainwindow.h \
+    main.h \
+    MainWindow.h \
+    AppLayer.h \
+    HMIFrameWork/AppConfig.h \
+    HMIFrameWork/AppManager.h \
+    HMIFrameWork/log_interface.h \
+    HMIFrameWork/Interface.h \
+    HMIFrameWork/App.h \
+    HMIFrameWork/GstPlayerMessage.h \
+    HMIFrameWork/GstPlayer.h \
+    HMIFrameWork/HMIFrameWork.h \
+    HMIFrameWork/CView.h \
+    HMIFrameWork/ViewFactory.h \
+    HMIWidgets/CCButton.h \
+    HMIWidgets/CListWidgetItem.h \
+    HMIWidgets/CPushButton.h \
+    HMIWidgets/CVListWidget.h \
+    HMIWidgets/DateTimePicker.h \
+    HMIWidgets/ListDelegate.h \
+    HMIWidgets/ListScroller.h \
+    HMIWidgets/Picker.h \
+    HMIWidgets/ScrollText.h \
+    HMIWidgets/SliderSelect.h \
+    HMIWidgets/WidgetsCommon.h \
+    HMIWidgets/CComboBox.h \
+    HMIWidgets/CComboBoxDelegate.h \
+    HMIWidgets/CRotationWidget.h \
+    Home/app/Home.h \
+    Home/Factory/HomeVFactory.h \
+    Home/UI/HomeView.h \
+    Home/UI/HomeWindow.h \
+    Home/UI/Settings/SettingsDateTimeUI.h \
+    Home/UI/Settings/SettingsMainUI.h \
+    Home/UI/Settings/SettingsSoundUI.h \
+    Home/UI/Settings/SettingsBTUI.h \
+    Home/UI/Settings/SettingsWifiAddHotSpotsUI.h \
+    Home/UI/Settings/SettingsWifiPasswordUI.h \
+    Home/UI/Settings/SettingsWifiUI.h \
+    Home/UI/Settings/SettingsSpeechRecognitionUI.h \
+    Home/UI/Settings/SettingsRoutineSettingUI.h \
+    Home/UI/Settings/SettingsEmergencyUI.h \
+    Home/UI/Settings/SettingsDisplayUI.h \
+    Home/UI/PlayVedio/BootAnimation.h \
+    Home/UI/PlayVedio/BootAnimationUI.h \
+    Home/data/Settings/SettingsWifiData.h \
+    Home/data/Settings/SettingsBTData.h \
+    Home/data/Settings/SettingsDateTimeData.h \
+    Home/data/Settings/SettingsRoutineSettingData.h \
+    Home/data/Settings/SettingsDisplayData.h \
+    Home/data/Settings/SettingsMobileApplicationsData.h \
+    Home/UI/Settings/SettingsMobileApplicationsUI.h \
+    Home/data/Settings/SettingsEmergencyData.h \
+    QuickLanuch/app/QuickLanuch.h \
+    QuickLanuch/Factory/QuickVFactory.h \
+    QuickLanuch/UI/QuickLanuchView.h \
+    QuickLanuch/UI/QuickLanuchWindow.h \
+    StatusBar/app/StatusBar.h \
+    StatusBar/Factory/StatusBarVFactory.h \
+    StatusBar/UI/StatusBarView.h \
+    StatusBar/UI/StatusBarWindow.h \
+    SDLApps/app/SDLApps.h \
+    SDLApps/Factory/SDLVFactory.h \
+    SDLApps/UI/SDLAppsView.h \
+    SDLApps/UI/SDLAppsWindow.h \
+    SDLApps/Templates/UIManager.h \
     SDLApps/Templates/Alert/AlertView.h \
     SDLApps/Templates/AppListView/AppListView.h \
     SDLApps/Templates/AppListView/CAppButton.h \
@@ -144,47 +232,7 @@ HEADERS  +=  \
     SDLApps/Templates/SliderView/SliderView.h \
     SDLApps/Templates/Template/TemplateImp.h \
     SDLApps/Templates/Template/TemplateManager.h \
-    SDLApps/Templates/utils/VideoStream/CeVideoStream.h \
-    main.h \
-    HMIFrameWork/AppConfig.h \
-    HMIFrameWork/AppManager.h \
-    HMIFrameWork/log_interface.h \
-    HMIFrameWork/Interface.h \
-    HMIFrameWork/App.h \
-    HMIFrameWork/GstPlayerMessage.h \
-    HMIFrameWork/GstPlayer.h \
-    MainWindow.h \
-    HMIFrameWork/HMIFrameWork.h \
-    HMIFrameWork/CView.h \
-    HMIFrameWork/ViewFactory.h \
-    HMIWidgets/CCButton.h \
-    HMIWidgets/CListWidgetItem.h \
-    HMIWidgets/CPushButton.h \
-    HMIWidgets/CVListWidget.h \
-    HMIWidgets/DateTimePicker.h \
-    HMIWidgets/ListDelegate.h \
-    HMIWidgets/ListScroller.h \
-    HMIWidgets/Picker.h \
-    HMIWidgets/ScrollText.h \
-    HMIWidgets/SliderSelect.h \
-    HMIWidgets/WidgetsCommon.h \
-    HMIWidgets/CComboBox.h \
-    HMIWidgets/CComboBoxDelegate.h \
-    HMIWidgets/CRotationWidget.h \
-    Home/app/Home.h \
-    Home/Factory/HomeVFactory.h \
-    Home/UI/HomeView.h \
-    Home/UI/HomeWindow.h \
-    QuickLanuch/app/QuickLanuch.h \
-    QuickLanuch/Factory/QuickVFactory.h \
-    QuickLanuch/UI/QuickLanuchView.h \
-    QuickLanuch/UI/QuickLanuchWindow.h \
-    SDLApps/app/SDLApps.h \
-    SDLApps/Factory/SDLVFactory.h \
-    SDLApps/UI/SDLAppsView.h \
-    SDLApps/UI/SDLAppsWindow.h \
-    AppLayer.h \
-    SDLApps/Templates/UIManager.h
+    SDLApps/Templates/utils/VideoStream/CeVideoStream.h 
 
 
 
@@ -200,8 +248,9 @@ unix {
 RESOURCES += \
     SDLApps/Templates/image.qrc \
     Home/Source/HomeImages.qrc \
-    QuickLanuch/Source/QuickLanuchImages.qrc
-
+    QuickLanuch/Source/QuickLanuchImages.qrc \
+    Home/Source/images/Settings/SettingsSource.qrc \
+    StatusBar/Source/StatusBarImages.qrc 
 unix {
   x86 {
   LIBS += /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so \

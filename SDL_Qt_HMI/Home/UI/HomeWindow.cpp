@@ -1,7 +1,7 @@
 #include "HomeWindow.h"
 
-HomeWindow::HomeWindow(QWidget *parent) :
-    QWidget(parent)
+HomeWindow::HomeWindow(QWidget *parent)
+    :QWidget(parent)
 {
     this->setStyleSheet("QWidget{background:transparent;}");
 

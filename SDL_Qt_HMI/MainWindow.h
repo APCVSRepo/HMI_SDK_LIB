@@ -2,12 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "Home/app/Home.h"
-#include "QuickLanuch/app/QuickLanuch.h"
 #include "HMIFrameWork/AppManager.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "AppLayer.h"
-#include "SDLApps/app/SDLApps.h"
+#include <QLabel>
 namespace Ui {
 class MainWindow;
 }
@@ -21,11 +19,14 @@ public:
     ~MainWindow();
     void InitHome();
     void InitQuickLanuch();
+    void InitStatusBar();
     void InitSDLApps();
 
 private:
     Ui::MainWindow *ui;
+    QLabel *m_pBackgroundLabel;
     AppLayer *m_pAppLayer;
+
 };
 
 #endif // MAINWINDOW_H

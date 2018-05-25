@@ -68,7 +68,9 @@ void Home::PhoneClicked()
 
 void Home::SettingsClicked()
 {
-    HMIFrameWork::Inst()->AppShow(SETTINGS_ID);
+    map<string,string> p;
+    p.insert(make_pair("Show","SettingsMain"));
+    HMIFrameWork::Inst()->Notify(HOME_ID,p);
 }
 
 void Home::WeatherClicked()
@@ -81,6 +83,12 @@ void Home::onNotify(string appId, map<string, string> parameter)
     emit SigNotify(appId,parameter);
 }
 
+void Home::onReply(string appId, map<string, string> parameter)
+{
+    connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
+    emit SigNotify(appId,parameter);
+}
+
 void Home::OnAppShow(string appId, string viewId)
 {
     INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
@@ -88,7 +96,17 @@ void Home::OnAppShow(string appId, string viewId)
     switch (state) {
     case AppStatus_Active:
     {
-        ViewForwardById(eViewId_Main);
+        if(viewId == "Main")
+        {
+            ViewForwardById(eViewId_Main);
+        }else if(viewId == "SettingsMain")
+        {
+            ViewForwardById(eViewId_Settings_Main);
+        }
+        else if(viewId == "BootAnimation")
+        {
+            ViewForwardById(eViewId_BootAnimation);
+        }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->show();
 
@@ -162,5 +180,47 @@ void Home::OnNotify(string appId, map<string, string> parameter)
             NavClicked();
         }
     }
+    it = parameter.find("QuickMove");
+    if(it!=parameter.end())
+    {
+        string type = it->second;
+        emit SigQuickMove(QString::fromStdString(type));
+    }
+
+    it = parameter.find("Show");
+    if(it!=parameter.end())
+    {
+
+        string type = it->second;
+        INFO()<<QString::fromStdString(type);
+
+        if(type == "SettingsMain")
+        {
+            if(getState() == AppStatus_Active)
+            {
+                INFO()<<" SettingsMain";
+                ViewForwardById(eViewId_Settings_Main);
+            }else
+            {
+                HMIFrameWork::Inst()->AppShow(HOME_ID,"SettingsMain");
+            }
+        }
+    }
+    it = parameter.find("action");
+    if(it!=parameter.end())
+    {
+        string type = it->second;
+        if(type == "BootAnimationFinish")
+        {
+            ViewForwardById(eViewId_Main);
+            HMIFrameWork::Inst()->AppShow(STATUSBAR_ID);
+            HMIFrameWork::Inst()->AppShow(QUICKLANUCH_ID);
+        }
+    }
+}
+
+void Home::OnReply(string appId, map<string, string> parameter)
+{
+
 }
 
