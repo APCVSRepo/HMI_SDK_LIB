@@ -50,6 +50,11 @@ void HMIFrameWork::Notify(string appId, map<string, string> parameter)
     m_pAppManager->Notify(appId,parameter);
 }
 
+void HMIFrameWork::Reply(string appId, map<string, string> parameter)
+{
+    m_pAppManager->Reply(appId,parameter);
+}
+
 void HMIFrameWork::SetMain(void *pMain)
 {
     m_pMainWin = pMain;

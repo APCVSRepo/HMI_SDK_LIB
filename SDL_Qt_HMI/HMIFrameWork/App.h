@@ -14,6 +14,7 @@ public:
     virtual void onAppShow(string appId,string viewId) ;
     virtual void onAppHide();
     virtual void onNotify(string appId,map<string,string> parameter);
+    virtual void onReply(string appId,map<string,string> parameter);
     virtual eAppStatus getState();
     virtual void setState(eAppStatus state);
     virtual eAppType getAppType();

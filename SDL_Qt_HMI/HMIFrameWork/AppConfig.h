@@ -2,42 +2,61 @@
 #define APPCONFIG_H
 
 #include <QString>
-#define  SCREEN_H                   720 // mainwindow heigt
-#define  SCREEN_W                   1280 // mainwindow width
-#define  APP_ICON_W                 117
-#define  APP_ICON_H                 114
+#define  SCREEN_H                   800 // mainwindow heigt
+#define  SCREEN_W                   480 // mainwindow width
 
-#define  COLUMN_SPACE               170
-#define  ROW_SPACE                  158
-#define  MULTI_BT_SIZE              142
+#define APP_BT_W                    120
+#define APP_BT_H                    151
 
-#define APP_DEL_ICON_W              20
-#define APP_DEL_ICON_H              20
-#define MOVE_OFFSET_POS_X           71
-#define MOVE_OFFSET_POS_Y           71
-#define SCREEN_MAX_W                800
-#define REGION_VALUE_W              50
-#define MOVE_BG_SIZE                142
-#define APP_BT_W                    142
-#define APP_BT_H                    142
+#define APP_ICON_W                  120
+#define APP_ICON_H                  120
+
+#define COLUMN_SPACE                22
+#define ROW_SPACE                   10
+
+#define OFFSET_POS_X                127
+#define OFFSET_POS_Y                83
+
+#define QUICK_APP_BT_W              120//64
+#define QUICK_APP_BT_H              64
+
+#define QUICK_APP_BT_EDIT_W         30
+#define QUICK_APP_BT_EDIT_H         30
+
+#define QUICK_APP_BT_PUSH_W         64
+#define QUICK_APP_BT_PUSH_H         64
+
+#define QUICK_APP_ICON_W            44
+#define QUICK_APP_ICON_H            44
+
+#define QUICK_COLUMN_SPACE          0
+#define QUICK_ROW_SPACE             40
+
+#define QUICK_OFFSET_POS_X          30 //48
+#define QUICK_OFFSET_POS_Y          32
+
+#define HOME_PAGE_OFFSET_POS_X      80
+
 
 #define PHONE_NAME "Phone"
-#define SETTINGS_NAME "Settings"
+#define SETTINGS_NAME "Setting"
 #define MEDIA_NAME "Media"
 #define HVAC_NAME "HVAC"
 #define WEATHER_NAME "Weather"
-#define SDLAPPS_NAME "SDLApps"
+#define SDLAPPS_NAME "Application"
 #define MESSAGE_NAME "Message"
 #define NAV_NAME "Nav"
 
 #define HOME_ID "HOME"
 #define QUICKLANUCH_ID "QUICKLANUCH"
+#define STATUSBAR_ID "STATUSBAR"
+#define POPUP_ID "POPUP"
 #define PHONE_ID "PHONE"
-#define SETTINGS_ID "SETTINGS"
+#define SETTINGS_ID "SETTING"
 #define MEDIA_ID "MEDIA"
 #define HVAC_ID "HVAC"
 #define WEATHER_ID "WEATHER"
-#define SDLAPPS_ID "SDLAPPS"
+#define SDLAPPS_ID "APPLICATION"
 #define MESSAGE_ID "MESSAGE"
 #define NAV_ID "NAV"
 

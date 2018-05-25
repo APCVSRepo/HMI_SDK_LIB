@@ -17,7 +17,8 @@ public:
     virtual void RegisterApp(App* app);
     virtual void AppShow(string appId,string viewId = "Main");
     virtual void AppBack();
-    virtual void Notify(string appId,map<string,string> parameter);    
+    virtual void Notify(string appId,map<string,string> parameter);
+    virtual void Reply(string appId, map<string, string> parameter);
 private:
      bool IntertApp( App* app);
      App* findApp(string id);

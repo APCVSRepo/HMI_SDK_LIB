@@ -99,6 +99,15 @@ void AppManager::Notify(string appId, map<string, string> parameter)
     }
 }
 
+void AppManager::Reply(string appId, map<string, string> parameter)
+{
+    App* app = findApp(appId);
+    if(app)
+    {
+        app->onReply(appId,parameter);
+    }
+}
+
 void AppManager::Erase(App *app)
 {
    if(app)

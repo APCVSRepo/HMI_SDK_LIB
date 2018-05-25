@@ -15,6 +15,7 @@ public:
     void AppShow(string id,string view="Main");
     void AppBack();
     void Notify(string appId,map<string,string> parameter);
+    void Reply(string appId,map<string,string> parameter);
     ~HMIFrameWork();
 private:
     HMIFrameWork();

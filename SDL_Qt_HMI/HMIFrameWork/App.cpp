@@ -1,5 +1,5 @@
 #include "App.h"
-
+#include "log_interface.h"
 App::App()
     :m_state(AppStatus_Inactive)
     ,m_pMain(NULL)
@@ -30,6 +30,11 @@ void App::onAppHide()
 }
 
 void App::onNotify(string appId, map<string, string> parameter)
+{
+
+}
+
+void App::onReply(string appId, map<string, string> parameter)
 {
 
 }
@@ -205,6 +210,7 @@ void App::EraseView(CView *pView)
             if(pView == m_pAppViewStack.at(i))
             {
                 m_pAppViewStack.erase(m_pAppViewStack.begin()+i);
+                return;
             }
         }
     }

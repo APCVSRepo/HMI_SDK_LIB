@@ -82,6 +82,8 @@ SOURCES += main.cpp\
     HMIFrameWork/HMIFrameWork.cpp \
     HMIFrameWork/CView.cpp \
     HMIFrameWork/ViewFactory.cpp \
+    HMIFrameWork/GstPlayerMessage.cpp \
+    HMIFrameWork/GstPlayer.cpp \
     HMIWidgets/CCButton.cpp \
     Home/app/Home.cpp \
     Home/Factory/HomeVFactory.cpp \
@@ -137,6 +139,8 @@ HEADERS  +=  \
     HMIFrameWork/log_interface.h \
     HMIFrameWork/Interface.h \
     HMIFrameWork/App.h \
+    HMIFrameWork/GstPlayerMessage.h \
+    HMIFrameWork/GstPlayer.h \
     MainWindow.h \
     HMIFrameWork/HMIFrameWork.h \
     HMIFrameWork/CView.h \
