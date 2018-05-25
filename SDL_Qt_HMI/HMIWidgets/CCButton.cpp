@@ -6,13 +6,16 @@ CCButton::CCButton(QWidget *parent)
   , m_pEffect(NULL)
   , m_pMoveAnimation(NULL)
   , m_pSizeAnimation(NULL)
+  , m_pJitterAnimation(NULL)
   , m_viewRect(QRect(0,0,0,0))
   , m_editStyle("")
   , m_normalStyle("")
   , m_pushStyle("")
+  , m_style("")
   , m_iconStyle("")
   , m_text("")
   , m_updateText("")
+  , m_textSize(21)
   , m_bmidFlag(false)
   , m_bIsUpdateText(false)
   , m_EditStyleRect(QRect(0,0,0,0))
@@ -26,9 +29,13 @@ CCButton::CCButton(QWidget *parent)
   , m_bIsEditStatus(false)
   , m_IsPress(false)
   , m_ViewStatus(ViewStatusNormal)
+  , m_ViewStatusStyle(ViewStatusStyle_Alpha)
   , m_AppIsHide(false)
   , m_IsEndAnimation(true)
   , m_DiffSize(QSize(0,0))
+  , m_bExist(false)
+  , m_extendedText("")
+  , m_extendedTextSize(18)
 {
 
    qRegisterMetaType<CCBtnInfo>("CCBtnInfo");
@@ -57,6 +64,11 @@ CCButton::CCButton(QWidget *parent)
    m_pMoveAnimation = new QPropertyAnimation(this);
    m_pMoveAnimation->setTargetObject(this);
    m_pMoveAnimation->setPropertyName("position");
+
+   m_pJitterAnimation = new QPropertyAnimation(this);
+   m_pJitterAnimation->setTargetObject(this);
+   m_pJitterAnimation->setPropertyName("position");
+
 
    m_pMoveParentAnimation = new QPropertyAnimation(this);
    m_pMoveParentAnimation->setTargetObject(this);
@@ -188,6 +200,21 @@ void CCButton::SetIndex(int index)
 {
     m_Info.Index = index;
     m_iIndex = index;
+}
+
+void CCButton::SetTextSize(int size)
+{
+    m_textSize = size;
+}
+
+void CCButton::SetViewStatusStyle(CCButton::eViewStatusStyle style)
+{
+    m_ViewStatusStyle = style;
+}
+
+CCButton::eViewStatusStyle CCButton::GetViewStatusStyle()
+{
+    return m_ViewStatusStyle;
 }
 
 QRect CCButton::GetViewRect()
@@ -330,6 +357,20 @@ QRect CCButton::GetTextRect()
     return m_textRect;
 }
 
+void CCButton::AddExtendedText(QRect r,QString text,int fontsize)
+{
+    m_extendedTextRect = r;
+    m_extendedText = text;
+    m_extendedTextSize = fontsize;
+    update();
+}
+
+void CCButton::UpdateExtendedText(QString text)
+{
+    m_extendedText = text;
+    update();
+}
+
 void CCButton::SetEditStatus(bool isEditStatus)
 {
     m_bIsEditStatus = isEditStatus;
@@ -424,6 +465,27 @@ bool CCButton::GetIsEndAnimation()
 {
     return m_IsEndAnimation;
 }
+
+void CCButton::JitterAnimation( int time)
+{
+    if(m_pJitterAnimation)
+    {
+        this->show();
+        m_pJitterAnimation->stop();
+        m_pJitterAnimation->setDuration(time);
+        m_pJitterAnimation->setKeyValueAt(0.3, QPoint(GetViewRect().x() - 3, GetViewRect().y()));
+        m_pJitterAnimation->setKeyValueAt(0.6, QPoint(GetViewRect().x() + 6, GetViewRect().y()));
+        m_pJitterAnimation->setKeyValueAt(1, QPoint(GetViewRect().x() - 3, GetViewRect().y()));
+        m_pJitterAnimation->setEasingCurve(QEasingCurve::OutElastic);
+        m_pJitterAnimation->start();
+    }
+}
+
+void CCButton::SetExist(bool b)
+{
+    m_bExist = b;
+    update();
+}
 QPoint CCButton::GetGlobalPos(const QPoint currPos)
 {
     HomeView *pBtnParent = dynamic_cast<HomeView*>(this->parent());
@@ -466,6 +528,8 @@ void CCButton::MoveAnimationFinished()
         m_AppIsHide = false;
         this->hide();
     }
+    if(!m_bIsEditStatus)
+        UpdateText(GetText());
     emit MoveAppFinish(GetIndex());
 }
 
@@ -487,32 +551,45 @@ void CCButton::paintEvent(QPaintEvent *event)
     QPixmap Normal;
     QPixmap push;
     QPixmap Icon;
-    if(m_normalStyle != "")
+    if(ViewStatusStyle_Change == m_ViewStatusStyle)
     {
-        Normal = QPixmap(m_normalStyle).scaled(m_NormalStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-    }
-    painter.drawPixmap(m_NormalStyleRect,Normal);
-    if(ViewStatusPushed == m_ViewStatus)
-    {
-        if(m_pushStyle!="")
+        if(ViewStatusNormal == m_ViewStatus)
         {
-            push = QPixmap(m_pushStyle).scaled(m_PushStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+            m_style = m_normalStyle;
+            if(m_normalStyle != "")
+            {
+                Normal = QPixmap(m_normalStyle).scaled(m_NormalStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+            }
+            painter.drawPixmap(m_NormalStyleRect,Normal);
+        }else if(ViewStatusPushed == m_ViewStatus)
+        {
+            if(m_pushStyle != "")
+            {
+                push = QPixmap(m_pushStyle).scaled(m_PushStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+            }
+            painter.drawPixmap(m_PushStyleRect,push);
         }
-        painter.drawPixmap(m_PushStyleRect,push);
+
     }
     if(m_bIsEditStatus && !m_IsPress)
     {
-       painter.drawPixmap(m_EditStyleRect,QPixmap(m_editStyle));
+       if(m_editStyle != "")
+       {
+            painter.drawPixmap(m_EditStyleRect,QPixmap(m_editStyle));
+       }
     }
-    if(m_iconStyle != "")
+    if(m_bExist)
     {
-        Icon = QPixmap(m_iconStyle).scaled(m_IconStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+        if( m_iconStyle != "")
+        {
+            Icon = QPixmap(m_iconStyle).scaled(m_IconStyleRect.size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+        }
+        painter.drawPixmap(m_IconStyleRect,Icon);
     }
-    painter.drawPixmap(m_IconStyleRect,Icon);
 
     painter.setPen(QColor(255,255,255));
     QFont font;
-    font.setPixelSize(20);
+    font.setPixelSize(m_textSize);
     painter.setFont(font);
     if (Qt::Horizontal == m_eTextOrientation)
     {
@@ -540,6 +617,11 @@ void CCButton::paintEvent(QPaintEvent *event)
             }
         }
     }
+    font;
+    font.setPixelSize(m_extendedTextSize);
+    painter.setFont(font);
+    painter.drawText(m_extendedTextRect, Qt::AlignCenter, m_extendedText);
+
 }
 
 bool CCButton::eventFilter(QObject *obj, QEvent *e)

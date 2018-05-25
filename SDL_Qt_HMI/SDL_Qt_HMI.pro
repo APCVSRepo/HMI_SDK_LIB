@@ -85,6 +85,18 @@ SOURCES += main.cpp\
     HMIFrameWork/GstPlayerMessage.cpp \
     HMIFrameWork/GstPlayer.cpp \
     HMIWidgets/CCButton.cpp \
+    HMIWidgets/CListWidgetItem.cpp \
+    HMIWidgets/CPushButton.cpp \
+    HMIWidgets/CVListWidget.cpp \
+    HMIWidgets/DateTimePicker.cpp \
+    HMIWidgets/ListDelegate.cpp \
+    HMIWidgets/ListScroller.cpp \
+    HMIWidgets/Picker.cpp \
+    HMIWidgets/ScrollText.cpp \
+    HMIWidgets/SliderSelect.cpp \
+    HMIWidgets/CComboBox.cpp \
+    HMIWidgets/CComboBoxDelegate.cpp \
+    HMIWidgets/CRotationWidget.cpp \
     Home/app/Home.cpp \
     Home/Factory/HomeVFactory.cpp \
     Home/UI/HomeView.cpp \
@@ -146,6 +158,19 @@ HEADERS  +=  \
     HMIFrameWork/CView.h \
     HMIFrameWork/ViewFactory.h \
     HMIWidgets/CCButton.h \
+    HMIWidgets/CListWidgetItem.h \
+    HMIWidgets/CPushButton.h \
+    HMIWidgets/CVListWidget.h \
+    HMIWidgets/DateTimePicker.h \
+    HMIWidgets/ListDelegate.h \
+    HMIWidgets/ListScroller.h \
+    HMIWidgets/Picker.h \
+    HMIWidgets/ScrollText.h \
+    HMIWidgets/SliderSelect.h \
+    HMIWidgets/WidgetsCommon.h \
+    HMIWidgets/CComboBox.h \
+    HMIWidgets/CComboBoxDelegate.h \
+    HMIWidgets/CRotationWidget.h \
     Home/app/Home.h \
     Home/Factory/HomeVFactory.h \
     Home/UI/HomeView.h \

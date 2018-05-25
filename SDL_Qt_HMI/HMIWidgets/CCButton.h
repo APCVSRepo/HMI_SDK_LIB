@@ -32,12 +32,18 @@ public:
         QString Text;
         int     Index;
     };
+    enum eViewStatusStyle{
+         ViewStatusStyle_Alpha,
+         viewStatusStyle_Scaled,
+         ViewStatusStyle_Change
+    };
     enum ViewStatus
     {
         ViewStatusUnknow,
         ViewStatusNormal,
         ViewStatusPushed,
-        ViewStatusInactive
+        ViewStatusInactive,
+        ViewStatusExist
     };
     CCButton(QWidget *parent = NULL);
     ~CCButton();
@@ -55,6 +61,9 @@ public:
     void InsertName(QString Name);
     void InsertType(QString Type);
     void SetIndex(int index);
+    void SetTextSize(int size);
+    void SetViewStatusStyle(eViewStatusStyle style);
+    eViewStatusStyle GetViewStatusStyle();
 
     QRect GetViewRect();
 
@@ -82,6 +91,8 @@ public:
     QString GetType();
     int     GetIndex();
     QRect GetTextRect();
+    void AddExtendedText(QRect r,QString text,int fontsize);
+    void UpdateExtendedText(QString text);
 
     void SetEditStatus(bool isEditStatus);
     void SetViewStatus(ViewStatus status);
@@ -92,7 +103,10 @@ public:
     void MoveParentAnimation(const QPoint startPos, const QPoint endPos,int time,bool IsHide = false);
     void SizeAnimation(const QSize start, const QSize end,int time,bool IsHide=false);
     bool GetIsEndAnimation();
+    //setEasingCurve(QEasingCurve::OutElastic);
+    void JitterAnimation(int time);
 
+    void SetExist(bool b);
     QPoint GetGlobalPos(const QPoint currPos);
 
     CCBtnInfo GetInfo();
@@ -123,13 +137,16 @@ private:
     QPropertyAnimation* m_pMoveAnimation;
     QPropertyAnimation* m_pMoveParentAnimation;
     QPropertyAnimation* m_pSizeAnimation;
+    QPropertyAnimation* m_pJitterAnimation;
     QRect m_viewRect;
     QString m_editStyle;
     QString m_normalStyle;
     QString m_pushStyle;
+    QString m_style;
     QString m_iconStyle;
     QString m_text;
     QString m_updateText;
+    int m_textSize;
     bool    m_bmidFlag;
     bool    m_bIsUpdateText;
     Qt::Orientation m_eTextOrientation;
@@ -144,12 +161,17 @@ private:
     bool m_bIsEditStatus;
     bool m_IsPress;
     ViewStatus m_ViewStatus;
+    eViewStatusStyle m_ViewStatusStyle;
     bool m_AppIsHide;
     bool m_IsEndAnimation;
     int m_iPosX;
     int m_iPosY;
     QSize m_DiffSize;
     CCBtnInfo m_Info;
+    bool m_bExist;
+    QString m_extendedText;
+    QRect m_extendedTextRect;
+    int m_extendedTextSize;
 };
 
 #endif // CCBUTTON_H
