@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/StatusBar/Source">
+        <file>images/bg.png</file>
+        <file>images/home.png</file>
+        <file>images/vr.png</file>
+        <file>images/line.png</file>
+        <file>images/temperature.png</file>
+        <file>images/bluetooth.png</file>
+        <file>images/lianjie.png</file>
+        <file>images/loading.png</file>
+        <file>images/wifi.png</file>
+        <file>images/message.png</file>
+    </qresource>
+</RCC>

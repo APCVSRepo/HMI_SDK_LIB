@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/msctts">
+        <file>common.jet</file>
+        <file>xiaofeng.jet</file>
+        <file>xiaoyan.jet</file>
+    </qresource>
+</RCC>

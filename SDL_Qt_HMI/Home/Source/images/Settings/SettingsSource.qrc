@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/Settings">
+        <file>bg.png</file>
+        <file>line.png</file>
+        <file>scrollbar_center.png</file>
+        <file>scrollbar_down.png</file>
+        <file>scrollbar_up.png</file>
+        <file>select_a.png</file>
+        <file>arrow_left.png</file>
+        <file>arrow_right.png</file>
+        <file>button_back.png</file>
+        <file>button_a.png</file>
+        <file>voice_a.png</file>
+        <file>voice_b.png</file>
+        <file>select_b.png</file>
+        <file>button_h_close.png</file>
+        <file>button_h_on.png</file>
+        <file>list_push_bg.png</file>
+        <file>button_add.png</file>
+        <file>button_close.png</file>
+        <file>icon_connect.png</file>
+        <file>icon_notice.png</file>
+        <file>icon_suo.png</file>
+        <file>icon_wifi.png</file>
+        <file>line_a.png</file>
+        <file>line_time.png</file>
+    </qresource>
+</RCC>

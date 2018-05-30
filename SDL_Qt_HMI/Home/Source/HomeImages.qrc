@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/Home/Source">
+        <file>images/application.png</file>
+        <file>images/HVAC.png</file>
+        <file>images/Media.png</file>
+        <file>images/message.png</file>
+        <file>images/nav.png</file>
+        <file>images/phone.png</file>
+        <file>images/Setting.png</file>
+        <file>images/weather.png</file>
+        <file>images/bg.png</file>
+        <file>images/Backtoremove.png</file>
+        <file>images/application_push.png</file>
+        <file>images/HVAC_push.png</file>
+        <file>images/Media_push.png</file>
+        <file>images/message_push.png</file>
+        <file>images/nav_push.png</file>
+        <file>images/phone_push.png</file>
+        <file>images/Setting_push.png</file>
+        <file>images/weather_push.png</file>
+    </qresource>
+</RCC>
