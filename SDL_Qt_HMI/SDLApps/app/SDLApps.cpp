@@ -37,6 +37,12 @@ void SDLApps::onNotify(string appId, map<string, string> parameter)
     emit SigNotify(appId,parameter);
 }
 
+void SDLApps::onReply(string appId, map<string, string> parameter)
+{
+    connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
+    emit SigReply(appId,parameter);
+}
+
 void SDLApps::OnAppShow(string appId, string viewId)
 {
     int state = getState();
@@ -78,6 +84,11 @@ void SDLApps::OnAppHide()
 }
 
 void SDLApps::OnNotify(string appId, map<string, string> parameter)
+{
+
+}
+
+void SDLApps::OnReply(string appId, map<string, string> parameter)
 {
 
 }

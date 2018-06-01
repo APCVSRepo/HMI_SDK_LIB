@@ -63,4 +63,4 @@ class UIManager : public QWidget, public UIInterface {
   void waitMSec(int ms);
 };
 
-#endif // CUIMANAGER_H
+#endif // UIMANAGER_H
