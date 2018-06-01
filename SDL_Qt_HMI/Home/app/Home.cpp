@@ -3,6 +3,8 @@
 #include "HMIFrameWork/HMIFrameWork.h"
 Home* Home::m_pInst = NULL;
 Home::Home()
+    :m_bNotifyBTShow(false)
+    ,m_NotifyBTShowId("")
 {
 
     setAppType(AppType_App);
@@ -77,6 +79,25 @@ void Home::WeatherClicked()
 {
     HMIFrameWork::Inst()->AppShow(WEATHER_ID);
 }
+
+bool Home::SetNotifyBTShowStatus(bool b)
+{
+    m_bNotifyBTShow = b;
+    if(!b)
+    {
+       m_NotifyBTShowId = "";
+    }
+}
+
+bool Home::GetNotifyBTShowStatus()
+{
+    return m_bNotifyBTShow;
+}
+
+string Home::GetNotifyBTShowId()
+{
+    return m_NotifyBTShowId;
+}
 void Home::onNotify(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigNotify(string,map<string,string>)),this,SLOT(OnNotify(string,map<string,string>)),Qt::UniqueConnection);
@@ -86,7 +107,7 @@ void Home::onNotify(string appId, map<string, string> parameter)
 void Home::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
-    emit SigNotify(appId,parameter);
+    emit SigReply(appId,parameter);
 }
 
 void Home::OnAppShow(string appId, string viewId)
@@ -106,6 +127,9 @@ void Home::OnAppShow(string appId, string viewId)
         else if(viewId == "BootAnimation")
         {
             ViewForwardById(eViewId_BootAnimation);
+        }else if(viewId == "BTSetting")
+        {
+            ViewForwardById(eViewId_Settings_BT);
         }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->show();
@@ -134,6 +158,10 @@ void Home::OnAppHide()
         break;
      case AppStatus_Inactive:
     {
+        if(Home::Inst()->GetNotifyBTShowStatus())
+        {
+            Home::Inst()->SetNotifyBTShowStatus(false);
+        }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->hide();
     }
@@ -217,10 +245,35 @@ void Home::OnNotify(string appId, map<string, string> parameter)
             HMIFrameWork::Inst()->AppShow(QUICKLANUCH_ID);
         }
     }
+    it = parameter.find("BTSetting");
+    if(it!=parameter.end())
+    {
+        string type = it->second;
+        if(type == "Show")
+        {
+            m_bNotifyBTShow = true;
+            it = parameter.find("FromAppId");
+            if(it!=parameter.end())
+            {
+                m_NotifyBTShowId = it->second;
+            }
+            if(getState() != AppStatus_Active)
+            {
+                HMIFrameWork::Inst()->AppShow(HOME_ID,"BTSetting");
+            }else if(getState() == AppStatus_Active)
+            {
+                ViewForwardById(eViewId_Settings_BT);
+            }
+        }
+    }
 }
 
 void Home::OnReply(string appId, map<string, string> parameter)
 {
-
+    map<string,string>::const_iterator it = parameter.find("Button");
+    if(it!=parameter.end())
+    {
+        qDebug() << "OnReply = " << QString::fromStdString( it->second);
+    }
 }
 

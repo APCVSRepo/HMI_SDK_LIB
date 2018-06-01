@@ -869,7 +869,10 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                m_iPosDiffX = m_iPosX-GetApp()->geometry().x();
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetIsPress(true);
-               m_pressTimer.start();
+               if(this->geometry().x() == 0)
+               {
+                    m_pressTimer.start();
+               }
             }
 
          }
@@ -1017,7 +1020,10 @@ bool HomeView::TouchEvent(QObject *obj, QEvent *event)
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
                GetApp()->SetIsPress(true);
-               m_pressTimer.start();
+               if(this->geometry().x() == 0)
+               {
+                    m_pressTimer.start();
+               }
             }
 
          }
