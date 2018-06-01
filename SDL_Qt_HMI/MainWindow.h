@@ -20,7 +20,10 @@ public:
     void InitHome();
     void InitQuickLanuch();
     void InitStatusBar();
+    void InitPopUp();
     void InitSDLApps();
+    void InitHVAC();
+    void InitPhone();
 
 private:
     Ui::MainWindow *ui;

@@ -3,8 +3,10 @@
 #include "Home/app/Home.h"
 #include "QuickLanuch/app/QuickLanuch.h"
 #include "StatusBar/app/StatusBar.h"
+#include "PopUp/app/PopUp.h"
 #include "SDLApps/app/SDLApps.h"
-
+#include "HVAC/app/HVAC.h"
+#include "Phone/app/Phone.h"
 MainWindow::MainWindow(QWidget *parent)
     :QMainWindow(parent)
     ,ui(new Ui::MainWindow)
@@ -20,10 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
     HMIFrameWork::Inst()->SetMain(reinterpret_cast<void*>(m_pAppLayer));
 
     InitHome();
-    InitQuickLanuch();
     InitStatusBar();
+    InitQuickLanuch();
+    InitPopUp();
     InitSDLApps();
-
+    InitHVAC();
+    InitPhone();
 }
 
 MainWindow::~MainWindow()
@@ -53,8 +57,23 @@ void MainWindow::InitStatusBar()
 //    HMIFrameWork::Inst()->AppShow(STATUSBAR_ID);
 }
 
+void MainWindow::InitPopUp()
+{
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (PopUp::Inst()),this);
+}
+
 void MainWindow::InitSDLApps()
 {
     HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (SDLApps::Inst()));
+}
+
+void MainWindow::InitHVAC()
+{
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (HVAC::Inst()));
+}
+
+void MainWindow::InitPhone()
+{
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Phone::Inst()));
 }
 
