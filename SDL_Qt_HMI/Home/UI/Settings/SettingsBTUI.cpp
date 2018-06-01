@@ -2,7 +2,7 @@
 #include "Home/data/Settings/SettingsBTData.h"
 #include "Home/app/Home.h"
 #include <QDebug>
-
+#include "HMIFrameWork/HMIFrameWork.h"
 SettingsBTUI::SettingsBTUI(QWidget *parent)
     :QWidget(parent)
     ,CView(Home::eViewId_Settings_BT)
@@ -14,16 +14,18 @@ SettingsBTUI::SettingsBTUI(QWidget *parent)
     this->setStyleSheet("QWidget{border:none;background:transparent;}");
 
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Bluetooth"));
     m_pTitleLabel->show();
 
     //list
@@ -61,7 +63,15 @@ void SettingsBTUI::viewAction(int state)
 
 void SettingsBTUI::OnBack()
 {
-    Home::Inst()->ViewBack();
+    if(Home::Inst()->GetNotifyBTShowStatus())
+    {
+        HMIFrameWork::Inst()->AppShow(Home::Inst()->GetNotifyBTShowId(),"Default");
+        Home::Inst()->SetNotifyBTShowStatus(false);
+    }
+    else
+    {
+        Home::Inst()->ViewBack();
+    }
 }
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex)
@@ -181,13 +191,13 @@ void SettingsBTUI::UpdateBTList()
         item.SetSpecifiedIDStatus(info.status);
         switch (info.status) {
         case BTStatus_PAIRED:
-            item.AddText(QRect(800-54-94-150,0,150,57),QString("Unconnected"),Qt::AlignRight|Qt::AlignVCenter,20);
+            item.AddText(QRect(800-54-94-150,0,150,57),QString("Unconnected"),Qt::AlignRight|Qt::AlignVCenter,20,QColor(255,255,255,204));
             break;
         case BTStatus_CONNECTING:
             item.AddIcon(QRect(800-54-54-(94-54)-35,(57-35)/2,35,35),QPixmap(":/Settings/icon_connect.png"));
             break;
         case BTStatus_CONNECTED:
-            item.AddText(QRect(800-54-94-150,0,150,57),QString("Connected"),Qt::AlignRight|Qt::AlignVCenter,20);
+            item.AddText(QRect(800-54-94-150,0,150,57),QString("Connected"),Qt::AlignRight|Qt::AlignVCenter,20,QColor(255,255,255,204));
             break;
         default:
             qDebug()<<"invalid status";

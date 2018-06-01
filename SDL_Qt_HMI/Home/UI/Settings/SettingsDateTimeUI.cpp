@@ -8,6 +8,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     ,CView(Home::eViewId_Settings_DataTime)
     ,m_pBackBtn(NULL)
     ,m_pTitleLabel(NULL)
+    ,m_pLineTime(NULL)
     ,m_pDateTime(NULL)
     ,m_pYearLabel(NULL)
     ,m_pMonLabel(NULL)
@@ -18,18 +19,25 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
 
     this->setGeometry(QRect(0,40,800,440));
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Time and date"));
     m_pTitleLabel->show();
 
+
+    m_pLineTime = new QLabel(this);
+    m_pLineTime->setGeometry(QRect(54,193,692,51));
+    m_pLineTime->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border-image:url(:/Settings/line_time.png);background:transparent;}");
+    m_pLineTime->show();
 
     m_pDateTime = new DateTimePicker(this);
     m_pDateTime->setGeometry(QRect(54,121,675,195));

@@ -30,7 +30,7 @@ public slots:
 private:
     CPushButton *m_pBackBtn;
     QLabel* m_pTitleLabel;
-
+    QLabel* m_pLineTime;
     DateTimePicker *m_pDateTime;
 
     QLabel* m_pYearLabel;

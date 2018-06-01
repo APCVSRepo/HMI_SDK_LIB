@@ -39,7 +39,7 @@ SettingsMainUI::SettingsMainUI(QWidget *parent)
         list<<"none"<<"none"<<"none";
         item.SetSpecifiedID(-1);
         item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
-        item.AddText(QRect(300,0,377,57),textList.at(i),Qt::AlignRight|Qt::AlignVCenter,24);
+        item.AddText(QRect(300,0,377,57),textList.at(i),Qt::AlignRight|Qt::AlignVCenter,22,QColor(255,255,255,204));
         item.AddIcon(QRect(692,0,22,57),QPixmap(":/Settings/select_a.png"));
         m_pVlist->InsertItem(i,item);
     }
