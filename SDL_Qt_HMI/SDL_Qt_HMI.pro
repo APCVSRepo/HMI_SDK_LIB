@@ -50,10 +50,10 @@ DESTDIR=bin
 
 SOURCES += main.cpp\
     AppLayer.cpp \
+    MainWindow.cpp \
     HMIFrameWork/AppManager.cpp \
     HMIFrameWork/log_interface.cpp \
     HMIFrameWork/App.cpp \
-    MainWindow.cpp \
     HMIFrameWork/HMIFrameWork.cpp \
     HMIFrameWork/CView.cpp \
     HMIFrameWork/ViewFactory.cpp \
@@ -72,6 +72,7 @@ SOURCES += main.cpp\
     HMIWidgets/CComboBox.cpp \
     HMIWidgets/CComboBoxDelegate.cpp \
     HMIWidgets/CRotationWidget.cpp \
+    HMIWidgets/CSlider.cpp \
     Home/app/Home.cpp \
     Home/Factory/HomeVFactory.cpp \
     Home/UI/HomeView.cpp \
@@ -134,7 +135,30 @@ SOURCES += main.cpp\
     SDLApps/Factory/SDLVFactory.cpp \
     SDLApps/UI/SDLAppsView.cpp \
     SDLApps/UI/SDLAppsWindow.cpp \
-    SDLApps/Templates/UIManager.cpp 
+    SDLApps/Templates/UIManager.cpp \
+    PopUp/app/PopUp.cpp \
+    PopUp/Factory/PopUpVFactory.cpp \
+    PopUp/UI/PopUpWindow.cpp \
+    PopUp/UI/PopUpViewUI.cpp \
+    PopUp/UI/PopupGeneralView.cpp \
+    PopUp/UI/PopUpBase.cpp \
+    HVAC/app/HVAC.cpp \
+    HVAC/Factory/HVACVFactory.cpp \
+    HVAC/UI/HVACWindow.cpp \
+    HVAC/UI/HVACFrontView.cpp \
+    HVAC/UI/HVACRearView.cpp \
+    HVAC/UI/HVACFrontViewOff.cpp \
+    HVAC/UI/HVACRearViewOff.cpp \
+    HVAC/data/HVACData.cpp \
+    Phone/app/Phone.cpp \
+    Phone/Factory/PhoneVFactory.cpp \
+    Phone/UI/KeyBoardView.cpp \
+    Phone/UI/PhoneWindow.cpp \
+    HMIWidgets/PhonePicker.cpp \
+    Phone/data/PhoneData.cpp \
+    Phone/UI/ContactsView.cpp \
+    Phone/UI/RecentsView.cpp \
+    Phone/UI/ContactsDetailsView.cpp
 
 unix {
     SOURCES += SDLApps/Templates/utils/VideoStream/gst_player.cpp
@@ -144,8 +168,8 @@ unix {
 
 HEADERS  +=  \
     main.h \
-    MainWindow.h \
     AppLayer.h \
+    MainWindow.h \
     HMIFrameWork/AppConfig.h \
     HMIFrameWork/AppManager.h \
     HMIFrameWork/log_interface.h \
@@ -170,6 +194,7 @@ HEADERS  +=  \
     HMIWidgets/CComboBox.h \
     HMIWidgets/CComboBoxDelegate.h \
     HMIWidgets/CRotationWidget.h \
+    HMIWidgets/CSlider.h \
     Home/app/Home.h \
     Home/Factory/HomeVFactory.h \
     Home/UI/HomeView.h \
@@ -232,7 +257,30 @@ HEADERS  +=  \
     SDLApps/Templates/SliderView/SliderView.h \
     SDLApps/Templates/Template/TemplateImp.h \
     SDLApps/Templates/Template/TemplateManager.h \
-    SDLApps/Templates/utils/VideoStream/CeVideoStream.h 
+    SDLApps/Templates/utils/VideoStream/CeVideoStream.h \
+    PopUp/app/PopUp.h \
+    PopUp/Factory/PopUpVFactory.h \
+    PopUp/UI/PopUpWindow.h \
+    PopUp/UI/PopUpViewUI.h \
+    PopUp/UI/PopupGeneralView.h \
+    PopUp/UI/PopUpBase.h \
+    HVAC/app/HVAC.h \
+    HVAC/Factory/HVACVFactory.h \
+    HVAC/UI/HVACWindow.h \
+    HVAC/UI/HVACFrontView.h \
+    HVAC/UI/HVACRearView.h \
+    HVAC/UI/HVACFrontViewOff.h \
+    HVAC/UI/HVACRearViewOff.h \
+    HVAC/data/HVACData.h \
+    Phone/app/Phone.h \
+    Phone/Factory/PhoneVFactory.h \
+    Phone/UI/KeyBoardView.h \
+    Phone/UI/PhoneWindow.h \
+    HMIWidgets/PhonePicker.h \
+    Phone/data/PhoneData.h \
+    Phone/UI/ContactsView.h \
+    Phone/UI/RecentsView.h \
+    Phone/UI/ContactsDetailsView.h
 
 
 
@@ -250,7 +298,11 @@ RESOURCES += \
     Home/Source/HomeImages.qrc \
     QuickLanuch/Source/QuickLanuchImages.qrc \
     Home/Source/images/Settings/SettingsSource.qrc \
-    StatusBar/Source/StatusBarImages.qrc 
+    StatusBar/Source/StatusBarImages.qrc \
+    PopUp/Source/PopUpImages.qrc \
+    HVAC/Source/HVACImages.qrc \
+    Phone/Source/PhoneImages.qrc
+
 unix {
   x86 {
   LIBS += /usr/lib/x86_64-linux-gnu/libgstreamer-1.0.so \
