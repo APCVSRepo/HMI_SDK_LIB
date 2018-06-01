@@ -55,7 +55,7 @@ public:
     void SetBackgroundInfo(const QString &qsNormalPath,
                            const QString &qsPressedPath,
                            const QString &qsCursoredPath);
-    void AddText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26);
+    void AddText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26, QColor color=QColor(255,255,255));
     void AddSpecialText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26);
     void AddIcon(const QRect& rect, const QPixmap& pixmap, bool bIndicator = false, bool bShow = true);
 

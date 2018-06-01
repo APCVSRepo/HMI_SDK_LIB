@@ -36,12 +36,12 @@ void CListWidgetItem::SetBackgroundInfo(const QString &qsNormalPath,
     m_qsListBackground << qsNormalPath << qsPressedPath << qsCursoredPath;
 }
 
-void CListWidgetItem::AddText(const QRect &rect, const QString &text, int flags, int fontSize)
+void CListWidgetItem::AddText(const QRect &rect, const QString &text, int flags, int fontSize,QColor color)
 {
     m_textRectList << rect;
     m_textStringList << text;
     m_textAlignList << flags;
-    m_textColorList << QColor(255, 255, 255);
+    m_textColorList << color;
     m_textSizeList << fontSize;
     m_textTypeList << false;
 }
