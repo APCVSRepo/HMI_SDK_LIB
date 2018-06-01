@@ -118,6 +118,7 @@ void AppManager::Erase(App *app)
            if(app == m_pAppStack.at(i))
            {
                m_pAppStack.erase(m_pAppStack.begin()+i);
+               return;
            }
        }
    }
