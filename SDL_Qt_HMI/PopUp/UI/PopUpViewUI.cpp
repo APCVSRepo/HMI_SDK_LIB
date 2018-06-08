@@ -40,7 +40,7 @@ void PopUpViewUI::viewAction(int state)
 
 void PopUpViewUI::CreatePopUp(QString &type,map<string, string> parameter)
 {
-    if(type == "General")
+    if("General" == type )
     {
        PopupGeneralView*  general=  new PopupGeneralView(this);
        PopupList.append(dynamic_cast<PopUpBase*>(general));
@@ -49,7 +49,7 @@ void PopUpViewUI::CreatePopUp(QString &type,map<string, string> parameter)
        general->Parse(parameter);
        general->Finish();
 
-    }else if(type == "Prompt")
+    }else if("Prompt" == type)
     {
 
     }
@@ -119,13 +119,14 @@ void PopUpViewUI::ReleasePopup(const QString &Id)
 
             delete temp;
             temp = NULL;
+            return;
         }
     }
 }
 
 void PopUpViewUI::PopUpHide()
 {
-    qDebug()<<"PopUpHide " << PopupList.size();
+    INFO()<<"PopUpHide " << PopupList.size();
     if(PopupList.size() <= 0)
     {
         PopUp::Inst()->onAppHide();
@@ -134,15 +135,15 @@ void PopUpViewUI::PopUpHide()
 
 void PopUpViewUI::Replay(const QString& PopUpId,const QString& info)
 {
-    qDebug() << " ++++++++ " << PopUpId << "     " << info;
+    INFO() << " ++++++++ " << PopUpId << "     " << info;
     QList <PopUpBase*>::iterator it = PopupList.begin();
     for(;it != PopupList.end();++it)
     {
         if((*it)->GetPopUpId() == PopUpId)
         {
-            qDebug() << " ++++++++ " << PopUpId << "     " << info;
+            INFO() << " ++++++++ " << PopUpId << "     " << info;
             QString fromAppId = (*it)->GetFromeAppId();
-            qDebug() << " ++++++++ " << PopUpId << "     " << info << "  " << fromAppId;
+            INFO() << " ++++++++ " << PopUpId << "     " << info << "  " << fromAppId;
             map<string,string> p;
             p.insert(make_pair("Button",info.toStdString()));
             HMIFrameWork::Inst()->Reply(fromAppId.toStdString(),p);

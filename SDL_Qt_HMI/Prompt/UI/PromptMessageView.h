@@ -1,5 +1,5 @@
-#ifndef POPUPGENERALVIEW_H
-#define POPUPGENERALVIEW_H
+#ifndef PROMPTMESSAGEVIEW_H
+#define PROMPTMESSAGEVIEW_H
 
 #include <QWidget>
 #include <QLabel>
@@ -9,7 +9,8 @@
 #include <QPushButton>
 #include "HMIFrameWork/CView.h"
 #include <QTimer>
-#include "PopUpBase.h"
+#include "PromptBase.h"
+#include "HMIWidgets/CPushButton.h"
 //131 32
 //189 32
 //800
@@ -17,13 +18,13 @@
 #define BTN_B
 
 
-class PopupGeneralView : public PopUpBase
+class PromptMessageView : public PromptBase
 {
     Q_OBJECT
 public:
-    enum ePopupStyle{
-        PopupStyle_Default,
-        PopupStyle_Title
+    enum ePromptStyle{
+        PromptStyle_Default,
+        PromptStyle_Title
     };
 
     enum eButtonStyle{
@@ -34,23 +35,30 @@ public:
         ButtonStyle_BtnBS,
         ButtonStyle_BtnABS
     };
-    explicit PopupGeneralView(QWidget *parent = 0);
+    explicit PromptMessageView(QWidget *parent = 0);
+    ~PromptMessageView();
     void AddTitle(const QString& title);
     void AddContextA(const QString& text);
     void AddContextALight(const QString& text);
     void AddContextB(const QString& text);
     void AddContextBLight(const QString& text);
-    void AddPassword(const QString& text);
     void AddBtnA(const QString& text);
     void AddBtnB(const QString& text);
     void AddTimer(int time);
     void AddHandle(const QString& text);
+    void AddMessageName(const QString& text);
+    void AddMessageTime(const QString& text);
+    void AddMessageContent(const QString& text);
+    void UpdatePosion(const QPoint& point );
+
 
     void Show();
     virtual void Finish();
     void DrawContextA(QString context, QString light);
     void DrawContextB(QString context, QString light);
     void HighLightText(QString light);
+    QString geteElidedText(QFont font, const QString& text, int MaxWidth);
+
 signals:
     void SigTimerOut(const QString& Id);
     void SigButtonClick(const QString& Id,const QString& replayInfo);
@@ -59,24 +67,17 @@ public slots:
     void OnButtonA();
     void OnButtonB();
 private:
-    QLabel *m_pBackgroundLabel;
-    QLabel *m_pLineTop;
-    QLabel *m_pLineBottom;
-    QLabel *m_TitleLabel;
-    QLabel *m_pPasswordLabel;
-    QVBoxLayout *m_pVDisplayAreaLayout;
-    QHBoxLayout *m_pHDisplayAreaLayout;
-    QWidget *m_pVDisplayArea;
-    QWidget *m_pHDisplayArea;
+    QLabel *m_pNameLabel;
+    QLabel *m_pContentLabel;
+    QLabel *m_pTimeLabel;
+    QLabel *m_pIconLabel;
 
-    QTextEdit *m_pText;
-//    QLabel *m_pMsg;
+
+    CPushButton *m_pVoiceBtn;
     QPushButton *m_pBtnA;
-    QPushButton *m_pBtnB;
-    eButtonStyle m_buttonStyle;
-    ePopupStyle m_popupStyle;
+    CPushButton *m_pBtnB;
     int m_itime;
     QTimer m_timer;
 };
 
-#endif // POPUPGENERALVIEW_H
+#endif // PROMPTMESSAGEVIEW_H

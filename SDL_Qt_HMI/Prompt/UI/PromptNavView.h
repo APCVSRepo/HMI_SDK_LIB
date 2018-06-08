@@ -1,5 +1,5 @@
-#ifndef POPUPGENERALVIEW_H
-#define POPUPGENERALVIEW_H
+#ifndef PROMPTNAVVIEW_H
+#define PROMPTNAVVIEW_H
 
 #include <QWidget>
 #include <QLabel>
@@ -9,21 +9,20 @@
 #include <QPushButton>
 #include "HMIFrameWork/CView.h"
 #include <QTimer>
-#include "PopUpBase.h"
+#include "PromptBase.h"
 //131 32
 //189 32
 //800
 //800 -131  670 /2 335
 #define BTN_B
 
-
-class PopupGeneralView : public PopUpBase
+class PromptNavView : public PromptBase
 {
     Q_OBJECT
 public:
-    enum ePopupStyle{
-        PopupStyle_Default,
-        PopupStyle_Title
+    enum ePromptStyle{
+        PromptStyle_Default,
+        PromptStyle_Title
     };
 
     enum eButtonStyle{
@@ -34,49 +33,48 @@ public:
         ButtonStyle_BtnBS,
         ButtonStyle_BtnABS
     };
-    explicit PopupGeneralView(QWidget *parent = 0);
+    explicit PromptNavView(QWidget *parent = 0);
+    ~PromptNavView();
     void AddTitle(const QString& title);
     void AddContextA(const QString& text);
     void AddContextALight(const QString& text);
     void AddContextB(const QString& text);
     void AddContextBLight(const QString& text);
-    void AddPassword(const QString& text);
     void AddBtnA(const QString& text);
     void AddBtnB(const QString& text);
     void AddTimer(int time);
     void AddHandle(const QString& text);
+    void AddNavDirection(const QString& text);
+    void AddNavDistance(const QString& text);
+    void AddNavSceneDescription(const QString& text);
+    void AddNavDestination(const QString& text);
+    void UpdatePosition();
+
 
     void Show();
     virtual void Finish();
     void DrawContextA(QString context, QString light);
     void DrawContextB(QString context, QString light);
     void HighLightText(QString light);
+    QString geteElidedText(QFont font, const QString& text, int MaxWidth);
+    int getTextWidth(QFont font, const QString& text);
+
 signals:
     void SigTimerOut(const QString& Id);
     void SigButtonClick(const QString& Id,const QString& replayInfo);
 public slots:
     void OnTimer();
     void OnButtonA();
-    void OnButtonB();
 private:
-    QLabel *m_pBackgroundLabel;
-    QLabel *m_pLineTop;
-    QLabel *m_pLineBottom;
-    QLabel *m_TitleLabel;
-    QLabel *m_pPasswordLabel;
-    QVBoxLayout *m_pVDisplayAreaLayout;
-    QHBoxLayout *m_pHDisplayAreaLayout;
-    QWidget *m_pVDisplayArea;
-    QWidget *m_pHDisplayArea;
+    QLabel *m_pNavDirectionIconLabel;
+    QLabel *m_pNavDistanceLabel;
+    QLabel *m_pNavSceneDescriptionLabel;
+    QLabel *m_pNavDestinationLabel;
 
-    QTextEdit *m_pText;
-//    QLabel *m_pMsg;
     QPushButton *m_pBtnA;
-    QPushButton *m_pBtnB;
-    eButtonStyle m_buttonStyle;
-    ePopupStyle m_popupStyle;
     int m_itime;
     QTimer m_timer;
 };
 
-#endif // POPUPGENERALVIEW_H
+
+#endif // PROMPTNAVVIEW_H

@@ -1,54 +1,63 @@
-#include "PopUp.h"
-#include "PopUp/UI/PopUpWindow.h"
-#include "PopUp/Factory/PopUpVFactory.h"
+#include "Prompt.h"
+#include "Prompt/UI/PromptWindow.h"
+#include "Prompt/Factory/PromptVFactory.h"
 #include "HMIFrameWork/log_interface.h"
 
-#define ENABLE_POPUP_TEST
+#define ENABLE_Prompt_TEST
 
-PopUp* PopUp::m_pInst = NULL;
+Prompt* Prompt::m_pInst = NULL;
 
-PopUp::PopUp()
+Prompt::Prompt()
 {
     setAppType(AppType_Decorators);
-    setAppId(POPUP_ID);
-    InitViewFactory(PopUpVFactory::Inst());
-    setMain(reinterpret_cast<void*>(new PopUpWindow()));
+    setAppId(PROMPT_ID);
+    InitViewFactory(PromptVFactory::Inst());
+    setMain(reinterpret_cast<void*>(new PromptWindow()));
 }
 
-PopUp *PopUp::Inst()
+Prompt *Prompt::Inst()
 {
     if(NULL == m_pInst)
     {
-        m_pInst = new PopUp();
+        m_pInst = new Prompt();
     }
     return m_pInst;
 }
 
-void PopUp::onAppShow(string appId, string viewId)
+void Prompt::onAppShow(string appId, string viewId)
 {
     connect(this,SIGNAL(SigAppShow(string,string)),this,SLOT(OnAppShow(string,string)),Qt::UniqueConnection);
     emit SigAppShow(appId,viewId);
 }
 
-void PopUp::onAppHide()
+void Prompt::onAppHide()
 {
     connect(this,SIGNAL(SigAppHide()),this,SLOT(OnAppHide()),Qt::UniqueConnection);
     emit SigAppHide();
 }
 
-void PopUp::onNotify(string appId, map<string, string> parameter)
+void Prompt::onNotify(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigNotify(string,map<string,string>)),this,SLOT(OnNotify(string,map<string,string>)),Qt::UniqueConnection);
     emit SigNotify(appId,parameter);
 }
 
-void PopUp::onReply(string appId, map<string, string> parameter)
+void Prompt::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
     emit SigReply(appId,parameter);
 }
 
-void PopUp::OnAppShow(string appId, string viewId)
+void Prompt::UpdateWIndSize(const QSize &size)
+{
+    QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
+    if(NULL != mainwin)
+    {
+        mainwin->setGeometry(QRect(0,40,800,size.height()));
+    }
+}
+
+void Prompt::OnAppShow(string appId, string viewId)
 {
         setState(AppStatus_Active);
         ViewForwardById(eViewId_Main);
@@ -57,7 +66,7 @@ void PopUp::OnAppShow(string appId, string viewId)
         mainwin->show();
 }
 
-void PopUp::OnAppHide()
+void Prompt::OnAppHide()
 {
     INFO()<<" OnAppHide " << getState();
         setState(AppStatus_Inactive);
@@ -65,11 +74,11 @@ void PopUp::OnAppHide()
         mainwin->hide();
 }
 
-void PopUp::OnNotify(string appId, map<string, string> parameter)
+void Prompt::OnNotify(string appId, map<string, string> parameter)
 {
-    INFO("PopUp::onNotify appId=%s .",appId.c_str());
+    INFO("Prompt::onNotify appId=%s .",appId.c_str());
 
-#ifdef ENABLE_POPUP_TEST
+#ifdef ENABLE_Prompt_TEST
 //    //Icon staus change
 //    emit SigIconStatusChanged(ICON_MSG, true, 34);
 //    emit SigIconStatusChanged(ICON_USB, true);
@@ -96,15 +105,15 @@ void PopUp::OnNotify(string appId, map<string, string> parameter)
      }
      else
      {
-         it = parameter.find("PopUpId");
+         it = parameter.find("PromptId");
          if(it != parameter.end())
          {
-            emit SigPopUpNotify(appId, parameter);
+            emit SigPromptNotify(appId, parameter);
          }
      }
 }
 
-void PopUp::OnReply(string appId, map<string, string> parameter)
+void Prompt::OnReply(string appId, map<string, string> parameter)
 {
 
 }

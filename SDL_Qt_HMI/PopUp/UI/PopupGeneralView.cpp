@@ -1,5 +1,5 @@
 #include "PopupGeneralView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 PopupGeneralView::PopupGeneralView(QWidget *parent)
     :PopUpBase(parent)
     ,m_pBackgroundLabel(NULL)
@@ -36,30 +36,15 @@ PopupGeneralView::PopupGeneralView(QWidget *parent)
     m_TitleLabel->setAlignment(Qt::AlignHCenter);
     m_TitleLabel->hide();
 
+    m_pPasswordLabel = new QLabel(this);
+    m_pPasswordLabel->setGeometry(QRect(0,264,800,64));
+    m_pPasswordLabel->setStyleSheet("color:#FF4200;font-size:48px;border:none;background:transparent;");
+    m_pPasswordLabel->setAlignment(Qt::AlignHCenter);
+    m_pPasswordLabel->hide();
+
+
     m_pText = new QTextEdit(this);
     m_pText->setStyleSheet("QTextEdit{border:none;background:transparent;}");
-
-//    QFont font;
-//    font.setPixelSize(24);
-//    m_pText->setFont(font);
-//    m_pText->setCurrentFont(font);
-//    m_pText->setTextColor(QColor(QString("#ffffff")));
-//    m_pText->insertPlainText(QString("Waiting for \""));
-//    m_pText->setTextColor(QColor(QString("#ffb121")));
-//    m_pText->insertPlainText(QString("Xiaomi"));
-//    m_pText->setTextColor(QColor(QString("#ffffff")));
-//    m_pText->insertPlainText(QString("\" to be paired\n"));
-
-
-//    QFont font2;
-//    font2.setPixelSize(20);
-//    m_pText->setCurrentFont(font2);
-//    m_pText->insertPlainText(QString("Please make sure that the code displayed on the \""));
-//    m_pText->setTextColor(QColor(QString("#ffb121")));
-//    m_pText->insertPlainText(QString("Xiaomi"));
-//    m_pText->setTextColor(QColor(QString("#ffffff")));
-//    m_pText->insertPlainText(QString("\" matchs the following code\n"));
-
 
     m_pText->setMaximumWidth(800-142-142);
     m_pText->setMinimumWidth(800-142-142);
@@ -132,6 +117,12 @@ void PopupGeneralView::AddContextBLight(const QString &text)
 
 }
 
+void PopupGeneralView::AddPassword(const QString &text)
+{
+    m_pPasswordLabel->setText(text);
+    m_pPasswordLabel->show();
+}
+
 void PopupGeneralView::AddBtnA(const QString &text)
 {
     m_pBtnA->setText(text);
@@ -145,8 +136,8 @@ void PopupGeneralView::AddBtnA(const QString &text)
     QRect rec = fm.boundingRect( m_text.text());
     int ii = rec.width();//这个就获得了字符串所占的像素宽度
 
-    qDebug()<<" A ii = " << ii;
-    if(ii > 120)
+    INFO()<<" A ii = " << ii;
+    if(ii > 126)
     {
         m_buttonStyle = ButtonStyle_BtnAS;
         m_pBtnA->resize(189,32);
@@ -182,8 +173,8 @@ void PopupGeneralView::AddBtnB(const QString &text)
     m_text.setText(text);
     QRect rec = fm.boundingRect( m_text.text());
     int ii = rec.width();//这个就获得了字符串所占的像素宽度
-    qDebug()<<" B ii = " << ii;
-    if(ii > 120)
+    INFO()<<" B ii = " << ii;
+    if(ii > 126)
     {
         if(ButtonStyle_BtnAS == m_buttonStyle)
         {
@@ -205,7 +196,7 @@ void PopupGeneralView::AddBtnB(const QString &text)
         {
             m_buttonStyle = ButtonStyle_BtnB;
         }
-        qDebug() << " pb " ;
+        INFO() << " pb " ;
         m_pBtnB->resize(131,32);
         m_pBtnB->setStyleSheet("QPushButton{font-size:20px;color:#ffffffff;border:transparent;background-image:url(:/PopUp/Source/images/button_a.png);}\
                                      QPushButton:pressed{color:#66ffffff;background-image:url(:/PopUp/Source/images/button_a_push.png);border:none;}");
@@ -238,14 +229,12 @@ void PopupGeneralView::Show()
         m_pHDisplayAreaLayout->setSpacing(80);
         if(ButtonStyle_BtnBS  == m_buttonStyle)
         {
-            qDebug() <<"bbbb";
             m_pHDisplayAreaLayout->addSpacing(58);
         }
         m_pHDisplayAreaLayout->addWidget(m_pBtnA,0,Qt::AlignRight|Qt::AlignVCenter);
         m_pHDisplayAreaLayout->addWidget(m_pBtnB,0,Qt::AlignLeft|Qt::AlignVCenter);
         if(ButtonStyle_BtnAS  == m_buttonStyle)
         {
-            qDebug() <<"aaaaa = " << m_buttonStyle;
             m_pHDisplayAreaLayout->addSpacing(58);
         }
         m_pHDisplayArea->setLayout(m_pHDisplayAreaLayout);
@@ -255,6 +244,11 @@ void PopupGeneralView::Show()
         //m_pVDisplayAreaLayout->addWidget(m_TitleLabel,40,Qt::AlignTop|Qt::AlignHCenter);
         m_pVDisplayAreaLayout->addStretch(8);
         m_pVDisplayAreaLayout->addWidget(m_pText,480-120-32-32-79-38-3,Qt::AlignTop|Qt::AlignHCenter);
+        if(IsExistPassword())
+        {
+            m_pVDisplayAreaLayout->addSpacing(30);
+            m_pVDisplayAreaLayout->addWidget(m_pPasswordLabel,64,Qt::AlignCenter);
+        }
         if(ButtonStyle_None != m_buttonStyle)
         {
             m_pVDisplayAreaLayout->addWidget(m_pHDisplayArea,32,Qt::AlignBottom|Qt::AlignHCenter);
@@ -280,7 +274,7 @@ void PopupGeneralView::Show()
         m_pHDisplayAreaLayout->addWidget(m_pBtnB,0,Qt::AlignLeft|Qt::AlignVCenter);
         if(ButtonStyle_BtnAS  == m_buttonStyle)
         {
-            qDebug() <<"aaaaa = " << m_buttonStyle;
+            INFO() <<"aaaaa = " << m_buttonStyle;
             m_pHDisplayAreaLayout->addSpacing(58);
         }
         m_pHDisplayArea->setLayout(m_pHDisplayAreaLayout);
@@ -289,7 +283,7 @@ void PopupGeneralView::Show()
         m_pVDisplayAreaLayout->addWidget(m_pLineTop,3,Qt::AlignTop|Qt::AlignHCenter);
         m_pVDisplayAreaLayout->addWidget(m_TitleLabel,40,Qt::AlignTop|Qt::AlignHCenter);
         m_pVDisplayAreaLayout->addStretch(15);
-        m_pVDisplayAreaLayout->addWidget(m_pText,480-120-32-32-79-38-3,Qt::AlignTop|Qt::AlignHCenter);
+        m_pVDisplayAreaLayout->addWidget(m_pText,480-120-32-32-79-38-3,Qt::AlignTop|Qt::AlignHCenter);        
         if(ButtonStyle_None != m_buttonStyle)
         {
             m_pVDisplayAreaLayout->addWidget(m_pHDisplayArea,32,Qt::AlignBottom|Qt::AlignHCenter);
@@ -320,7 +314,7 @@ void PopupGeneralView::Show()
 
 void PopupGeneralView::Finish()
 {
-    qDebug()<<"PopupGeneralView::Finish() ++++ ";
+    INFO()<<"PopupGeneralView::Finish() ++++ ";
     if(IsExistPopUpShow())
     {
         if("True" == GetPopUpShow())
@@ -349,6 +343,9 @@ void PopupGeneralView::Finish()
     }
     if(IsExistPopUpContextBLight()){
         this->AddContextBLight(GetPopUpContextBLight());
+    }
+    if(IsExistPassword()){
+        this->AddPassword(GetPassword());
     }
     if(IsExistPopUpButtonA()){
         this->AddBtnA(GetPopUpButtonA());
@@ -389,7 +386,7 @@ void PopupGeneralView::OnButtonB()
 
 void PopupGeneralView::DrawContextA(QString context, QString light)
 {
-    qDebug()<<"DrawContextA" << context << "  " << light;
+    INFO()<<"DrawContextA" << context << "  " << light;
 
     //font size
     QFont font;
@@ -412,7 +409,7 @@ void PopupGeneralView::DrawContextA(QString context, QString light)
 
 void PopupGeneralView::DrawContextB(QString context, QString light)
 {
-    qDebug()<<"DrawContextB" << context << "  " << light;
+    INFO()<<"DrawContextB" << context << "  " << light;
 
     //font size
     QFont font;
@@ -437,7 +434,7 @@ void PopupGeneralView::HighLightText(QString light)
 {
     QString search_text = light;
         if (search_text.trimmed().isEmpty()) {
-            qDebug()<<"Empty search field";
+            INFO()<<"Empty search field";
 //            QMessageBox::information(this, tr("Empty search field"), tr("The search field is empty."));
         } else {
             QTextDocument *document = m_pText->document();
@@ -459,8 +456,8 @@ void PopupGeneralView::HighLightText(QString light)
             }
             cursor.endEditBlock();
             //结束
-            if (found == false) {
-                qDebug()<<"Sorry,the word cannot be found.";
+            if (false == found) {
+                INFO()<<"Sorry,the word cannot be found.";
 //                QMessageBox::information(this, tr("Word not found"), tr("Sorry,the word cannot be found."));
             }
         }

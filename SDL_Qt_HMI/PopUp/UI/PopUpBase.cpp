@@ -17,6 +17,7 @@ PopUpBase::PopUpBase(QWidget *parent)
     ,m_PopUpHandle("")
     ,m_PopUpTime("")
     ,m_fromAppId("")
+    ,m_Password("")
     ,m_bPopUpId(false)
     ,m_bPopUpType(false)
     ,m_bPopUpShow(false)
@@ -32,7 +33,13 @@ PopUpBase::PopUpBase(QWidget *parent)
     ,m_bPopUpHandle(false)
     ,m_bPopUpTime(false)
     ,m_bFromAppId(false)
+    ,m_bPassword(false)
 {
+}
+
+PopUpBase::~PopUpBase()
+{
+
 }
 
 void PopUpBase::Parse(map<string, string> parameter)
@@ -129,6 +136,13 @@ void PopUpBase::Parse(map<string, string> parameter)
                     m_PopUpTime = QString::fromStdString(it->second);
                     m_bPopUpTime = true;
                 }
+
+                it = parameter.find("Password");
+                if(it != parameter.end())
+                {
+                    m_Password = QString::fromStdString(it->second);
+                    m_bPassword = true;
+                }
             }
         }
 
@@ -210,6 +224,11 @@ QString PopUpBase::GetFromeAppId()
     return m_fromAppId;
 }
 
+QString PopUpBase::GetPassword()
+{
+    return m_Password;
+}
+
 bool PopUpBase::IsExistPopUpId()
 {
     return m_bPopUpId;
@@ -285,6 +304,11 @@ bool PopUpBase::IsExistFromAppId()
     return m_bFromAppId;
 }
 
+bool PopUpBase::IsExistPassword()
+{
+    return m_bPassword;
+}
+
 
 void PopUpBase::Release()
 {
@@ -302,6 +326,24 @@ void PopUpBase::Release()
      m_PopUpReplyButtonB = "";
      m_PopUpHandle = "";
      m_PopUpTime = "";
+     m_Password = "";
+
+     m_bPopUpId = false ;
+     m_bPopUpType = false ;
+     m_bPopUpShow = false ;
+     m_bPopUpTitle = false ;
+     m_bPopUpContextA = false ;
+     m_bPopUpContextB = false ;
+     m_bPopUpContextALight = false ;
+     m_bPopUpContextBLight = false ;
+     m_bPopUpButtonA = false ;
+     m_bPopUpButtonB = false ;
+     m_bPopUpReplyButtonA = false ;
+     m_bPopUpReplyButtonB = false ;
+     m_bPopUpHandle = false ;
+     m_bPopUpTime = false ;
+     m_bFromAppId = false ;
+     m_bPassword = false ;
 }
 
 void PopUpBase::Finish()

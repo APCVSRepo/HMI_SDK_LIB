@@ -10,7 +10,7 @@ PopUpVFactory * PopUpVFactory::m_pInst = NULL;
 
 PopUpVFactory *PopUpVFactory::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst )
     {
         m_pInst = new PopUpVFactory;
     }

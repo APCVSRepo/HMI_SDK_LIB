@@ -10,6 +10,7 @@ class PopUpBase : public QWidget
     Q_OBJECT
 public:
     explicit PopUpBase(QWidget *parent = 0);
+    ~PopUpBase();
     void Parse(map<string, string> parameter);
     QString GetPopUpId();
     QString GetPopupType();
@@ -26,6 +27,7 @@ public:
     QString GetPopUpHandle();
     int GetPopUpTime();
     QString GetFromeAppId();
+    QString GetPassword();
 
     bool IsExistPopUpId();
     bool IsExistPopupType();
@@ -42,6 +44,7 @@ public:
     bool IsExistPopUpHandle();
     bool IsExistPopUpTime();
     bool IsExistFromAppId();
+    bool IsExistPassword();
 
     void Release();
 
@@ -67,6 +70,7 @@ private:
     QString m_PopUpTime;
 
     QString m_fromAppId;
+    QString m_Password;
 
     bool m_bPopUpId;
     bool m_bPopUpType;
@@ -83,6 +87,7 @@ private:
     bool m_bPopUpHandle;
     bool m_bPopUpTime;
     bool m_bFromAppId;
+    bool m_bPassword;
 
 };
 
