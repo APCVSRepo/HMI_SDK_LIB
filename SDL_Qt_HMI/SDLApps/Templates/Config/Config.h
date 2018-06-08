@@ -39,7 +39,4 @@ class UIConfig {
   static void loadResolution(int res_w, int res_h);
 };
 
-
-
-
 #endif // CONFIG_H

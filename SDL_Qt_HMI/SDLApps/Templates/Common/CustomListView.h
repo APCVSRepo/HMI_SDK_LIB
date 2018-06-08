@@ -4,61 +4,74 @@
 #include <string>
 #include <vector>
 #include <QWidget>
-#include <QBoxLayout>
-#include <QScrollBar>
+#include "HMIWidgets/CVListWidget.h"
+
+class ListItemData{
+public:
+    ListItemData(std::string text, int id, std::string path)
+        :m_text(text)
+        ,m_id(id)
+        ,m_path(path)
+    {
+    }
+
+    inline std::string GetText(){return m_text;}
+    inline int GetID(){return m_id;}
+    inline std::string GetPath(){return m_path;}
+
+private:
+    std::string m_text;
+    int m_id;
+    std::string m_path;
+};
 
 class CustomListView : public QWidget {
-  Q_OBJECT
+    Q_OBJECT
 
+public:
+    explicit CustomListView(int iWidth, int iHeight, int iMode = LIST, QWidget *parent = 0);
+    ~CustomListView();
 
- public:
-  explicit CustomListView(int iWidth, int iHeight, int iMode = LIST, QWidget *parent = 0);
-  ~CustomListView();
+    enum LISTVIEWMODE {LIST = 0, ICON};
 
-  enum LISTVIEWMODE {LIST = 0, ICON};
+    void AddItem(std::string strText, int iId, std::string strIconPath = "");
+    void ItemFilter(std::string strKey);
 
-  void AddItem(std::string strText, int iId, std::string strIconPath = "");
-  void SetSpace(int iSpace);
-  void SetScrollBarStyle(QString strStyle);
-  void ItemFilter(std::string strKey);
+protected:
+    void showEvent(QShowEvent *event);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
 
-  void mousePressEvent(QMouseEvent *e);
-  void mouseReleaseEvent(QMouseEvent *e);
- protected:
-  void showEvent(QShowEvent *event);
- signals:
-  void ItemClicked(int iIndex);
- public slots:
-  void OnScrollBarValueChange(int iValue);
-  void OnChoiceSelected(int iIndex);
- private:
-  enum SCROLLBARPOS {TOP = 0, MIDDLE, BOTTOM};
-  void SetScrollBarStyle(int iMode);
-  void UpdateItemShow(unsigned int iStartItemIndex = 0);
-  void InitScroll();
-  void UpdateScrollParam(int iItemCount);
+signals:
+    void ItemClicked(int iIndex);
 
-  void AddListItem(std::string strText);
-  void AddIconItem(std::string strText, std::string strIconPath = "");
+public slots:
+    void OnChoiceSelected(int iIndex);
+    void OnChoiceSelected(int iIndex, int iId);
 
-  int m_iMode;
-  int m_iItemWidth;
-  int m_iItemHeight;
+private:
+    void UpdateItemShow(unsigned int iStartItemIndex = 0);
 
-  int m_iItemSpace;
+private:
+    int m_iMode;
 
-  QHBoxLayout *m_pMainLayout;
-  QVBoxLayout *m_pListItemLayout;
+    int m_pressx;
+    int m_pressy;
+    int m_curpage;
 
-  QScrollBar *m_pScrollBar;
+    std::vector<QWidget *> *m_pItemShowVec;
+    std::vector<QWidget *> m_ListItemVec;
+    std::vector<QWidget *> m_FilterItemVec;
 
-  std::vector<QWidget *> *m_pItemShowVec;
-  std::vector<QWidget *> m_ListItemVec;
-  std::vector<QWidget *> m_FilterItemVec;
+    std::vector<ListItemData> m_ListItemDataVec;
+    std::vector<ListItemData> m_FilterItemDataVec;
+    std::vector<ListItemData> *m_pShowItemDataVec;
 
-  int m_pressx;
-  int m_pressy;
-  int m_curpage;
+    CVListWidget* m_pVlist;
+    int m_AppWidth;
+    int m_AppHeight;
+
+    QWidget *m_pAppListArea;
 };
 
 #endif // CUSTOMLISTVIEW_H

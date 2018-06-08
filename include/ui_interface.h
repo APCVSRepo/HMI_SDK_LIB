@@ -42,6 +42,16 @@ class UIInterface {
   virtual void onAppShow(int type) = 0;
 
   /**
+   * 通知App注册
+   * @param[in]	appId		app对应的id
+   * @return		无
+   * @ref
+   * @see
+   * @note		App注册时会触发该事件
+   */
+  virtual void onAppRegister(int appId) = 0;
+
+  /**
    * 通知取消App注册
    * @param[in]	appId		app对应的id
    * @return		无

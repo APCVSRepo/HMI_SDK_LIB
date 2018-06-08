@@ -26,6 +26,8 @@ class AppList : public IMessageInterface, public AppListInterface {
   AppDataInterface *getActiveApp();
   void getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames);
   void getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames, std::vector<std::string> &vIconPath);
+  void getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames, std::vector<std::string> &vIconPath, std::vector<std::string> &vAppTypes);
+
   void getDeviceList(std::vector<DeviceData> &vDevice);
   void appUnregistered(int appId);
 

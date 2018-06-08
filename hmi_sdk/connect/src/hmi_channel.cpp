@@ -159,7 +159,8 @@ void Channel::onMessage(Json::Value &jsonObj) {
       }
     } else if (jsonObj.isMember("error")) {
       run = true;
-      onError(jsonObj["error"].asString());
+      onError(jsonObj["error"].asString()); //bug
+      //onError(Json::Value(jsonObj["error"]).toStyledString());
     } else {
       run = true;
       onRequest(jsonObj);
@@ -270,7 +271,13 @@ std::string Channel::MethodName(std::string _mode, Json::Value _method) {
 void Channel::onRequest(Json::Value &request) {
   int  id = request["id"].asInt();
   Json::Value method = request["method"];
+
+
   std::string ref = MethodName(getChannelName(), method);
+  LOGD("static string %s , %s",m_StaticResult.toStyledString().c_str(),ref.c_str());
+
+
+
   if (m_StaticResult.isMember(ref)) {
     sendResult(id, ref);
   } else {

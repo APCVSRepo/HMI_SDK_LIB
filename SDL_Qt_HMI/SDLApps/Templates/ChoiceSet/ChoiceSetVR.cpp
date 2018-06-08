@@ -2,65 +2,94 @@
 #include <QBoxLayout>
 #include "SDLApps/Templates/Common/AppBase.h"
 
-CChoiceSetVR::CChoiceSetVR(QWidget *parent) :
-  QWidget(parent) {
-  if (parent) {
-    setGeometry(0, 0, parent->width(), parent->height());
-  }
-  //m_pList = pList;
+CChoiceSetVR::CChoiceSetVR(QWidget *parent)
+    :QWidget(parent)
+    ,m_pTitleLab(NULL)
+    ,m_pTopLine(NULL)
+    ,m_pBottomLine(NULL)
+    ,m_pChoiceArea(NULL)
+    ,m_pRotate(NULL)
+    ,m_pVRBtn(NULL)
+{
+    if (parent) {
+        setGeometry(0, 0, parent->width(), parent->height());
+    }
 
-  setAutoFillBackground(true);
-  QPixmap pixmap(":/images/choicevr_back.png");
-  pixmap = pixmap.scaled(width(), height(), Qt::IgnoreAspectRatio,
-                         Qt::SmoothTransformation);
-  QPalette palette;
-  palette.setBrush(QPalette::Background, QBrush(pixmap));
-  setPalette(palette);
+    m_pTopLine = new QLabel(this);
+    m_pTopLine->setGeometry(97,111-40,607,1);
+    m_pTopLine->setPixmap(QPixmap(QString(":/SDLApps/Source/images/partingline.png")));
+    m_pBottomLine = new QLabel(this);
+    m_pBottomLine->setGeometry(97,346-40,607,1);
+    m_pBottomLine->setPixmap(QPixmap(QString(":/SDLApps/Source/images/partingline.png")));
 
-  QVBoxLayout *pMainLayout = new QVBoxLayout(this);
-  QHBoxLayout *pCmdLayout = new QHBoxLayout;
-  m_pTitleLab = new QLabel;
+    m_pTitleLab = new QLabel(this);
+    m_pTitleLab->setStyleSheet("font: 30px;color:rgb(75,169,255)");
+    m_pTitleLab->setGeometry(168,62-40,465,41);
+    m_pTitleLab->setAlignment(Qt::AlignCenter);
 
-  pMainLayout->addWidget(m_pTitleLab);
-  for (int i = 0; i != 4; ++i) {
-    pMainLayout->addWidget(m_aChoiceLab + i);
-    m_aChoiceLab[i].setStyleSheet("font: 30px \"Liberation Serif\";color:rgb(0,0,0)");
-    m_aChoiceLab[i].setAlignment(Qt::AlignCenter);
-  }
-  pMainLayout->addLayout(pCmdLayout);
-  pMainLayout->setContentsMargins(20, 20, 20, 20);
+    //cmd
+    m_pChoiceArea = new QWidget(this);
+    m_pChoiceArea->setGeometry(168,112-40,800-168-168,234);
 
-  for (int i = 0; i != 3; ++i) {
-    pCmdLayout->addWidget(m_aCmdLab + i, 1);
-    m_aCmdLab[i].setStyleSheet("font: 30px \"Liberation Serif\";color:rgb(0,0,0)");
-    m_aCmdLab[i].setAlignment(Qt::AlignCenter);
-  }
+    for (int i = 0; i != 4; ++i) {
+        m_aChoiceLab[i].setParent(m_pChoiceArea);
+        m_aChoiceLab[i].setGeometry(0,57*i,800-168-168, 57);
+        m_aChoiceLab[i].setStyleSheet("font: 24px;color:rgb(255,255,255)");
+        m_aChoiceLab[i].setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+    }
 
-  QString strCmdText[3] = {"帮助", "", "返回"};
-  m_aCmdLab[0].setText(strCmdText[0]);
-  m_aCmdLab[2].setText(strCmdText[2]);
+    //vr button
+    m_pRotate = new CRotationWidget(this);
+    m_pRotate->setPixmap(QPixmap(QString(":/SDLApps/Source/images/vr_light.png")));
+    m_pRotate->setGeometry(364,372-40,73,73);
+    m_pRotate->show();
 
-  m_pTitleLab->setStyleSheet("border-image:url(:/images/choicevr_title.png);font: 30px \"Liberation Serif\";color:rgb(255,255,255)");
-  m_pTitleLab->setMinimumHeight(width() * 0.08);
-  m_pTitleLab->setAlignment(Qt::AlignCenter);
+    m_pVRBtn = new CPushButton(this);
+    m_pVRBtn->setGeometry(364+7,372-40+7,59,59);
+    m_pVRBtn->setStyleSheet("QPushButton{border-image:url(:/SDLApps/Source/images/vr_microphone.png);background:transparent;}");
+    m_pVRBtn->setFocusPolicy(Qt::NoFocus);
+    connect(m_pVRBtn, SIGNAL(clicked()), this, SLOT(OnVRBtnClicked()));
 }
 
 CChoiceSetVR::~CChoiceSetVR() {
-  delete m_pTitleLab;
+    delete m_pTitleLab;
 }
 
 void CChoiceSetVR::mousePressEvent(QMouseEvent *event) {
-  Q_UNUSED(event);
-  emit pressed();
+    Q_UNUSED(event);
+    emit pressed();
+}
+
+void CChoiceSetVR::OnVRBtnClicked()
+{
+    //TODO: send vr cmd??? currently do nothing, just hide the view
+    emit released();
+}
+
+void CChoiceSetVR::showEvent(QShowEvent *)
+{
+    m_pRotate->start();
+}
+
+void CChoiceSetVR::hideEvent(QHideEvent *)
+{
+    m_pRotate->stop();
 }
 
 void CChoiceSetVR::SetTitle(std::string strTitle) {
-  // Bug #9947
-  AppBase::SetEdlidedText(m_pTitleLab, strTitle.c_str(), width() * 0.7, Qt::AlignCenter);
+    AppBase::SetEdlidedText(m_pTitleLab, strTitle.c_str(), 800-168-168, Qt::AlignCenter);
 }
 
 void CChoiceSetVR::SetChoice(int iPos, std::string strChoice) {
-  if (iPos < 4) {
-    AppBase::SetEdlidedText(m_aChoiceLab + iPos, strChoice.c_str(), width() * 0.8);
-  }
+    if (iPos < 4) {
+        QLabel *pLabel = m_aChoiceLab + iPos;
+        QFontMetrics qfm(pLabel->font());
+        pLabel->setText(qfm.elidedText(QString::fromStdString(strChoice), Qt::ElideRight, 800-168-168));
+    }
+}
+
+void CChoiceSetVR::mouseReleaseEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    emit released();
 }

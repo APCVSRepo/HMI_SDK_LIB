@@ -2,175 +2,128 @@
 #include <QBoxLayout>
 
 CScollMsgView::CScollMsgView(AppListInterface *pList, QWidget *parent)
-  : QWidget(parent) {
-  if (parent) {
-    setGeometry(0, 0, parent->width(), parent->height());
-  }
-  m_pList = pList;
-
-  setAutoFillBackground(true);
-  QPixmap pixmap(":/images/MainWidget/Backgroud.png");
-  pixmap = pixmap.scaled(width(), height(),
-                         Qt::IgnoreAspectRatio,
-                         Qt::SmoothTransformation);
-  QPalette palette;
-  palette.setBrush(QPalette::Background, QBrush(pixmap));
-  setPalette(palette);
-
-  QVBoxLayout *pMainLayout = new QVBoxLayout(this);
-  QHBoxLayout *pTopLayout = new QHBoxLayout;
-  QHBoxLayout *pCenterLayout = new QHBoxLayout;
-  QHBoxLayout *pBottomLayout = new QHBoxLayout;
-  QVBoxLayout *pBottomCenterLayout = new QVBoxLayout;
-  QHBoxLayout *m_pBtnLayout = new QHBoxLayout;
-
-  m_pReturnBtn = new CCustomButton;
-  m_pAppNameLab = new QLabel;
-  m_pText = new QTextEdit;
-  m_pShadowLab = new QLabel;
-
-  pMainLayout->addLayout(pTopLayout);
-  pMainLayout->addLayout(pCenterLayout, 1);
-  pMainLayout->addLayout(pBottomLayout);
-  pMainLayout->setContentsMargins(10, 10, 10, 10);
-  pMainLayout->setSpacing(0);
-
-  pTopLayout->addWidget(m_pReturnBtn);
-  pTopLayout->addWidget(m_pAppNameLab, 1);
-  pTopLayout->setContentsMargins(0, 0, 0, 5);
-  pTopLayout->setSpacing(10);
-
-  pCenterLayout->addWidget(m_pText);
-
-  pBottomLayout->addLayout(pBottomCenterLayout);
-  pBottomLayout->addStretch(1);
-  pBottomLayout->setSpacing(0);
-  pBottomLayout->setContentsMargins(0, 5, 0, 0);
-  pBottomCenterLayout->addLayout(m_pBtnLayout);
-  pBottomCenterLayout->addWidget(m_pShadowLab);
-  pBottomCenterLayout->addStretch(1);
-
-  m_vSoftButtons.clear();
-
-  for (int i = 0; i != 6; ++i) {
-    m_pBtnLayout->addWidget(m_aSoftBtn + i);
-    m_aSoftBtn[i].setSize(0, 0);
-    m_aSoftBtn[i].setTextStyle("font: 32px \"Liberation Serif\";color:rgb(0,0,0)");
-
-    if (i != 5) {
-      m_pBtnLayout->addWidget(m_aSplit + i);
-      m_aSplit[i].setStyleSheet("max-height:0px;max-width:0px;border-image:url(:/images/MediaShow/split.png)");
-      //m_aSplit[i].hide();
+    :QWidget(parent)
+    ,m_pList(pList)
+    ,m_pRightArea(NULL)
+    ,m_pTopWidget(NULL)
+{
+    if (parent) {
+        setGeometry(0, 0, parent->width(), parent->height());
     }
-    connect(&m_aSoftBtn[i], SIGNAL(clicked(int)), this, SLOT(OnSoftBtnClicked(int)));
-  }
 
-  m_pReturnBtn->Init(width() * 0.07, width() * 0.065, "", ":/images/ReturnBtnNormal.png", ":/images/ReturnBtnPress.png");
-  m_pAppNameLab->setStyleSheet("font: 36px \"Liberation Serif\";color:rgb(0,0,0)");
-  m_pText->setStyleSheet("font: 22px \"Liberation Serif\";color:rgb(0,0,0)");
-  m_pText->setReadOnly(true);;
+    //right area
+    m_pRightArea = new QWidget(this);
+    m_pRightArea->setGeometry(800-116,75,116,(32+20)*5-20);
 
-  m_pTimer = new QTimer;
-  connect(m_pTimer, SIGNAL(timeout()), SLOT(OnTimeOutSlot()));
-  connect(m_pReturnBtn, SIGNAL(Clicked()), SLOT(OnReturnBtnClicked()));
+    QVBoxLayout *pRightLayout = new QVBoxLayout;
+    pRightLayout->setSpacing(20);
+    pRightLayout->setMargin(0);
+
+    m_vSoftButtons.clear();
+
+    for (int i = 0; i < RIGHT_BTN_NUM; ++i) {
+        pRightLayout->addWidget(m_aSoftBtn + i, 0, Qt::AlignTop);
+        m_aSoftBtn[i].setSize(116, 32);
+        m_aSoftBtn[i].setTextStyle("border:0px; font:19px; color:rgb(238,238,238)");
+        m_aSoftBtn[i].SetPadding(10,0,10,0);
+        //set softBtnId
+        m_aSoftBtn[i].setId(-1);
+        connect(&m_aSoftBtn[i], SIGNAL(clicked(int)), this, SLOT(OnSoftBtnClicked(int)));
+    }
+
+    m_pRightArea->setLayout(pRightLayout);
+
+    //top widget
+    m_pTopWidget = new TopNavigateWidget(this);
+    m_pTopWidget->SetReturnTitle(QString(""));
+    m_pTopWidget->ShowBack();
+    m_pTopWidget->ShowTitle();
+    m_pTopWidget->show();
+    connect(m_pTopWidget, SIGNAL(SigBackClicked()), this, SLOT(OnReturnBtnClicked()));
+
+    //scroll msg
+    m_pText = new QTextEdit(this);
+    m_pText->setGeometry(54,70,800-116-10-54-20,480-40-70-70);
+    m_pText->setStyleSheet("font: 22px;color:rgb(255,255,255)");
+    m_pText->setReadOnly(true);
+    //height of line
+    QTextCursor textCursor = m_pText->textCursor();
+    QTextBlockFormat textBlockFormat;
+    textBlockFormat.setLineHeight(38, QTextBlockFormat::FixedHeight);
+    textCursor.setBlockFormat(textBlockFormat);
+    m_pText->setTextCursor(textCursor);
+
+    //timer
+    m_pTimer = new QTimer;
+    connect(m_pTimer, SIGNAL(timeout()), SLOT(OnTimeOutSlot()));
 }
 
 CScollMsgView::~CScollMsgView() {
-  delete m_pReturnBtn;
-  delete m_pAppNameLab;
-  delete m_pText;
-  delete m_pShadowLab;
+
 }
 
 void CScollMsgView::SetTimeOut(int iDuration) {
-  m_pTimer->start(iDuration);
+    m_pTimer->start(iDuration);
 }
 
 void CScollMsgView::showEvent(QShowEvent *e) {
-  Q_UNUSED(e);
-  if (AppControl) {
-    AppBase::SetEdlidedText(m_pAppNameLab, AppControl->getAppName().c_str(), width() * 0.7);
+    Q_UNUSED(e);
+    if(AppControl){
+        m_pTopWidget->SetTitle(QString::fromStdString(AppControl->getAppName().c_str()));
 
-    rpcValueInterface &jsonParams = AppControl->getScrollableMsgJson()["params"];
-    SetTimeOut(jsonParams["timeout"].asInt());
-    if (jsonParams.isMember("messageText")) {
-      m_pText->setText(jsonParams["messageText"]["fieldText"].asString().c_str());
-    }
+        rpcValueInterface &jsonParams = AppControl->getScrollableMsgJson()["params"];
+        SetTimeOut(jsonParams["timeout"].asInt());
+        if (jsonParams.isMember("messageText")) {
+            m_pText->insertPlainText(jsonParams["messageText"]["fieldText"].asString().c_str());
+        }
 
-    if (jsonParams.isMember("softButtons")) {
-      m_vSoftButtons.clear();
-      for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
-        SSoftButton tmpSoftButton;
-        tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
-        tmpSoftButton.i_softButtonID = jsonParams["softButtons"][i]["softButtonID"].asInt();
-        tmpSoftButton.str_text = jsonParams["softButtons"][i]["text"].asString();
-        m_vSoftButtons.push_back(tmpSoftButton);
-      }
-      m_pShadowLab->setStyleSheet("max-height:6px;border-image:url(:/images/MediaShow/shadow.png)");
-    } else {
-      m_pShadowLab->setStyleSheet("background:transparent");
+        if (jsonParams.isMember("softButtons")) {
+            m_vSoftButtons.clear();
+            for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
+                SSoftButton tmpSoftButton;
+                tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
+                tmpSoftButton.i_softButtonID = jsonParams["softButtons"][i]["softButtonID"].asInt();
+                tmpSoftButton.str_text = jsonParams["softButtons"][i]["text"].asString();
+                m_vSoftButtons.push_back(tmpSoftButton);
+            }
+        }
+        setSoftButtons(m_vSoftButtons);
     }
-    setSoftButtons(m_vSoftButtons);
-  }
 }
 
 void CScollMsgView::hideEvent(QHideEvent *) {
-  if (m_pTimer->isActive())
-    m_pTimer->stop();
+    if(m_pTimer->isActive())
+        m_pTimer->stop();
 }
 
 void CScollMsgView::OnTimeOutSlot() {
-  m_pTimer->stop();
-  AppControl->OnScrollMessageResponse(RESULT_SUCCESS);
+    m_pTimer->stop();
+    AppControl->OnScrollMessageResponse(RESULT_SUCCESS);
 }
 
 void CScollMsgView::OnReturnBtnClicked() {
-  m_pTimer->stop();
-  AppControl->OnScrollMessageResponse(RESULT_ABORTED);
+    m_pTimer->stop();
+    AppControl->OnScrollMessageResponse(RESULT_ABORTED);
 }
 
 void CScollMsgView::OnSoftBtnClicked(int iBtnId) {
-  if (1 == iBtnId) {
-    // 特殊处理关闭按钮
-    m_pTimer->stop();
-    AppControl->OnScrollMessageResponse(RESULT_ABORTED);
-  } else if (iBtnId != 0) {
-    AppControl->OnSoftButtonClick(iBtnId, BUTTON_SHORT);
-  }
+    if (1 == iBtnId) {
+        // 特殊处理关闭按钮
+        m_pTimer->stop();
+        AppControl->OnScrollMessageResponse(RESULT_ABORTED);
+    } else if (iBtnId != 0) {
+        AppControl->OnSoftButtonClick(iBtnId, BUTTON_SHORT);
+    }
 }
 
 void CScollMsgView::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
-  for (int i = 0; i != 6; ++i) {
-    m_aSoftBtn[i].setSize(0, 0);
+    int iSize = vec_softButtons.size() > RIGHT_BTN_NUM ? RIGHT_BTN_NUM : vec_softButtons.size();
+    for (int i = 0; i < iSize; ++i) {
+        m_aSoftBtn[i].initParameter(116, 32, ":/SDLApps/Source/images/right_btn_normal.png", ":/SDLApps/Source/images/right_btn_push.png", "", vec_softButtons[i].str_text.c_str());
+        m_aSoftBtn[i].setId(vec_softButtons[i].i_softButtonID);
 
-    if (i < 5) {
-      m_aSplit[i].setStyleSheet("max-width:0px;border-image:url(:/images/MediaShow/split.png)");
+        if (vec_softButtons[i].b_isHighlighted){
+            m_aSoftBtn[i].changeToPressed();
+        }
     }
-  }
-
-  if (vec_softButtons.size() == 1) {
-    m_aSoftBtn[0].initParameter(125, 50, ":/images/MediaShow/center_normal.png", ":/images/MediaShow/center_press.png", "", vec_softButtons[0].str_text.c_str());
-    m_aSoftBtn[0].setId(vec_softButtons[0].i_softButtonID);
-    if (vec_softButtons[0].b_isHighlighted)
-      m_aSoftBtn[0].changeToPressed();
-  } else {
-    int iSize = vec_softButtons.size() > 6 ? 6 : vec_softButtons.size();
-    for (int i = 0; i != iSize; ++i) {
-      if (i == 0) {
-        m_aSoftBtn[i].initParameter(125, 50, ":/images/MediaShow/left_normal.png", ":/images/MediaShow/left_press.png", "", vec_softButtons[i].str_text.c_str());
-      } else if (i == iSize - 1) {
-        m_aSoftBtn[i].initParameter(125, 50, ":/images/MediaShow/right_normal.png", ":/images/MediaShow/right_press.png", "", vec_softButtons[i].str_text.c_str());
-      } else {
-        m_aSoftBtn[i].initParameter(125, 50, ":/images/MediaShow/center_normal.png", ":/images/MediaShow/center_press.png", "", vec_softButtons[i].str_text.c_str());
-      }
-      m_aSoftBtn[i].setId(vec_softButtons[i].i_softButtonID);
-
-      if (vec_softButtons[i].b_isHighlighted)
-        m_aSoftBtn[i].changeToPressed();
-
-      if (i < iSize - 1) {
-        m_aSplit[i].setStyleSheet("max-width:1px;border-image:url(:/images/MediaShow/split.png)");
-      }
-    }
-  }
 }
