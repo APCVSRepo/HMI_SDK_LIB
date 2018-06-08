@@ -50,5 +50,6 @@
         <file>images/work_phone.png</file>
         <file>images/keyboard_list_push.png</file>
         <file>images/phone_list_push.png</file>
+        <file>images/bubble.png</file>
     </qresource>
 </RCC>

@@ -9,3 +9,8 @@ PhoneWindow::PhoneWindow(QWidget *parent)
 
     this->hide();
 }
+
+PhoneWindow::~PhoneWindow()
+{
+
+}

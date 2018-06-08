@@ -8,6 +8,7 @@ class PhoneWindow : public QWidget
     Q_OBJECT
 public:
     explicit PhoneWindow(QWidget *parent = 0);
+    ~PhoneWindow();
 
 signals:
 

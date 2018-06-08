@@ -37,6 +37,8 @@ public:
 
     void InitConnect();
 
+    void MachContacts(const QString& number );
+
 public slots:
     void OnKeyBoard(int Id);
     void OnDeleteLongPress();
@@ -45,6 +47,7 @@ public slots:
     void OnContacts();
     void OnRecents();
     void OnBTSetting();
+    void OnListClick(int);
 private:
     QString m_InputText;
     CPushButton*    m_pKeyboard;

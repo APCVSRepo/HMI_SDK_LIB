@@ -1,5 +1,5 @@
 #include "Phone/UI/KeyBoardView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"
@@ -35,7 +35,7 @@ void KeyBoardView::viewAction(int state)
     }
         break;
     case eViewStatus_Active:
-        PhoneData::Inst()->toWchar("我");
+        PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
 
         this->show();
         break;
@@ -202,6 +202,13 @@ void KeyBoardView::InitKeyBoardView()
     m_pBtttonGroup->addButton(m_pNumberdWellSymbol,eNumber_Well);
 
 
+    m_pMatchContactsList = new CVListWidget(this);
+    m_pMatchContactsList->setGeometry(QRect(420,158,354,296));
+    m_pMatchContactsList->SetLeftMargin(0);
+    m_pMatchContactsList->SetSplitLine(":/Phone/Source/images/thins_line.png",":/Phone/Source/images/thins_line.png");
+    m_pMatchContactsList->SetScrollBarStyle(4);
+    m_pMatchContactsList->SetItemBackgroundInfo("",":/Phone/Source/images/phone_list_push.png","");
+    m_pMatchContactsList->show();
 }
 
 
@@ -214,7 +221,32 @@ void KeyBoardView::InitConnect()
     connect(m_pContacts,SIGNAL(clicked()),this,SLOT(OnContacts()),Qt::UniqueConnection);
     connect(m_pCRecents,SIGNAL(clicked()),this,SLOT(OnRecents()),Qt::UniqueConnection);
     connect(m_pBTSetting,SIGNAL(clicked()),this,SLOT(OnBTSetting()),Qt::UniqueConnection);
+    connect(m_pMatchContactsList,SIGNAL(listItemReleased(int)),this,SLOT(OnListClick(int)),Qt::UniqueConnection);
 
+
+}
+
+void KeyBoardView::MachContacts(const QString &number)
+{
+    m_pMatchContactsList->RemoveAllItems(false);
+    QList<SMatchContact*>& slist = PhoneData::Inst()->GetMatchContacts(number);
+    for(int i = 0 ; i < slist.size();i++)
+    {
+        CListWidgetItem item(QSize(326,59));
+        QString name ;
+        if("" ==  slist.at(i)->LastName)
+        {
+            name = slist.at(i)->FirstName;
+        }
+        else
+        {
+            name = slist.at(i)->FirstName+ " " + slist.at(i)->LastName;
+        }
+        item.AddText(QRect(32,0,304,59),tr("Contacts ")+name,Qt::AlignLeft|Qt::AlignVCenter,24);
+        m_pMatchContactsList->InsertItem(i,item);
+        m_pMatchContactsList->SetSpecifiedText(i,name);
+        m_pMatchContactsList->SetSpecifiedText2(i,slist.at(i)->number);
+    }
 }
 
 void KeyBoardView::OnKeyBoard(int Id)
@@ -291,7 +323,16 @@ void KeyBoardView::OnKeyBoard(int Id)
         break;
     case eNumber_Dial:
     {
+        if(m_pNumberInput->text().length() > 0)
+        {
+            PhoneData::Inst()->SetCallNumber(m_pNumberInput->text());
+            PhoneData::Inst()->SetCallName(m_pNumberInput->text());
+            PhoneData::Inst()->SetCallTime(0);
+            PhoneData::Inst()->SetCallStatus("Call");
 
+            Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
+            PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
+        }
     }
         break;
     case eNumber_Star:
@@ -322,6 +363,16 @@ void KeyBoardView::OnDeleteLongPress()
 
 void KeyBoardView::OnTextChange(QString text)
 {
+    if(text.length()>2)
+    {
+        INFO() <<" aaaaaaaaaaa";
+        MachContacts(m_pNumberInput->text());
+    }else if(m_pNumberInput->text().length()<=2)
+    {
+        INFO() <<" bbbbbbbbbb";
+        if(m_pMatchContactsList->count()>0)
+            m_pMatchContactsList->RemoveAllItems();
+    }
     INFO() << "  OnTextChange " <<text;
 }
 
@@ -337,10 +388,26 @@ void KeyBoardView::OnRecents()
 
 void KeyBoardView::OnBTSetting()
 {
+    PhoneData::Inst()->SetViewId(Phone::eViewId_BTSetting);
     map<string,string> p;
     p.insert(make_pair("BTSetting","Show"));
     p.insert(make_pair("FromAppId",PHONE_ID));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);
+}
+
+void KeyBoardView::OnListClick(int index)
+{
+    QString name = m_pMatchContactsList->GetSpecifiedText(index);
+    QString number = m_pMatchContactsList->GetSpecifiedText2(index);
+
+    PhoneData::Inst()->SetCallName(name);
+    PhoneData::Inst()->SetCallNumber(number);
+    PhoneData::Inst()->SetCallTime(0);
+    PhoneData::Inst()->SetCallStatus("Call");
+
+    Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
+    PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
+    INFO() << index<<" "<<name <<"  " << number;
 }
 
 

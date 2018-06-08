@@ -46,6 +46,8 @@ public slots:
     void OnKeyBoard();
     void OnContants();
     void OnBTSetting();
+
+    void OnListClick(int);
 private:
     QString m_InputText;
     CPushButton*    m_pKeyboard;

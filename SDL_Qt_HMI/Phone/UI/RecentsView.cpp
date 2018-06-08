@@ -1,5 +1,5 @@
 #include "Phone/UI/RecentsView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"
@@ -36,7 +36,7 @@ void RecentsView::viewAction(int state)
     }
         break;
     case eViewStatus_Active:
-        PhoneData::Inst()->toWchar("我");
+        PhoneData::Inst()->SetViewId(Phone::eViewId_Recents);
 
         this->show();
         break;
@@ -103,6 +103,7 @@ void RecentsView::InitConnect()
     connect(m_pKeyboard,SIGNAL(clicked()),this,SLOT(OnKeyBoard()),Qt::UniqueConnection);
     connect(m_pContacts,SIGNAL(clicked()),this,SLOT(OnContants()),Qt::UniqueConnection);
     connect(m_pBTSetting,SIGNAL(clicked()),this,SLOT(OnBTSetting()),Qt::UniqueConnection);
+    connect(m_pRecentsList,SIGNAL(listItemReleased(int)),this,SLOT(OnListClick(int)),Qt::UniqueConnection);
 
 }
 
@@ -123,7 +124,17 @@ void RecentsView::UpdataData()
         {
             item.AddIcon(QRect(0,20,31,31),QPixmap(":/Phone/Source/images/call.png"));
         }
-        QString contacts = "Contacts " + PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName;
+
+        QString name = "";
+        if("" == PhoneData::Inst()->GetRecentsInfo().at(i)->LastName)
+        {
+            name =PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName;
+        }
+        else
+        {
+            name =PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName+" "+PhoneData::Inst()->GetRecentsInfo().at(i)->LastName;
+        }
+        QString contacts = "Contacts " + name;
         item.AddText(QRect(47,18,300,52),contacts,Qt::AlignLeft|Qt::AlignTop,24,QColor(255,255,255));
         int days = DiddDays(PhoneData::Inst()->GetRecentsInfo().at(i)->date,QDateTime::currentDateTime().date());
         QString strDays = "";
@@ -137,6 +148,8 @@ void RecentsView::UpdataData()
         item.AddText(QRect(350,18,342,52),strDays,Qt::AlignRight|Qt::AlignTop,24,QColor(255,255,255));
 
         m_pRecentsList->InsertItem(i,item);
+        m_pRecentsList->SetSpecifiedText(i,name);
+        m_pRecentsList->SetSpecifiedText2(i,PhoneData::Inst()->GetRecentsInfo().at(i)->MobileNumber);
     }
 }
 
@@ -180,11 +193,22 @@ void RecentsView::OnContants()
 
 void RecentsView::OnBTSetting()
 {
+    PhoneData::Inst()->SetViewId(Phone::eViewId_BTSetting);
     map<string,string> p;
     p.insert(make_pair("BTSetting","Show"));
     p.insert(make_pair("FromAppId",PHONE_ID));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);
 
+}
+
+void RecentsView::OnListClick(int index)
+{
+    PhoneData::Inst()->SetCallName(m_pRecentsList->GetSpecifiedText2(index));
+    PhoneData::Inst()->SetCallNumber(m_pRecentsList->GetSpecifiedText(index));
+    PhoneData::Inst()->SetCallStatus("Call");
+    PhoneData::Inst()->SetCallTime(100);
+
+    Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
 }
 
 

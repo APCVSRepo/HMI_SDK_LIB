@@ -1,9 +1,15 @@
 #include "PhoneData.h"
 #include "Phone/app/Phone.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include <QtCore/QTextStream>
 PhoneData* PhoneData::m_pInst = NULL;
 PhoneData::PhoneData()
+    :m_ContactsInfoIndex(-1)
+    ,m_callName("")
+    ,m_callNumber("")
+    ,m_callTime(0)
+    ,m_callStatus("")
+    ,m_iViewId(-1)
 {
 
     InitTestContactsData();
@@ -14,7 +20,7 @@ PhoneData::PhoneData()
 
 PhoneData *PhoneData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new PhoneData();
     }
@@ -267,7 +273,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info1  = new SPhoneInfo;
     info1->FirstName = "Allen1";
     info1->LastName = "";
-    info1->MobileNumber = "13000000001";
+    info1->MobileNumber = "13100000001";
     info1->WorkNumber = "79999999";
     info1->HomeNumber = "23333333";
     info1->OthersNumber = "6444444";
@@ -280,7 +286,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info2  = new SPhoneInfo;
     info2->FirstName = "Allen2";
     info2->LastName = "";
-    info2->MobileNumber = "13000000002";
+    info2->MobileNumber = "13230000002";
     info2->WorkNumber = "79999999";
     info2->HomeNumber = "23333333";
     info2->OthersNumber = "6444444";
@@ -293,7 +299,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info3  = new SPhoneInfo;
     info3->FirstName = "Allen3";
     info3->LastName = "";
-    info3->MobileNumber = "13000000003";
+    info3->MobileNumber = "13003600003";
     info3->WorkNumber = "79999999";
     info3->HomeNumber = "23333333";
     info3->OthersNumber = "6444444";
@@ -307,7 +313,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info4  = new SPhoneInfo;
     info4->FirstName = "Allen4";
     info4->LastName = "";
-    info4->MobileNumber = "13000000004";
+    info4->MobileNumber = "13045000004";
     info4->WorkNumber = "79999999";
     info4->HomeNumber = "23333333";
     info4->OthersNumber = "6444444";
@@ -321,7 +327,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info5  = new SPhoneInfo;
     info5->FirstName = "Allen5";
     info5->LastName = "";
-    info5->MobileNumber = "13000000005";
+    info5->MobileNumber = "13567000005";
     info5->WorkNumber = "79999999";
     info5->HomeNumber = "23333333";
     info5->OthersNumber = "6444444";
@@ -335,7 +341,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info6  = new SPhoneInfo;
     info6->FirstName = "Allen6";
     info6->LastName = "";
-    info6->MobileNumber = "13000000006";
+    info6->MobileNumber = "13023456006";
     info6->WorkNumber = "79999999";
     info6->HomeNumber = "23333333";
     info6->OthersNumber = "6444444";
@@ -349,7 +355,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info7  = new SPhoneInfo;
     info7->FirstName = "Allen7";
     info7->LastName = "";
-    info7->MobileNumber = "13000000007";
+    info7->MobileNumber = "13033300007";
     info7->WorkNumber = "79999999";
     info7->HomeNumber = "23333333";
     info7->OthersNumber = "6444444";
@@ -363,7 +369,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info8  = new SPhoneInfo;
     info8->FirstName = "Allen8";
     info8->LastName = "";
-    info8->MobileNumber = "13000000008";
+    info8->MobileNumber = "15100000008";
     info8->WorkNumber = "79999999";
     info8->HomeNumber = "23333333";
     info8->OthersNumber = "6444444";
@@ -377,7 +383,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info9  = new SPhoneInfo;
     info9->FirstName = "Allen9";
     info9->LastName = "";
-    info9->MobileNumber = "13000000009";
+    info9->MobileNumber = "16780000009";
     info9->WorkNumber = "79999999";
     info9->HomeNumber = "23333333";
     info9->OthersNumber = "6444444";
@@ -391,7 +397,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info10  = new SPhoneInfo;
     info10->FirstName = "Allen10";
     info10->LastName = "";
-    info10->MobileNumber = "13000000010";
+    info10->MobileNumber = "16600000100";
     info10->WorkNumber = "79999999";
     info10->HomeNumber = "23333333";
     info10->OthersNumber = "6444444";
@@ -446,7 +452,7 @@ void PhoneData::InitTestContactsData()
     SPhoneInfo *info14  = new SPhoneInfo;
     info14->FirstName = "Allen14";
     info14->LastName = "";
-    info14->MobileNumber = "13000000014";
+    info14->MobileNumber = "13100000014";
     info14->WorkNumber = "79999999";
     info14->HomeNumber = "23333333";
     info14->OthersNumber = "6444444";
@@ -465,6 +471,11 @@ QList<SPhoneInfo *> PhoneData::GetContactsInfo()
 QList<SPhoneInfo *> PhoneData::GetRecentsInfo()
 {
     return m_RecentsInfo;
+}
+
+void PhoneData::SetContactsIndex(int index)
+{
+    m_ContactsInfoIndex = index;
 }
 
 char  PhoneData::convertText(wchar_t  n)
@@ -568,10 +579,224 @@ wchar_t PhoneData::toWchar(string sChinese)
 
       wchr  |=  (chr[1]  &  0xff);
 
-      qDebug() <<" wchr = "<< wchr <<"  " << (int)chr[0] << "  " << (int)chr[1];
+      INFO() <<" wchr = "<< wchr <<"  " << (int)chr[0] << "  " << (int)chr[1];
        bbbb =  convertText(wchr);
 
       }
 
       cout  <<  "pin  yin  =  ["  <<  bbbb  <<  "]"  <<  endl;
 }
+
+SPhoneInfo *PhoneData::GetContactsDetailInfo()
+{
+    if(m_ContactsInfoIndex >= 0 && m_ContactsInfoIndex < m_ContactsInfo.size())
+    {
+        return m_ContactsInfo.at(m_ContactsInfoIndex);
+    }
+    m_ContactsInfoIndex = -1;
+    return NULL;
+}
+
+void PhoneData::SetCallNumber(const QString &number)
+{
+       m_callNumber = number;
+}
+
+void PhoneData::SetCallName(const QString &name)
+{
+    m_callName = name;
+}
+
+void PhoneData::SetCallStatus(const QString &status)
+{
+    m_callStatus = status;
+}
+
+void PhoneData::SetCallTime(int time)
+{
+    m_callTime = time;
+}
+
+QString PhoneData::GetCallNumber()
+{
+    return m_callNumber;
+}
+
+QString PhoneData::GetCallName()
+{
+    return m_callName;
+}
+
+QString PhoneData::GetCallStatus()
+{
+    return m_callStatus;
+}
+
+QString PhoneData::GetCallTIme()
+{
+    return ToTime(m_callTime);
+}
+
+QString PhoneData::ToTime(int time)
+{
+    int hour = (time / 3600) % 24;
+    int min = (time / 60) % 60;
+    int sec = time % 60;
+    QString strHour ;
+    QString strMin ;
+    QString strSec ;
+    if(0 == hour)
+    {
+        if(0 <= min && 10 > min)
+        {
+            if(0<=sec && 10 > sec )
+            {
+                strMin = "0" + QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(10 <= sec)
+            {
+                strMin = "0" + QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }else if(10 <= min )
+        {
+            if(0 <= sec  && 10 > sec )
+            {
+                strMin = QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(sec >=10)
+            {
+                strMin = QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }
+        return strMin+":"+strSec;
+    }
+    else if(0 < hour  && 9 > hour )
+    {
+        if(0 <= min  && 10 > min )
+        {
+            if(0 <= sec &&  10 > sec )
+            {
+                strMin = "0" + QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(10 <= sec)
+            {
+                strMin = "0" + QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }else if(10 <= min )
+        {
+            if(0 <= sec && 10 > sec )
+            {
+                strMin = QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(10 <= sec)
+            {
+                strMin = QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }
+        strHour = "0" + QString::number(hour);
+        return strHour +":"+strMin+":"+strSec;
+    }else if(9 < hour  && 23 > hour )
+    {
+        if(0 <= min  && 10 > min)
+        {
+            if(0 <= sec && 10 > sec)
+            {
+                strMin = "0" + QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(10 <= sec)
+            {
+                strMin = "0" + QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }else if(10 <= min )
+        {
+            if(0 <= sec && 10 > sec)
+            {
+                strMin = QString::number(min);
+                strSec = "0" + QString::number(sec);
+            }else if(10 <= sec)
+            {
+                strMin = QString::number(min);
+                strSec = QString::number(sec);
+            }
+        }
+        strHour = QString::number(hour);
+        return strHour +":"+strMin+":"+strSec;
+    }
+    return "";
+}
+
+void PhoneData::SetViewId(int id)
+{
+    m_iViewId = id;
+}
+
+int PhoneData::GetViewId()
+{
+    return m_iViewId;
+}
+
+QList<SMatchContact *>& PhoneData::GetMatchContacts(const QString &number)
+{
+    ReleaseMatchContacts();
+    QList<SPhoneInfo*>::iterator it = m_ContactsInfo.begin();
+    for(;it != m_ContactsInfo.end();++it)
+    {
+       if((*it)->HomeNumber.indexOf(number)>=0)
+       {
+
+            SMatchContact *temp = new SMatchContact;
+            temp->FirstName = (*it)->FirstName;
+            temp->LastName = (*it)->LastName;
+            temp->number = (*it)->HomeNumber;
+            m_MatchContactsInfo.append(temp);
+       }
+       else if((*it)->MobileNumber.indexOf(number)>=0)
+       {
+           INFO() <<"GetMatchContacts MobileNumber";
+            SMatchContact *temp = new SMatchContact;
+            temp->FirstName = (*it)->FirstName;
+            temp->LastName = (*it)->LastName;
+            temp->number = (*it)->MobileNumber;
+            m_MatchContactsInfo.append(temp);
+       }
+       else if((*it)->OthersNumber.indexOf(number)>=0 )
+       {
+            SMatchContact *temp = new SMatchContact;
+            temp->FirstName = (*it)->FirstName;
+            temp->LastName = (*it)->LastName;
+            temp->number = (*it)->OthersNumber;
+            m_MatchContactsInfo.append(temp);
+
+       }else if((*it)->WorkNumber.indexOf(number)>=0 ){
+
+            SMatchContact *temp = new SMatchContact;
+            temp->FirstName = (*it)->FirstName;
+            temp->LastName = (*it)->LastName;
+            temp->number = (*it)->WorkNumber;
+            m_MatchContactsInfo.append(temp);
+       }
+    }
+    return m_MatchContactsInfo;
+}
+
+void PhoneData::ReleaseMatchContacts()
+{
+    if(m_MatchContactsInfo.size() > 0)
+    {
+        QList<SMatchContact*>::iterator it = m_MatchContactsInfo.begin();
+        for(;it != m_MatchContactsInfo.end();++it)
+        {
+            SMatchContact* temp = (*it);
+            m_MatchContactsInfo.erase(it);
+            delete temp;
+            temp = NULL;
+        }
+    }
+}
+
+

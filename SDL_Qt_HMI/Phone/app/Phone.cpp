@@ -13,7 +13,7 @@ Phone::Phone()
 
 Phone *Phone::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new Phone();
     }
@@ -51,7 +51,7 @@ void Phone::OnAppShow(string appId, string viewId)
     switch (state) {
     case AppStatus_Active:
     {
-        if(viewId == "Main")
+        if("Main" == viewId)
         {
 
             ViewForwardById(eViewId_KeyBoard);
@@ -105,7 +105,7 @@ void Phone::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        qDebug() << "OnReply = " << QString::fromStdString( it->second);
+        INFO() << "OnReply = " << QString::fromStdString( it->second);
     }
 }
 

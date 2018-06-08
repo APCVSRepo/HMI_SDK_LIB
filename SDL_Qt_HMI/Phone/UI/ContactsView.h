@@ -21,6 +21,9 @@
 #include <QButtonGroup>
 #include <QLineEdit>
 #include "HMIWidgets/CVListWidget.h"
+#include "HMIWidgets/PhonePicker.h"
+
+
 class ContactsView:public QWidget, public CView
 {
     Q_OBJECT
@@ -38,12 +41,16 @@ public:
     void InitConnect();
 
     void UpdateData();
+
 public slots:
     void OnKeyBoard();
     void OnRecents();
     void OnBTSetting();
+    void OnListClick(int index);
+
+    void OnPhonePickerClick(int index,QString text);
 private:
-    QString m_InputText;
+    QString         m_InputText;
     CPushButton*    m_pKeyboard;
     CPushButton*    m_pContacts;
     CPushButton*    m_pCRecents;
@@ -53,6 +60,8 @@ private:
     QLabel*         m_pBlueLineLabel;
 
     CVListWidget*   m_pContactsList;
+    PhonePicker*    m_pPhonePickerSelect;
+    QLabel*         m_pPhonePickerSelectLabel;
 
 };
 

@@ -33,10 +33,13 @@ private:
         Phone();
 public:
     enum eViewId{
+        eViewId_BTSetting,
         eViewId_KeyBoard,
         eViewId_Contacts,
         eViewId_Recents,
-        eViewId_ContactsDetails
+        eViewId_ContactsDetails,
+        eViewId_Calling
+
     };
 
     static Phone* Inst();

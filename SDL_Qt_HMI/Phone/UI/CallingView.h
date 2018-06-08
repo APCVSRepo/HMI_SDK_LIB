@@ -1,5 +1,6 @@
-#ifndef CONTACTSDETAILSVIEW_H
-#define CONTACTSDETAILSVIEW_H
+#ifndef CALLINGVIEW_H
+#define CALLINGVIEW_H
+
 #include <QWidget>
 #include <QMouseEvent>
 #include <QTouchEvent>
@@ -21,33 +22,49 @@
 #include <QButtonGroup>
 #include <QLineEdit>
 #include "HMIWidgets/CVListWidget.h"
-class ContactsDetailsView:public QWidget, public CView
+
+class CallingView:public QWidget, public CView
 {
     Q_OBJECT
 
 public:
 
 
-    explicit ContactsDetailsView(QWidget *parent = 0);
-    ~ContactsDetailsView();
+    explicit CallingView(QWidget *parent = 0);
+    ~CallingView();
 
     virtual void viewAction(int state);
 
-    void InitContactsDetailsView();
+    void InitCallingView();
 
     void InitConnect();
+    void AddCall();
     void UpdateData();
-
 public slots:
-    void OnBack();
-    void OnListClick(int);
-private:
-    CPushButton*    m_pBackBtn;
+    void OnKeyBoard();
+    void OnRecents();
+    void OnBTSetting();
 
-    QLabel*         m_pPortraitLabel;
-    QLabel*         m_pNameLabel;
+    void OnHangUp();
+    void OnMute();
+    void OnReceiver();
+private:
+    QString m_InputText;
+    CPushButton*    m_pKeyboard;
+    CPushButton*    m_pContacts;
+    CPushButton*    m_pCRecents;
+    CPushButton*    m_pBTSetting;
+
+    QLabel*         m_pWhiteLineLabel;
+    QLabel*         m_pBlueLineLabel;
+
     CVListWidget*   m_pContactsList;
+
+    CPushButton*    m_pHangUpBtn;
+    CPushButton*    m_pCallBtn;
+    CPushButton*    m_pMuteBtn;
+    CPushButton*    m_pReceiverBtn;
 
 };
 
-#endif // CONTACTSDETAILSVIEW_H
+#endif // CALLINGVIEW_H

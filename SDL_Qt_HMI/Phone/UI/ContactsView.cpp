@@ -1,5 +1,5 @@
 #include "Phone/UI/ContactsView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"
@@ -36,7 +36,7 @@ void ContactsView::viewAction(int state)
     }
         break;
     case eViewStatus_Active:
-        PhoneData::Inst()->toWchar("我");
+        PhoneData::Inst()->SetViewId(Phone::eViewId_Contacts);
 
         this->show();
         break;
@@ -94,6 +94,27 @@ void ContactsView::InitContactsView()
     m_pContactsList->SetItemBackgroundInfo("",":/Phone/Source/images/phone_list_push.png","");
     m_pContactsList->show();
 
+    m_pPhonePickerSelect = new PhonePicker(this);
+    m_pPhonePickerSelect->setGeometry(QRect(746,114,32,351));
+    m_pPhonePickerSelect->SetItemCountPerPage(27);
+    m_pPhonePickerSelect->raise();
+    m_pPhonePickerSelect->show();
+
+    QStringList textList;
+    textList<<"A"<<"B"<<"C"<<"D"<<"E"<<"F"<<"G"<<"H"<<"I"<<"J"<<"K"\
+           <<"L"<<"M"<<"N"<<"O"<<"P"<<"Q"<<"R"<<"S"<<"T"<<"U"<<"V" \
+          <<"W"<<"X"<<"Y"<<"Z"<<"#";
+    for(int i = 0; i<textList.size();++i)
+    {
+        m_pPhonePickerSelect->InsertItem(i,textList.at(i),QSize(32,13),10);
+    }
+
+    m_pPhonePickerSelectLabel = new QLabel(this);
+    m_pPhonePickerSelectLabel->setGeometry(QRect(703,238,50,50));
+    m_pPhonePickerSelectLabel->setStyleSheet("QLabel{border-image:url(:/Phone/Source/images/bubble.png);color:rgb(0,138,255);font-size:24px;background:transparent;}");
+    m_pPhonePickerSelectLabel->setAlignment(Qt::AlignCenter);
+    m_pPhonePickerSelectLabel->setText("A");
+    m_pPhonePickerSelectLabel->hide();
 }
 
 
@@ -103,7 +124,8 @@ void ContactsView::InitConnect()
     connect(m_pKeyboard,SIGNAL(clicked()),this,SLOT(OnKeyBoard()),Qt::UniqueConnection);
     connect(m_pCRecents,SIGNAL(clicked()),this,SLOT(OnRecents()),Qt::UniqueConnection);
     connect(m_pBTSetting,SIGNAL(clicked()),this,SLOT(OnBTSetting()),Qt::UniqueConnection);
-
+    connect(m_pContactsList,SIGNAL(listItemReleased(int)),this,SLOT(OnListClick(int)),Qt::UniqueConnection);
+    connect(m_pPhonePickerSelect,SIGNAL(CurrentText(int,QString)),this,SLOT(OnPhonePickerClick(int,QString)),Qt::UniqueConnection);
 }
 
 void ContactsView::UpdateData()
@@ -123,7 +145,7 @@ void ContactsView::UpdateData()
         {
             item.AddIcon(QRect(0,20,31,31),QPixmap(":/Phone/Source/images/call.png"));
         }
-        QString contacts = "Contacts " + PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName;
+        QString contacts = "Contacts " + PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName +"  "+ PhoneData::Inst()->GetRecentsInfo().at(i)->LastName;
         item.AddText(QRect(47,18,300,52),contacts,Qt::AlignLeft|Qt::AlignTop,24,QColor(255,255,255));
 
         m_pContactsList->InsertItem(i,item);
@@ -144,11 +166,32 @@ void ContactsView::OnRecents()
 
 void ContactsView::OnBTSetting()
 {
+    PhoneData::Inst()->SetViewId(Phone::eViewId_BTSetting);
     map<string,string> p;
     p.insert(make_pair("BTSetting","Show"));
     p.insert(make_pair("FromAppId",PHONE_ID));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);
 
+}
+
+void ContactsView::OnListClick(int index)
+{
+    PhoneData::Inst()->SetContactsIndex(index);
+    Phone::Inst()->ViewForwardById(Phone::eViewId_ContactsDetails);
+}
+
+void ContactsView::OnPhonePickerClick(int index, QString text)
+{
+    if(index>=0)
+    {
+        m_pPhonePickerSelectLabel->move(703,114+(index+1)*13-6-25);
+        m_pPhonePickerSelectLabel->setText(text);
+        m_pPhonePickerSelectLabel->show();
+    }else
+    {
+        m_pPhonePickerSelectLabel->hide();
+    }
+    INFO() <<"OnPhonePickerClick = " <<index<<" " <<text;
 }
 
 

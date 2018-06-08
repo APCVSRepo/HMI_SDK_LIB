@@ -5,6 +5,8 @@
 #include "Phone/UI/ContactsView.h"
 #include "Phone/UI/RecentsView.h"
 #include "Phone/UI/ContactsDetailsView.h"
+#include "Phone/UI/CallingView.h"
+
 PhoneVFactory::PhoneVFactory()
 {
 }
@@ -13,7 +15,7 @@ PhoneVFactory * PhoneVFactory::m_pInst = NULL;
 
 PhoneVFactory *PhoneVFactory::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new PhoneVFactory;
     }
@@ -45,6 +47,12 @@ void *PhoneVFactory::CreateProduct(int viewId)
     case Phone::eViewId_ContactsDetails:
     {
         ContactsDetailsView* view = new ContactsDetailsView(mainwin);
+        view->setView(dynamic_cast<QWidget*>(view));
+        return  dynamic_cast<CView*>(view);
+    }
+    case Phone::eViewId_Calling:
+    {
+        CallingView* view = new CallingView(mainwin);
         view->setView(dynamic_cast<QWidget*>(view));
         return  dynamic_cast<CView*>(view);
     }
