@@ -13,7 +13,7 @@ HVAC::HVAC()
 
 HVAC *HVAC::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new HVAC();
     }
@@ -105,7 +105,7 @@ void HVAC::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        qDebug() << "OnReply = " << QString::fromStdString( it->second);
+        INFO() << "OnReply = " << QString::fromStdString( it->second);
     }
 }
 

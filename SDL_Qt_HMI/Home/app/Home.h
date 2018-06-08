@@ -42,7 +42,7 @@ public:
     void PhoneClicked();
     void SettingsClicked();
     void WeatherClicked();
-    bool SetNotifyBTShowStatus(bool b);
+    bool SetNotifyBTShowStatus(bool isShow);
     bool GetNotifyBTShowStatus();
     string GetNotifyBTShowId();
 

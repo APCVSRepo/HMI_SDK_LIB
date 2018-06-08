@@ -22,6 +22,7 @@ protected:
     void DrawButton(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
     void DrawIndicator(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
     void DrawCheckBox(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+    void DrawSpecialIcon(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 
 public slots:
 

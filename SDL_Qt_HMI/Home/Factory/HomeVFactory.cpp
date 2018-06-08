@@ -23,7 +23,7 @@ HomeVFactory * HomeVFactory::m_pInst = NULL;
 
 HomeVFactory *HomeVFactory::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst )
     {
         m_pInst = new HomeVFactory;
     }

@@ -1,5 +1,5 @@
 #include "SettingsRoutineSettingUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsRoutineSettingData.h"
 #include "HMIFrameWork/HMIFrameWork.h"
@@ -110,20 +110,20 @@ void SettingsRoutineSettingUI::viewAction(int state)
 
 void SettingsRoutineSettingUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsRoutineSettingUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsRoutineSettingUI index = " << index <<" btnIndex = " <<btnIndex;
     switch (index) {
     case 1:
         if(0 == btnIndex)
         {
             int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
-            if(idStatus == 0)
+            if(0 == idStatus)
             {
                 QStringList list;
                 list<<":/Settings/button_h_on.png"<<"none"<<"none";
                 m_pVList->SetItemButtonPixmap(index,btnIndex,list);
                 m_pVList->SetSpecifiedIDStatus(index,1);
             }
-            else if(idStatus == 1)
+            else if(1 == idStatus)
             {
                 QStringList list;
                 list<<":/Settings/button_h_close.png"<<"none"<<"none";

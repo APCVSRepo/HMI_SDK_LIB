@@ -1,7 +1,7 @@
 #include "SettingsBTUI.h"
 #include "Home/data/Settings/SettingsBTData.h"
 #include "Home/app/Home.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 SettingsBTUI::SettingsBTUI(QWidget *parent)
     :QWidget(parent)
@@ -76,12 +76,12 @@ void SettingsBTUI::OnBack()
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex)
 {
-    qDebug()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex;
+    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex;
 }
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)
 {
-    qDebug()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex<<", specifiedID: "<<specifiedID;
+    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         if(0 == specifiedID)
@@ -97,7 +97,7 @@ void SettingsBTUI::OnListButtonReleased(int index, int btnIndex, int specifiedID
 
 void SettingsBTUI::OnListItemClicked(int index, int specifiedID)
 {
-    qDebug()<<"OnListItemClicked: index: "<<index<<", specifiedID: "<<specifiedID;
+    INFO()<<"SettingsBTUI::OnListItemClicked: index: "<<index<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         return;
@@ -105,14 +105,14 @@ void SettingsBTUI::OnListItemClicked(int index, int specifiedID)
 
     if((m_pVlist->count()-1) == index)
     {
-        qDebug()<<"[SettingsBTUI]change to [add other hot spots] view";
+        INFO()<<"[SettingsBTUI]change to [add other hot spots] view";
         //TODO: change to [add other hot spots] view
         return;
     }
 
     if(0 == m_pVlist->GetSpecifiedID(index))
     {
-        qDebug()<<"other equipment text, do nothing";
+        INFO()<<"other equipment text, do nothing";
         return;
     }
 
@@ -126,7 +126,7 @@ void SettingsBTUI::OnListItemClicked(int index, int specifiedID)
 
 void SettingsBTUI::OnBTStatusChanged(int status)
 {
-    qDebug()<<"OnBTStatusChanged: "<<status;
+    INFO()<<"OnBTStatusChanged: "<<status;
     if(1 == status)
     {
         this->StartBT();
@@ -139,7 +139,7 @@ void SettingsBTUI::SetBTStatus(int status, bool init)
     {
         if(status == m_iBTStatus)
         {
-            qDebug()<<"[SettingsBTUI]same BT status, no need SetBTStatus";
+            INFO()<<"[SettingsBTUI]same BT status, no need SetBTStatus";
             return;
         }
     }
@@ -174,7 +174,7 @@ void SettingsBTUI::UpdateBTList()
 {
     if(!m_iBTStatus)
     {
-        qDebug()<<"[SettingsBTUI]BT is OFF, can not UpdateBTList";
+        INFO()<<"[SettingsBTUI]BT is OFF, can not UpdateBTList";
         return;
     }
     m_pVlist->RemoveItems(1, m_pVlist->count());
@@ -200,7 +200,7 @@ void SettingsBTUI::UpdateBTList()
             item.AddText(QRect(800-54-94-150,0,150,57),QString("Connected"),Qt::AlignRight|Qt::AlignVCenter,20,QColor(255,255,255,204));
             break;
         default:
-            qDebug()<<"invalid status";
+            INFO()<<"invalid status";
             break;
         }
 
@@ -209,12 +209,12 @@ void SettingsBTUI::UpdateBTList()
     }
 
     //other equipment
-    CListWidgetItem item (QSize(718,57));
+    CListWidgetItem item (QSize(718,67));
     QStringList list;
     list<<"none"<<"none"<<"none";
     item.SetSpecifiedID(0);
-    item.AddText(QRect(0,0,800-54-94-150-50,57),QString(tr("Other equipment")),Qt::AlignLeft|Qt::AlignVCenter,24);
-
+    item.AddText(QRect(0,0,800-54-94-150-50,67),QString(tr("Other equipment")),Qt::AlignLeft|Qt::AlignVCenter,26,QColor(255,255,255,255*0.8));
+    item.AddButton(QRect(0,0,718,67),list);
     m_pVlist->InsertItem(m_pVlist->count(),item);
 
     //other equipment list
@@ -222,7 +222,7 @@ void SettingsBTUI::UpdateBTList()
     {
         const BTDeviceInfo &info = SettingsBTData::GetInstance()->GetBTSearchListInfo(i);
         CListWidgetItem item(QSize(718,57));
-        item.AddText(QRect(0,0,800-54-94-150-50,57),info.name,Qt::AlignLeft|Qt::AlignVCenter,24);
+        item.AddText(QRect(0,10,800-54-94-150-50,57),info.name,Qt::AlignLeft|Qt::AlignVCenter,24);
         item.SetSpecifiedID(SettingsBTData::GetInstance()->GetBTPairedListSize()+2);
         item.SetSpecifiedIDStatus(info.status);
         m_pVlist->InsertItem(i,item);

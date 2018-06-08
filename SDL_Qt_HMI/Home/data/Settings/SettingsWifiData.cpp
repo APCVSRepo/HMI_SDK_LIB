@@ -1,5 +1,5 @@
 #include "SettingsWifiData.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 SettingsWifiData *SettingsWifiData::s_pInstance = NULL;
 
@@ -124,8 +124,8 @@ bool SettingsWifiData::CheckPassword(QString password)
 
 bool SettingsWifiData::CheckPasswordWithWifiInfo(QString netName, QString securityType, QString password)
 {
-    qDebug()<<"CheckPasswordWithWifiInfo:"<<netName<<", "<<securityType<<", "<<password;
-    if(netName == "123456" && securityType == "WPA/WPA2" && password == "123456")
+    INFO()<<"CheckPasswordWithWifiInfo:"<<netName<<", "<<securityType<<", "<<password;
+    if("123456" == netName  && "WPA/WPA2" == securityType && "123456" == password )
     {
         WifiDeviceInfo info;
         info.id = 6;

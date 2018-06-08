@@ -1,5 +1,5 @@
 #include "SettingsDisplayUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsDisplayData.h"
 SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
@@ -160,19 +160,19 @@ void SettingsDisplayUI::viewAction(int state)
 
 void SettingsDisplayUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsDisplayUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsDisplayUI index = " << index <<" btnIndex = " <<btnIndex;
     switch (index) {
     case 0:
     {
         int idStatus =  m_pVlist->GetSpecifiedIDStatus(index);
-        if(idStatus == 0)
+        if(0 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
             m_pVlist->SetItemButtonPixmap(index,btnIndex,list);
             m_pVlist->SetSpecifiedIDStatus(index,1);
         }
-        else if(idStatus == 1)
+        else if(1 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<"none"<<"none";
@@ -193,12 +193,12 @@ void SettingsDisplayUI::OnListClick(int index)
 
 void SettingsDisplayUI::OnLuminanceRegulationValue(int value)
 {
-    qDebug() << "OnLuminanceRegulationValue = " << value;
+    INFO() << "OnLuminanceRegulationValue = " << value;
 }
 
 void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 {
-    qDebug() <<"OnAddLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->maximum();
+    INFO() <<"OnAddLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->maximum();
 
     if(m_pLuminanceRegulationSlider->value() < m_pLuminanceRegulationSlider->maximum())
     {
@@ -208,7 +208,7 @@ void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 
 void SettingsDisplayUI::OnSubLuminanceRegulationValue()
 {
-    qDebug() <<"OnSubLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->minimum();
+    INFO() <<"OnSubLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->minimum();
     if(m_pLuminanceRegulationSlider->value() > m_pLuminanceRegulationSlider->minimum())
     {
         m_pLuminanceRegulationSlider->setValue(m_pLuminanceRegulationSlider->value()-1);

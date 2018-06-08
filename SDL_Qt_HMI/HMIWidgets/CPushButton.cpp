@@ -15,6 +15,8 @@ CPushButton::CPushButton(QWidget *parent)
     ,m_textRect(QRect(0,0,0,0))
     ,m_textColor(QColor(255,255,255))
     ,m_textAlign(Qt::AlignCenter)
+    ,m_bIsEnabled(true)
+    ,m_dEffect(1.0)
 {
     m_pEffect = new QGraphicsOpacityEffect();
     m_pEffect->setOpacity(1);
@@ -71,6 +73,13 @@ void CPushButton::SetData(const QString &data)
     m_data = data;
 }
 
+void CPushButton::SetEnabled(bool isEnabeled)
+{
+    this->setEnabled(isEnabeled);
+    m_bIsEnabled = isEnabeled;
+    update();
+}
+
 QString CPushButton::GetType()
 {
     return m_type;
@@ -106,13 +115,24 @@ void CPushButton::SetText(const QRect &rect, const QString &text, int fontsize, 
     m_textAlign = align;
 }
 
+void CPushButton::SetEffect(double effect)
+{
+    m_dEffect = effect;
+    m_pEffect->setOpacity(m_dEffect);
+    this->setGraphicsEffect(m_pEffect);
+}
+
 
 void CPushButton::MouseEvent(QEvent *e)
 {
+    if(!m_bIsEnabled)
+    {
+        return;
+    }
     switch (e->type()) {
     case QEvent::MouseButtonPress:
     {
-        m_pEffect->setOpacity(0.4);
+        m_pEffect->setOpacity(0.4*m_dEffect);
         this->setGraphicsEffect(m_pEffect);
         m_LongPressTotalTimer.start();
     }
@@ -132,7 +152,7 @@ void CPushButton::MouseEvent(QEvent *e)
         m_LongPressTotalTimer.stop();
         m_LongPressTimer.stop();
 
-        m_pEffect->setOpacity(1);
+        m_pEffect->setOpacity(1*m_dEffect);
         this->setGraphicsEffect(m_pEffect);
     }
         break;
@@ -142,7 +162,7 @@ void CPushButton::MouseEvent(QEvent *e)
     }
 
 }
-
+#include "HMIFrameWork/log_interface.h"
 void CPushButton::paintEvent(QPaintEvent *e)
 {
     QPushButton::paintEvent(e);
@@ -158,7 +178,19 @@ void CPushButton::paintEvent(QPaintEvent *e)
     {
         QFont f;
         f.setPixelSize(m_textFontSize);
-        p.setPen(m_textColor);
+        if(m_bIsEnabled)
+        {
+           p.setPen(m_textColor);
+        }
+        else
+        {
+            int r = m_textColor.red()*0.4;
+            int g = m_textColor.green()*0.4;
+            int b = m_textColor.blue()*0.4;
+
+            INFO() <<r <<" "<<g <<" "<<b;
+            p.setPen(QColor(r,g,b));
+        }
         p.setFont(f);
         p.drawText(m_textRect,m_textAlign,m_text);
     }

@@ -481,9 +481,9 @@ void CCButton::JitterAnimation( int time)
     }
 }
 
-void CCButton::SetExist(bool b)
+void CCButton::SetExist(bool isExit)
 {
-    m_bExist = b;
+    m_bExist = isExit;
     update();
 }
 QPoint CCButton::GetGlobalPos(const QPoint currPos)

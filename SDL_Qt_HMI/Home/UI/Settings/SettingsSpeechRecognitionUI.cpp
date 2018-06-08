@@ -1,5 +1,5 @@
 #include "SettingsSpeechRecognitionUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 SettingsSpeechRecognitionUI::SettingsSpeechRecognitionUI(QWidget *parent)
     :QWidget(parent)
@@ -95,7 +95,7 @@ void SettingsSpeechRecognitionUI::viewAction(int state)
 
 void SettingsSpeechRecognitionUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsSpeechRecognitionUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsSpeechRecognitionUI index = " << index <<" btnIndex = " <<btnIndex;
 }
 
 void SettingsSpeechRecognitionUI::OnListClick(int index)

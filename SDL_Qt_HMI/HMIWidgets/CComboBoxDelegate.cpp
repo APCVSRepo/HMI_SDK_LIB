@@ -1,5 +1,5 @@
 #include "CComboBoxDelegate.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 CComboBoxDelegate::CComboBoxDelegate(QObject *parent)
     :m_iCount(0)
@@ -22,7 +22,7 @@ void CComboBoxDelegate::SetItemSize(const QSize &size)
 
 void CComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-//    qDebug()<<"[1]flags:"<<index.flags()<<"row():["<<index.row()<<"]data:"<<index.data().toString();
+//    INFO()<<"[1]flags:"<<index.flags()<<"row():["<<index.row()<<"]data:"<<index.data().toString();
     QStyleOptionViewItem option2 = option;
 
     //draw background
@@ -34,11 +34,11 @@ void CComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
     painter->drawLine(option2.rect.topLeft(),option2.rect.bottomLeft());
     painter->drawLine(option2.rect.topRight(),option2.rect.bottomRight());
 
-    if(index.row() == 0)
+    if(0 == index.row())
     {
         painter->drawLine(option2.rect.topLeft(),option2.rect.topRight());
     }
-    else if(index.row() == m_iCount-1)
+    else if(m_iCount-1 == index.row())
     {
         painter->drawLine(option2.rect.bottomLeft(),option2.rect.bottomRight());
     }

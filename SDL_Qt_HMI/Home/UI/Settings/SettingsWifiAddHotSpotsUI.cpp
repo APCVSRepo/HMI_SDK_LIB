@@ -2,7 +2,7 @@
 #include "Home/data/Settings/SettingsWifiData.h"
 #include "HMIWidgets/CComboBoxDelegate.h"
 #include "Home/app/Home.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 SettingsWifiAddHotSpotsUI::SettingsWifiAddHotSpotsUI(QWidget *parent)
     :QWidget(parent)
@@ -141,8 +141,8 @@ void SettingsWifiAddHotSpotsUI::OnBack()
 
 void SettingsWifiAddHotSpotsUI::OnAddBtnClicked()
 {
-    qDebug()<<"[OnAddBtnClicked]currentIndex"<<m_pSecurityTypeComboBox->currentIndex();
-    qDebug()<<"[OnAddBtnClicked]currentText"<<m_pSecurityTypeComboBox->currentText();
+    INFO()<<"[OnAddBtnClicked]currentIndex"<<m_pSecurityTypeComboBox->currentIndex();
+    INFO()<<"[OnAddBtnClicked]currentText"<<m_pSecurityTypeComboBox->currentText();
     //TODO: connect to Wifi with current setting, if succeed, change to connected wifi list view;
     //      if failed, show popup
 

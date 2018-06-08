@@ -1,5 +1,5 @@
 #include "SettingsEmergencyUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsEmergencyData.h"
 SettingsEmergencyUI::SettingsEmergencyUI(QWidget *parent)
@@ -83,10 +83,10 @@ void SettingsEmergencyUI::viewAction(int state)
 
 void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsEmergencyUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsEmergencyUI index = " << index <<" btnIndex = " <<btnIndex;
     int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
 
-    if(idStatus == 0)
+    if(0 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_on.png"<<"none"<<"none";
@@ -96,7 +96,7 @@ void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
         //TODO : add  open code
         SettingsEmergencyData::Inst()->SetEmergencRescueStatus("Open");
     }
-    else if(idStatus == 1)
+    else if(1 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_close.png"<<"none"<<"none";

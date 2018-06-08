@@ -1,7 +1,7 @@
 #include "CComboBox.h"
 #include <QLineEdit>
 #include "CComboBoxDelegate.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 CComboBox::CComboBox(QWidget *parent)
     :QComboBox(parent)
@@ -107,62 +107,62 @@ int CComboBox::GetIndex()
 
 void CComboBox::OnEditTextChanged(const QString &str)
 {
-    qDebug()<<"OnEditTextChanged = " <<str;
+    INFO()<<"OnEditTextChanged = " <<str;
     emit editTextChanged(m_iIndex,str);
 }
 
 void CComboBox::OnActivated(int index)
 {
-    qDebug()<<"OnActivated = " <<index;
+    INFO()<<"OnActivated = " <<index;
     emit activated(m_iIndex,index);
 }
 
 void CComboBox::OnActivated(const QString &str)
 {
-    qDebug()<<"OnActivated = " <<str;
+    INFO()<<"OnActivated = " <<str;
     emit activated(m_iIndex,str);
 }
 
 void CComboBox::OnHighlighted(int index)
 {
-    qDebug()<<"OnHighlighted = " <<index;
+    INFO()<<"OnHighlighted = " <<index;
     emit highlighted(m_iIndex,index);
 }
 
 void CComboBox::OnHighlighted(const QString &str)
 {
-    qDebug()<<"OnHighlighted = " <<str;
+    INFO()<<"OnHighlighted = " <<str;
     emit highlighted(m_iIndex,str);
 }
 
 void CComboBox::OnCurrentIndexChanged(int index)
 {
-    qDebug()<<"OnCurrentIndexChanged = " <<index;
+    INFO()<<"OnCurrentIndexChanged = " <<index;
     emit currentIndexChanged(m_iIndex,index);
 }
 
 void CComboBox::OnCurrentIndexChanged(const QString &str)
 {
-    qDebug()<<"OnCurrentIndexChanged = " <<str;
+    INFO()<<"OnCurrentIndexChanged = " <<str;
     emit currentIndexChanged(m_iIndex,str);
 }
 
 void CComboBox::OnCurrentTextChanged(const QString &str)
 {
-    qDebug()<<"OnCurrentTextChanged = " <<str;
+    INFO()<<"OnCurrentTextChanged = " <<str;
     emit currentTextChanged(m_iIndex,str);
 }
 
 void CComboBox::resizeEvent(QResizeEvent *event)
 {
-    qDebug()<<"CComboBox::resizeEvent:"<<event->size();
+    INFO()<<"CComboBox::resizeEvent:"<<event->size();
     static_cast<CComboBoxDelegate *>(this->itemDelegate())->SetItemSize(event->size());
     QComboBox::resizeEvent(event);
 }
 
 void CComboBox::setItemDelegate(QAbstractItemDelegate *delegate)
 {
-    qDebug()<<"[Error]this function should not be called. QAbstractItemDelegate Type is not supported, please use CComboBoxDelegate type.";
-    qDebug()<<"[Error]please use [void setItemDelegate(CComboBoxDelegate *delegate)] instead.";
+    INFO()<<"[Error]this function should not be called. QAbstractItemDelegate Type is not supported, please use CComboBoxDelegate type.";
+    INFO()<<"[Error]please use [void setItemDelegate(CComboBoxDelegate *delegate)] instead.";
 }
 

@@ -1,5 +1,5 @@
 #include "HomeView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"
@@ -188,7 +188,7 @@ void HomeView::InitHomeView()
         app->InsertText(QRect(0,APP_ICON_H,APP_BT_W,31),listApps.at(i).AppName,true);
         app->InsertType(listApps.at(i).AppType);
         app->InsertName(listApps.at(i).AppName);
-        if(listApps.at(i).AppType == WEATHER_ID)
+        if(WEATHER_ID == listApps.at(i).AppType)
         {
            app->AddExtendedText(QRect(0,71,120,20),"19℃",18);
         }
@@ -214,7 +214,7 @@ void HomeView::InsertApp(int index, CCButton *app)
     {
       int nPage = (index+1) / 8;
       int rpage = (index+1) % 8;
-      if(0 == rpage)
+      if(CONST_ZERO == rpage)
       {
           m_iPageTotalNum = nPage;
       }
@@ -265,7 +265,7 @@ bool HomeView::GetIsEditStatus()
 
 void HomeView::GoToEditStatus()
 {
-    if(m_editMode == eEdit_ALL)
+    if(eEdit_ALL == m_editMode )
     {
         SetIsEditStatus(true);
         if(m_ListBtn.size())
@@ -278,7 +278,7 @@ void HomeView::GoToEditStatus()
            }
         }
     }
-    else if(m_editMode == eEdit_SINGLE)
+    else if(eEdit_SINGLE == m_editMode )
     {
         if(GetApp())
         {
@@ -869,7 +869,7 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                m_iPosDiffX = m_iPosX-GetApp()->geometry().x();
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetIsPress(true);
-               if(this->geometry().x() == 0)
+               if(this->geometry().x() == CONST_ZERO)
                {
                     m_pressTimer.start();
                }
@@ -918,7 +918,7 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
            GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
            GetApp()->SetIsPress(false);
         }
-        qDebug() << "x = " << m_stayPos.x() << " y = " << m_stayPos.y();
+        INFO() << "x = " << m_stayPos.x() << " y = " << m_stayPos.y();
         if(GetIsEditStatus())
         {
             if(GetApp())
@@ -1020,7 +1020,7 @@ bool HomeView::TouchEvent(QObject *obj, QEvent *event)
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
                GetApp()->SetIsPress(true);
-               if(this->geometry().x() == 0)
+               if(this->geometry().x() == CONST_ZERO)
                {
                     m_pressTimer.start();
                }

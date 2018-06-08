@@ -24,6 +24,8 @@ void ListDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,c
     //----------- draw buttons -----------
     DrawButton(painter, option, index);
 
+    DrawSpecialIcon(painter, option, index);
+
     //----------- draw icons -----------
     DrawIcon(painter, option, index);
 
@@ -368,6 +370,24 @@ void ListDelegate::DrawCheckBox(QPainter *painter, const QStyleOptionViewItem &o
             painter->drawPixmap(rectList.at(i).toRect().left() + m_pVListWidget->GetSpacing() + leftDis + m_pVListWidget->GetLeftMargin(),
                                 option.rect.top() + rectList.at(i).toRect().top() + topDis,
                                 pixmapCheckList.at(i).value<QPixmap>());
+        }
+    }
+}
+
+void ListDelegate::DrawSpecialIcon(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    QList<QVariant> rectList = index.data(CListWidgetItem::eSpecialTextBackgroundRectMode).toList();
+    QList<QVariant> pixmapList = index.data(CListWidgetItem::eSpecialTextBackgroundIconMode).toList();
+    for (int i = 0; i < rectList.count(); i++)
+    {
+        int topDis = (rectList.at(i).toRect().height() - pixmapList.at(i).value<QPixmap>().height())/2;
+        bool bDrawIcon = true;
+
+        if (bDrawIcon)
+        {
+            painter->drawPixmap(rectList.at(i).toRect().left() + m_pVListWidget->GetSpacing() + m_pVListWidget->GetLeftMargin(),
+                                option.rect.top() + rectList.at(i).toRect().top() + topDis,
+                                pixmapList.at(i).value<QPixmap>());
         }
     }
 }

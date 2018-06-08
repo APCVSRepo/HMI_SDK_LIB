@@ -1,5 +1,5 @@
 #include "SettingsMainUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsDateTimeData.h"
 #include "Home/data/Settings/SettingsRoutineSettingData.h"
@@ -74,7 +74,7 @@ void SettingsMainUI::viewAction(int state)
 
 void SettingsMainUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsMainUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsMainUI index = " << index <<" btnIndex = " <<btnIndex;
 }
 
 void SettingsMainUI::OnListClick(int index)

@@ -1,7 +1,7 @@
 #include "SettingsDateTimeUI.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsDateTimeData.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     :QWidget(parent)
@@ -60,7 +60,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     m_pDateTime->CreateAMPMPicker(QSize(50,65),3);
     m_pDateTime->SetAMPMPickerGeometry(625,0,50,195);
 
-    qDebug() << QTime::currentTime().hour()<<"  " <<TimeTo12HourClock(QTime::currentTime().hour());
+    INFO() << QTime::currentTime().hour()<<"  " <<TimeTo12HourClock(QTime::currentTime().hour());
     m_pDateTime->SetCurrentHour(TimeTo12HourClock(QTime::currentTime().hour()),true);
     m_pDateTime->SetCurrentMinute(QTime::currentTime().minute(),true);
     m_pDateTime->SetCurrentAMPM(GetAmOrPm(QTime::currentTime().hour()),true);
@@ -104,7 +104,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     for(int i = 0 ; i < titieList.size() ;i++)
     {
         CListWidgetItem item (QSize(718,57));
-        if(i == 0)
+        if(0 == i)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<""<<"";
@@ -112,7 +112,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
             item.SetSpecifiedIDStatus(1);
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             item.AddButton(QRect(647,0,71,57),list);
-        }else if(i == 1)
+        }else if(1 == i)
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<""<<"";
@@ -197,19 +197,19 @@ void SettingsDateTimeUI::OnBack()
 
 void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
 {
-    qDebug() <<" SettingsDateTimeUI";
+    INFO() <<" SettingsDateTimeUI";
     switch (index) {
     case 0:
     {
         int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
-        if(idStatus == 0)
+        if(0 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
             m_pVList->SetItemButtonPixmap(index,btnIndex,list);
             m_pVList->SetSpecifiedIDStatus(index,1);
         }
-        else if(idStatus == 1)
+        else if(1 == idStatus )
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<"none"<<"none";
@@ -221,7 +221,7 @@ void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
     case 1:
     {
         int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
-        if(idStatus == 0)
+        if(0 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
@@ -234,7 +234,7 @@ void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
             p.insert(make_pair("HourSystem","24h"));
             HMIFrameWork::Inst()->Notify(STATUSBAR_ID,p);
         }
-        else if(idStatus == 1)
+        else if(1 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<"none"<<"none";

@@ -21,7 +21,7 @@ int HVACData::GetZone()
 
 HVACData *HVACData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst )
     {
         m_pInst = new HVACData();
     }

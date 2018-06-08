@@ -1,5 +1,5 @@
 #include "HVAC/UI/HVACRearViewOff.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"

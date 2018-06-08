@@ -4,7 +4,7 @@
 #include <QFontMetrics>
 #include <QPainter>
 #include <QDate>
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include <QPixmap>
 #define Log qDebug
 CVListWidget::CVListWidget(QWidget *parent)
@@ -85,6 +85,9 @@ void CVListWidget::InsertItem(int index, CListWidgetItem *item)
             pListItem->setData(CListWidgetItem::eSpecialTextRectMode, item->m_specialTextRectList);
             pListItem->setData(CListWidgetItem::eSpecialTextStringMode, item->m_specialTextStringList);
             pListItem->setData(CListWidgetItem::eSpecialTextTypeMode, item->m_specialTextTypeList);
+            pListItem->setData(CListWidgetItem::eSpecialTextBackgroundRectMode, item->m_iconRectspecialTextBackgroundList);
+            pListItem->setData(CListWidgetItem::eSpecialTextBackgroundIconMode, item->m_iconspecialTextBackgroundList);
+
         }
         // for icons
         if (item->m_iconRectList.count() > 0)
@@ -152,6 +155,9 @@ void CVListWidget::InsertItem(int index, const CListWidgetItem& item)
             pListItem->setData(CListWidgetItem::eSpecialTextRectMode, item.m_specialTextRectList);
             pListItem->setData(CListWidgetItem::eSpecialTextStringMode, item.m_specialTextStringList);
             pListItem->setData(CListWidgetItem::eSpecialTextTypeMode, item.m_specialTextTypeList);
+            pListItem->setData(CListWidgetItem::eSpecialTextBackgroundRectMode, item.m_iconRectspecialTextBackgroundList);
+            pListItem->setData(CListWidgetItem::eSpecialTextBackgroundIconMode, item.m_iconspecialTextBackgroundList);
+
         }
         // for icons
         if (item.m_iconRectList.count() > 0)
@@ -491,6 +497,20 @@ QString CVListWidget::GetSpecifiedText(int index)
     return QString();
 }
 
+QString CVListWidget::GetSpecifiedText2(int index)
+{
+    QListWidgetItem* pItem = item(index);
+    if (pItem)
+    {
+        QVariant dataSpecifiedIDNum = pItem->data(CListWidgetItem::eSpecifiedIDNum2Mode);
+        if (!dataSpecifiedIDNum.isNull())
+        {
+            return dataSpecifiedIDNum.toString();
+        }
+    }
+    return QString();
+}
+
 bool CVListWidget::IsElidedTextEnabled()
 {
     return m_bElidedTextEnabled;
@@ -715,6 +735,16 @@ void CVListWidget::SetSpecifiedText(int index, QString text)
     if(pItem)
     {
         pItem->setData(CListWidgetItem::eSpecifiedIDNumMode,text);
+        update();
+    }
+}
+
+void CVListWidget::SetSpecifiedText2(int index, QString text)
+{
+    QListWidgetItem* pItem = item(index);
+    if(pItem)
+    {
+        pItem->setData(CListWidgetItem::eSpecifiedIDNum2Mode,text);
         update();
     }
 }

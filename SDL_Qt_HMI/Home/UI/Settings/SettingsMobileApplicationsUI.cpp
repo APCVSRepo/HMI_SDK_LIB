@@ -1,5 +1,5 @@
 #include "SettingsMobileApplicationsUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsMobileApplicationsData.h"
 SettingsMobileApplicationsUI::SettingsMobileApplicationsUI(QWidget *parent)
@@ -83,10 +83,10 @@ void SettingsMobileApplicationsUI::viewAction(int state)
 
 void SettingsMobileApplicationsUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsMobileApplicationsUI index = " << index <<" btnIndex = " <<btnIndex;
+    INFO()<<"SettingsMobileApplicationsUI index = " << index <<" btnIndex = " <<btnIndex;
     int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
 
-    if(idStatus == 0)
+    if(0 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_on.png"<<"none"<<"none";
@@ -95,7 +95,7 @@ void SettingsMobileApplicationsUI::OnListBtnClick(int index, int btnIndex)
 
         //TODO : add  open code
     }
-    else if(idStatus == 1)
+    else if(1 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_close.png"<<"none"<<"none";

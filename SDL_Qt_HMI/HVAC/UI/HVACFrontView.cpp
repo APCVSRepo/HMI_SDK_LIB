@@ -1,5 +1,5 @@
 #include "HVAC/UI/HVACFrontView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
 #include "AppLayer.h"
@@ -507,7 +507,7 @@ void HVACFrontView::OnTitleReart()
 
 void HVACFrontView::OnHairModeSelect(int Id)
 {
-    qDebug()<<" OnHairModeSelect id = " << Id;
+    INFO()<<" OnHairModeSelect id = " << Id;
     switch (Id) {
     case eFrontHairMode:
     {

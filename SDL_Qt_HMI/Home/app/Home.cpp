@@ -15,7 +15,7 @@ Home::Home()
 
 Home *Home::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new Home();
     }
@@ -80,10 +80,10 @@ void Home::WeatherClicked()
     HMIFrameWork::Inst()->AppShow(WEATHER_ID);
 }
 
-bool Home::SetNotifyBTShowStatus(bool b)
+bool Home::SetNotifyBTShowStatus(bool isShow)
 {
-    m_bNotifyBTShow = b;
-    if(!b)
+    m_bNotifyBTShow = isShow;
+    if(!isShow)
     {
        m_NotifyBTShowId = "";
     }
@@ -117,17 +117,17 @@ void Home::OnAppShow(string appId, string viewId)
     switch (state) {
     case AppStatus_Active:
     {
-        if(viewId == "Main")
+        if("Main" == viewId)
         {
             ViewForwardById(eViewId_Main);
-        }else if(viewId == "SettingsMain")
+        }else if("SettingsMain" == viewId)
         {
             ViewForwardById(eViewId_Settings_Main);
         }
-        else if(viewId == "BootAnimation")
+        else if("BootAnimation" == viewId)
         {
             ViewForwardById(eViewId_BootAnimation);
-        }else if(viewId == "BTSetting")
+        }else if("BTSetting" == viewId)
         {
             ViewForwardById(eViewId_Settings_BT);
         }
@@ -222,9 +222,9 @@ void Home::OnNotify(string appId, map<string, string> parameter)
         string type = it->second;
         INFO()<<QString::fromStdString(type);
 
-        if(type == "SettingsMain")
+        if("SettingsMain" ==  type)
         {
-            if(getState() == AppStatus_Active)
+            if(AppStatus_Active == getState())
             {
                 INFO()<<" SettingsMain";
                 ViewForwardById(eViewId_Settings_Main);
@@ -238,7 +238,7 @@ void Home::OnNotify(string appId, map<string, string> parameter)
     if(it!=parameter.end())
     {
         string type = it->second;
-        if(type == "BootAnimationFinish")
+        if("BootAnimationFinish" == type)
         {
             ViewForwardById(eViewId_Main);
             HMIFrameWork::Inst()->AppShow(STATUSBAR_ID);
@@ -249,7 +249,7 @@ void Home::OnNotify(string appId, map<string, string> parameter)
     if(it!=parameter.end())
     {
         string type = it->second;
-        if(type == "Show")
+        if("Show" == type)
         {
             m_bNotifyBTShow = true;
             it = parameter.find("FromAppId");
@@ -260,7 +260,7 @@ void Home::OnNotify(string appId, map<string, string> parameter)
             if(getState() != AppStatus_Active)
             {
                 HMIFrameWork::Inst()->AppShow(HOME_ID,"BTSetting");
-            }else if(getState() == AppStatus_Active)
+            }else if(AppStatus_Active == getState())
             {
                 ViewForwardById(eViewId_Settings_BT);
             }
@@ -273,7 +273,7 @@ void Home::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        qDebug() << "OnReply = " << QString::fromStdString( it->second);
+        INFO() << "OnReply = " << QString::fromStdString( it->second);
     }
 }
 

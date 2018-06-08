@@ -2,6 +2,9 @@
 #define APPCONFIG_H
 
 #include <QString>
+
+#define CONST_ZERO                  0
+
 #define  SCREEN_H                   800 // mainwindow heigt
 #define  SCREEN_W                   480 // mainwindow width
 
@@ -60,6 +63,7 @@
 #define SDLAPPS_ID "APPLICATION"
 #define MESSAGE_ID "MESSAGE"
 #define NAV_ID "NAV"
+#define VR_ID "VR"
 
 struct AppInfo
 {

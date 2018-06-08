@@ -106,7 +106,7 @@ public:
     //setEasingCurve(QEasingCurve::OutElastic);
     void JitterAnimation(int time);
 
-    void SetExist(bool b);
+    void SetExist(bool isExit);
     QPoint GetGlobalPos(const QPoint currPos);
 
     CCBtnInfo GetInfo();

@@ -218,7 +218,7 @@ void App::EraseView(CView *pView)
 
 void App::PushView(CView *pView)
 {
-    if(pView == NULL)
+    if( NULL == pView )
     {
         return;
     }
@@ -226,7 +226,7 @@ void App::PushView(CView *pView)
     if(m_pAppViewStack.size() > 0)
     {
         CView* temp = m_pAppViewStack.at(0);
-        if(pView == temp || temp == NULL)
+        if(pView == temp || NULL == temp )
         {
             return;
         }

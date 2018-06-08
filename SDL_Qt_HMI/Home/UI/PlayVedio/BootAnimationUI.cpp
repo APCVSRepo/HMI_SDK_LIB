@@ -17,7 +17,7 @@ BootAnimationUI::BootAnimationUI(QWidget *parent)
 
 void BootAnimationUI::viewAction(int state)
 {
-    qDebug()<<"BootAnimationUI = " << state;
+    INFO()<<"BootAnimationUI = " << state;
     switch (state) {
     case eViewStatus_Active:
     {

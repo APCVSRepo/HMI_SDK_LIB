@@ -1,7 +1,7 @@
 #include "SettingsWifiPasswordUI.h"
 #include "Home/data/Settings/SettingsWifiData.h"
 #include "Home/app/Home.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 SettingsWifiPasswordUI::SettingsWifiPasswordUI(QWidget *parent)
     :QWidget(parent)
@@ -96,17 +96,17 @@ void SettingsWifiPasswordUI::OnBack()
 
 void SettingsWifiPasswordUI::OnConnectBtnClicked()
 {
-    qDebug()<<"[SettingsWifiPasswordUI]OnConnectBtnClicked";
+    INFO()<<"[SettingsWifiPasswordUI]OnConnectBtnClicked";
     //TODO: check password, and do connect if right, else show error msg.
     QString enteredPassword = m_pPasswordEdit->text();
-    qDebug()<<"enteredPassword:"<<enteredPassword;
+    INFO()<<"enteredPassword:"<<enteredPassword;
 
     if(SettingsWifiData::GetInstance()->CheckPassword(enteredPassword))
     {
         //success
         m_pPasswordError->hide();
         //TODO: connect wifi, and show connecting view
-        qDebug()<<"[SettingsWifiPasswordUI]CheckPassword success";
+        INFO()<<"[SettingsWifiPasswordUI]CheckPassword success";
        // Home::Inst()->ViewForwardById(Home::eViewId_Settings_Wifi);
         Home::Inst()->ViewBack();
     }
@@ -114,13 +114,13 @@ void SettingsWifiPasswordUI::OnConnectBtnClicked()
     {
         //failed
         m_pPasswordError->show();
-        qDebug()<<"[SettingsWifiPasswordUI]CheckPassword failed";
+        INFO()<<"[SettingsWifiPasswordUI]CheckPassword failed";
     }
 }
 
 void SettingsWifiPasswordUI::OnCancelBtnClicked()
 {
-    qDebug()<<"[SettingsWifiPasswordUI]OnCancelBtnClicked";
+    INFO()<<"[SettingsWifiPasswordUI]OnCancelBtnClicked";
     //TODO: return to SettingsWifiUI view
    // Home::Inst()->ViewForwardById(Home::eViewId_Settings_Wifi);
     Home::Inst()->ViewBack();

@@ -23,13 +23,15 @@ public:
     void SetId(int id);
     void SetData(const QString& data );
 
+    void SetEnabled(bool isEnabeled);
+
     QString GetType();
     eStatus GetStatus();
     QString GetData();
     int GetId();
     void SetIcon(const QRect& rect,const QString& icon);
     void SetText(const QRect &rect, const QString& text,int fontsize = 24,Qt::Alignment align = Qt::AlignCenter,const QColor &color = QColor(255,255,255));
-
+    void SetEffect(double effect);
 
 
 protected:
@@ -59,6 +61,9 @@ private:
 
     QTimer m_LongPressTotalTimer;
     QTimer m_LongPressTimer;
+
+    bool m_bIsEnabled;
+    double m_dEffect;
 
 };
 
