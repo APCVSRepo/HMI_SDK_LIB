@@ -161,7 +161,7 @@ bool QuickLanuchView::MouseEvent(QObject *obj, QEvent *event)
                    {
                        QuickLanuchWindow *Parent = dynamic_cast<QuickLanuchWindow*>(this->parent());
                        connect(Parent,SIGNAL(PullBackFinish()),this,SLOT(OnPullBackFinish()),Qt::UniqueConnection);
-                       qDebug()<<Parent->geometry();
+                       INFO()<<Parent->geometry();
                        if(Parent->geometry().x() == 0)
                        {
                             emit SigPllBack("BACK");
@@ -613,7 +613,7 @@ CCButton* QuickLanuchView::Index(int x, int y)
         {
             QRect rect((*it)->GetViewRect().x(),(*it)->GetViewRect().y(),\
                        (*it)->GetViewRect().width(),(*it)->GetViewRect().height());
-            qDebug() << " m_viewRect = " << m_viewRect <<"rect =  " <<rect;
+            INFO() << " m_viewRect = " << m_viewRect <<"rect =  " <<rect;
             if(rect.contains(x,y))
             {
                 return (*it);

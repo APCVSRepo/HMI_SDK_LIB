@@ -14,7 +14,7 @@ QuickLanuch::QuickLanuch()
 
 QuickLanuch *QuickLanuch::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new QuickLanuch();
     }
