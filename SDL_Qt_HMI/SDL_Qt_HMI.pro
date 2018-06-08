@@ -73,6 +73,10 @@ SOURCES += main.cpp\
     HMIWidgets/CComboBoxDelegate.cpp \
     HMIWidgets/CRotationWidget.cpp \
     HMIWidgets/CSlider.cpp \
+    HMIWidgets/AlbumCoverWidget.cpp \
+    HMIWidgets/TopNavigateWidget.cpp \
+    HMIWidgets/AppListWidget.cpp \
+    HMIWidgets/CAppButton.cpp \
     Home/app/Home.cpp \
     Home/Factory/HomeVFactory.cpp \
     Home/UI/HomeView.cpp \
@@ -108,20 +112,15 @@ SOURCES += main.cpp\
     StatusBar/UI/StatusBarWindow.cpp \
     SDLApps/Templates/Alert/AlertView.cpp \
     SDLApps/Templates/AppListView/AppListView.cpp \
-    SDLApps/Templates/AppListView/CAppButton.cpp \
+ #   SDLApps/Templates/AppListView/CAppButton.cpp \
     SDLApps/Templates/AppListView/DeviceListView.cpp \
-    SDLApps/Templates/AudioPassThru/AudioPassView.cpp \
     SDLApps/Templates/ChoiceSet/ChoiceSet.cpp \
     SDLApps/Templates/ChoiceSet/ChoiceSetVR.cpp \
     SDLApps/Templates/CommandView/CommandView.cpp \
-    SDLApps/Templates/CommandView/CustomCombobox.cpp \
-    SDLApps/Templates/CommandView/CustomComboboxItem.cpp \
     SDLApps/Templates/Common/AppBase.cpp \
     SDLApps/Templates/Common/Button.cpp \
-    SDLApps/Templates/Common/CustomButton.cpp \
     SDLApps/Templates/Common/CustomListView.cpp \
     SDLApps/Templates/Common/MenuButton.cpp \
-    SDLApps/Templates/Common/ScrollBar.cpp \
     SDLApps/Templates/Config/Config.cpp \
     SDLApps/Templates/ScrollableMessage/ScollMsgView.cpp \
     SDLApps/Templates/Show/GraphicSoftButtonShow.cpp \
@@ -136,12 +135,19 @@ SOURCES += main.cpp\
     SDLApps/UI/SDLAppsView.cpp \
     SDLApps/UI/SDLAppsWindow.cpp \
     SDLApps/Templates/UIManager.cpp \
+    SDLApps/Data/SDLAppsData.cpp \
     PopUp/app/PopUp.cpp \
     PopUp/Factory/PopUpVFactory.cpp \
     PopUp/UI/PopUpWindow.cpp \
     PopUp/UI/PopUpViewUI.cpp \
     PopUp/UI/PopupGeneralView.cpp \
     PopUp/UI/PopUpBase.cpp \
+    Prompt/app/Prompt.cpp \
+    Prompt/Factory/PromptVFactory.cpp \
+    Prompt/UI/PromptBase.cpp \
+    Prompt/UI/PromptNavView.cpp \
+    Prompt/UI/PromptViewUI.cpp \
+    Prompt/UI/PromptWindow.cpp \
     HVAC/app/HVAC.cpp \
     HVAC/Factory/HVACVFactory.cpp \
     HVAC/UI/HVACWindow.cpp \
@@ -158,7 +164,32 @@ SOURCES += main.cpp\
     Phone/data/PhoneData.cpp \
     Phone/UI/ContactsView.cpp \
     Phone/UI/RecentsView.cpp \
-    Phone/UI/ContactsDetailsView.cpp
+    Phone/UI/ContactsDetailsView.cpp \
+    Prompt/UI/PromptMessageView.cpp \
+    Phone/UI/CallingView.cpp \
+    Message/app/Message.cpp \
+    Message/data/MessageData.cpp \
+    Message/Factory/MessageVFactory.cpp \
+    Message/UI/MessagesView.cpp \
+    Message/UI/MessageWindow.cpp \
+    Message/UI/MessageListView.cpp \
+    Navigation/app/Navigation.cpp \
+    Navigation/Factory/NavigationVFactory.cpp \
+    Navigation/UI/NavigationWindow.cpp \
+    Navigation/UI/NavigationView.cpp \
+    Media/app/Media.cpp \
+    Media/Factory/MediaVFactory.cpp \
+    Media/UI/MediaView.cpp \
+    Media/UI/MediaWindow.cpp \
+    Message/UI/MessagesNoNewInfoView.cpp \
+    VR/app/VR.cpp \
+    VR/Factory/VRVFactory.cpp \
+    VR/UI/VRView.cpp \
+    VR/UI/VRWindow.cpp \
+    VR/UI/VRInteractionView.cpp
+
+
+
 
 unix {
     SOURCES += SDLApps/Templates/utils/VideoStream/gst_player.cpp
@@ -195,6 +226,10 @@ HEADERS  +=  \
     HMIWidgets/CComboBoxDelegate.h \
     HMIWidgets/CRotationWidget.h \
     HMIWidgets/CSlider.h \
+    HMIWidgets/AlbumCoverWidget.h \
+    HMIWidgets/TopNavigateWidget.h \
+    HMIWidgets/AppListWidget.h \
+    HMIWidgets/CAppButton.h \
     Home/app/Home.h \
     Home/Factory/HomeVFactory.h \
     Home/UI/HomeView.h \
@@ -235,20 +270,14 @@ HEADERS  +=  \
     SDLApps/Templates/UIManager.h \
     SDLApps/Templates/Alert/AlertView.h \
     SDLApps/Templates/AppListView/AppListView.h \
-    SDLApps/Templates/AppListView/CAppButton.h \
     SDLApps/Templates/AppListView/DeviceListView.h \
-    SDLApps/Templates/AudioPassThru/AudioPassView.h \
     SDLApps/Templates/ChoiceSet/ChoiceSet.h \
     SDLApps/Templates/ChoiceSet/ChoiceSetVR.h \
     SDLApps/Templates/CommandView/CommandView.h \
-    SDLApps/Templates/CommandView/CustomCombobox.h \
-    SDLApps/Templates/CommandView/CustomComboboxItem.h \
     SDLApps/Templates/Common/AppBase.h \
     SDLApps/Templates/Common/Button.h \
-    SDLApps/Templates/Common/CustomButton.h \
     SDLApps/Templates/Common/CustomListView.h \
     SDLApps/Templates/Common/MenuButton.h \
-    SDLApps/Templates/Common/ScrollBar.h \
     SDLApps/Templates/Config/Config.h \
     SDLApps/Templates/ScrollableMessage/ScollMsgView.h \
     SDLApps/Templates/Show/GraphicSoftButtonShow.h \
@@ -258,12 +287,19 @@ HEADERS  +=  \
     SDLApps/Templates/Template/TemplateImp.h \
     SDLApps/Templates/Template/TemplateManager.h \
     SDLApps/Templates/utils/VideoStream/CeVideoStream.h \
+    SDLApps/Data/SDLAppsData.h \
     PopUp/app/PopUp.h \
     PopUp/Factory/PopUpVFactory.h \
     PopUp/UI/PopUpWindow.h \
     PopUp/UI/PopUpViewUI.h \
     PopUp/UI/PopupGeneralView.h \
     PopUp/UI/PopUpBase.h \
+    Prompt/app/Prompt.h \
+    Prompt/Factory/PromptVFactory.h \
+    Prompt/UI/PromptBase.h \
+    Prompt/UI/PromptNavView.h \
+    Prompt/UI/PromptViewUI.h \
+    Prompt/UI/PromptWindow.h \
     HVAC/app/HVAC.h \
     HVAC/Factory/HVACVFactory.h \
     HVAC/UI/HVACWindow.h \
@@ -280,7 +316,29 @@ HEADERS  +=  \
     Phone/data/PhoneData.h \
     Phone/UI/ContactsView.h \
     Phone/UI/RecentsView.h \
-    Phone/UI/ContactsDetailsView.h
+    Phone/UI/ContactsDetailsView.h \
+    Prompt/UI/PromptMessageView.h \
+    Phone/UI/CallingView.h \
+    Message/app/Message.h \
+    Message/data/MessageData.h \
+    Message/Factory/MessageVFactory.h \
+    Message/UI/MessagesView.h \
+    Message/UI/MessageWindow.h \
+    Message/UI/MessageListView.h \
+    Navigation/app/Navigation.h \
+    Navigation/Factory/NavigationVFactory.h \
+    Navigation/UI/NavigationWindow.h \
+    Navigation/UI/NavigationView.h \
+    Media/app/Media.h \
+    Media/Factory/MediaVFactory.h \
+    Media/UI/MediaView.h \
+    Media/UI/MediaWindow.h \ 
+    Message/UI/MessagesNoNewInfoView.h \
+    VR/app/VR.h \
+    VR/Factory/VRVFactory.h \
+    VR/UI/VRView.h \
+    VR/UI/VRWindow.h \
+    VR/UI/VRInteractionView.h
 
 
 
@@ -294,14 +352,19 @@ unix {
 
 
 RESOURCES += \
-    SDLApps/Templates/image.qrc \
     Home/Source/HomeImages.qrc \
     QuickLanuch/Source/QuickLanuchImages.qrc \
     Home/Source/images/Settings/SettingsSource.qrc \
     StatusBar/Source/StatusBarImages.qrc \
     PopUp/Source/PopUpImages.qrc \
     HVAC/Source/HVACImages.qrc \
-    Phone/Source/PhoneImages.qrc
+    Phone/Source/PhoneImages.qrc \
+    Prompt/Source/PromptImages.qrc \
+    Message/Source/MessageImages.qrc \
+    SDLApps/Source/SDLAppsImages.qrc \
+    Navigation/Source/NavigationImages.qrc \
+    Media/Source/MediaImages.qrc \
+    VR/Source/VRImages.qrc
 
 unix {
   x86 {
