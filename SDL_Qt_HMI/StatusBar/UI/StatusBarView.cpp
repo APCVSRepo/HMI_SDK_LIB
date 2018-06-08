@@ -6,9 +6,6 @@
 
 #define INVALID_TEMPERATURE 9999
 
-//#define ENABLE_STATUSBARVIEW_TEST
-//#define ENABLE_STATUSBARVIEW_TEST_AUTO
-
 StatusBarView::StatusBarView(QWidget *parent)
     :QWidget(parent)
     ,CView(StatusBar::eViewId_Main)
@@ -38,7 +35,7 @@ StatusBarView::StatusBarView(QWidget *parent)
 
     m_pBackgroundLabel = new QLabel(this);
     m_pBackgroundLabel->setGeometry(QRect(0,0,800,40));
-    m_pBackgroundLabel->setStyleSheet("QLabel{border-image:url(:/StatusBar/Source/images/bg.png);background:transparent;}");
+    m_pBackgroundLabel->setStyleSheet("QLabel{border-image:url(:/StatusBar/Source/images/statusbar_bg.png);background:transparent;}");
     m_pBackgroundLabel->lower();
     m_pBackgroundLabel->show();
 
@@ -194,105 +191,16 @@ void StatusBarView::viewAction(int state)
 void StatusBarView::OnHomeBtnClicked()
 {
     HMIFrameWork::Inst()->AppShow(HOME_ID);
-
-
-#ifdef ENABLE_STATUSBARVIEW_TEST
-    //test
-    this->OnLoadingStatusChanged(false);
-    m_pLoadingIcon->stop();
-
-    SetBTStatus(false);
-    SetMessageStatus(false);
-    SetWifiStatus(false);
-    SetUSBStatus(false);
-
-#endif
 }
 
 void StatusBarView::OnVRClicked()
 {
-    //TODO: show VR view
-
-#ifdef ENABLE_STATUSBARVIEW_TEST
-    SetBTStatus(true);
-    SetMessageStatus(true,11);
-    SetWifiStatus(true);
-    SetUSBStatus(true);
-
-    //test
-    this->OnLoadingStatusChanged(true);
-    m_pLoadingIcon->start();
-#endif
-
+    HMIFrameWork::Inst()->AppShow(VR_ID);
 }
 
 void StatusBarView::OnTimeUpdate()
 {
     m_pTimeLabel->setText(QTime::currentTime().toString("hh:mm"));
-
-#ifdef ENABLE_STATUSBARVIEW_TEST_AUTO
-
-    static int s_temp = -50;
-    m_iCurrentTemperature = s_temp;
-    s_temp +=9;
-    if(s_temp > 100)
-    {
-        s_temp -= 150;
-        m_bUnitCelsius = !m_bUnitCelsius;
-    }
-    this->UpdateTemperature();
-
-    static int count = 0;
-    if(count%15 == 1)
-    {
-        this->OnLoadingStatusChanged(true);
-        m_pLoadingIcon->start();
-    }
-    else if(count%15 == 7)
-    {
-        this->OnLoadingStatusChanged(false);
-        m_pLoadingIcon->stop();
-    }
-
-    if(count%3 == 2)
-    {
-        SetBTStatus(true);
-    }
-    if(count%4 == 2)
-    {
-        SetMessageStatus(true,count);
-    }
-    if(count%5 == 2)
-    {
-        SetWifiStatus(true);
-    }
-    if(count%3 == 0)
-    {
-        SetUSBStatus(true);
-    }
-
-    //hide
-    if(count%10 == 2)
-    {
-        SetBTStatus(false);
-    }
-    if(count%13 == 2)
-    {
-        SetMessageStatus(false);
-    }
-    if(count%17 == 2)
-    {
-        SetWifiStatus(false);
-    }
-    if(count%19 == 2)
-    {
-        SetUSBStatus(false);
-    }
-    if(++count>100)
-    {
-        count = 0;
-    }
-#endif
 }
 
 void StatusBarView::OnLoadingStatusChanged(bool status)

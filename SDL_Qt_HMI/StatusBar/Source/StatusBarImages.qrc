@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/StatusBar/Source">
-        <file>images/bg.png</file>
         <file>images/home.png</file>
         <file>images/vr.png</file>
         <file>images/line.png</file>
@@ -10,5 +9,6 @@
         <file>images/loading.png</file>
         <file>images/wifi.png</file>
         <file>images/message.png</file>
+        <file>images/statusbar_bg.png</file>
     </qresource>
 </RCC>

@@ -17,7 +17,7 @@ StatusBar::StatusBar()
 
 StatusBar *StatusBar::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new StatusBar();
     }
