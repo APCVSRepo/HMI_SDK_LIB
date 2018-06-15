@@ -2,10 +2,8 @@
 #define HOME_H
 
 #include "HMIFrameWork/App.h"
-#include "Home/UI/HomeView.h"
 #include <QWidget>
 #include "HMIFrameWork/AppConfig.h"
-#include "Home/Factory/HomeVFactory.h"
 #include <QObject>
 class Home:public QObject,public App
 {

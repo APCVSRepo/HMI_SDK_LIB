@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 HomeView::HomeView(QWidget *parent)

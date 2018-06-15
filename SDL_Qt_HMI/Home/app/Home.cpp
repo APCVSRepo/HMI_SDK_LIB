@@ -2,6 +2,8 @@
 #include "Home/UI/HomeWindow.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "Home/data/Settings/SettingsBTData.h"
+#include "HMIFrameWork/log_interface.h"
+#include "Home/Factory/HomeVFactory.h"
 
 Home* Home::m_pInst = NULL;
 Home::Home()

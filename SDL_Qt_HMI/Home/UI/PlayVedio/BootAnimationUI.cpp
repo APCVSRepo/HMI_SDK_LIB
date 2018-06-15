@@ -1,6 +1,8 @@
 #include "BootAnimationUI.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/HMIFrameWork.h"
+#include "HMIFrameWork/log_interface.h"
+
 BootAnimationUI::BootAnimationUI(QWidget *parent)
     :QWidget(parent)
     ,CView(Home::eViewId_BootAnimation)

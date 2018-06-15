@@ -112,6 +112,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
             item.SetSpecifiedIDStatus(1);
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             item.AddButton(QRect(647,0,71,57),list);
+            m_pDateTime->setEnabled(false);
         }else if(1 == i)
         {
             QStringList list;
@@ -140,10 +141,8 @@ void SettingsDateTimeUI::viewAction(int state)
 {
     switch (state) {
     case eViewStatus_Active:
-        m_timer.stop();
         break;
     case eViewStatus_Inactive:
-        m_timer.start();
         break;
     default:
         break;
@@ -208,6 +207,17 @@ void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
             m_pVList->SetItemButtonPixmap(index,btnIndex,list);
             m_pVList->SetSpecifiedIDStatus(index,1);
+            m_pDateTime->SetCurrentDate(QDateTime::currentDateTime().date(),true);
+            if(m_pDateTime->GetIs12HourSystem())
+            {
+                m_pDateTime->SetCurrentHour(TimeTo12HourClock(QTime::currentTime().hour()),true);
+                m_pDateTime->SetCurrentAMPM(GetAmOrPm(QTime::currentTime().hour()),true);
+            }else {
+                m_pDateTime->SetCurrentHour(QTime::currentTime().hour(),true);
+            }
+            m_pDateTime->SetCurrentMinute(QTime::currentTime().minute(),true);
+            m_timer.start();
+            m_pDateTime->setEnabled(false);
         }
         else if(1 == idStatus )
         {
@@ -215,6 +225,8 @@ void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
             list<<":/Settings/button_h_close.png"<<"none"<<"none";
             m_pVList->SetItemButtonPixmap(index,btnIndex,list);
             m_pVList->SetSpecifiedIDStatus(index,0);
+            m_timer.stop();
+            m_pDateTime->setEnabled(true);
         }
     }
         break;

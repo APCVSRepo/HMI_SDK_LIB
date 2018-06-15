@@ -304,6 +304,22 @@ void SettingsSoundUI::OnBack()
 void SettingsSoundUI::OnReset()
 {
     INFO()<<" OnReset" ;
+    for(int i = 0; i < m_trebleList.size();i++)
+    {
+        m_trebleList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    for(int i = 0; i < m_altoList.size();i++)
+    {
+        m_altoList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    for(int i = 0; i < m_bassList.size();i++)
+    {
+        m_bassList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    m_pTrebleDataLabel->setText("0");
+    m_pAltoDataLabel->setText("0");
+    m_pBassDataLabel->setText("0");
+
 }
 
 void SettingsSoundUI::OnListBtnRelease(int index, int btnIndex)
