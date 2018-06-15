@@ -49,7 +49,6 @@ OBJECTS_DIR=temp/obj
 DESTDIR=bin
 
 SOURCES += main.cpp\
-    AppLayer.cpp \
     MainWindow.cpp \
     HMIFrameWork/AppManager.cpp \
     HMIFrameWork/log_interface.cpp \
@@ -199,7 +198,6 @@ unix {
 
 HEADERS  +=  \
     main.h \
-    AppLayer.h \
     MainWindow.h \
     HMIFrameWork/AppConfig.h \
     HMIFrameWork/AppManager.h \
