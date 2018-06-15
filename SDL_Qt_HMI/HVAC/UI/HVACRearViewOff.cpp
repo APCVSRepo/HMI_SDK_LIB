@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 HVACRearViewOff::HVACRearViewOff(QWidget *parent)
