@@ -157,8 +157,8 @@ bool PhonePicker::MouseEvent(QObject *object, QEvent *event)
         {
             int index = this->row(pItem);
             m_Index =index;
-            QString StrText = this->GetItemText(m_Index);
-            emit  CurrentText(m_Index,StrText);
+            QString StrText = this->GetItemText(index);
+            emit  CurrentText(index,StrText);
         //    emit pressIndex(indexPress);
         }
         break;
@@ -175,8 +175,8 @@ bool PhonePicker::MouseEvent(QObject *object, QEvent *event)
              if(m_Index != index)
              {
                  m_Index  = index;
-                 QString StrText = this->GetItemText(m_Index);
-                 emit  CurrentText(m_Index,StrText);
+                 QString StrText = this->GetItemText(index);
+                 emit  CurrentText(index,StrText);
              }
          }
 
