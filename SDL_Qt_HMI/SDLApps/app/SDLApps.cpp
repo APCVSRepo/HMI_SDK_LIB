@@ -213,7 +213,7 @@ void SDLApps::OnAppListUpdate()
             tempMap[QString("appIcon").append(QString::number(i)).toStdString()] = naviAppList[i].appIcon;
             //        tempMap[QString("appType").append(QString::number(i)).toStdString()] = naviAppList[i].appType;
         }
-        INFO("[NaviAppList]END total: %d", naviAppList.size());
+        INFO("[NaviAppList]END total: %ld", naviAppList.size());
         HMIFrameWork::Inst()->Notify(NAV_ID, tempMap);
     }
     {
@@ -231,7 +231,7 @@ void SDLApps::OnAppListUpdate()
             tempMap[QString("appIcon").append(QString::number(i)).toStdString()] = mediaAppList[i].appIcon;
             //        tempMap[QString("appType").append(QString::number(i)).toStdString()] = mediaAppList[i].appType;
         }
-        INFO("[MediaAppList]END total: %d", mediaAppList.size());
+        INFO("[MediaAppList]END total: %ld", mediaAppList.size());
         HMIFrameWork::Inst()->Notify(MEDIA_ID, tempMap);
     }
 }

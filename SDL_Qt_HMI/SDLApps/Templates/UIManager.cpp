@@ -361,7 +361,7 @@ void UIManager::loadsdk() {
     if (Init) {
         /*AppListInterface *pApp = */Init(this);
     } else {
-        LOGE("can't load hmi sdk lib, %s", strFilePath.data());
+        INFO("[SDL][Error]can't load hmi sdk lib, %s", strFilePath.data());
     }
     // 通知初始化完成
     emit finishLoadSDK();

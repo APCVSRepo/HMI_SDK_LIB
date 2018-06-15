@@ -169,7 +169,7 @@ void CCommandView::OnReturnBtnClicked() {
 
 void CCommandView::OnListItemClicked(int index)
 {
-    INFO("CCommandView::OnListItemClicked, index:", index);
+    INFO("CCommandView::OnListItemClicked, index: %d", index);
     if (NULL == m_pCurrentMenu) {
         if (0 == index) {
             if(SDLApps::Inst()->FromNavi())
