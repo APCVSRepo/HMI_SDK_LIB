@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "HMIFrameWork/AppManager.h"
 #include "HMIFrameWork/HMIFrameWork.h"
-#include "AppLayer.h"
 #include <QLabel>
 namespace Ui {
 class MainWindow;
@@ -36,7 +35,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QLabel *m_pBackgroundLabel;
-    AppLayer *m_pAppLayer;
+    QWidget *m_pAppLayer;
 
 };
 

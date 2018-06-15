@@ -22,8 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->setGeometry(QRect(0,0,800,480));
     this->resize(800,480);
     this->setStyleSheet("QMainWindow{border-image:url(:/Home/Source/images/bg.png);background:transparent;}");
-    m_pAppLayer = new AppLayer(this);
+    m_pAppLayer = new QWidget(this);
     m_pAppLayer->setGeometry(QRect(0,0,800,480));
+    m_pAppLayer->setStyleSheet("QWidget{background:transparent;}");
     m_pAppLayer->show();
     HMIFrameWork::Inst()->SetMain(reinterpret_cast<void*>(m_pAppLayer));
 
@@ -97,6 +98,9 @@ void MainWindow::InitHVAC()
 void MainWindow::InitPhone()
 {
     HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Phone::Inst()));
+    map<string,string> p;
+    p.insert(make_pair("Register","Finish"));
+    HMIFrameWork::Inst()->Notify(PHONE_ID,p);
 
 }
 
