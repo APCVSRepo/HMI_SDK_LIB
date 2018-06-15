@@ -1,4 +1,5 @@
 #include "App.h"
+#include <QWidget>
 #include "log_interface.h"
 App::App()
     :m_state(AppStatus_Inactive)
