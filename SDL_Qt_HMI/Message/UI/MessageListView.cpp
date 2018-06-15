@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -83,6 +82,7 @@ void MessageListView::InitConnect()
 {
     connect(m_pBackBtn,SIGNAL(clicked()),this,SLOT(OnBack()),Qt::UniqueConnection);
     connect(m_pMessagesList,SIGNAL(listItemReleased(int)),this,SLOT(OnListClick(int)),Qt::UniqueConnection);
+    connect(m_pMessagesList,SIGNAL(phoneNumberReleased(QString)),this,SLOT(OnPhoneNumberClick(QString)),Qt::UniqueConnection);
 
 }
 
@@ -118,6 +118,14 @@ void MessageListView::OnBack()
 void MessageListView::OnListClick(int index)
 {
 
+}
+
+void MessageListView::OnPhoneNumberClick(QString number)
+{
+    INFO("[Message] : OnPhoneNumberClick , %s .",number.toStdString().c_str());
+    map<string,string> p;
+    p.insert(make_pair("MessageDialNumber",number.toStdString()));
+    HMIFrameWork::Inst()->Notify(PHONE_ID,p);
 }
 
 

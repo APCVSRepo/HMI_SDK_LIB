@@ -46,6 +46,7 @@ public slots:
     void OnBack();
 
     void OnListClick(int);
+    void OnPhoneNumberClick(QString);
 private:
     CPushButton     *m_pBackBtn;
     QLabel          *m_pTitleLabel;
