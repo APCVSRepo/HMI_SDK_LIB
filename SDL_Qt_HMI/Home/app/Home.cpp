@@ -1,6 +1,8 @@
 #include "Home.h"
 #include "Home/UI/HomeWindow.h"
 #include "HMIFrameWork/HMIFrameWork.h"
+#include "Home/data/Settings/SettingsBTData.h"
+
 Home* Home::m_pInst = NULL;
 Home::Home()
     :m_bNotifyBTShow(false)
@@ -274,6 +276,22 @@ void Home::OnReply(string appId, map<string, string> parameter)
     if(it!=parameter.end())
     {
         INFO() << "OnReply = " << QString::fromStdString( it->second);
+        if("BTPair" == it->second)
+        {
+            SettingsBTData::GetInstance()->ConnectDevice(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else if("BTDisConnect" == it->second)
+        {
+            SettingsBTData::GetInstance()->DisconnectDevice(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else if("BTRemove" == it->second)
+        {
+            SettingsBTData::GetInstance()->RemoveDeviceFromPairedList(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else
+        {
+            //none
+        }
     }
 }
 

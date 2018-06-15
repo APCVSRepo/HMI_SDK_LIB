@@ -45,6 +45,7 @@ SettingsWifiUI::SettingsWifiUI(QWidget *parent)
     m_pVlist->show();
     connect(m_pBackBtn,SIGNAL(clicked()),this,SLOT(OnBack()),Qt::UniqueConnection);
     connect(this,SIGNAL(SigWifiStatusChanged(int)),this,SLOT(OnWifiStatusChanged(int)));
+    connect(this,SIGNAL(SigWifiStatusChanged(int)),SettingsWifiData::GetInstance(),SLOT(OnWifiStatusChanged(int)));
     connect(SettingsWifiData::GetInstance(),SIGNAL(SigWifiListUpdate()),this,SLOT(OnWifiListUpdate()));
 }
 

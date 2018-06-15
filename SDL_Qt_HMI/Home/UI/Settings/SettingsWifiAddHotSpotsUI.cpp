@@ -3,6 +3,7 @@
 #include "HMIWidgets/CComboBoxDelegate.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/log_interface.h"
+#include "HMIFrameWork/HMIFrameWork.h"
 
 SettingsWifiAddHotSpotsUI::SettingsWifiAddHotSpotsUI(QWidget *parent)
     :QWidget(parent)
@@ -160,6 +161,7 @@ void SettingsWifiAddHotSpotsUI::OnAddBtnClicked()
     else
     {
         //TODO: show popup
+        this->ShowPopUpAddFailed();
     }
 }
 
@@ -174,4 +176,22 @@ void SettingsWifiAddHotSpotsUI::showEvent(QShowEvent *)
     m_pNetNameEdit->setText("");
     m_pSecurityTypeComboBox->setCurrentIndex(0);
     m_pPasswordEdit->setText("");
+}
+
+void SettingsWifiAddHotSpotsUI::ShowPopUpAddFailed()
+{
+    INFO("SettingsWifiAddHotSpotsUI::ShowPopUpAddFailed");
+    map<string,string> msg;
+    msg.insert(make_pair("PopUpType","General"));
+    msg.insert(make_pair("PopUpId","WifiAddHotSpotsFailed"));
+    msg.insert(make_pair("Show","True"));
+    msg.insert(make_pair("FromAppId",HOME_ID));
+    msg.insert(make_pair("ButtonA","Confirm"));
+    msg.insert(make_pair("ReplyButtonA","Confirm"));
+    msg.insert(make_pair("ButtonB","Cancel"));
+    msg.insert(make_pair("ReplyButtonB","Cancel"));
+    QString contextA = QString("The information is incorrect, please retry");
+    msg.insert(make_pair("ContextA",contextA.toStdString()));
+
+    HMIFrameWork::Inst()->Notify(POPUP_ID,msg);
 }

@@ -14,6 +14,7 @@ SettingsWifiData *SettingsWifiData::GetInstance()
 
 SettingsWifiData::SettingsWifiData(QObject *parent)
     :QObject(parent)
+    ,m_WifiStatus("Close")
 {
     WifiDeviceInfo info1;
     info1.id = 1;
@@ -143,4 +144,17 @@ bool SettingsWifiData::CheckPasswordWithWifiInfo(QString netName, QString securi
     {
         return false;
     }
+}
+
+void SettingsWifiData::OnWifiStatusChanged(int status)
+{
+    if(status)
+    {
+        m_WifiStatus = QString("Open");
+    }
+    else
+    {
+        m_WifiStatus = QString("Close");
+    }
+    emit WifiStatusChanged(m_WifiStatus);
 }

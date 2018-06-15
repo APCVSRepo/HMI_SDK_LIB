@@ -28,6 +28,9 @@ public slots:
     void OnPatternChange(QString pattern);
     void OnMobileApplicationsStatus(QString status);
     void OnEmergencRescueStatus(QString status);
+    void OnBTStatusChanged(QString status);
+    void OnWifiStatusChanged(QString status);
+
 private:
     CVListWidget* m_pVlist;
     QLabel *m_pBackgroundLabel;

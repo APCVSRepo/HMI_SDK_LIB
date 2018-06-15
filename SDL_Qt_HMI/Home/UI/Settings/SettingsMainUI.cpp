@@ -6,6 +6,9 @@
 #include "Home/data/Settings/SettingsDisplayData.h"
 #include "Home/data/Settings/SettingsMobileApplicationsData.h"
 #include "Home/data/Settings/SettingsEmergencyData.h"
+#include "Home/data/Settings/SettingsBTData.h"
+#include "Home/data/Settings/SettingsWifiData.h"
+
 SettingsMainUI::SettingsMainUI(QWidget *parent)
     :QWidget(parent)
     ,CView(Home::eViewId_Settings_Main)
@@ -26,11 +29,11 @@ SettingsMainUI::SettingsMainUI(QWidget *parent)
     m_pVlist->SetItemBackgroundInfo("",":/Settings/list_push_bg.png","");
     QStringList titieList;
     titieList <<tr("Sound effect setting") << tr("Time and date") << tr("Routine setting") << \
-                 tr("Speech recogniton") << tr("Wi-Fi") << tr("Blue tooth") << tr("Display settings") <<\
+                 tr("Speech recogniton") << tr("Wi-Fi") << tr("Bluetooth") << tr("Display settings") <<\
                  tr("Mobile applications") << tr("Emergency rescue");
     QStringList textList;
     textList <<tr("Custom") << tr("12h") << tr("English") << \
-                 tr("Detailed speech primpt") << tr("Disconnected") << tr("Disconnected") << tr("Auto") <<\
+                 tr("Detailed speech primpt") << tr("Close") << tr("Close") << tr("Auto") <<\
                  tr("Open") << tr("Open");
     for(int i = 0 ; i < titieList.size() ;i++)
     {
@@ -62,7 +65,8 @@ void SettingsMainUI::InitConnect()
     connect(SettingsDisplayData::Inst(),SIGNAL(PatternChannge(QString)),this,SLOT(OnPatternChange(QString)),Qt::UniqueConnection);
     connect(SettingsMobileApplicationsData::Inst(),SIGNAL(MobileApplicationsStatusChange(QString)),this,SLOT(OnMobileApplicationsStatus(QString)),Qt::UniqueConnection);
     connect(SettingsEmergencyData::Inst(),SIGNAL(EmergencRescueStatusChange(QString)),this,SLOT(OnEmergencRescueStatus(QString)),Qt::UniqueConnection);
-
+    connect(SettingsBTData::GetInstance(),SIGNAL(BTStatusChanged(QString)),this,SLOT(OnBTStatusChanged(QString)),Qt::UniqueConnection);
+    connect(SettingsWifiData::GetInstance(),SIGNAL(WifiStatusChanged(QString)),this,SLOT(OnWifiStatusChanged(QString)),Qt::UniqueConnection);
 }
 
 void SettingsMainUI::viewAction(int state)
@@ -159,4 +163,14 @@ void SettingsMainUI::OnMobileApplicationsStatus(QString status)
 void SettingsMainUI::OnEmergencRescueStatus(QString status)
 {
     m_pVlist->UpdateItemText(8,status,1);
+}
+
+void SettingsMainUI::OnBTStatusChanged(QString status)
+{
+    m_pVlist->UpdateItemText(5,status,1);
+}
+
+void SettingsMainUI::OnWifiStatusChanged(QString status)
+{
+    m_pVlist->UpdateItemText(4,status,1);
 }
