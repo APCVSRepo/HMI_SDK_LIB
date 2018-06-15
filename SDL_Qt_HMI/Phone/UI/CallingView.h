@@ -22,7 +22,7 @@
 #include <QButtonGroup>
 #include <QLineEdit>
 #include "HMIWidgets/CVListWidget.h"
-
+#include "QTimer"
 class CallingView:public QWidget, public CView
 {
     Q_OBJECT
@@ -48,6 +48,8 @@ public slots:
     void OnHangUp();
     void OnMute();
     void OnReceiver();
+
+    void OnCallTimer();
 private:
     QString m_InputText;
     CPushButton*    m_pKeyboard;
@@ -65,6 +67,10 @@ private:
     CPushButton*    m_pMuteBtn;
     CPushButton*    m_pReceiverBtn;
 
+    QTimer          m_callTimer1;
+    QTimer          m_callTimer2;
+    int             m_iCallTime1;
+    int             m_iCallTime2;
 };
 
 #endif // CALLINGVIEW_H

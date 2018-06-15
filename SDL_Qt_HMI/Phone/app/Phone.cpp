@@ -1,10 +1,12 @@
 #include "Phone.h"
 #include "Phone/UI/PhoneWindow.h"
 #include "HMIFrameWork/HMIFrameWork.h"
+#include "Phone/data/PhoneData.h"
 Phone* Phone::m_pInst = NULL;
 Phone::Phone()
 {
 
+    m_bOutAppCall = false;
     setAppType(AppType_App);
     setAppId(PHONE_ID);
     InitViewFactory(PhoneVFactory::Inst());
@@ -44,6 +46,11 @@ void Phone::onReply(string appId, map<string, string> parameter)
     emit SigReply(appId,parameter);
 }
 
+bool Phone::IsOutAppCall()
+{
+    return m_bOutAppCall;
+}
+
 void Phone::OnAppShow(string appId, string viewId)
 {
     INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
@@ -73,6 +80,7 @@ void Phone::OnAppShow(string appId, string viewId)
 
 void Phone::OnAppHide()
 {
+    m_bOutAppCall = false;
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -96,7 +104,55 @@ void Phone::OnAppHide()
 void Phone::OnNotify(string appId, map<string, string> parameter)
 {
     INFO("Phone::onNotify appId=%s .",appId.c_str());
+    map<string,string>::const_iterator it = parameter.find("Register");
+    if(it != parameter.end())
+    {
+        string value = it->second;
+        if("Finish" == value)
+        {
+            ViewForwardById(eViewId_KeyBoard);
+        }
+    }
+     it = parameter.find("MessageDialNumber");
+    if(it!=parameter.end())
+    {
+        string value = it->second;
 
+        SPhoneInfo* info = PhoneData::Inst()->findContactsByNumber(QString::fromStdString( value));
+
+        if(NULL != info)
+        {
+            PhoneData::Inst()->SetCallName(info->FirstName+" " + info->LastName);
+            PhoneData::Inst()->SetCallNumber(QString::fromStdString( value));
+            PhoneData::Inst()->SetCallTime(0);
+            PhoneData::Inst()->SetCallStatus("Call");
+            info->date = QDate::currentDate();
+            info->time = QTime::currentTime();
+            info->number = QString::fromStdString( value);
+            PhoneData::Inst()->SetCallInfo(*info);
+        }else{
+            SPhoneInfo info;
+            PhoneData::Inst()->SetCallName(QString::fromStdString( value));
+            PhoneData::Inst()->SetCallNumber(QString::fromStdString( value));
+            PhoneData::Inst()->SetCallTime(0);
+            PhoneData::Inst()->SetCallStatus("Call");
+            info.date = QDate::currentDate();
+            info.time = QTime::currentTime();
+            info.number = QString::fromStdString( value);
+            info.FirstName = QString::fromStdString( value);
+            PhoneData::Inst()->SetCallInfo(info);
+        }
+
+
+        if(AppStatus_Inactive == getState())
+        {
+            m_bOutAppCall = true;
+            Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
+            PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
+            HMIFrameWork::Inst()->AppShow(PHONE_ID,"Calling");
+        }
+        INFO() << "OnNotify = " << QString::fromStdString( it->second);
+    }
 
 }
 

@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <QDate>
+#include <QTime>
 using namespace std;
 struct SPhoneInfo{
     QString LastName;
@@ -18,11 +19,13 @@ struct SPhoneInfo{
     QString WorkNumber;
     QString HomeNumber;
     QString OthersNumber;
+    QString number;
     QString picture;
     QString pictureContact;
     int     status;
-
+    QTime   time;
     QDate date;
+    int     position;
 };
 
 struct SMatchContact{
@@ -57,6 +60,7 @@ public:
     wchar_t toWchar(string text);
     SPhoneInfo *GetContactsDetailInfo();
 
+    void SetCallInfo(const SPhoneInfo& callInfo);
     void SetCallNumber(const QString & number);
     void SetCallName(const QString& name);
     void SetCallStatus(const QString& status);
@@ -65,6 +69,7 @@ public:
     QString GetCallName();
     QString GetCallStatus();
     QString GetCallTIme();
+    int GetCallTimeToInt();
     QString ToTime(int time);
 
     void SetViewId(int id);
@@ -72,6 +77,11 @@ public:
 
     QList<SMatchContact*>& GetMatchContacts(const QString& number );
     void ReleaseMatchContacts();
+
+    void addNewRecentsInfo(const SPhoneInfo& recentsInfo);
+
+    SPhoneInfo *findContactsByNumber(const QString& number );
+    SPhoneInfo &CurCall();
 signals:
 
 public slots:
@@ -89,6 +99,8 @@ private:
     QString m_callNumber;
     int     m_callTime;
     QString m_callStatus;
+
+    SPhoneInfo m_callInfo;
     int m_iViewId;
 
 };

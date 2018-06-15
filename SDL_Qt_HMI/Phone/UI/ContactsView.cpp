@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -130,24 +129,25 @@ void ContactsView::InitConnect()
 
 void ContactsView::UpdateData()
 {
-    for(int i =0 ; i < PhoneData::Inst()->GetRecentsInfo().size();i++)
+    for(int i =0 ; i < PhoneData::Inst()->GetContactsInfo().size();i++)
     {
         CListWidgetItem item(QSize(692,70));
-        if(eIncomingCall_Answer ==  PhoneData::Inst()->GetRecentsInfo().at(i)->status)
+        if(eIncomingCall_Answer ==  PhoneData::Inst()->GetContactsInfo().at(i)->status)
         {
             item.AddIcon(QRect(0,20,31,31),QPixmap(":/Phone/Source/images/answer_the_phone.png"));
         }
-        else if(eIncomingCall_NotAnswer ==  PhoneData::Inst()->GetRecentsInfo().at(i)->status)
+        else if(eIncomingCall_NotAnswer ==  PhoneData::Inst()->GetContactsInfo().at(i)->status)
         {
             item.AddIcon(QRect(0,20,31,31),QPixmap(":/Phone/Source/images/answer_the_phone_red.png"));
         }
-        else if(eDialCall ==  PhoneData::Inst()->GetRecentsInfo().at(i)->status)
+        else if(eDialCall ==  PhoneData::Inst()->GetContactsInfo().at(i)->status)
         {
             item.AddIcon(QRect(0,20,31,31),QPixmap(":/Phone/Source/images/call.png"));
         }
-        QString contacts = "Contacts " + PhoneData::Inst()->GetRecentsInfo().at(i)->FirstName +"  "+ PhoneData::Inst()->GetRecentsInfo().at(i)->LastName;
+        QString contacts = "Contacts " + PhoneData::Inst()->GetContactsInfo().at(i)->FirstName +"  "+ PhoneData::Inst()->GetContactsInfo().at(i)->LastName;
         item.AddText(QRect(47,18,300,52),contacts,Qt::AlignLeft|Qt::AlignTop,24,QColor(255,255,255));
 
+        INFO(" contacts = %s .",contacts.toStdString().c_str());
         m_pContactsList->InsertItem(i,item);
     }
 }
@@ -176,22 +176,33 @@ void ContactsView::OnBTSetting()
 
 void ContactsView::OnListClick(int index)
 {
+    INFO("ContactsView index = %d .",index);
     PhoneData::Inst()->SetContactsIndex(index);
     Phone::Inst()->ViewForwardById(Phone::eViewId_ContactsDetails);
 }
 
 void ContactsView::OnPhonePickerClick(int index, QString text)
 {
+    INFO() <<"OnPhonePickerClick = " <<index<<" " <<text;
     if(index>=0)
     {
         m_pPhonePickerSelectLabel->move(703,114+(index+1)*13-6-25);
         m_pPhonePickerSelectLabel->setText(text);
         m_pPhonePickerSelectLabel->show();
+
+        for(int i =0 ; i < PhoneData::Inst()->GetContactsInfo().size();i++)
+        {
+            if(PhoneData::Inst()->GetContactsInfo().at(i)->position == index)
+            {
+                m_pContactsList->SetItemTop(i);
+                return;
+            }
+        }
+
     }else
     {
         m_pPhonePickerSelectLabel->hide();
     }
-    INFO() <<"OnPhonePickerClick = " <<index<<" " <<text;
 }
 
 

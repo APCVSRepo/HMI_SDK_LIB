@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -32,12 +31,12 @@ void RecentsView::viewAction(int state)
     switch (state) {
     case eviewStatus_Init:
     {
-        UpdataData();
+
     }
         break;
     case eViewStatus_Active:
         PhoneData::Inst()->SetViewId(Phone::eViewId_Recents);
-
+        UpdataData();
         this->show();
         break;
     default:
@@ -109,6 +108,7 @@ void RecentsView::InitConnect()
 
 void RecentsView::UpdataData()
 {
+    m_pRecentsList->RemoveAllItems();
     for(int i =0 ; i < PhoneData::Inst()->GetRecentsInfo().size();i++)
     {
         CListWidgetItem item(QSize(692,70));
@@ -149,7 +149,8 @@ void RecentsView::UpdataData()
 
         m_pRecentsList->InsertItem(i,item);
         m_pRecentsList->SetSpecifiedText(i,name);
-        m_pRecentsList->SetSpecifiedText2(i,PhoneData::Inst()->GetRecentsInfo().at(i)->MobileNumber);
+        m_pRecentsList->SetSpecifiedText2(i,PhoneData::Inst()->GetRecentsInfo().at(i)->number);
+        INFO("recent list number = %s .",PhoneData::Inst()->GetRecentsInfo().at(i)->number.toStdString().c_str());
     }
 }
 
@@ -164,7 +165,6 @@ int RecentsView::DiddDays(QDate destDate, QDate CompareDate)
     }
      destDays += destDate.day();
 
-    INFO() << "destDays " << destDays;
 
     int CompareDateDays = 0;
     for(int i=1;i<CompareDate.month();i++)
@@ -174,7 +174,6 @@ int RecentsView::DiddDays(QDate destDate, QDate CompareDate)
     }
     CompareDateDays += CompareDate.day();
 
-    INFO() << "CompareDateDays " << CompareDateDays;
 
     return CompareDateDays - destDays;
 }
@@ -203,11 +202,31 @@ void RecentsView::OnBTSetting()
 
 void RecentsView::OnListClick(int index)
 {
-    PhoneData::Inst()->SetCallName(m_pRecentsList->GetSpecifiedText2(index));
-    PhoneData::Inst()->SetCallNumber(m_pRecentsList->GetSpecifiedText(index));
+    PhoneData::Inst()->SetCallName(m_pRecentsList->GetSpecifiedText(index));
+    PhoneData::Inst()->SetCallNumber(m_pRecentsList->GetSpecifiedText2(index));
     PhoneData::Inst()->SetCallStatus("Call");
-    PhoneData::Inst()->SetCallTime(100);
+    PhoneData::Inst()->SetCallTime(0);
+    SPhoneInfo* info = PhoneData::Inst()->findContactsByNumber(m_pRecentsList->GetSpecifiedText2(index));
 
+    INFO("RecentsView::OnListClick name = %s , number = %s",m_pRecentsList->GetSpecifiedText(index).toStdString().c_str(),m_pRecentsList->GetSpecifiedText2(index).toStdString().c_str());
+    if(NULL != info)
+    {
+        INFO("RecentsView  find  %s yes.",info->FirstName.toStdString().c_str());
+
+        info->date = QDate::currentDate();
+        info->time = QTime::currentTime();
+        info->status = eDialCall;
+        info->number = m_pRecentsList->GetSpecifiedText2(index);
+        PhoneData::Inst()->SetCallInfo(*info);
+    }else{
+        SPhoneInfo info;
+        info.date = QDate::currentDate();
+        info.time = QTime::currentTime();
+        info.status = eDialCall;
+        info.number = m_pRecentsList->GetSpecifiedText2(index);
+        info.FirstName = m_pRecentsList->GetSpecifiedText(index);;
+        PhoneData::Inst()->SetCallInfo(info);
+    }
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
 }
 

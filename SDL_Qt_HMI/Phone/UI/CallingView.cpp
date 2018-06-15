@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -40,6 +39,9 @@ void CallingView::viewAction(int state)
         AddCall();
 
         this->show();
+        break;
+    case eViewStatus_Inactive:
+        m_callTimer1.stop();
         break;
     default:
         break;
@@ -128,6 +130,8 @@ void CallingView::InitCallingView()
     m_pReceiverBtn->SetStatus(CPushButton::eStatus_Normal);
     m_pReceiverBtn->show();
 
+    m_callTimer1.setInterval(1000);
+
 }
 
 
@@ -137,11 +141,10 @@ void CallingView::InitConnect()
     connect(m_pKeyboard,SIGNAL(clicked()),this,SLOT(OnKeyBoard()),Qt::UniqueConnection);
     connect(m_pCRecents,SIGNAL(clicked()),this,SLOT(OnRecents()),Qt::UniqueConnection);
     connect(m_pBTSetting,SIGNAL(clicked()),this,SLOT(OnBTSetting()),Qt::UniqueConnection);
-    connect(m_pContactsList,SIGNAL(listItemReleased(int)),this,SLOT(OnListClick(int)),Qt::UniqueConnection);
     connect(m_pHangUpBtn,SIGNAL(clicked()),this,SLOT(OnHangUp()),Qt::UniqueConnection);
     connect(m_pMuteBtn,SIGNAL(clicked()),this,SLOT(OnMute()),Qt::UniqueConnection);
     connect(m_pReceiverBtn,SIGNAL(clicked()),this,SLOT(OnReceiver()),Qt::UniqueConnection);
-
+    connect(&m_callTimer1,SIGNAL(timeout()),this,SLOT(OnCallTimer()),Qt::UniqueConnection);
 }
 
 void CallingView::AddCall()
@@ -160,6 +163,13 @@ void CallingView::AddCall()
         item.AddText(QRect(400,15,292,33),time,Qt::AlignRight|Qt::AlignVCenter,24);
         item.AddText(QRect(400,51,292,33),status,Qt::AlignRight|Qt::AlignVCenter,30,QColor(0,174,4));
         m_pContactsList->InsertItem(0,item);
+        m_iCallTime1 = PhoneData::Inst()->GetCallTimeToInt();
+        m_callTimer1.start();
+
+        SPhoneInfo &info = PhoneData::Inst()->CurCall();
+        INFO("add call %s ,number = %s.\n",info.FirstName.toStdString().c_str(),info.number.toStdString().c_str());
+        PhoneData::Inst()->addNewRecentsInfo(info);
+
 
     }else if(1 == m_pContactsList->count())
     {
@@ -175,6 +185,7 @@ void CallingView::AddCall()
         item.AddText(QRect(400,15,292,33),time,Qt::AlignRight|Qt::AlignVCenter,24);
         item.AddText(QRect(400,51,292,33),status,Qt::AlignRight|Qt::AlignVCenter,30,QColor(0,174,4));
         m_pContactsList->InsertItem(0,item);
+        m_iCallTime2 = PhoneData::Inst()->GetCallTimeToInt();
     }
 
 }
@@ -333,6 +344,10 @@ void CallingView::OnBTSetting()
 
 void CallingView::OnHangUp()
 {
+    if(Phone::Inst()->IsOutAppCall())
+    {
+        HMIFrameWork::Inst()->AppBack();
+    }
     Phone::Inst()->ViewBack();
     m_pContactsList->RemoveAllItems();
 }
@@ -361,5 +376,12 @@ void CallingView::OnReceiver()
         m_pReceiverBtn->SetEffect(0.5);
         m_pReceiverBtn->SetStatus(CPushButton::eStatus_Normal);
     }
+}
+
+void CallingView::OnCallTimer()
+{
+  m_iCallTime1+=1;
+  QString time = PhoneData::Inst()->ToTime(m_iCallTime1);
+  m_pContactsList->UpdateItemText(0,time,2);
 }
 

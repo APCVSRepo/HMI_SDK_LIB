@@ -49,6 +49,7 @@ public:
     void onNotify(string appId, map<string, string> parameter);
     void onReply(string appId, map<string, string> parameter);
 
+    bool IsOutAppCall();
 public slots:
     void OnAppShow(string appId,string viewId);
     void OnAppHide();
@@ -63,6 +64,7 @@ public:signals:
 
     void SigQuickMove(QString type);
 private:
+    bool m_bOutAppCall;
     static Phone *m_pInst;
 };
 

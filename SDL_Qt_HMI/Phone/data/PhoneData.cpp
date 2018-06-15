@@ -54,6 +54,7 @@ void PhoneData::InitTestRecentsData()
     info->WorkNumber = "79999999";
     info->HomeNumber = "23333333";
     info->OthersNumber = "6444444";
+    info->number = info->MobileNumber;
     info->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info->status = eIncomingCall_Answer;
@@ -67,6 +68,7 @@ void PhoneData::InitTestRecentsData()
     info1->WorkNumber = "79999999";
     info1->HomeNumber = "23333333";
     info1->OthersNumber = "6444444";
+    info1->number = info1->MobileNumber;
     info1->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info1->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info1->status = eIncomingCall_Answer;
@@ -81,6 +83,7 @@ void PhoneData::InitTestRecentsData()
     info2->WorkNumber = "79999999";
     info2->HomeNumber = "23333333";
     info2->OthersNumber = "6444444";
+    info2->number = info2->MobileNumber;
     info2->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info2->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info2->status = eIncomingCall_Answer;
@@ -89,12 +92,13 @@ void PhoneData::InitTestRecentsData()
     m_RecentsInfo.append(info2);
 
     SPhoneInfo *info3  = new SPhoneInfo;
-    info3->FirstName = "Allen2";
+    info3->FirstName = "Bllen2";
     info3->LastName = "";
     info3->MobileNumber = "13000000002";
     info3->WorkNumber = "79999999";
     info3->HomeNumber = "23333333";
     info3->OthersNumber = "6444444";
+    info3->number = info3->MobileNumber;
     info3->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info3->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info3->status = eDialCall;
@@ -103,12 +107,13 @@ void PhoneData::InitTestRecentsData()
 
 
     SPhoneInfo *info4  = new SPhoneInfo;
-    info4->FirstName = "Allen3";
+    info4->FirstName = "Bllen3";
     info4->LastName = "";
     info4->MobileNumber = "13000000003";
     info4->WorkNumber = "79999999";
     info4->HomeNumber = "23333333";
     info4->OthersNumber = "6444444";
+    info4->number = info4->MobileNumber;
     info4->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info4->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info4->status = eIncomingCall_NotAnswer;
@@ -117,12 +122,13 @@ void PhoneData::InitTestRecentsData()
 
 
     SPhoneInfo *info5  = new SPhoneInfo;
-    info5->FirstName = "Allen";
+    info5->FirstName = "Bllen";
     info5->LastName = "";
     info5->MobileNumber = "13000000000";
     info5->WorkNumber = "79999999";
     info5->HomeNumber = "23333333";
     info5->OthersNumber = "6444444";
+    info5->number = info5->MobileNumber;
     info5->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info5->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info5->status = eIncomingCall_NotAnswer;
@@ -137,6 +143,7 @@ void PhoneData::InitTestRecentsData()
     info6->WorkNumber = "79999999";
     info6->HomeNumber = "23333333";
     info6->OthersNumber = "6444444";
+    info6->number = info6->MobileNumber;
     info6->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info6->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info6->status = eDialCall;
@@ -151,6 +158,7 @@ void PhoneData::InitTestRecentsData()
     info7->WorkNumber = "79999999";
     info7->HomeNumber = "23333333";
     info7->OthersNumber = "6444444";
+    info7->number = info7->MobileNumber;
     info7->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info7->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info7->status = eIncomingCall_Answer;
@@ -165,6 +173,7 @@ void PhoneData::InitTestRecentsData()
     info8->WorkNumber = "79999999";
     info8->HomeNumber = "23333333";
     info8->OthersNumber = "6444444";
+    info8->number = info8->MobileNumber;
     info8->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info8->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info8->status = eIncomingCall_Answer;
@@ -179,6 +188,7 @@ void PhoneData::InitTestRecentsData()
     info9->WorkNumber = "79999999";
     info9->HomeNumber = "23333333";
     info9->OthersNumber = "6444444";
+    info9->number = info9->MobileNumber;
     info9->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info9->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info9->status = eIncomingCall_NotAnswer;
@@ -193,6 +203,7 @@ void PhoneData::InitTestRecentsData()
     info10->WorkNumber = "79999999";
     info10->HomeNumber = "23333333";
     info10->OthersNumber = "6444444";
+    info10->number = info10->MobileNumber;
     info10->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info10->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info10->status = eIncomingCall_NotAnswer;
@@ -207,6 +218,7 @@ void PhoneData::InitTestRecentsData()
     info11->WorkNumber = "79999999";
     info11->HomeNumber = "23333333";
     info11->OthersNumber = "6444444";
+    info11->number = info11->MobileNumber;
     info11->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info11->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info11->status = eIncomingCall_Answer;
@@ -221,6 +233,7 @@ void PhoneData::InitTestRecentsData()
     info12->WorkNumber = "79999999";
     info12->HomeNumber = "23333333";
     info12->OthersNumber = "6444444";
+    info12->number = info12->MobileNumber;
     info12->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info12->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info12->status = eIncomingCall_Answer;
@@ -235,6 +248,7 @@ void PhoneData::InitTestRecentsData()
     info13->WorkNumber = "79999999";
     info13->HomeNumber = "23333333";
     info13->OthersNumber = "6444444";
+    info13->number = info13->MobileNumber;
     info13->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info13->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info13->status = eDialCall;
@@ -248,6 +262,7 @@ void PhoneData::InitTestRecentsData()
     info14->WorkNumber = "79999999";
     info14->HomeNumber = "23333333";
     info14->OthersNumber = "6444444";
+    info14->number = info14->MobileNumber;
     info14->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info14->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info14->status = eDialCall;
@@ -267,6 +282,8 @@ void PhoneData::InitTestContactsData()
     info->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info->status = -1;
+    info->number = "";
+    info->position = 0;
 
     m_ContactsInfo.append(info);
 
@@ -280,7 +297,8 @@ void PhoneData::InitTestContactsData()
     info1->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info1->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info1->status = -1;
-
+    info1->number = "";
+    info1->position = 0;
     m_ContactsInfo.append(info1);
 
     SPhoneInfo *info2  = new SPhoneInfo;
@@ -293,7 +311,8 @@ void PhoneData::InitTestContactsData()
     info2->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info2->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info2->status = -1;
-
+    info2->number = "";
+    info2->position = 0;
     m_ContactsInfo.append(info2);
 
     SPhoneInfo *info3  = new SPhoneInfo;
@@ -306,12 +325,13 @@ void PhoneData::InitTestContactsData()
     info3->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info3->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info3->status = -1;
-
+    info3->number = "";
+    info3->position = 0;
     m_ContactsInfo.append(info3);
 
 
     SPhoneInfo *info4  = new SPhoneInfo;
-    info4->FirstName = "Allen4";
+    info4->FirstName = "Bllen4";
     info4->LastName = "";
     info4->MobileNumber = "13045000004";
     info4->WorkNumber = "79999999";
@@ -320,12 +340,13 @@ void PhoneData::InitTestContactsData()
     info4->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info4->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info4->status = -1;
-
+    info4->number = "";
+    info4->position = 1;
     m_ContactsInfo.append(info4);
 
 
     SPhoneInfo *info5  = new SPhoneInfo;
-    info5->FirstName = "Allen5";
+    info5->FirstName = "Bllen5";
     info5->LastName = "";
     info5->MobileNumber = "13567000005";
     info5->WorkNumber = "79999999";
@@ -334,12 +355,13 @@ void PhoneData::InitTestContactsData()
     info5->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info5->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info5->status = -1;
-
+    info5->number = "";
+    info5->position = 1;
     m_ContactsInfo.append(info5);
 
 
     SPhoneInfo *info6  = new SPhoneInfo;
-    info6->FirstName = "Allen6";
+    info6->FirstName = "Bllen6";
     info6->LastName = "";
     info6->MobileNumber = "13023456006";
     info6->WorkNumber = "79999999";
@@ -348,12 +370,13 @@ void PhoneData::InitTestContactsData()
     info6->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info6->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info6->status = -1;
-
+    info6->number = "";
+    info6->position = 1;
     m_ContactsInfo.append(info6);
 
 
     SPhoneInfo *info7  = new SPhoneInfo;
-    info7->FirstName = "Allen7";
+    info7->FirstName = "Cllen7";
     info7->LastName = "";
     info7->MobileNumber = "13033300007";
     info7->WorkNumber = "79999999";
@@ -362,12 +385,13 @@ void PhoneData::InitTestContactsData()
     info7->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info7->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info7->status = -1;
-
+    info7->number = "";
+    info7->position = 2;
     m_ContactsInfo.append(info7);
 
 
     SPhoneInfo *info8  = new SPhoneInfo;
-    info8->FirstName = "Allen8";
+    info8->FirstName = "Cllen8";
     info8->LastName = "";
     info8->MobileNumber = "15100000008";
     info8->WorkNumber = "79999999";
@@ -376,12 +400,13 @@ void PhoneData::InitTestContactsData()
     info8->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info8->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info8->status = -1;
-
+    info8->number = "";
+    info8->position = 2;
     m_ContactsInfo.append(info8);
 
 
     SPhoneInfo *info9  = new SPhoneInfo;
-    info9->FirstName = "Allen9";
+    info9->FirstName = "Dllen9";
     info9->LastName = "";
     info9->MobileNumber = "16780000009";
     info9->WorkNumber = "79999999";
@@ -390,12 +415,13 @@ void PhoneData::InitTestContactsData()
     info9->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info9->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info9->status = -1;
-
+    info9->number = "";
+    info9->position = 3;
     m_ContactsInfo.append(info9);
 
 
     SPhoneInfo *info10  = new SPhoneInfo;
-    info10->FirstName = "Allen10";
+    info10->FirstName = "Dllen10";
     info10->LastName = "";
     info10->MobileNumber = "16600000100";
     info10->WorkNumber = "79999999";
@@ -404,12 +430,13 @@ void PhoneData::InitTestContactsData()
     info10->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info10->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info10->status = -1;
-
+    info10->number = "";
+    info10->position = 3;
     m_ContactsInfo.append(info10);
 
 
     SPhoneInfo *info11  = new SPhoneInfo;
-    info11->FirstName = "Allen11";
+    info11->FirstName = "Ellen11";
     info11->LastName = "";
     info11->MobileNumber = "13000000011";
     info11->WorkNumber = "79999999";
@@ -418,12 +445,13 @@ void PhoneData::InitTestContactsData()
     info11->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info11->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info11->status = -1;
-
+    info11->number = "";
+    info11->position = 4;
     m_ContactsInfo.append(info11);
 
 
     SPhoneInfo *info12  = new SPhoneInfo;
-    info12->FirstName = "Allen12";
+    info12->FirstName = "Ellen12";
     info12->LastName = "";
     info12->MobileNumber = "13000000012";
     info12->WorkNumber = "79999999";
@@ -432,12 +460,13 @@ void PhoneData::InitTestContactsData()
     info12->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info12->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info12->status = -1;
-
+    info12->number = "";
+    info12->position = 4;
     m_ContactsInfo.append(info12);
 
 
     SPhoneInfo *info13  = new SPhoneInfo;
-    info13->FirstName = "Allen13";
+    info13->FirstName = "Ellen13";
     info13->LastName = "";
     info13->MobileNumber = "13000000013";
     info13->WorkNumber = "79999999";
@@ -446,11 +475,12 @@ void PhoneData::InitTestContactsData()
     info13->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info13->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info13->status = -1;
-
+    info13->number = "";
+    info13->position = 4;
     m_ContactsInfo.append(info13);
 
     SPhoneInfo *info14  = new SPhoneInfo;
-    info14->FirstName = "Allen14";
+    info14->FirstName = "Fllen14";
     info14->LastName = "";
     info14->MobileNumber = "13100000014";
     info14->WorkNumber = "79999999";
@@ -459,7 +489,8 @@ void PhoneData::InitTestContactsData()
     info14->pictureContact = ":/Phone/Source/images/head_portrait.png";
     info14->picture = ":/Phone/Source/images/head_portrait_normal.png";
     info14->status = -1;
-
+    info14->number = "";
+    info14->position = 5;
     m_ContactsInfo.append(info14);
 }
 
@@ -597,6 +628,21 @@ SPhoneInfo *PhoneData::GetContactsDetailInfo()
     return NULL;
 }
 
+void PhoneData::SetCallInfo(const SPhoneInfo &callInfo)
+{
+    m_callInfo.FirstName = callInfo.FirstName;
+    m_callInfo.LastName = callInfo.LastName;
+    m_callInfo.MobileNumber = callInfo.MobileNumber;
+    m_callInfo.WorkNumber = callInfo.WorkNumber;
+    m_callInfo.HomeNumber = callInfo.HomeNumber;
+    m_callInfo.OthersNumber = callInfo.OthersNumber;
+    m_callInfo.pictureContact = callInfo.pictureContact;
+    m_callInfo.picture = callInfo.picture;
+    m_callInfo.status = callInfo.status;
+    m_callInfo.date = callInfo.date;
+    m_callInfo.number = callInfo.number;
+}
+
 void PhoneData::SetCallNumber(const QString &number)
 {
        m_callNumber = number;
@@ -635,6 +681,11 @@ QString PhoneData::GetCallStatus()
 QString PhoneData::GetCallTIme()
 {
     return ToTime(m_callTime);
+}
+
+int PhoneData::GetCallTimeToInt()
+{
+    return m_callTime;
 }
 
 QString PhoneData::ToTime(int time)
@@ -797,6 +848,58 @@ void PhoneData::ReleaseMatchContacts()
             temp = NULL;
         }
     }
+}
+
+void PhoneData::addNewRecentsInfo(const SPhoneInfo &recentsInfo)
+{
+    SPhoneInfo *info  = new SPhoneInfo;
+    info->FirstName = recentsInfo.FirstName;
+    info->LastName = recentsInfo.LastName;
+    info->MobileNumber = recentsInfo.MobileNumber;
+    info->WorkNumber = recentsInfo.WorkNumber;
+    info->HomeNumber = recentsInfo.HomeNumber;
+    info->OthersNumber = recentsInfo.OthersNumber;
+    info->pictureContact = recentsInfo.pictureContact;
+    info->picture = recentsInfo.picture;
+    info->status = recentsInfo.status;
+    info->date = recentsInfo.date;
+    info->number = recentsInfo.number;
+    m_RecentsInfo.insert(0,info);
+
+}
+
+SPhoneInfo *PhoneData::findContactsByNumber(const QString &number)
+{
+    QList<SPhoneInfo*>::iterator it = m_ContactsInfo.begin();
+    for(;it != m_ContactsInfo.end();++it)
+    {
+       if((*it)->HomeNumber == number)
+       {
+           (*it)->number = number;
+            return (*it);
+       }
+       else if((*it)->MobileNumber == number)
+       {
+           (*it)->number = number;
+            return (*it);
+       }
+       else if((*it)->OthersNumber == number )
+       {
+           (*it)->number = number;
+            return (*it);
+
+       }else if((*it)->WorkNumber == number ){
+
+           (*it)->number = number;
+            return (*it);
+       }
+    }
+    return NULL;
+}
+
+SPhoneInfo &PhoneData::CurCall()
+{
+    return m_callInfo;
 }
 
 

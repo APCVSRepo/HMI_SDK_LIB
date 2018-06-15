@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -326,9 +325,40 @@ void KeyBoardView::OnKeyBoard(int Id)
         if(m_pNumberInput->text().length() > 0)
         {
             PhoneData::Inst()->SetCallNumber(m_pNumberInput->text());
-            PhoneData::Inst()->SetCallName(m_pNumberInput->text());
+
             PhoneData::Inst()->SetCallTime(0);
             PhoneData::Inst()->SetCallStatus("Call");
+
+            SPhoneInfo* info = PhoneData::Inst()->findContactsByNumber(m_pNumberInput->text());
+
+            if(NULL != info)
+            {
+                if("" != info->LastName)
+                {
+                    PhoneData::Inst()->SetCallName(info->FirstName + " " +info->LastName );
+
+                }
+                else
+                {
+                    PhoneData::Inst()->SetCallName(info->FirstName);
+
+                }
+                info->date = QDate::currentDate();
+                info->time = QTime::currentTime();
+                info->status = eDialCall;
+                info->number = m_pNumberInput->text();
+                PhoneData::Inst()->SetCallInfo(*info);
+            }else{
+                PhoneData::Inst()->SetCallName(m_pNumberInput->text());
+                SPhoneInfo info;
+                info.date = QDate::currentDate();
+                info.time = QTime::currentTime();
+                info.status = eDialCall;
+                info.number = m_pNumberInput->text();
+                info.FirstName = m_pNumberInput->text();
+                info.LastName = "";
+                PhoneData::Inst()->SetCallInfo(info);
+            }
 
             Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
             PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
@@ -404,6 +434,23 @@ void KeyBoardView::OnListClick(int index)
     PhoneData::Inst()->SetCallNumber(number);
     PhoneData::Inst()->SetCallTime(0);
     PhoneData::Inst()->SetCallStatus("Call");
+
+    SPhoneInfo* info = PhoneData::Inst()->findContactsByNumber(m_pMatchContactsList->GetSpecifiedText2(index));
+
+    if(NULL != info)
+    {
+        info->date = QDate::currentDate();
+        info->time = QTime::currentTime();
+        info->number = m_pMatchContactsList->GetSpecifiedText2(index);
+        PhoneData::Inst()->SetCallInfo(*info);
+    }else{
+        SPhoneInfo info;
+        info.date = QDate::currentDate();
+        info.time = QTime::currentTime();
+        info.number = m_pMatchContactsList->GetSpecifiedText2(index);
+        info.FirstName = m_pMatchContactsList->GetSpecifiedText2(index);;
+        PhoneData::Inst()->SetCallInfo(info);
+    }
 
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
     PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);

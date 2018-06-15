@@ -2,7 +2,6 @@
 #include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "HVAC/app/HVAC.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 #include "HVAC/data/HVACData.h"
@@ -150,8 +149,27 @@ void ContactsDetailsView::OnListClick(int index)
     PhoneData::Inst()->SetCallName(m_pContactsList->GetSpecifiedText2(index));
     PhoneData::Inst()->SetCallNumber(m_pContactsList->GetSpecifiedText(index));
     PhoneData::Inst()->SetCallStatus("Call");
-    PhoneData::Inst()->SetCallTime(100);
+    PhoneData::Inst()->SetCallTime(0);
 
+    SPhoneInfo* info = PhoneData::Inst()->findContactsByNumber(m_pContactsList->GetSpecifiedText(0));
+
+    if(NULL != info)
+    {
+        INFO("Contacts detail find  %s yes.",info->FirstName.toStdString().c_str());
+        info->date = QDate::currentDate();
+        info->time = QTime::currentTime();
+        info->status = eDialCall;
+        info->number = m_pContactsList->GetSpecifiedText(index);
+        PhoneData::Inst()->SetCallInfo(*info);
+    }else{
+        SPhoneInfo info;
+        info.date = QDate::currentDate();
+        info.time = QTime::currentTime();
+        info.status = eDialCall;
+        info.number = m_pContactsList->GetSpecifiedText(index);
+        info.FirstName = m_pContactsList->GetSpecifiedText(index);;
+        PhoneData::Inst()->SetCallInfo(info);
+    }
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
 }
 
