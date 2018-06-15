@@ -60,6 +60,7 @@ public slots:
     void OnButtonB();
 private:
     QLabel *m_pBackgroundLabel;
+    QLabel *m_pBackgroundLabelDark;
     QLabel *m_pLineTop;
     QLabel *m_pLineBottom;
     QLabel *m_TitleLabel;

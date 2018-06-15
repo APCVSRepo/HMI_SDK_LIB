@@ -191,12 +191,12 @@ QString PopUpBase::GetPopUpContextBLight()
 
 QString PopUpBase::GetPopUpButtonA()
 {
-    return m_PopUpReplyButtonA;
+    return m_PopUpButtonA;
 }
 
 QString PopUpBase::GetPopUpButtonB()
 {
-    return m_PopUpReplyButtonB;
+    return m_PopUpButtonB;
 }
 
 QString PopUpBase::GetPopUpReplyButtonA()

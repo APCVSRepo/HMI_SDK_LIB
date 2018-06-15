@@ -3,6 +3,7 @@
 PopupGeneralView::PopupGeneralView(QWidget *parent)
     :PopUpBase(parent)
     ,m_pBackgroundLabel(NULL)
+    ,m_pBackgroundLabelDark(NULL)
     ,m_pLineTop(NULL)
     ,m_pLineBottom(NULL)
     ,m_pVDisplayAreaLayout(NULL)
@@ -16,6 +17,10 @@ PopupGeneralView::PopupGeneralView(QWidget *parent)
     m_pBackgroundLabel->setStyleSheet("QLabel{background-color:#99000000}");
     m_pBackgroundLabel->show();
 
+    m_pBackgroundLabelDark = new QLabel(this);
+    m_pBackgroundLabelDark->setGeometry(QRect(0,79,800,480-79-85));
+    m_pBackgroundLabelDark->setStyleSheet("QLabel{background-color:#000000}");
+    m_pBackgroundLabelDark->show();
 
     m_pVDisplayArea = new QWidget(this);
     m_pVDisplayArea->setGeometry(0,79,800,281);
