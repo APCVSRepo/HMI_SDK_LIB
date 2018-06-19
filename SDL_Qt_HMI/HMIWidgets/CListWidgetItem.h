@@ -25,6 +25,8 @@ public:
         eSpecialTextStringMode,
         eSpecialTextRectMode,
         eSpecialTextTypeMode,
+        eSpecialTextBackgroundRectMode,
+        eSpecialTextBackgroundIconMode,
         eIconRectMode,
         eIconPixmapMode,
         eIconIndicatorMode,
@@ -43,6 +45,7 @@ public:
         eSpecifiedIDMode,
         eSpecifiedIDStatusMode,
         eSpecifiedIDNumMode,
+        eSpecifiedIDNum2Mode,
         eTrackIDMode,
         eTitleNameMode,
         eDisabledMode
@@ -55,8 +58,8 @@ public:
     void SetBackgroundInfo(const QString &qsNormalPath,
                            const QString &qsPressedPath,
                            const QString &qsCursoredPath);
-    void AddText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26);
-    void AddSpecialText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26);
+    void AddText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26, QColor color=QColor(255,255,255));
+    void AddSpecialText(const QRect& rect, const QString& text, int flags = Qt::AlignVCenter, int fontSize = 26, QColor color=QColor(255,255,255),bool addBackground = false,QColor backgroundColor = QColor(46,46,46,107));
     void AddIcon(const QRect& rect, const QPixmap& pixmap, bool bIndicator = false, bool bShow = true);
 
     //mode=1: PressedBg will replace NormalBg; mode=0: PressedBg will draw under NormalBg
@@ -80,6 +83,8 @@ private:
     void CountNormalText(QString& text, const QRect &rect, int textType, int fontSize, int remainderWidth, int &left, int &top);
     void CountTextRect(const QFontMetrics &fontMetrics, QString& text, const QRect &rect, int textType, int &left, int &top);
 
+    QPixmap getRoundedRectangle(QColor color, int width, int height, int radius);
+
 public:
     QSize          m_sizeItem;
     QStringList    m_qsListBackground;
@@ -94,6 +99,8 @@ public:
     QVariantList   m_specialTextRectList;
     QStringList    m_specialTextStringList;
     QVariantList   m_specialTextTypeList;
+    QVariantList   m_iconRectspecialTextBackgroundList;
+    QVariantList   m_iconspecialTextBackgroundList;
     //--- for icons ---
     QVariantList   m_iconRectList;
     QVariantList   m_iconPixmapList;

@@ -46,6 +46,10 @@ public:
 
 signals:
     void SigWifiListUpdate();
+    void WifiStatusChanged(QString status);
+
+public slots:
+    void OnWifiStatusChanged(int status);
 
 private:
     SettingsWifiData(QObject *parent=0);
@@ -54,6 +58,7 @@ private:
 private:
     vector<WifiDeviceInfo> m_wifiList;
     WifiDeviceInfo m_selectedWifiInfo;
+    QString m_WifiStatus;
 
     static SettingsWifiData *s_pInstance;
 };

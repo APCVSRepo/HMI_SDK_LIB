@@ -1,6 +1,8 @@
 #include "BootAnimationUI.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/HMIFrameWork.h"
+#include "HMIFrameWork/log_interface.h"
+
 BootAnimationUI::BootAnimationUI(QWidget *parent)
     :QWidget(parent)
     ,CView(Home::eViewId_BootAnimation)
@@ -17,7 +19,7 @@ BootAnimationUI::BootAnimationUI(QWidget *parent)
 
 void BootAnimationUI::viewAction(int state)
 {
-    qDebug()<<"BootAnimationUI = " << state;
+    INFO("[Home] BootAnimationUI viewAction %d .",state);
     switch (state) {
     case eViewStatus_Active:
     {

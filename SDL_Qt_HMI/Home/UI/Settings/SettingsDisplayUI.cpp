@@ -1,5 +1,5 @@
 #include "SettingsDisplayUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsDisplayData.h"
 SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
@@ -17,16 +17,18 @@ SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
     m_pBackgroundLabel->show();
 
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Display settings"));
     m_pTitleLabel->show();
 
     m_pLuminanceRegulationLabel = new QLabel(this);
@@ -54,10 +56,10 @@ SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
 
     m_pLuminanceRegulationSlider->setStyleSheet("QSlider{border-color: #B0B0B0;}" \
                                             "QSlider::groove:horizontal {" \
-                                             "border: 22px solid #B0B0B0;"
+                                             "border: 0px 0;"
                                              "height: 22px;"
-                                             "margin: -23px 0;"
-                                             "left: -22px; right: -22px;"
+                                             "margin: 0px 0;"
+                                             "left: 0px; right: 0px;"
                                            " } "
                                             "QSlider::handle:horizontal"
                                             "{"
@@ -65,17 +67,20 @@ SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
                                                  "margin: -11px -11px -11px -11px;"
                                                  "width: 22px;"
                                             "}"
+                                            "QSlider::add-page:Horizontal {"
+                                            "background: qlineargradient(x1:0, y1:1, x2:0, y2:0,"
+                                                "stop:0 #B0B0B0, stop:1 #B0B0B0);"
+                                            "}"
                                            " QSlider::sub-page:horizontal {  "
                                                     "background: qlineargradient("
                                                     "spread:pad,"
                                                     "x1:0, y1:1, x2:0, y2:0,"
                                                     "stop:0 #FFFFFF, stop:0.25 #FFFFFF,"
                                                     "stop:0.5 #FFFFFF, stop:1 #FFFFFF);"
+                                                    "margin-left:2px;"
+                                                    "margin-right:0px;"
                                             "}"
-                                            "QSlider::add-page:Horizontal {"
-                                            "background: qlineargradient(x1:0, y1:1, x2:0, y2:0,"
-                                                "stop:0 #B0B0B0, stop:1 #B0B0B0);"
-                                            "}"
+
                                             );
 
     m_pLuminanceRegulationSlider->setGeometry(QRect(194,170,420,22));
@@ -155,19 +160,18 @@ void SettingsDisplayUI::viewAction(int state)
 
 void SettingsDisplayUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsDisplayUI index = " << index <<" btnIndex = " <<btnIndex;
     switch (index) {
     case 0:
     {
         int idStatus =  m_pVlist->GetSpecifiedIDStatus(index);
-        if(idStatus == 0)
+        if(0 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
             m_pVlist->SetItemButtonPixmap(index,btnIndex,list);
             m_pVlist->SetSpecifiedIDStatus(index,1);
         }
-        else if(idStatus == 1)
+        else if(1 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<"none"<<"none";
@@ -188,12 +192,10 @@ void SettingsDisplayUI::OnListClick(int index)
 
 void SettingsDisplayUI::OnLuminanceRegulationValue(int value)
 {
-    qDebug() << "OnLuminanceRegulationValue = " << value;
 }
 
 void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 {
-    qDebug() <<"OnAddLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->maximum();
 
     if(m_pLuminanceRegulationSlider->value() < m_pLuminanceRegulationSlider->maximum())
     {
@@ -203,7 +205,6 @@ void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 
 void SettingsDisplayUI::OnSubLuminanceRegulationValue()
 {
-    qDebug() <<"OnSubLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->minimum();
     if(m_pLuminanceRegulationSlider->value() > m_pLuminanceRegulationSlider->minimum())
     {
         m_pLuminanceRegulationSlider->setValue(m_pLuminanceRegulationSlider->value()-1);

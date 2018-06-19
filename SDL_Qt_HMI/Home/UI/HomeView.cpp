@@ -1,8 +1,7 @@
 #include "HomeView.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include<unistd.h>
 #include <QFont>
-#include "AppLayer.h"
 #include "Home/app/Home.h"
 #include "HMIFrameWork/HMIFrameWork.h"
 HomeView::HomeView(QWidget *parent)
@@ -82,7 +81,7 @@ HomeView::~HomeView()
 
 void HomeView::viewAction(int state)
 {
-    INFO()<<" Homeview  viewAction state = " << state;
+    INFO("[Home] Homeview viewAction state =%d ", state);
 }
 
 void HomeView::InitHomeView()
@@ -177,7 +176,6 @@ void HomeView::InitHomeView()
         int nRow = i / 4;
         int nClomn = i % 4;
         int nPage = (nRow + 1) / 2 + (nRow + 1) % 2;
-        INFO()<<"ncol = "<<nClomn;
         CCButton * app = new CCButton(this);
         app->SetAppGeometry(QRect(OFFSET_POS_X +HOME_PAGE_OFFSET_POS_X + (nPage -1)*800 + (APP_BT_W + COLUMN_SPACE)*nClomn,OFFSET_POS_Y + (APP_BT_H + ROW_SPACE)*nRow,APP_BT_W,APP_BT_H));
         app->SetViewStatusStyle(CCButton::ViewStatusStyle_Change);
@@ -188,7 +186,7 @@ void HomeView::InitHomeView()
         app->InsertText(QRect(0,APP_ICON_H,APP_BT_W,31),listApps.at(i).AppName,true);
         app->InsertType(listApps.at(i).AppType);
         app->InsertName(listApps.at(i).AppName);
-        if(listApps.at(i).AppType == WEATHER_ID)
+        if(WEATHER_ID == listApps.at(i).AppType)
         {
            app->AddExtendedText(QRect(0,71,120,20),"19℃",18);
         }
@@ -214,7 +212,7 @@ void HomeView::InsertApp(int index, CCButton *app)
     {
       int nPage = (index+1) / 8;
       int rpage = (index+1) % 8;
-      if(0 == rpage)
+      if(CONST_ZERO == rpage)
       {
           m_iPageTotalNum = nPage;
       }
@@ -265,7 +263,7 @@ bool HomeView::GetIsEditStatus()
 
 void HomeView::GoToEditStatus()
 {
-    if(m_editMode == eEdit_ALL)
+    if(eEdit_ALL == m_editMode )
     {
         SetIsEditStatus(true);
         if(m_ListBtn.size())
@@ -278,7 +276,7 @@ void HomeView::GoToEditStatus()
            }
         }
     }
-    else if(m_editMode == eEdit_SINGLE)
+    else if(eEdit_SINGLE == m_editMode )
     {
         if(GetApp())
         {
@@ -869,7 +867,10 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
                m_iPosDiffX = m_iPosX-GetApp()->geometry().x();
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetIsPress(true);
-               m_pressTimer.start();
+               if(this->geometry().x() == CONST_ZERO)
+               {
+                    m_pressTimer.start();
+               }
             }
 
          }
@@ -915,7 +916,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
            GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
            GetApp()->SetIsPress(false);
         }
-        qDebug() << "x = " << m_stayPos.x() << " y = " << m_stayPos.y();
         if(GetIsEditStatus())
         {
             if(GetApp())
@@ -923,7 +923,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
 
                if(IsTriggerDomain(m_stayPos.x(),m_stayPos.y())&&!m_bIsPageMoving&&((this->geometry().x()+ m_pageSize.width()*(m_iCurrentPageNum - 1)) >=0)) {
 
-                   INFO()<<"replace start .";
                    map<string,string> p;
                    p.insert(make_pair("QuickLanuchAppType",GetApp()->GetType().toStdString()));
                    p.insert(make_pair("QuickLanuchX",QString::number(m_stayPos.x()).toStdString()));
@@ -1017,7 +1016,10 @@ bool HomeView::TouchEvent(QObject *obj, QEvent *event)
                m_iPosDiffY = m_iPosY-GetApp()->geometry().y();
                GetApp()->SetViewStatus(CCButton::ViewStatusPushed);
                GetApp()->SetIsPress(true);
-               m_pressTimer.start();
+               if(this->geometry().x() == CONST_ZERO)
+               {
+                    m_pressTimer.start();
+               }
             }
 
          }
@@ -1353,7 +1355,7 @@ void HomeView::OnEnterTriggerDomainStatus(bool status,QString type)
 
 void HomeView::OnAppClick(int index, QString type, QString name)
 {
-    INFO()<<" index = " << index << " type = " << type << " name = " << name;
+    INFO("[Home] HomeView OnAppClick index = %d,type = %s, name = %s .",index,type.toStdString().c_str(),name.toStdString().c_str());
     map<string,string> p ;
     p.insert(make_pair("AppClick",type.toStdString()));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);

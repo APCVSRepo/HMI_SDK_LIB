@@ -14,7 +14,7 @@ QuickLanuch::QuickLanuch()
 
 QuickLanuch *QuickLanuch::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new QuickLanuch();
     }
@@ -39,9 +39,16 @@ void QuickLanuch::onNotify(string appId, map<string, string> parameter)
     emit SigNotify(appId,parameter);
 }
 
+void QuickLanuch::onReply(string appId, map<string, string> parameter)
+{
+    connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
+    emit SigReply(appId,parameter);
+
+}
+
 void QuickLanuch::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[QuickLanuch] OnAppShow appId = %s , viewId =%s .",appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -50,8 +57,6 @@ void QuickLanuch::OnAppShow(string appId, string viewId)
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->raise();
         mainwin->show();
-
-
     }
         break;
      case AppStatus_Inactive:
@@ -122,6 +127,25 @@ void QuickLanuch::OnNotify(string appId, map<string, string> parameter)
 
         emit SigAppInfo(x,y,type);
     }
+    //QuickTriggerDomainStatus
+    it = parameter.find("QuickTriggerDomainStatus");
+    if(it!=parameter.end())
+    {
+        string status = it->second;
+        string type = "";
+        it = parameter.find("Type");
+        if(it!=parameter.end())
+        {
+            type = it->second;
+        }
+        emit SigEnterQuick(QString::fromStdString(status),QString::fromStdString(type));
+    }
+
+}
+
+void QuickLanuch::OnReply(string appId, map<string, string> parameter)
+{
+
 }
 
 

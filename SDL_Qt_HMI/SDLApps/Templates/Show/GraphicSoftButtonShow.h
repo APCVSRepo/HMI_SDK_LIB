@@ -2,41 +2,44 @@
 #define GRAPHICSOFTBUTTONSHOW_H
 
 #include <QLabel>
-#include <QProgressBar>
 #include "SDLApps/Templates/Common/AppBase.h"
 #include "SDLApps/Templates/Common/Button.h"
-#include "SDLApps/Templates/Common/CustomButton.h"
+#include "HMIWidgets/TopNavigateWidget.h"
 
+#define RIGHT_BTN_NUM 5
 
 class CGraphicSoftButtonShow : public QWidget {
-  Q_OBJECT
- public:
-  explicit CGraphicSoftButtonShow(AppListInterface *pList, QWidget *parent = 0);
+    Q_OBJECT
 
-  void SetAppName(QString strName);
+public:
+    explicit CGraphicSoftButtonShow(AppListInterface *pList, QWidget *parent = 0);
 
- protected:
-  virtual void showEvent(QShowEvent *e);
+    void SetAppName(QString strName);
 
- public slots:
-  void SoftBtnClickedSlot(int iSoftBtnID);
-  void BtnMenuClickedSlots();
+protected:
+    virtual void showEvent(QShowEvent *e);
 
- private:
-  void setSoftButtons(std::vector<SSoftButton> vec_softButtons);
+public slots:
+    void SoftBtnClickedSlot(int iSoftBtnID);
+    void BtnMenuClickedSlots();
+    void BtnBackClickedSlots();
 
-  AppListInterface *m_pList;
+private:
+    void setSoftButtons(std::vector<SSoftButton> vec_softButtons);
 
-  QLabel *m_pAppNameLab;
-  CCustomButton *m_pMenuBtn;
-  QLabel *m_pMusicPicLab;
-  CButton m_aSoftBtn[5];
-  QHBoxLayout *m_pBtnLayout;
-  QLabel m_aSplit[5];
-  QLabel *m_pShadowLab;
+private:
+    AppListInterface *m_pList;
 
-  // softbutton容器
-  std::vector <SSoftButton> m_vSoftButtons;
+    //navigate item
+    TopNavigateWidget *m_pTopWidget;
+
+    //right softbutton
+    QWidget *m_pRightArea;
+    std::vector <SSoftButton> m_vSoftButtons;
+    CButton m_aSoftBtn[RIGHT_BTN_NUM];
+
+    //graphic
+    QLabel *m_pMusicPicLab;
 };
 
 #endif // GRAPHICSOFTBUTTONSHOW_H

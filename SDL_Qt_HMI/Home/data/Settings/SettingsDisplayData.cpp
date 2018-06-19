@@ -15,7 +15,7 @@ void SettingsDisplayData::SetPattern(QString pattern)
 
 SettingsDisplayData *SettingsDisplayData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new SettingsDisplayData();
     }

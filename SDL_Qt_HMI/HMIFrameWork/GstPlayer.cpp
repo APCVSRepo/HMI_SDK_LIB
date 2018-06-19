@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "GstPlayer.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 CGstPlayer::CGstPlayer()
   : m_pMessageCallBack(0)
   , m_state(STATE_NULL)
@@ -46,7 +46,7 @@ bool CGstPlayer::open(const std::string &file_path, const std::string &sink, boo
 bool CGstPlayer::play() {
   if (m_state == STATE_PLAYING) {
     return true;
-  } else if (m_state == STATE_NULL) {
+  } else if (STATE_NULL == m_state) {
     Init();
   }
 
@@ -82,7 +82,7 @@ bool CGstPlayer::pause() {
 }
 
 bool CGstPlayer::stop() {
-  if (m_state == STATE_NULL) {
+  if (STATE_NULL == m_state ) {
     return true;
   }
 
@@ -158,7 +158,7 @@ bool CGstPlayer::Init() {
 }
 
 bool CGstPlayer::Release() {
-  if (m_state == STATE_NULL) {
+  if (STATE_NULL == m_state) {
     return true;
   }
   gst_object_unref(m_pBus);
@@ -188,7 +188,7 @@ gboolean CGstPlayer::Gst_Bus_Callback(GstBus *bus, GstMessage *msg, gpointer dat
       break;
     }
     case GST_MESSAGE_EOS:
-      qDebug("-- MSG: EOS\n");
+      INFO("-- MSG: EOS");
       player->stop();
       if(player->GetMessageCallBack())
       {

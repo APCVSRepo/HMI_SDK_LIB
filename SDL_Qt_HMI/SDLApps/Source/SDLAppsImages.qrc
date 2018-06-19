@@ -1,0 +1,30 @@
+<RCC>
+    <qresource prefix="/SDLApps/Source">
+        <file>images/mask.png</file>
+        <file>images/light.png</file>
+        <file>images/next_song.png</file>
+        <file>images/play.png</file>
+        <file>images/the_last_song.png</file>
+        <file>images/stop.png</file>
+        <file>images/right_btn_normal.png</file>
+        <file>images/right_btn_push.png</file>
+        <file>images/btn_bg.png</file>
+        <file>images/compelete.png</file>
+        <file>images/pointout.png</file>
+        <file>images/progress_bar.png</file>
+        <file>images/back.png</file>
+        <file>images/menu.png</file>
+        <file>images/cricle.png</file>
+        <file>images/random.png</file>
+        <file>images/add_a_device.png</file>
+        <file>images/find_mobile_apps.png</file>
+        <file>images/app_bg.png</file>
+        <file>images/return.png</file>
+        <file>images/button_a.png</file>
+        <file>images/button_a_push.png</file>
+        <file>images/line_a.png</file>
+        <file>images/partingline.png</file>
+        <file>images/vr_light.png</file>
+        <file>images/vr_microphone.png</file>
+    </qresource>
+</RCC>

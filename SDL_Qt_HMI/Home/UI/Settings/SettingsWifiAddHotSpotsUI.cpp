@@ -2,7 +2,8 @@
 #include "Home/data/Settings/SettingsWifiData.h"
 #include "HMIWidgets/CComboBoxDelegate.h"
 #include "Home/app/Home.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
+#include "HMIFrameWork/HMIFrameWork.h"
 
 SettingsWifiAddHotSpotsUI::SettingsWifiAddHotSpotsUI(QWidget *parent)
     :QWidget(parent)
@@ -26,17 +27,21 @@ SettingsWifiAddHotSpotsUI::SettingsWifiAddHotSpotsUI(QWidget *parent)
     this->setStyleSheet("QWidget{border:none;background:transparent;}");
 
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
+
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
     m_pTitleLabel->setText(tr("Wi-Fi"));
     m_pTitleLabel->show();
+
 
     //Net Name
     m_pNetNameLabel = new QLabel(this);
@@ -137,8 +142,6 @@ void SettingsWifiAddHotSpotsUI::OnBack()
 
 void SettingsWifiAddHotSpotsUI::OnAddBtnClicked()
 {
-    qDebug()<<"[OnAddBtnClicked]currentIndex"<<m_pSecurityTypeComboBox->currentIndex();
-    qDebug()<<"[OnAddBtnClicked]currentText"<<m_pSecurityTypeComboBox->currentText();
     //TODO: connect to Wifi with current setting, if succeed, change to connected wifi list view;
     //      if failed, show popup
 
@@ -156,6 +159,7 @@ void SettingsWifiAddHotSpotsUI::OnAddBtnClicked()
     else
     {
         //TODO: show popup
+        this->ShowPopUpAddFailed();
     }
 }
 
@@ -170,4 +174,22 @@ void SettingsWifiAddHotSpotsUI::showEvent(QShowEvent *)
     m_pNetNameEdit->setText("");
     m_pSecurityTypeComboBox->setCurrentIndex(0);
     m_pPasswordEdit->setText("");
+}
+
+void SettingsWifiAddHotSpotsUI::ShowPopUpAddFailed()
+{
+    INFO("SettingsWifiAddHotSpotsUI::ShowPopUpAddFailed");
+    map<string,string> msg;
+    msg.insert(make_pair("PopUpType","General"));
+    msg.insert(make_pair("PopUpId","WifiAddHotSpotsFailed"));
+    msg.insert(make_pair("Show","True"));
+    msg.insert(make_pair("FromAppId",HOME_ID));
+    msg.insert(make_pair("ButtonA","Confirm"));
+    msg.insert(make_pair("ReplyButtonA","Confirm"));
+    msg.insert(make_pair("ButtonB","Cancel"));
+    msg.insert(make_pair("ReplyButtonB","Cancel"));
+    QString contextA = QString("The information is incorrect, please retry");
+    msg.insert(make_pair("ContextA",contextA.toStdString()));
+
+    HMIFrameWork::Inst()->Notify(POPUP_ID,msg);
 }

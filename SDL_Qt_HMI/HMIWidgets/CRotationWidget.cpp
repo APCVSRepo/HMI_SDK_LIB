@@ -7,6 +7,7 @@ CRotationWidget::CRotationWidget(QWidget *parent)
     ,m_timer(NULL)
     ,m_bRotationStarted(false)
     ,m_nRotationAngle(0)
+    ,m_eDirection(DEFAULT_DIRECTION)
 {
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(onRatateTimeout()), Qt::UniqueConnection);
@@ -22,7 +23,12 @@ CRotationWidget::~CRotationWidget()
 
 void CRotationWidget::setPixmap(const QString &path)
 {
-    m_image = QPixmap(path);
+    this->setPixmap(QPixmap(path));
+}
+
+void CRotationWidget::setPixmap(const QPixmap &pixmap)
+{
+    m_image = pixmap;
 }
 
 void CRotationWidget::start()
@@ -31,7 +37,7 @@ void CRotationWidget::start()
     if (!m_timer->isActive())
     {
         m_bRotationStarted = true;
-        show();
+//        show();
         m_timer->start(100);
         onRatateTimeout();
     }
@@ -44,9 +50,14 @@ void CRotationWidget::stop()
     {
         m_timer->stop();
     }
-    hide();
+//    hide();
     m_bRotationStarted = false;
     m_nRotationAngle = 0;
+}
+
+void CRotationWidget::setRotateDirection(CRotationWidget::eRotateDirection direction)
+{
+    m_eDirection = direction;
 }
 
 void CRotationWidget::paintEvent(QPaintEvent *event)
@@ -56,8 +67,8 @@ void CRotationWidget::paintEvent(QPaintEvent *event)
         QPainter painter(this);
         painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-        int x = m_image.width()/2;
-        int y = m_image.height()/2;
+        qreal x = m_image.width()/2;
+        qreal y = m_image.height()/2;
 
         painter.translate(x, y);
         painter.rotate(m_nRotationDegree);
@@ -67,13 +78,20 @@ void CRotationWidget::paintEvent(QPaintEvent *event)
     }
     else
     {
-        QLabel::paintEvent(event);;
+        QLabel::paintEvent(event);
     }
 }
 
 void CRotationWidget::onRatateTimeout()
 {
-    ++ m_nRotationAngle;
+    if(ROTATE_CLOCKWISE == m_eDirection)
+    {
+        ++m_nRotationAngle;
+    }
+    else
+    {
+        --m_nRotationAngle;
+    }
     m_nRotationAngle = m_nRotationAngle % 36;
     m_nRotationDegree = 10 * m_nRotationAngle;
     update();

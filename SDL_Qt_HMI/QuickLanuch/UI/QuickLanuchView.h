@@ -16,6 +16,7 @@
 
 #include "HMIFrameWork/CView.h"
 #include "HMIFrameWork/AppConfig.h"
+#include <QLabel>
 
 class QuickLanuchView : public QWidget ,public CView
 {
@@ -41,11 +42,12 @@ public:
     void InsertQucikLanuch(int index,CCButton*);
     void ReplaceQucikLanuch(int x,int y, QString type);
     bool containsType(QString type);
-
-
+    void EnterEditStatus();
+    void ExitEditStatus();
+    bool GetEditStatus();
     void CreatePullBack(CCButton* btn);
     void CreateVoice(CCButton* btn);
-
+    void SortByIndex(int PressIndex,int SelectIndex);
     CCButton* Index(int x,int y);
 
     int findAppInfo(QString type );
@@ -69,10 +71,17 @@ signals:
     void SigReleasePos(int x,int y,QString Type);
 
     void SigVoiceClick();
+    void SigPllBack(QString);
 public slots:
     void OnReplaceInfo(int x,int y,string type);
     void OnAppClick(int,QString,QString);
+    void OnPllBack(QString type);
+    void OnEnterQuickStatus(QString status,QString type);
+    void OnEnterEditStatus();
+
+    void OnPullBackFinish();
 private:
+
     QPropertyAnimation      *m_pMoveAnimation;
     QRect                    m_viewRect;
     CCButton                *m_pAppBtn;
@@ -85,6 +94,15 @@ private:
     CCButton                *m_pPullBackBtn;
     QPropertyAnimation      *m_pPullBackAnimation;
     CCButton                *m_pVoiceBtn;
+    QLabel                  *m_pLine1;
+    QTimer                   m_pressTimer;
+    bool                     m_bEditStatus;
+    int                      m_iPosDiffX;
+    int                      m_iPosDiffY;
+    QPoint                   m_stayPos;
+    int                      m_MovingSelectIndex;
+
+
 };
 
 #endif // QUICKLANUCHVIEW_H

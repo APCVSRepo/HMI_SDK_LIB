@@ -14,7 +14,7 @@ void SettingsEmergencyData::SetEmergencRescueStatus(QString status)
 
 SettingsEmergencyData *SettingsEmergencyData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new SettingsEmergencyData();
     }

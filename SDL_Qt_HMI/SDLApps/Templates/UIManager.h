@@ -9,58 +9,70 @@
 #include "SDLApps/UI/SDLAppsView.h"
 
 class UIManager : public QWidget, public UIInterface {
-  Q_OBJECT
- public:
-  explicit UIManager(QWidget *parent = NULL);
-  explicit UIManager(AppListInterface *pList, QWidget *parent = NULL);
-  ~UIManager();
+    Q_OBJECT
+public:
+    explicit UIManager(QWidget *parent = NULL);
+    explicit UIManager(AppListInterface *pList, QWidget *parent = NULL);
+    ~UIManager();
 
-  void SetAppListInterface(AppListInterface *pList);
-  bool FindTemplate(std::string name);
+    void SetAppListInterface(AppListInterface *pList);
+    bool FindTemplate(std::string name);
 
-  void onAppActive();
-  void onAppStop();
-  //hmi
-  void onAppShow(int type);
-  void onAppUnregister(int appId);
+    void onAppActive();
+    void onAppStop();
+    //hmi
+    void onAppShow(int type);
+    void onAppRegister(int appId);
+    void onAppUnregister(int appId);
 
-  void onVideoStreamStart();
-  void onVideoStreamStop();
+    void onVideoStreamStart();
+    void onVideoStreamStop();
 
-  void tsSpeak(int VRID, std::string strText);
+    void tsSpeak(int VRID, std::string strText);
 
-  void OnEndAudioPassThru();
+    void OnEndAudioPassThru();
 
-  // add by fanqiang
-  void ShowDeviceList();
-  void SetSDLStatus(bool bConnect);
-  void initAppHMI();
+    // add by fanqiang
+    void ShowDeviceList();
+    void SetSDLStatus(bool bConnect);   //TODO: this func is not found anywhere to be called
+    void initAppHMI();
 
- signals:
-  void onAppShowSignal(int type);
-  void onAppActivatedSignal(AppDataInterface *pInterface);
-  void OnAppUnregisterSignal(int appId);
+    //AppListInterface Proxy
+    void OnAppActivated(int appID);
+//    void StopVideoStream();
+    void ExitApp();
 
-  void onVideoStartSignal();
-  void onVideoStopSignal();
-  void finishLoadSDK();
- public slots:
-  void AppShowSlot(int type);
-  void OnAppUnregisterSlot(int appId);
+    int GetCurViewId();
+signals:
+    void onAppShowSignal(int type);
+    void onAppActivatedSignal(AppDataInterface *pInterface);
+    void OnAppUnregisterSignal(int appId);
 
-  void onVideoStartSlots();
-  void onVideoStopSlots();
-  void loadsdk();
- public:
-  SDLAppsView *getSDLAppsView();
- private:
-  int m_iCurUI;
-  std::string m_sCurTpln;
-  AppListInterface *m_pList;
-  QLibrary m_sdk;
-  TemplateManager m_TplManager;
+    void onVideoStartSignal();
+    void onVideoStopSignal();
+    void finishLoadSDK();
 
-  void waitMSec(int ms);
+    void appListUpdateSignal();
+
+public slots:
+    void AppShowSlot(int type);
+    void OnAppUnregisterSlot(int appId);
+
+    void onVideoStartSlots();
+    void onVideoStopSlots();
+    void loadsdk();
+
+public:
+    SDLAppsView *getSDLAppsView();
+
+private:
+    int m_iCurUI;
+    std::string m_sCurTpln;
+    AppListInterface *m_pList;
+    QLibrary m_sdk;
+    TemplateManager m_TplManager;
+
+    void waitMSec(int ms);
 };
 
-#endif // CUIMANAGER_H
+#endif // UIMANAGER_H

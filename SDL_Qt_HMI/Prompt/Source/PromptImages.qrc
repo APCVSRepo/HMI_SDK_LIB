@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/Prompt/Source">
+        <file>images/horn.png</file>
+        <file>images/left_arrow.png</file>
+        <file>images/message_bg.png</file>
+        <file>images/message_btn_bg_normal.png</file>
+        <file>images/message_icon.png</file>
+    </qresource>
+</RCC>

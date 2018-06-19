@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "HMIFrameWork/AppManager.h"
 #include "HMIFrameWork/HMIFrameWork.h"
-#include "AppLayer.h"
 #include <QLabel>
 namespace Ui {
 class MainWindow;
@@ -20,12 +19,23 @@ public:
     void InitHome();
     void InitQuickLanuch();
     void InitStatusBar();
+    void InitPopUp();
+    void InitPrompt();
     void InitSDLApps();
+    void InitHVAC();
+    void InitPhone();
+    void InitMessage();
+    void InitNavigation();
+    void InitMedia();
+    void InitVR();
 
+
+    void testPopup();
+    void testPrompt();
 private:
     Ui::MainWindow *ui;
     QLabel *m_pBackgroundLabel;
-    AppLayer *m_pAppLayer;
+    QWidget *m_pAppLayer;
 
 };
 

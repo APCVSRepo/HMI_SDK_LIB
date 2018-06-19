@@ -14,7 +14,7 @@ void SettingsDateTimeData::SetHour12Or24(bool bHour12Or24)
 
 SettingsDateTimeData *SettingsDateTimeData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new SettingsDateTimeData();
     }

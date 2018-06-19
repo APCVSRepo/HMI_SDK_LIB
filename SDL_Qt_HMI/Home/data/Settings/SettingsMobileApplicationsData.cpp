@@ -14,7 +14,7 @@ void SettingsMobileApplicationsData::SetMobileApplicationsStatus(QString status)
 
 SettingsMobileApplicationsData *SettingsMobileApplicationsData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new SettingsMobileApplicationsData();
     }

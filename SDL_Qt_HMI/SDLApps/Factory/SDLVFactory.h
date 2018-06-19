@@ -1,6 +1,7 @@
 #ifndef SDLVFACTORY_H
 #define SDLVFACTORY_H
 #include "HMIFrameWork/ViewFactory.h"
+
 class SDLVFactory:public ViewFactory
 {
 public:

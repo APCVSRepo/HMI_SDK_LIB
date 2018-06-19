@@ -1229,7 +1229,12 @@ void AppData::videoStreamStop(Json::Value jsonObj) {
 //}
 
 std::string AppData::getAppIconFile() {
-  return m_strAppIconFilePath;
+    return m_strAppIconFilePath;
+}
+
+std::__cxx11::string AppData::getAppType()
+{
+    return m_szAppType;
 }
 
 std::string AppData::getAppName() {

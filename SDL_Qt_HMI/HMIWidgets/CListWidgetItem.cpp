@@ -1,7 +1,7 @@
 #include "CListWidgetItem.h"
 #include <QRegularExpression>
 #include <QDate>
-
+#include <QPainter>
 CListWidgetItem::CListWidgetItem()
     : m_nSpecifiedID(-1)
     , m_nSpecifiedIDStatus(-1)
@@ -36,22 +36,21 @@ void CListWidgetItem::SetBackgroundInfo(const QString &qsNormalPath,
     m_qsListBackground << qsNormalPath << qsPressedPath << qsCursoredPath;
 }
 
-void CListWidgetItem::AddText(const QRect &rect, const QString &text, int flags, int fontSize)
+void CListWidgetItem::AddText(const QRect &rect, const QString &text, int flags, int fontSize,QColor color)
 {
     m_textRectList << rect;
     m_textStringList << text;
     m_textAlignList << flags;
-    m_textColorList << QColor(255, 255, 255);
+    m_textColorList << color;
     m_textSizeList << fontSize;
     m_textTypeList << false;
 }
-
-void CListWidgetItem::AddSpecialText(const QRect &rect, const QString &text, int flags, int fontSize)
+void CListWidgetItem::AddSpecialText(const QRect &rect, const QString &text, int flags, int fontSize, QColor color,bool addBackground,QColor backgroundColor)
 {
     m_textRectList << rect;
     m_textStringList << text;
     m_textAlignList << flags;
-    m_textColorList << QColor(255, 255, 255);
+    m_textColorList << color;
     m_textSizeList << fontSize;
     m_textTypeList << true;
     //
@@ -59,6 +58,11 @@ void CListWidgetItem::AddSpecialText(const QRect &rect, const QString &text, int
     font.setPixelSize(fontSize);
     QFontMetrics fontMetrics(font);
     int fontHeight = fontMetrics.height();
+    int fontWith = fontMetrics.width(text);
+    if(fontWith > rect.width())
+    {
+        fontWith = rect.width();
+    }
     if (CheckHighlightText(text))
     {
         int left = 0;
@@ -82,16 +86,29 @@ void CListWidgetItem::AddSpecialText(const QRect &rect, const QString &text, int
                 CountNormalText(qsText, rect, textType, fontSize, remainderWidth, left, top);
             }
         }
-        m_sizeItem.setHeight(top + fontHeight + 5);
+        m_sizeItem.setHeight(top + fontHeight + 24);
+        if(addBackground)
+        {
+
+            if((Qt::AlignLeft) == flags ||(Qt::AlignLeft|Qt::TextWrapAnywhere) == flags)
+            {
+                QPixmap pix(getRoundedRectangle(backgroundColor,rect.width()+20,top,10));
+                m_iconspecialTextBackgroundList<<pix;
+                QRect r(rect.x()-10,rect.y()-12,pix.width(),pix.height());
+                m_iconRectspecialTextBackgroundList<<r;
+            }
+            if((Qt::AlignRight) == flags || (Qt::AlignRight|Qt::TextWrapAnywhere) == flags)
+            {
+                QPixmap pix(getRoundedRectangle(backgroundColor,fontWith+20,top,10));
+                m_iconspecialTextBackgroundList<<pix;
+                QRect r(rect.x()+ rect.width()-fontWith-10,rect.y()-12,pix.width(),pix.height());
+                m_iconRectspecialTextBackgroundList<<r;
+            }
+        }
+
     }
     else
     {
-//        QRect fontRect = fontMetrics.boundingRect(rect, Qt::TextWrapAnywhere, text);
-//        Log("2222222222remainderWidth = %d, qsText = %s, textType = %d", fontRect.width(), text.toStdString().c_str(), 0);
-//        m_specialTextRectList << fontRect;
-//        m_specialTextStringList << text;
-//        m_specialTextTypeList << 0;
-//        m_sizeItem.setHeight(rect.top() + fontRect.height() + 5);
        QFont font;
        font.setPixelSize(fontSize);
        QFontMetrics fontMetrics(font);
@@ -104,9 +121,25 @@ void CListWidgetItem::AddSpecialText(const QRect &rect, const QString &text, int
        {
            remainderWidth = 0;
        }
-  //     Log("remainderWidth = %d, qsText = %s,", remainderWidth, qsText.toStdString().c_str());
          CountNormalText(qsText, rect, 0, fontSize, remainderWidth, left, top);
-         m_sizeItem.setHeight(top + fontHeight+ 5);
+         m_sizeItem.setHeight(top + fontHeight+ 24);
+         if(addBackground)
+         {
+             if(flags == (Qt::AlignLeft) ||flags == (Qt::AlignLeft|Qt::TextWrapAnywhere))
+             {
+                 QPixmap pix(getRoundedRectangle(backgroundColor,rect.width()+20,top,10));
+                 m_iconspecialTextBackgroundList<<pix;
+                 QRect r(rect.x()-10,rect.y()-12,pix.width(),pix.height());
+                 m_iconRectspecialTextBackgroundList<<r;
+             }
+             if(flags == (Qt::AlignRight) || flags == (Qt::AlignRight|Qt::TextWrapAnywhere))
+             {
+                 QPixmap pix(getRoundedRectangle(backgroundColor,fontWith+20,top,10));
+                 m_iconspecialTextBackgroundList<<pix;
+                 QRect r(rect.x()+ rect.width()-fontWith-10,rect.y()-12,pix.width(),pix.height());
+                 m_iconRectspecialTextBackgroundList<<r;
+             }
+         }
     }
 }
 
@@ -521,4 +554,16 @@ void CListWidgetItem::CountTextRect(const QFontMetrics &fontMetrics, QString& te
         left += fontMetrics.width(remainderText) + 5;
         //Log("[CListWidgetItem::CountTextRect]: remainderText = %s", remainderText.toStdString().c_str());
     }
+}
+
+QPixmap CListWidgetItem::getRoundedRectangle(QColor color, int width, int height, int radius)
+{
+    QPixmap pixmap (width, height);
+    pixmap.fill(Qt::transparent);
+    QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(color);
+    painter.drawRoundedRect(0, 0, width, height, radius, radius, Qt::AbsoluteSize);
+    return pixmap;
 }

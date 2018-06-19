@@ -2,7 +2,6 @@
 #define APP_H
 
 #include "Interface.h"
-#include <QWidget>
 #include "CView.h"
 #include "HMIFrameWork/ViewFactory.h"
 class App:public IApp

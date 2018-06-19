@@ -1,5 +1,5 @@
 #include "SettingsWifiUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/data/Settings/SettingsWifiData.h"
 #include "Home/app/Home.h"
 SettingsWifiUI::SettingsWifiUI(QWidget *parent)
@@ -13,16 +13,18 @@ SettingsWifiUI::SettingsWifiUI(QWidget *parent)
     this->setStyleSheet("QWidget{border:none;background:transparent;}");
 
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Wi-Fi"));
     m_pTitleLabel->show();
 
     //list
@@ -43,6 +45,7 @@ SettingsWifiUI::SettingsWifiUI(QWidget *parent)
     m_pVlist->show();
     connect(m_pBackBtn,SIGNAL(clicked()),this,SLOT(OnBack()),Qt::UniqueConnection);
     connect(this,SIGNAL(SigWifiStatusChanged(int)),this,SLOT(OnWifiStatusChanged(int)));
+    connect(this,SIGNAL(SigWifiStatusChanged(int)),SettingsWifiData::GetInstance(),SLOT(OnWifiStatusChanged(int)));
     connect(SettingsWifiData::GetInstance(),SIGNAL(SigWifiListUpdate()),this,SLOT(OnWifiListUpdate()));
 }
 
@@ -63,12 +66,10 @@ void SettingsWifiUI::OnBack()
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex)
 {
-    qDebug()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex;
 }
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)
 {
-    qDebug()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         if(0 == specifiedID)
@@ -84,7 +85,6 @@ void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specified
 
 void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 {
-    qDebug()<<"OnListItemClicked: index: "<<index<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         return;
@@ -92,7 +92,7 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 
     if((m_pVlist->count()-1) == index)
     {
-        qDebug()<<"[SettingsWifiUI]change to [add other hot spots] view";
+        INFO("[SettingsWifiUI]change to [add other hot spots] view");
         //TODO: change to [add other hot spots] view
         Home::Inst()->ViewForwardById(Home::eViewId_Settings_WifiAddHotSpots);
         return;
@@ -102,13 +102,13 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
     SettingsWifiData::GetInstance()->SetSelectedWifiInfo(info);
     if(SecurityType_NONE == info.securityType)
     {
-        qDebug()<<"[SettingsWifiUI]connect to wifi without password";
+        INFO("[SettingsWifiUI]connect to wifi without password");
         //TODO: connect to wifi without password
         SettingsWifiData::GetInstance()->CheckPassword();
     }
     else
     {
-        qDebug()<<"[SettingsWifiUI]change to password view";
+        INFO("[SettingsWifiUI]change to password view");
         //TODO: change to password view
         Home::Inst()->ViewForwardById(Home::eViewId_Settings_WifiPassword);
     }
@@ -116,7 +116,7 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 
 void SettingsWifiUI::OnWifiStatusChanged(int status)
 {
-    qDebug()<<"OnWifiStatusChanged: "<<status;
+    INFO("OnWifiStatusChanged: %d ." ,status);
     if(1 == status)
     {
         this->StartWifi();
@@ -134,7 +134,6 @@ void SettingsWifiUI::SetWifiStatus(int status, bool init)
     {
         if(status == m_iWifiStatus)
         {
-            qDebug()<<"[SettingsWifiUI]same wifi status, no need SetWifiStatus";
             return;
         }
     }
@@ -169,7 +168,7 @@ void SettingsWifiUI::UpdateWifiList()
 {
     if(!m_iWifiStatus)
     {
-        qDebug()<<"[SettingsWifiUI]Wifi is OFF, can not UpdateWifiList";
+        INFO("[SettingsWifiUI]Wifi is OFF, can not UpdateWifiList");
         return;
     }
     m_pVlist->RemoveItems(1, m_pVlist->count());

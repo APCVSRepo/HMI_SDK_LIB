@@ -2,10 +2,8 @@
 #define HOME_H
 
 #include "HMIFrameWork/App.h"
-#include "Home/UI/HomeView.h"
 #include <QWidget>
 #include "HMIFrameWork/AppConfig.h"
-#include "Home/Factory/HomeVFactory.h"
 #include <QObject>
 class Home:public QObject,public App
 {
@@ -42,6 +40,9 @@ public:
     void PhoneClicked();
     void SettingsClicked();
     void WeatherClicked();
+    bool SetNotifyBTShowStatus(bool isShow);
+    bool GetNotifyBTShowStatus();
+    string GetNotifyBTShowId();
 
     void onAppShow(string appId,string viewId) ;
     void onAppHide();
@@ -63,6 +64,8 @@ public:signals:
     void SigQuickMove(QString type);
 private:
     static Home *m_pInst;
+    bool m_bNotifyBTShow;
+    string m_NotifyBTShowId;
 };
 
 #endif // HOME_H

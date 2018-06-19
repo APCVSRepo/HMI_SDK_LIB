@@ -1,7 +1,6 @@
 #include "AppManager.h"
 
-#include <QDebug>
-
+#include "HMIFrameWork/log_interface.h"
 AppManager::AppManager()
     :m_pActiveApp(NULL)
 {
@@ -16,11 +15,11 @@ void AppManager::RegisterApp(App *app)
 {
     if(app)
     {
-        if(app->getAppType() == AppType_App)
+        if(AppType_App == app->getAppType() )
         {
             app->setState(AppStatus_Inactive);
             IntertApp(app);
-        }else if(app->getAppType() == AppType_Decorators)
+        }else if(AppType_Decorators == app->getAppType())
         {
             app->setState(AppStatus_Inactive);
             IntertApp(app);
@@ -30,7 +29,7 @@ void AppManager::RegisterApp(App *app)
 
 bool AppManager::IntertApp(App *app)
 {
-    if(app == NULL)
+    if(NULL == app )
     {
         return false;
     }
@@ -53,7 +52,7 @@ bool AppManager::IntertApp(App *app)
 void AppManager::AppShow(string appId,string viewId)
 {
     App* app = findApp(appId);
-    qDebug()<<"shwo appid = " << QString::fromStdString( appId) ;
+    INFO("Show AppId = %s .",appId.c_str());
 
     if(app)
     {
@@ -75,7 +74,7 @@ void AppManager::AppShow(string appId,string viewId)
 
     }else
     {
-        qDebug()<<"not " << QString::fromStdString(appId);
+        INFO("Not find %s .", QString::fromStdString(appId).toStdString().c_str());
     }
 
 }
@@ -118,6 +117,7 @@ void AppManager::Erase(App *app)
            if(app == m_pAppStack.at(i))
            {
                m_pAppStack.erase(m_pAppStack.begin()+i);
+               return;
            }
        }
    }
@@ -142,16 +142,15 @@ App *AppManager::findApp(string id)
 
 void AppManager::Push(App* app)
 {
-    if(app == NULL)
+    if( NULL == app)
     {
-        qDebug()<<" push null";
         return;
     }
 
     if(m_pAppStack.size() > 0)
     {
         App* temp = m_pAppStack.at(0);
-        if(app == temp || temp == NULL)
+        if(app == temp ||NULL == temp)
         {
             return;
         }

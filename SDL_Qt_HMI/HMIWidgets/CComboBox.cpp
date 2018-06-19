@@ -1,7 +1,7 @@
 #include "CComboBox.h"
 #include <QLineEdit>
 #include "CComboBoxDelegate.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 
 CComboBox::CComboBox(QWidget *parent)
     :QComboBox(parent)
@@ -107,62 +107,52 @@ int CComboBox::GetIndex()
 
 void CComboBox::OnEditTextChanged(const QString &str)
 {
-    qDebug()<<"OnEditTextChanged = " <<str;
     emit editTextChanged(m_iIndex,str);
 }
 
 void CComboBox::OnActivated(int index)
 {
-    qDebug()<<"OnActivated = " <<index;
     emit activated(m_iIndex,index);
 }
 
 void CComboBox::OnActivated(const QString &str)
 {
-    qDebug()<<"OnActivated = " <<str;
     emit activated(m_iIndex,str);
 }
 
 void CComboBox::OnHighlighted(int index)
 {
-    qDebug()<<"OnHighlighted = " <<index;
     emit highlighted(m_iIndex,index);
 }
 
 void CComboBox::OnHighlighted(const QString &str)
 {
-    qDebug()<<"OnHighlighted = " <<str;
     emit highlighted(m_iIndex,str);
 }
 
 void CComboBox::OnCurrentIndexChanged(int index)
 {
-    qDebug()<<"OnCurrentIndexChanged = " <<index;
     emit currentIndexChanged(m_iIndex,index);
 }
 
 void CComboBox::OnCurrentIndexChanged(const QString &str)
 {
-    qDebug()<<"OnCurrentIndexChanged = " <<str;
     emit currentIndexChanged(m_iIndex,str);
 }
 
 void CComboBox::OnCurrentTextChanged(const QString &str)
 {
-    qDebug()<<"OnCurrentTextChanged = " <<str;
     emit currentTextChanged(m_iIndex,str);
 }
 
 void CComboBox::resizeEvent(QResizeEvent *event)
 {
-    qDebug()<<"CComboBox::resizeEvent:"<<event->size();
     static_cast<CComboBoxDelegate *>(this->itemDelegate())->SetItemSize(event->size());
     QComboBox::resizeEvent(event);
 }
 
 void CComboBox::setItemDelegate(QAbstractItemDelegate *delegate)
 {
-    qDebug()<<"[Error]this function should not be called. QAbstractItemDelegate Type is not supported, please use CComboBoxDelegate type.";
-    qDebug()<<"[Error]please use [void setItemDelegate(CComboBoxDelegate *delegate)] instead.";
+    Q_UNUSED(delegate)
 }
 

@@ -203,7 +203,6 @@ bool ListScroller::eventFilter(QObject *object, QEvent *event)
 
 bool ListScroller::mouseEventProcess(QObject* object, QEvent *event)
 {
-    Log("mouse  Event ");
     const QEvent::Type eventType = event->type();
     QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
     switch (eventType)

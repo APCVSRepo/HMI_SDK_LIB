@@ -17,7 +17,7 @@ StatusBar::StatusBar()
 
 StatusBar *StatusBar::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new StatusBar();
     }
@@ -45,7 +45,7 @@ void StatusBar::onNotify(string appId, map<string, string> parameter)
 void StatusBar::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
-    emit SigNotify(appId,parameter);
+    emit SigReply(appId,parameter);
 }
 
 void StatusBar::OnAppShow(string appId, string viewId)

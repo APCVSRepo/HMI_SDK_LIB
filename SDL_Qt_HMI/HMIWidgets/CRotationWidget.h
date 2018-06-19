@@ -9,12 +9,22 @@ class CRotationWidget: public QLabel
 {
     Q_OBJECT
 public:
-    explicit  CRotationWidget(QWidget *parent=0);
+    enum eRotateDirection{
+        ROTATE_CLOCKWISE = 0,
+        ROTATE_ANTICLOCKWISE = 1,
+
+        DEFAULT_DIRECTION = ROTATE_CLOCKWISE
+    };
+    explicit CRotationWidget(QWidget *parent=0);
     ~CRotationWidget();
 
     void setPixmap(const QString &path);
+    void setPixmap(const QPixmap &pixmap);
+
     void start();
     void stop();
+
+    void setRotateDirection(eRotateDirection direction = DEFAULT_DIRECTION);
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -28,6 +38,7 @@ private:
     int  m_nRotationDegree;
     int  m_nRotationAngle;
     QPixmap m_image;
+    eRotateDirection m_eDirection;
 };
 
 #endif // CROTATIONWIDGET_H

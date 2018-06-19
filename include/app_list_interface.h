@@ -104,6 +104,20 @@ class AppListInterface {
    */
   virtual void getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames, std::vector<std::string> &vIconPath) = 0;
 
+
+  /**
+   * 获取所有App信息
+   * @param[out]	vAppIDs		App标识列表
+   * @param[out]	vAppNames		App显示名称列表
+   * @param[out]	vIconPath		App显示图标列表
+   * @param[out]	vAppTypes		App类型列表
+   * @return		无
+   * @ref
+   * @see
+   * @note		获取所有App标识、名称及图标
+   */
+  virtual void getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames, std::vector<std::string> &vIconPath, std::vector<std::string> &vAppTypes) = 0;
+
   /**
    * 通知选择了设备并要求获取设备支持的App信息
    * @param[in]	id		设备ID

@@ -6,6 +6,7 @@
 #include "HMIWidgets/CVListWidget.h"
 #include "HMIFrameWork/CView.h"
 #include "HMIWidgets/CPushButton.h"
+
 class SettingsBTUI : public QWidget , public CView
 {
     Q_OBJECT
@@ -28,10 +29,16 @@ public slots:
     void OnListItemClicked(int index, int specifiedID);
     void OnBTStatusChanged(int status);
 
+    void OnDeviceListUpdate();
+
 private:
     void SetBTStatus(int status, bool init = false);
     void StartBT();
     void UpdateBTList();
+
+    void ShowPopUpPair();
+    void ShowPopUpDisConnect();
+    void ShowPopUpRemoveFromPairdList();
 
 private:
     CPushButton *m_pBackBtn;

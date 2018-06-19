@@ -10,7 +10,7 @@ StatusBarVFactory * StatusBarVFactory::m_pInst = NULL;
 
 StatusBarVFactory *StatusBarVFactory::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new StatusBarVFactory;
     }
@@ -22,7 +22,8 @@ void *StatusBarVFactory::CreateProduct(int viewId)
     QWidget* mainwin = reinterpret_cast<QWidget*>(StatusBar::Inst()->getMain());
     switch (viewId) {
     case StatusBar::eViewId_Main:
-    {   StatusBarView* view = new StatusBarView(mainwin);
+    {
+        StatusBarView* view = new StatusBarView(mainwin);
         view->setView(dynamic_cast<QWidget*>(view));
         return  dynamic_cast<CView*>(view);
     }

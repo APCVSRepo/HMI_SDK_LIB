@@ -6,42 +6,48 @@
 #include <QLabel>
 #include <QLineEdit>
 #include "app_list_interface.h"
-#include "SDLApps/Templates/Common/CustomButton.h"
 #include "SDLApps/Templates/Common/CustomListView.h"
 #include "ChoiceSetVR.h"
+#include "HMIWidgets/CPushButton.h"
 
 class CChoiceSet : public QWidget {
-  Q_OBJECT
- public:
-  explicit CChoiceSet(AppListInterface *pList, QWidget *parent = 0);
-  ~CChoiceSet();
- protected:
-  void showEvent(QShowEvent *e);
-  void hideEvent(QHideEvent *);
- signals:
+    Q_OBJECT
 
- public slots:
-  void OnChoiceVRPressed();
-  void OnReturnBtnClicked();
-  void OnTimeOut();
-  void OnListItemClicked(int iChoiceId);
-  void OnEditChanged(QString strkey);
- private:
-  enum INTERACTIONMODE {BOTH = 0, VR_ONLY, MANUAL_ONLY};
-  int m_iInteractionMode;
+public:
+    explicit CChoiceSet(AppListInterface *pList, QWidget *parent = 0);
+    ~CChoiceSet();
 
-  CCustomButton *m_pReturnBtn;
-  QWidget *m_pTopText;
-  QLabel *m_pInitText;
-  QLineEdit *m_pInitEdit;
-  CustomListView *m_pListView;
-  QVBoxLayout *m_pMainLayout;
-  QHBoxLayout *m_pTopLayout;
-  CChoiceSetVR *m_pChoiceVR;
+protected:
+    void showEvent(QShowEvent *e);
+    void hideEvent(QHideEvent *);
 
-  QTimer *m_pTimer;
+signals:
 
-  AppListInterface *m_pList;
+public slots:
+    void OnChoiceVRClicked();
+    void OnReturnBtnClicked();
+    void OnTimeOut();
+    void OnListItemClicked(int iChoiceId);
+    void OnEditChanged(QString strkey);
+
+private:
+    void SetEditable(bool editable);
+
+private:
+    enum INTERACTIONMODE {BOTH = 0, VR_ONLY, MANUAL_ONLY};
+    int m_iInteractionMode;
+
+    AppListInterface *m_pList;
+
+    QLineEdit *m_pInitEdit;
+    CustomListView *m_pListView;
+
+    CChoiceSetVR *m_pChoiceVR;
+    QTimer *m_pTimer;
+
+    QLabel *m_pBackground;
+    CPushButton *m_pReturnBtn;
+    QLabel *m_pBackIcon;
 };
 
 #endif // CHOICESET_H

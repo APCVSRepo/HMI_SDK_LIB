@@ -5,39 +5,44 @@
 #include <QLabel>
 #include <QSlider>
 #include <QTimer>
-#include <SDLApps/Templates/Common/CustomButton.h>
+#include <QPushButton>
 #include "SDLApps/Templates/Common/AppBase.h"
+#include "HMIWidgets/TopNavigateWidget.h"
 
 class CSliderView : public QWidget {
-  Q_OBJECT
- public:
-  explicit CSliderView(AppListInterface *pList, QWidget *parent = 0);
-  ~CSliderView();
- protected:
-  virtual void showEvent(QShowEvent *e);
- signals:
+    Q_OBJECT
+public:
+    explicit CSliderView(AppListInterface *pList, QWidget *parent = 0);
+    ~CSliderView();
+protected:
+    virtual void showEvent(QShowEvent *e);
+signals:
 
- public slots:
-  void OnReturnBtnClicked();
-  void OnSoftBtnClicked(int iSoftBtnID);
-  void OnSliderValueChanged(int iValue);
-  void OnTimeOut();
- private:
-  void UpdateFooter(int iPos);
-  AppListInterface *m_pList;
+public slots:
+    void OnSliderValueChanged(int iValue);
+    void OnTimeOut();
 
-  QLabel *m_pAppNameLab;
-  QLabel *m_pHeaderLab;
-  QLabel *m_pFooterLab;
-  QSlider *m_pSlider;
+    void OnSaveBtnClicked();
+    void OnReturnBtnClicked();
 
-  CCustomButton *m_pReturnBtn;
-  CCustomButton m_aSoftBtn[2];
+private:
+    void UpdateFooter(int iPos);
 
-  std::vector<std::string> m_FooterStrVec;
-  bool m_bDynamic;
+private:
+    AppListInterface *m_pList;
+    bool m_bDynamic;
+    std::vector<std::string> m_FooterStrVec;
+    QLabel *m_pHeaderLab;
+    QLabel *m_pFooterLab;
+    QSlider *m_pSlider;
 
-  QTimer *m_pTimer;
+    //navigate item
+    TopNavigateWidget *m_pTopWidget;
+
+    QPushButton *m_pSaveBtn;
+    QPushButton *m_pReturnBtn;
+
+    QTimer *m_pTimer;
 };
 
 #endif // SLIDERVIEW_H

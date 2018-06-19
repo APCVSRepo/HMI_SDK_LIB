@@ -1,4 +1,5 @@
 #include "App.h"
+#include <QWidget>
 #include "log_interface.h"
 App::App()
     :m_state(AppStatus_Inactive)
@@ -21,7 +22,8 @@ void App::setAppId(string id)
 
 void App::onAppShow(string appId, string viewId)
 {
-
+     Q_UNUSED(appId)
+     Q_UNUSED(viewId)
 }
 
 void App::onAppHide()
@@ -31,12 +33,14 @@ void App::onAppHide()
 
 void App::onNotify(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 void App::onReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 eAppStatus App::getState()
@@ -218,7 +222,7 @@ void App::EraseView(CView *pView)
 
 void App::PushView(CView *pView)
 {
-    if(pView == NULL)
+    if( NULL == pView )
     {
         return;
     }
@@ -226,7 +230,7 @@ void App::PushView(CView *pView)
     if(m_pAppViewStack.size() > 0)
     {
         CView* temp = m_pAppViewStack.at(0);
-        if(pView == temp || temp == NULL)
+        if(pView == temp || NULL == temp )
         {
             return;
         }

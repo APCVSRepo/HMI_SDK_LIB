@@ -51,6 +51,7 @@ public:
     int GetSpecifiedIDStatus(int index);
     unsigned long long GetSpecifiedTrackID(int index);
     QString GetSpecifiedText(int index);
+    QString GetSpecifiedText2(int index);
     bool IsElidedTextEnabled();
 
     void SetItemTextColor(int index, unsigned int nIndexInItem, const QColor& color);
@@ -64,6 +65,7 @@ public:
     void SetSpecifiedID(int index, int id);
     void SetSpecifiedIDStatus(int index, int status);
     void SetSpecifiedText(int index, QString text);
+    void SetSpecifiedText2(int index, QString text);
     void SetElidedTextEnabled(bool flag);
     void SetItemCheckBoxState(int index, bool bChecked);
     void SetItemCheckBoxDisabled(bool mode);

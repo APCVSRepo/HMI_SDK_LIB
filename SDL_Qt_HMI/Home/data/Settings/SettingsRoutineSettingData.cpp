@@ -15,7 +15,7 @@ void SettingsRoutineSettingData::SetLanguage(QString language)
 
 SettingsRoutineSettingData *SettingsRoutineSettingData::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new SettingsRoutineSettingData();
     }

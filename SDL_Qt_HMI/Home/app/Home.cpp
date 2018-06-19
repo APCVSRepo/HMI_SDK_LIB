@@ -1,8 +1,14 @@
 #include "Home.h"
 #include "Home/UI/HomeWindow.h"
 #include "HMIFrameWork/HMIFrameWork.h"
+#include "Home/data/Settings/SettingsBTData.h"
+#include "HMIFrameWork/log_interface.h"
+#include "Home/Factory/HomeVFactory.h"
+
 Home* Home::m_pInst = NULL;
 Home::Home()
+    :m_bNotifyBTShow(false)
+    ,m_NotifyBTShowId("")
 {
 
     setAppType(AppType_App);
@@ -13,7 +19,7 @@ Home::Home()
 
 Home *Home::Inst()
 {
-    if(m_pInst == NULL)
+    if(NULL == m_pInst)
     {
         m_pInst = new Home();
     }
@@ -77,6 +83,25 @@ void Home::WeatherClicked()
 {
     HMIFrameWork::Inst()->AppShow(WEATHER_ID);
 }
+
+bool Home::SetNotifyBTShowStatus(bool isShow)
+{
+    m_bNotifyBTShow = isShow;
+    if(!isShow)
+    {
+       m_NotifyBTShowId = "";
+    }
+}
+
+bool Home::GetNotifyBTShowStatus()
+{
+    return m_bNotifyBTShow;
+}
+
+string Home::GetNotifyBTShowId()
+{
+    return m_NotifyBTShowId;
+}
 void Home::onNotify(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigNotify(string,map<string,string>)),this,SLOT(OnNotify(string,map<string,string>)),Qt::UniqueConnection);
@@ -86,26 +111,29 @@ void Home::onNotify(string appId, map<string, string> parameter)
 void Home::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
-    emit SigNotify(appId,parameter);
+    emit SigReply(appId,parameter);
 }
 
 void Home::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[Home] onAppShow appId = %s ,viewId = %s .",appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:
     {
-        if(viewId == "Main")
+        if("Main" == viewId)
         {
             ViewForwardById(eViewId_Main);
-        }else if(viewId == "SettingsMain")
+        }else if("SettingsMain" == viewId)
         {
             ViewForwardById(eViewId_Settings_Main);
         }
-        else if(viewId == "BootAnimation")
+        else if("BootAnimation" == viewId)
         {
             ViewForwardById(eViewId_BootAnimation);
+        }else if("BTSetting" == viewId)
+        {
+            ViewForwardById(eViewId_Settings_BT);
         }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->show();
@@ -134,6 +162,10 @@ void Home::OnAppHide()
         break;
      case AppStatus_Inactive:
     {
+        if(Home::Inst()->GetNotifyBTShowStatus())
+        {
+            Home::Inst()->SetNotifyBTShowStatus(false);
+        }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->hide();
     }
@@ -192,13 +224,11 @@ void Home::OnNotify(string appId, map<string, string> parameter)
     {
 
         string type = it->second;
-        INFO()<<QString::fromStdString(type);
 
-        if(type == "SettingsMain")
+        if("SettingsMain" ==  type)
         {
-            if(getState() == AppStatus_Active)
+            if(AppStatus_Active == getState())
             {
-                INFO()<<" SettingsMain";
                 ViewForwardById(eViewId_Settings_Main);
             }else
             {
@@ -210,17 +240,58 @@ void Home::OnNotify(string appId, map<string, string> parameter)
     if(it!=parameter.end())
     {
         string type = it->second;
-        if(type == "BootAnimationFinish")
+        if("BootAnimationFinish" == type)
         {
             ViewForwardById(eViewId_Main);
             HMIFrameWork::Inst()->AppShow(STATUSBAR_ID);
             HMIFrameWork::Inst()->AppShow(QUICKLANUCH_ID);
         }
     }
+    it = parameter.find("BTSetting");
+    if(it!=parameter.end())
+    {
+        string type = it->second;
+        if("Show" == type)
+        {
+            m_bNotifyBTShow = true;
+            it = parameter.find("FromAppId");
+            if(it!=parameter.end())
+            {
+                m_NotifyBTShowId = it->second;
+            }
+            if(getState() != AppStatus_Active)
+            {
+                HMIFrameWork::Inst()->AppShow(HOME_ID,"BTSetting");
+            }else if(AppStatus_Active == getState())
+            {
+                ViewForwardById(eViewId_Settings_BT);
+            }
+        }
+    }
 }
 
 void Home::OnReply(string appId, map<string, string> parameter)
 {
-
+    map<string,string>::const_iterator it = parameter.find("Button");
+    if(it!=parameter.end())
+    {
+        INFO("[Home] OnReply = %s .", QString::fromStdString( it->second).toStdString().c_str());
+        if("BTPair" == it->second)
+        {
+            SettingsBTData::GetInstance()->ConnectDevice(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else if("BTDisConnect" == it->second)
+        {
+            SettingsBTData::GetInstance()->DisconnectDevice(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else if("BTRemove" == it->second)
+        {
+            SettingsBTData::GetInstance()->RemoveDeviceFromPairedList(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);
+        }
+        else
+        {
+            //none
+        }
+    }
 }
 

@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/HVAC/Source">
+        <file>images/aa_off.png</file>
+        <file>images/aa_on.png</file>
+        <file>images/atuo_off.png</file>
+        <file>images/auto_on.png</file>
+        <file>images/bb_off.png</file>
+        <file>images/bb_on.png</file>
+        <file>images/button_off.png</file>
+        <file>images/button_on.png</file>
+        <file>images/button_on_push.png</file>
+        <file>images/cc_off.png</file>
+        <file>images/cc_on.png</file>
+        <file>images/dd_off.png</file>
+        <file>images/down.png</file>
+        <file>images/external_off.png</file>
+        <file>images/external_on.png</file>
+        <file>images/internalcirculation_off.png</file>
+        <file>images/internalcirculation_on.png</file>
+        <file>images/select_tiao_c.png</file>
+        <file>images/select_tiao_l.png</file>
+        <file>images/select_tiao_r.png</file>
+        <file>images/swish_off.png</file>
+        <file>images/swish_on.png</file>
+        <file>images/tiao_bg.png</file>
+        <file>images/top_line.png</file>
+        <file>images/top_line_bg.png</file>
+        <file>images/top_select.png</file>
+        <file>images/up.png</file>
+        <file>images/wind_left.png</file>
+        <file>images/wind_right.png</file>
+        <file>images/wind_bg.png</file>
+        <file>images/wind_select.png</file>
+        <file>images/wind_upanddown_normal.png</file>
+        <file>images/wind_upanddown_select.png</file>
+        <file>images/wind_down_normal.png</file>
+        <file>images/wind_down_select.png</file>
+        <file>images/wind_down_window_normal.png</file>
+        <file>images/wind_down_window_select.png</file>
+        <file>images/wind_up_normal.png</file>
+        <file>images/wind_up_select.png</file>
+    </qresource>
+</RCC>

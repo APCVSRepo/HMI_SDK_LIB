@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/PopUp/Source">
+        <file>images/line_a.png</file>
+        <file>images/button_a.png</file>
+        <file>images/button_a_push.png</file>
+        <file>images/button_b.png</file>
+        <file>images/button_b_push.png</file>
+    </qresource>
+</RCC>

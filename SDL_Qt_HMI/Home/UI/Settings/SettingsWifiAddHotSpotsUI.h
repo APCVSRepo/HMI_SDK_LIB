@@ -27,6 +27,9 @@ protected:
     void showEvent(QShowEvent *);
 
 private:
+    void ShowPopUpAddFailed();
+
+private:
     CPushButton *m_pBackBtn;
     QLabel* m_pTitleLabel;
 

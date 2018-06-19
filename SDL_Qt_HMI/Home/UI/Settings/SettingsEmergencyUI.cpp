@@ -1,5 +1,5 @@
 #include "SettingsEmergencyUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 #include "Home/data/Settings/SettingsEmergencyData.h"
 SettingsEmergencyUI::SettingsEmergencyUI(QWidget *parent)
@@ -16,17 +16,20 @@ SettingsEmergencyUI::SettingsEmergencyUI(QWidget *parent)
     m_pBackgroundLabel->lower();
     m_pBackgroundLabel->show();
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Emergency rescue"));
     m_pTitleLabel->show();
+
     m_pVList = new CVListWidget(this);
     m_pVList->setGeometry(54,67,718,386);
     m_pVList->SetLeftMargin(0);
@@ -80,10 +83,9 @@ void SettingsEmergencyUI::viewAction(int state)
 
 void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
 {
-    qDebug()<<"SettingsEmergencyUI index = " << index <<" btnIndex = " <<btnIndex;
     int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
 
-    if(idStatus == 0)
+    if(0 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_on.png"<<"none"<<"none";
@@ -93,7 +95,7 @@ void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
         //TODO : add  open code
         SettingsEmergencyData::Inst()->SetEmergencRescueStatus("Open");
     }
-    else if(idStatus == 1)
+    else if(1 == idStatus)
     {
         QStringList list;
         list<<":/Settings/button_h_close.png"<<"none"<<"none";

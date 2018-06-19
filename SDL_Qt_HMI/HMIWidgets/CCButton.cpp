@@ -481,9 +481,9 @@ void CCButton::JitterAnimation( int time)
     }
 }
 
-void CCButton::SetExist(bool b)
+void CCButton::SetExist(bool isExit)
 {
-    m_bExist = b;
+    m_bExist = isExit;
     update();
 }
 QPoint CCButton::GetGlobalPos(const QPoint currPos)
@@ -617,7 +617,6 @@ void CCButton::paintEvent(QPaintEvent *event)
             }
         }
     }
-    font;
     font.setPixelSize(m_extendedTextSize);
     painter.setFont(font);
     painter.drawText(m_extendedTextRect, Qt::AlignCenter, m_extendedText);

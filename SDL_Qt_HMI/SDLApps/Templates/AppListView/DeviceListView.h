@@ -2,32 +2,39 @@
 #define DEVICELISTVIEW_H
 
 #include <QWidget>
-#include "CAppButton.h"
+#include "HMIWidgets/CAppButton.h"
 #include "app_list_interface.h"
 
 class CDeviceListView : public QWidget {
-  Q_OBJECT
- public:
-  explicit CDeviceListView(AppListInterface *pList, QWidget *parent = 0);
-  ~CDeviceListView();
+    Q_OBJECT
 
-  void InsertDevice(int index, std::string DeviceId, QString text, QString on, QString off, bool bPaint = false);
-  void DeleteDevice(int index);
- protected:
-  virtual void showEvent(QShowEvent *e);
- signals:
+public:
+    explicit CDeviceListView(AppListInterface *pList, QWidget *parent = 0);
+    ~CDeviceListView();
 
- public slots:
-  void onDeviceSelected(std::string strId);
+    void InsertDevice(int index, std::string DeviceId, QString text, QString on, QString off, bool bPaint = false);
+    void DeleteDevice(int index);
 
- private:
-  void ClearDeviceList();
-  QList<CAppButton *> m_pDevices;
+protected:
+    virtual void showEvent(QShowEvent *e);
 
-  AppListInterface *m_pList;
+signals:
 
-  int m_AppWidth;
-  int m_AppHeight;
+public slots:
+    void onDeviceSelected(std::string strId);
+
+private:
+    void ClearDeviceList();
+
+private:
+    QList<CAppButton *> m_pDevices;
+
+    AppListInterface *m_pList;
+
+    int m_AppWidth;
+    int m_AppHeight;
+
+    QWidget *m_pAppListArea;
 };
 
 #endif // DEVICELISTVIEW_H

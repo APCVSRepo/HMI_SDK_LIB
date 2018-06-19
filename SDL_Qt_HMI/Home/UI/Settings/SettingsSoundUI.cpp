@@ -1,5 +1,5 @@
 #include "SettingsSoundUI.h"
-#include <QDebug>
+#include "HMIFrameWork/log_interface.h"
 #include "Home/app/Home.h"
 SettingsSoundUI::SettingsSoundUI(QWidget *parent)
     :QWidget(parent)
@@ -7,16 +7,18 @@ SettingsSoundUI::SettingsSoundUI(QWidget *parent)
 {
     this->setGeometry(QRect(0,40,800,440));
     m_pBackBtn = new CPushButton(this);
-    m_pBackBtn->setStyleSheet("QPushButton{border-image:url(:/Settings/button_back.png);background:transparent;}");
-    m_pBackBtn->setGeometry(QRect(16,21,29,29));
+    m_pBackBtn->setStyleSheet("QPushButton{border:none;background:transparent;}");
+    m_pBackBtn->setGeometry(QRect(16,21,198,29));
+    m_pBackBtn->SetText(QRect(38,0,160,29),tr("Setting"),22,Qt::AlignLeft|Qt::AlignVCenter,QColor(255,255,255,204));
+    m_pBackBtn->SetIcon(QRect(0,0,29,29),":/Settings/button_back.png");
     m_pBackBtn->setFocusPolicy(Qt::NoFocus);
     m_pBackBtn->show();
 
     m_pTitleLabel = new QLabel(this);
-    m_pTitleLabel->setGeometry(QRect(54,21,300,29));
+    m_pTitleLabel->setGeometry(QRect(220,21,360,29));
     m_pTitleLabel->setStyleSheet("QLabel{color:#4BA9FF;font-size:24px;border:none;background:transparent;}");
-    m_pTitleLabel->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
-    m_pTitleLabel->setText(tr("Setting"));
+    m_pTitleLabel->setAlignment(Qt::AlignCenter);
+    m_pTitleLabel->setText(tr("Sound effect setting"));
     m_pTitleLabel->show();
 
     m_pResetBtn = new CPushButton(this);
@@ -229,7 +231,7 @@ void SettingsSoundUI::InitList()
             item.SetSpecifiedIDStatus(0);
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             item.AddButton(QRect(647,0,71,57),list);
-        }else if(i == 1)
+        }else if(1 == i)
         {
             item.SetSpecifiedID(-1);
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
@@ -259,49 +261,57 @@ void SettingsSoundUI::InitConnect()
 
 void SettingsSoundUI::OnTerbleLeft()
 {
-    qDebug()<<" OnTerbleLeft" ;
    TrebleHandler(1);
 }
 
 void SettingsSoundUI::OnTerbleRight()
 {
-    qDebug()<<" OnTerbleRight" ;
     TrebleHandler(-1);
 }
 
 void SettingsSoundUI::OnAltoLeft()
 {
-    qDebug()<<" OnAltoLeft" ;
     AltoHandler(1);
 }
 
 void SettingsSoundUI::OnAltoRight()
 {
-    qDebug()<<" OnAltoRight" ;
     AltoHandler(-1);
 }
 
 void SettingsSoundUI::OnBassLeft()
 {
-    qDebug()<<" OnBassLeft" ;
     BassHandler(1);
 }
 
 void SettingsSoundUI::OnBassRight()
 {
-    qDebug()<<" OnBassRight" ;
     BassHandler(-1);
 }
 
 void SettingsSoundUI::OnBack()
 {
-    qDebug()<<" OnBack" ;
     Home::Inst()->ViewBack();
 }
 
 void SettingsSoundUI::OnReset()
 {
-    qDebug()<<" OnReset" ;
+    for(int i = 0; i < m_trebleList.size();i++)
+    {
+        m_trebleList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    for(int i = 0; i < m_altoList.size();i++)
+    {
+        m_altoList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    for(int i = 0; i < m_bassList.size();i++)
+    {
+        m_bassList.at(i)->UpdateStatus(SliderSelect::eNormal);
+    }
+    m_pTrebleDataLabel->setText("0");
+    m_pAltoDataLabel->setText("0");
+    m_pBassDataLabel->setText("0");
+
 }
 
 void SettingsSoundUI::OnListBtnRelease(int index, int btnIndex)
@@ -310,14 +320,14 @@ void SettingsSoundUI::OnListBtnRelease(int index, int btnIndex)
     case 0:
     {
         int idStatus =  m_pVlist->GetSpecifiedIDStatus(index);
-        if(idStatus == 0)
+        if(0 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_on.png"<<"none"<<"none";
             m_pVlist->SetItemButtonPixmap(index,btnIndex,list);
             m_pVlist->SetSpecifiedIDStatus(index,1);
         }
-        else if(idStatus == 1)
+        else if(1 == idStatus)
         {
             QStringList list;
             list<<":/Settings/button_h_close.png"<<"none"<<"none";
@@ -340,20 +350,18 @@ void SettingsSoundUI::TrebleHandler(int step)
 {
     int value =  GetTerbleVoice();
     value += step;
-    qDebug() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
         for(int i = m_trebleList.size()/2 -1; i >= 0;i--)
         {
-            if(m_trebleList.at(i)->GetPosionID() == 0 &&m_trebleList.size()/2 -1- i < value )
+            if( 0 == m_trebleList.at(i)->GetPosionID() &&m_trebleList.size()/2 -1- i < value )
             {
-                qDebug() << "TrebleHandler   " ;
                 if(m_trebleList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_trebleList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_trebleList.at(i)->getStatus() )
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -361,14 +369,13 @@ void SettingsSoundUI::TrebleHandler(int step)
     {
         for(int i = m_trebleList.size()/2; i < m_trebleList.size();i++)
         {
-            if(m_trebleList.at(i)->GetPosionID() == 1 && i < m_trebleList.size()/2 - value)
+            if(1 == m_trebleList.at(i)->GetPosionID() && i < m_trebleList.size()/2 - value)
             {
-                qDebug() << "TrebleHandler   " ;
-                if(m_trebleList.at(i)->getStatus() != SliderSelect::eSelect)
+                if(SliderSelect::eSelect != m_trebleList.at(i)->getStatus() )
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_trebleList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_trebleList.at(i)->getStatus())
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -396,20 +403,18 @@ void SettingsSoundUI::AltoHandler(int step)
 {
     int value =  GetAltoVoice();
     value += step;
-    qDebug() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
         for(int i = m_altoList.size()/2 -1; i >= 0;i--)
         {
-            if(m_altoList.at(i)->GetPosionID() == 0 &&m_altoList.size()/2 -1- i < value )
+            if(0 == m_altoList.at(i)->GetPosionID() &&m_altoList.size()/2 -1- i < value )
             {
-                qDebug() << "TrebleHandler   " ;
-                if(m_altoList.at(i)->getStatus() != SliderSelect::eSelect)
+                if(SliderSelect::eSelect != m_altoList.at(i)->getStatus())
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_altoList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_altoList.at(i)->getStatus())
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -417,14 +422,13 @@ void SettingsSoundUI::AltoHandler(int step)
     {
         for(int i = m_altoList.size()/2; i < m_altoList.size();i++)
         {
-            if(m_altoList.at(i)->GetPosionID() == 1 && i < m_altoList.size()/2 - value)
+            if(1 == m_altoList.at(i)->GetPosionID() && i < m_altoList.size()/2 - value)
             {
-                qDebug() << "TrebleHandler   " ;
                 if(m_altoList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_altoList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_altoList.at(i)->getStatus())
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -451,20 +455,18 @@ void SettingsSoundUI::BassHandler(int step)
 {
     int value =  GetBassVoice();
     value += step;
-    qDebug() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
         for(int i = m_bassList.size()/2 -1; i >= 0;i--)
         {
-            if(m_bassList.at(i)->GetPosionID() == 0 &&m_bassList.size()/2 -1- i < value )
+            if(0 == m_bassList.at(i)->GetPosionID() &&m_bassList.size()/2 -1- i < value )
             {
-                qDebug() << "TrebleHandler   " ;
                 if(m_bassList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_bassList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_bassList.at(i)->getStatus())
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -472,14 +474,13 @@ void SettingsSoundUI::BassHandler(int step)
     {
         for(int i = m_bassList.size()/2; i < m_bassList.size();i++)
         {
-            if(m_bassList.at(i)->GetPosionID() == 1 && i < m_bassList.size()/2 - value)
+            if(1 == m_bassList.at(i)->GetPosionID() && i < m_bassList.size()/2 - value)
             {
-                qDebug() << "TrebleHandler   " ;
                 if(m_bassList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
             {
-                if(m_bassList.at(i)->getStatus() == SliderSelect::eSelect)
+                if(SliderSelect::eSelect == m_bassList.at(i)->getStatus() )
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eNormal);
             }
         }
@@ -508,12 +509,12 @@ int SettingsSoundUI::GetTerbleVoice()
     int rightValue = 0;
     for(int i = 0; i<m_trebleList.size();i++)
     {
-        if(m_trebleList.at(i)->getStatus() == SliderSelect::eSelect)
+        if(SliderSelect::eSelect == m_trebleList.at(i)->getStatus() )
         {
-            if(m_trebleList.at(i)->GetPosionID() == 0)
+            if(0 == m_trebleList.at(i)->GetPosionID())
             {
                 leftValue ++;
-            }else if(m_trebleList.at(i)->GetPosionID() == 1)
+            }else if(1 == m_trebleList.at(i)->GetPosionID())
             {
                rightValue --;
             }
@@ -529,12 +530,12 @@ int SettingsSoundUI::GetAltoVoice()
     int rightValue = 0;
     for(int i = 0; i<m_altoList.size();i++)
     {
-        if(m_altoList.at(i)->getStatus() == SliderSelect::eSelect)
+        if(SliderSelect::eSelect == m_altoList.at(i)->getStatus())
         {
-            if(m_altoList.at(i)->GetPosionID() == 0)
+            if(0 == m_altoList.at(i)->GetPosionID())
             {
                 leftValue ++;
-            }else if(m_altoList.at(i)->GetPosionID() == 1)
+            }else if(1 == m_altoList.at(i)->GetPosionID())
             {
                rightValue --;
             }
@@ -550,12 +551,12 @@ int SettingsSoundUI::GetBassVoice()
     int rightValue = 0;
     for(int i = 0; i<m_bassList.size();i++)
     {
-        if(m_bassList.at(i)->getStatus() == SliderSelect::eSelect)
+        if(SliderSelect::eSelect == m_bassList.at(i)->getStatus())
         {
-            if(m_bassList.at(i)->GetPosionID() == 0)
+            if(0 == m_bassList.at(i)->GetPosionID())
             {
                 leftValue ++;
-            }else if(m_bassList.at(i)->GetPosionID() == 1)
+            }else if(1 == m_bassList.at(i)->GetPosionID())
             {
                rightValue --;
             }

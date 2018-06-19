@@ -33,6 +33,7 @@ class AppData : public AppDataInterface {
   std::string getUrlString();
   std::string getAppName();
   std::string getAppIconFile();
+  std::string getAppType();
   Result recvFromServer(Json::Value);
   int getCurUI();
   int getAppID();
@@ -89,6 +90,7 @@ class AppData : public AppDataInterface {
   std::string m_strAppIconFilePath;
   int m_iAppID;
   std::string m_szAppName;
+  std::string m_szAppType;
 
   /**
    * App画面显示对应的模板堆栈，在每个画面显示时，会将对应的模板保存到堆栈，方便在画面返回时，进行模板的恢复

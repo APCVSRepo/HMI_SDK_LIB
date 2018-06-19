@@ -375,6 +375,7 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
   pData->setUIManager(m_pUIManager);
   pData->m_iAppID = jsonObj["params"]["application"]["appID"].asInt();
   pData->m_szAppName = jsonObj["params"]["application"]["appName"].asString();
+  pData->m_szAppType = jsonObj["params"]["application"]["appType"][0].asString();
   pData->addExitAppCommand();
   if (jsonObj["params"]["application"].isMember("icon") && !jsonObj["params"]["application"]["icon"].asString().empty())
     pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["application"]["icon"].asString()));
@@ -395,6 +396,7 @@ void AppList::newAppRegistered(Json::Value jsonObj) {
   }
 
   m_AppDatas.push_back(pData);
+  m_pUIManager->onAppRegister(pData->m_iAppID);
 }
 
 void AppList::updateAppList(Json::Value jsonObj) {
@@ -408,6 +410,7 @@ void AppList::updateAppList(Json::Value jsonObj) {
     pData->setUIManager(m_pUIManager);
     pData->m_iAppID = jsonObj["params"]["applications"][i]["appID"].asInt();
     pData->m_szAppName = jsonObj["params"]["applications"][i]["appName"].asString();
+    pData->m_szAppType = jsonObj["params"]["applications"][i]["appType"][0].asString();
     if (jsonObj["params"]["applications"][i].isMember("icon"))
       pData->m_strAppIconFilePath = ChangeSlash(ConvertPathOfURL(jsonObj["params"]["applications"][i]["icon"].asString()));
     pData->addExitAppCommand();
@@ -490,6 +493,16 @@ void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vA
     vAppNames.push_back(m_AppDatas[i]->m_szAppName);
     vIconPath.push_back(m_AppDatas[i]->m_strAppIconFilePath);
   }
+}
+
+void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::__cxx11::string> &vAppNames, std::vector<std::__cxx11::string> &vIconPath, std::vector<std::__cxx11::string> &vAppTypes)
+{
+    for (int i = 0; i < m_AppDatas.size(); ++i) {
+      vAppIDs.push_back(m_AppDatas[i]->m_iAppID);
+      vAppNames.push_back(m_AppDatas[i]->m_szAppName);
+      vIconPath.push_back(m_AppDatas[i]->m_strAppIconFilePath);
+      vAppTypes.push_back(m_AppDatas[i]->m_szAppType);
+    }
 }
 
 void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames) {
