@@ -96,17 +96,16 @@ void SettingsWifiPasswordUI::OnBack()
 
 void SettingsWifiPasswordUI::OnConnectBtnClicked()
 {
-    INFO()<<"[SettingsWifiPasswordUI]OnConnectBtnClicked";
     //TODO: check password, and do connect if right, else show error msg.
     QString enteredPassword = m_pPasswordEdit->text();
-    INFO()<<"enteredPassword:"<<enteredPassword;
+    INFO("enteredPassword: %s .",enteredPassword.toStdString().c_str());
 
     if(SettingsWifiData::GetInstance()->CheckPassword(enteredPassword))
     {
         //success
         m_pPasswordError->hide();
         //TODO: connect wifi, and show connecting view
-        INFO()<<"[SettingsWifiPasswordUI]CheckPassword success";
+        INFO("[SettingsWifiPasswordUI]CheckPassword success");
        // Home::Inst()->ViewForwardById(Home::eViewId_Settings_Wifi);
         Home::Inst()->ViewBack();
     }
@@ -114,13 +113,12 @@ void SettingsWifiPasswordUI::OnConnectBtnClicked()
     {
         //failed
         m_pPasswordError->show();
-        INFO()<<"[SettingsWifiPasswordUI]CheckPassword failed";
+        INFO("[SettingsWifiPasswordUI]CheckPassword failed");
     }
 }
 
 void SettingsWifiPasswordUI::OnCancelBtnClicked()
 {
-    INFO()<<"[SettingsWifiPasswordUI]OnCancelBtnClicked";
     //TODO: return to SettingsWifiUI view
    // Home::Inst()->ViewForwardById(Home::eViewId_Settings_Wifi);
     Home::Inst()->ViewBack();

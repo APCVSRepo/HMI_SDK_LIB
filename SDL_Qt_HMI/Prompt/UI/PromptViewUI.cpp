@@ -183,7 +183,6 @@ void PromptViewUI::ReleasePrompt(const QString &Id)
     QList <PromptBase*>::iterator it = PromptList.begin();
     for(;it != PromptList.end();++it)
     {
-        INFO()<<PromptList.size();
         if((*it) != NULL && (*it)->GetPromptId() == Id)
         {
             PromptBase* temp= *it;
@@ -198,12 +197,10 @@ void PromptViewUI::ReleasePrompt(const QString &Id)
             }
         }
     }
-    INFO() <<"ReleasePrompt";
 }
 
 void PromptViewUI::PromptHide()
 {
-    INFO()<<"PromptHide " << PromptList.size();
     if(PromptList.size() <= 0)
     {
         Prompt::Inst()->onAppHide();
@@ -212,15 +209,12 @@ void PromptViewUI::PromptHide()
 
 void PromptViewUI::Replay(const QString& PromptId,const QString& info)
 {
-    INFO() << " ++++++++ " << PromptId << "     " << info;
     QList <PromptBase*>::iterator it = PromptList.begin();
     for(;it != PromptList.end();++it)
     {
         if((*it)->GetPromptId() == PromptId)
         {
-            INFO() << " ++++++++ " << PromptId << "     " << info;
             QString fromAppId = (*it)->GetFromeAppId();
-            INFO() << " ++++++++ " << PromptId << "     " << info << "  " << fromAppId;
             map<string,string> p;
             p.insert(make_pair("Button",info.toStdString()));
             HMIFrameWork::Inst()->Reply(fromAppId.toStdString(),p);
@@ -238,14 +232,10 @@ void PromptViewUI::OnButtonClick(const QString& Id,const QString& replayInfo)
 {
 
     Replay(Id,replayInfo);
-    INFO() <<" aaaaaaa" ;
 
     ReleasePrompt(Id);
-    INFO() <<" aaaaaaa" ;
 
     PromptHide();
-
-    INFO() <<" aaaaaaa" ;
 }
 
 

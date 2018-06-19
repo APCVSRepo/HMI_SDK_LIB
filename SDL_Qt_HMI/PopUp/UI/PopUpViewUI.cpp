@@ -126,7 +126,6 @@ void PopUpViewUI::ReleasePopup(const QString &Id)
 
 void PopUpViewUI::PopUpHide()
 {
-    INFO()<<"PopUpHide " << PopupList.size();
     if(PopupList.size() <= 0)
     {
         PopUp::Inst()->onAppHide();
@@ -135,15 +134,13 @@ void PopUpViewUI::PopUpHide()
 
 void PopUpViewUI::Replay(const QString& PopUpId,const QString& info)
 {
-    INFO() << " ++++++++ " << PopUpId << "     " << info;
+    INFO("[Popup] Replay PopUpId = %s ,info =%s .",PopUpId.toStdString().c_str(),info.toStdString().c_str());
     QList <PopUpBase*>::iterator it = PopupList.begin();
     for(;it != PopupList.end();++it)
     {
         if((*it)->GetPopUpId() == PopUpId)
         {
-            INFO() << " ++++++++ " << PopUpId << "     " << info;
             QString fromAppId = (*it)->GetFromeAppId();
-            INFO() << " ++++++++ " << PopUpId << "     " << info << "  " << fromAppId;
             map<string,string> p;
             p.insert(make_pair("Button",info.toStdString()));
             HMIFrameWork::Inst()->Reply(fromAppId.toStdString(),p);

@@ -66,12 +66,10 @@ void SettingsWifiUI::OnBack()
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex)
 {
-    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex;
 }
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)
 {
-    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         if(0 == specifiedID)
@@ -87,7 +85,6 @@ void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specified
 
 void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 {
-    INFO()<<"OnListItemClicked: index: "<<index<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         return;
@@ -95,7 +92,7 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 
     if((m_pVlist->count()-1) == index)
     {
-        INFO()<<"[SettingsWifiUI]change to [add other hot spots] view";
+        INFO("[SettingsWifiUI]change to [add other hot spots] view");
         //TODO: change to [add other hot spots] view
         Home::Inst()->ViewForwardById(Home::eViewId_Settings_WifiAddHotSpots);
         return;
@@ -105,13 +102,13 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
     SettingsWifiData::GetInstance()->SetSelectedWifiInfo(info);
     if(SecurityType_NONE == info.securityType)
     {
-        INFO()<<"[SettingsWifiUI]connect to wifi without password";
+        INFO("[SettingsWifiUI]connect to wifi without password");
         //TODO: connect to wifi without password
         SettingsWifiData::GetInstance()->CheckPassword();
     }
     else
     {
-        INFO()<<"[SettingsWifiUI]change to password view";
+        INFO("[SettingsWifiUI]change to password view");
         //TODO: change to password view
         Home::Inst()->ViewForwardById(Home::eViewId_Settings_WifiPassword);
     }
@@ -119,7 +116,7 @@ void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 
 void SettingsWifiUI::OnWifiStatusChanged(int status)
 {
-    INFO()<<"OnWifiStatusChanged: "<<status;
+    INFO("OnWifiStatusChanged: %d ." ,status);
     if(1 == status)
     {
         this->StartWifi();
@@ -137,7 +134,6 @@ void SettingsWifiUI::SetWifiStatus(int status, bool init)
     {
         if(status == m_iWifiStatus)
         {
-            INFO()<<"[SettingsWifiUI]same wifi status, no need SetWifiStatus";
             return;
         }
     }
@@ -172,7 +168,7 @@ void SettingsWifiUI::UpdateWifiList()
 {
     if(!m_iWifiStatus)
     {
-        INFO()<<"[SettingsWifiUI]Wifi is OFF, can not UpdateWifiList";
+        INFO("[SettingsWifiUI]Wifi is OFF, can not UpdateWifiList");
         return;
     }
     m_pVlist->RemoveItems(1, m_pVlist->count());

@@ -126,7 +126,6 @@ void PromptNavView::AddNavDistance(const QString &text)
     m_pNavDistanceLabel->setFont(font2);
     m_pNavDistanceLabel->resize(width,m_pNavDistanceLabel->height());
     m_pNavDistanceLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeft);
-    INFO()<<"m_pNavDistanceLabel = " << width;
     m_pNavDistanceLabel->setText(text);
 }
 
@@ -138,7 +137,6 @@ void PromptNavView::AddNavSceneDescription(const QString &text)
     int width = getTextWidth(font,text);
     m_pNavSceneDescriptionLabel->resize(width,m_pNavSceneDescriptionLabel->height());
     m_pNavSceneDescriptionLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeft);
-     INFO()<<"m_pNavSceneDescriptionLabel = " << width;
     m_pNavSceneDescriptionLabel->setText(text);
 }
 
@@ -149,7 +147,6 @@ void PromptNavView::AddNavDestination(const QString &text)
     int width = getTextWidth(font,text);
     m_pNavDestinationLabel->resize(width,m_pNavDestinationLabel->height());
     m_pNavDestinationLabel->setAlignment(Qt::AlignBottom|Qt::AlignLeft);
-     INFO()<<"m_pNavDistanceLabel = " << width;
     m_pNavDestinationLabel->setText(text);
 }
 
@@ -164,7 +161,6 @@ void PromptNavView::UpdatePosition()
 
         QFont f( "Microsoft YaHei", 30, 63);
         QString str = geteElidedText(f,m_pNavDestinationLabel->text(),width);
-        INFO() <<" AddMessageContent = " << str;
         m_pNavDestinationLabel->setText(str);
 
     }
@@ -176,9 +172,6 @@ void PromptNavView::UpdatePosition()
     m_pNavSceneDescriptionLabel->move(m_pNavDistanceLabel->x()+m_pNavDistanceLabel->width()+13,m_pNavSceneDescriptionLabel->y());
     m_pNavDestinationLabel->move(m_pNavSceneDescriptionLabel->x()+m_pNavSceneDescriptionLabel->width()+13,m_pNavDestinationLabel->y());
 
-    INFO() <<" " <<m_pNavDirectionIconLabel->geometry() <<" "<<m_pNavDistanceLabel->geometry() <<" "<<m_pNavSceneDescriptionLabel->geometry()<<" "<<m_pNavDestinationLabel->geometry();
-
-
 }
 
 void PromptNavView::Show()
@@ -189,7 +182,6 @@ void PromptNavView::Show()
 
 void PromptNavView::Finish()
 {
-    INFO()<<"PromptNavView::Finish() ++++ ";
     if(IsExistPromptShow())
     {
         if("True" == GetPromptShow())

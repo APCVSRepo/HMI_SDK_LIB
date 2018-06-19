@@ -83,7 +83,6 @@ void SettingsEmergencyUI::viewAction(int state)
 
 void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsEmergencyUI index = " << index <<" btnIndex = " <<btnIndex;
     int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
 
     if(0 == idStatus)

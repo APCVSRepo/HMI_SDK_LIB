@@ -110,7 +110,6 @@ void SettingsRoutineSettingUI::viewAction(int state)
 
 void SettingsRoutineSettingUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsRoutineSettingUI index = " << index <<" btnIndex = " <<btnIndex;
     switch (index) {
     case 1:
         if(0 == btnIndex)

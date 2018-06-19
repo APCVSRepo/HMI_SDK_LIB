@@ -25,7 +25,7 @@ HVACFrontViewOff::~HVACFrontViewOff()
 
 void HVACFrontViewOff::viewAction(int state)
 {
-    INFO()<<" HVACFrontViewOff  viewAction state = " << state;
+    INFO(" HVACFrontViewOff  viewAction state = %d ." ,state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -45,7 +45,7 @@ void HVACFrontViewOff::InitHVACFrontViewOff()
 {
      m_pTitleWhiteLineLabel = new QLabel(this);
      m_pTitleWhiteLineLabel->setGeometry(QRect(0,87,800,3));
-     m_pTitleWhiteLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_line.png);backfground:transparent;}");
+     m_pTitleWhiteLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_line.png);background:transparent;}");
      m_pTitleWhiteLineLabel->show();
 
      m_pTitleFrontBtn = new CPushButton(this);
@@ -56,7 +56,7 @@ void HVACFrontViewOff::InitHVACFrontViewOff()
      m_pTitleFrontBtn->show();
      m_pTitleBlueLineLabel = new QLabel(this);
      m_pTitleBlueLineLabel->setGeometry(QRect(213,84,72,3));
-     m_pTitleBlueLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_select.png);backfground:transparent;}");
+     m_pTitleBlueLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_select.png);background:transparent;}");
      m_pTitleBlueLineLabel->show();
 
      m_pTitleReartBtn = new CPushButton(this);

@@ -139,29 +139,23 @@ bool QuickLanuchView::MouseEvent(QObject *obj, QEvent *event)
         break;
     case QEvent::MouseButtonRelease:
     {
-        INFO() << "MouseButtonRelease";
-
         m_pressTimer.stop();
         if(GetApp())
         {
             GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
         }
         if(GetEditStatus()){
-            INFO() << "bbbbbbbbb";
+
         }
         else {
             if(GetApp())
             {
-                INFO() << "aaaa";
-
                if("PullBack" == GetApp()->GetInfo().Type)
                {
-                   INFO() << "aaaa 2222";
                    if(this->parent())
                    {
                        QuickLanuchWindow *Parent = dynamic_cast<QuickLanuchWindow*>(this->parent());
                        connect(Parent,SIGNAL(PullBackFinish()),this,SLOT(OnPullBackFinish()),Qt::UniqueConnection);
-                       INFO()<<Parent->geometry();
                        if(Parent->geometry().x() == 0)
                        {
                             emit SigPllBack("BACK");
@@ -613,7 +607,6 @@ CCButton* QuickLanuchView::Index(int x, int y)
         {
             QRect rect((*it)->GetViewRect().x(),(*it)->GetViewRect().y(),\
                        (*it)->GetViewRect().width(),(*it)->GetViewRect().height());
-            INFO() << " m_viewRect = " << m_viewRect <<"rect =  " <<rect;
             if(rect.contains(x,y))
             {
                 return (*it);

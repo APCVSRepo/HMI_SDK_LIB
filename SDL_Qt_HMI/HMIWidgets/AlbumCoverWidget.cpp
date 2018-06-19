@@ -64,7 +64,6 @@ void AlbumCoverWidget::updateAlbumCover()
 
 //void AlbumCoverWidget::setImage(const QString &imagePath)
 //{
-////    FUNCPRINT;
 //    INFO("[mediaanimation] void AlbumCoverWidget::setImage(const QString &imagePath)");
 //    m_sImagePath = imagePath;
 //    m_pImage = QPixmap(QPixmap(imagePath).scaled(264,264));
@@ -75,13 +74,11 @@ void AlbumCoverWidget::updateAlbumCover()
 
 //void AlbumCoverWidget::start()
 //{
-////    FUNCPRINT;
 //    activeAnimation();
 //}
 
 //void AlbumCoverWidget::paintEvent(QPaintEvent *)
 //{
-////    FUNCPRINT;
 ////    INFO("[mediaanimation] void AlbumCoverWidget::paintEvent(QPaintEvent *)")
 //    QPixmap pixNormal(QPixmap(m_sImagePathlowsr).scaled(264,264));
 //    pixNormal.setMask(m_Mask);
@@ -97,20 +94,17 @@ void AlbumCoverWidget::updateAlbumCover()
 
 //int AlbumCoverWidget::paint() const
 //{
-////    FUNCPRINT;
 //    return m_ipaint;
 //}
 
 //void AlbumCoverWidget::setpaint(int paint)
 //{
-////    FUNCPRINT;
 //    m_ipaint = paint;
 //    this->update();
 //}
 
 //void AlbumCoverWidget::activeAnimation()
 //{
-////    FUNCPRINT;
 ////    INFO("[mediaanimation] void AlbumCoverWidget::activeAnimation()")
 //    if (m_pPaint)
 //    {
@@ -125,7 +119,6 @@ void AlbumCoverWidget::updateAlbumCover()
 
 //void AlbumCoverWidget::activeAnimationFinish()
 //{
-////    FUNCPRINT;
 ////    INFO("[mediaanimation] m_sImagePathlowsr = %s",m_sImagePathlowsr.toStdString().c_str())
 //    m_sImagePathlowsr = m_sImagePath;
 ////    INFO("[mediaanimation] m_sImagePathlowsr = %s",m_sImagePathlowsr.toStdString().c_str())

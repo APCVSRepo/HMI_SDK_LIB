@@ -78,7 +78,6 @@ void SettingsMainUI::viewAction(int state)
 
 void SettingsMainUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsMainUI index = " << index <<" btnIndex = " <<btnIndex;
 }
 
 void SettingsMainUI::OnListClick(int index)

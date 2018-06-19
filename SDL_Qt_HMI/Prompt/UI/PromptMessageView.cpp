@@ -126,12 +126,10 @@ void PromptMessageView::AddMessageTime(const QString &text)
 
 void PromptMessageView::AddMessageContent(const QString &text)
 {
-    INFO() <<" AddMessageContent = " << text;
     int width = m_pContentLabel->width();
     QFont f;
     f.setPixelSize(24);
     QString str = geteElidedText(f,text,width);
-    INFO() <<" AddMessageContent = " << str;
     m_pContentLabel->setText(str);
 }
 
@@ -148,7 +146,6 @@ void PromptMessageView::Show()
 
 void PromptMessageView::Finish()
 {
-    INFO()<<"PromptMessageView::Finish() ++++ ";
     if(IsExistPromptShow())
     {
         if("True" == GetPromptShow())

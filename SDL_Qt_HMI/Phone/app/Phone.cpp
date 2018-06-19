@@ -53,7 +53,7 @@ bool Phone::IsOutAppCall()
 
 void Phone::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[Phone] onAppShow = %s, viewId = %s .",appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -151,7 +151,6 @@ void Phone::OnNotify(string appId, map<string, string> parameter)
             PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
             HMIFrameWork::Inst()->AppShow(PHONE_ID,"Calling");
         }
-        INFO() << "OnNotify = " << QString::fromStdString( it->second);
     }
 
 }
@@ -161,7 +160,7 @@ void Phone::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        INFO() << "OnReply = " << QString::fromStdString( it->second);
+        INFO("[Phone] OnReply  %s .",QString::fromStdString( it->second).toStdString().c_str());
     }
 }
 

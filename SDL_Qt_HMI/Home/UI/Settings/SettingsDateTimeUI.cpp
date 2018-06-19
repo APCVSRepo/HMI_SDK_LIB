@@ -60,7 +60,6 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     m_pDateTime->CreateAMPMPicker(QSize(50,65),3);
     m_pDateTime->SetAMPMPickerGeometry(625,0,50,195);
 
-    INFO() << QTime::currentTime().hour()<<"  " <<TimeTo12HourClock(QTime::currentTime().hour());
     m_pDateTime->SetCurrentHour(TimeTo12HourClock(QTime::currentTime().hour()),true);
     m_pDateTime->SetCurrentMinute(QTime::currentTime().minute(),true);
     m_pDateTime->SetCurrentAMPM(GetAmOrPm(QTime::currentTime().hour()),true);
@@ -196,7 +195,6 @@ void SettingsDateTimeUI::OnBack()
 
 void SettingsDateTimeUI::OnListBtnRelease(int index, int btnIndex)
 {
-    INFO() <<" SettingsDateTimeUI";
     switch (index) {
     case 0:
     {

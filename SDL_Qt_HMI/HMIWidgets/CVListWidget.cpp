@@ -4,9 +4,8 @@
 #include <QFontMetrics>
 #include <QPainter>
 #include <QDate>
-#include "HMIFrameWork/log_interface.h"
 #include <QPixmap>
-#define Log qDebug
+#include "WidgetsCommon.h"
 CVListWidget::CVListWidget(QWidget *parent)
     : QListWidget(parent)
     , m_pScroller(new ListScroller(this))

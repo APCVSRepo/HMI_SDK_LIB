@@ -73,12 +73,10 @@ void SettingsBTUI::OnBack()
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex)
 {
-    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex;
 }
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)
 {
-    INFO()<<"OnListButtonReleased: index: "<<index<<", btnIndex: "<<btnIndex<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         if(0 == btnIndex)
@@ -121,7 +119,6 @@ void SettingsBTUI::OnListButtonReleased(int index, int btnIndex, int specifiedID
 
 void SettingsBTUI::OnListItemClicked(int index, int specifiedID)
 {
-    INFO()<<"SettingsBTUI::OnListItemClicked: index: "<<index<<", specifiedID: "<<specifiedID;
     if(0 == index)
     {
         INFO("BT Switch Item clicked");
@@ -174,7 +171,6 @@ void SettingsBTUI::SetBTStatus(int status, bool init)
     {
         if(status == m_iBTStatus)
         {
-            INFO()<<"[SettingsBTUI]same BT status, no need SetBTStatus";
             return;
         }
     }
@@ -215,7 +211,6 @@ void SettingsBTUI::UpdateBTList()
 {
     if(!m_iBTStatus)
     {
-        INFO()<<"[SettingsBTUI]BT is OFF, can not UpdateBTList";
         return;
     }
     m_pVlist->RemoveItems(1, m_pVlist->count());
@@ -263,7 +258,6 @@ void SettingsBTUI::UpdateBTList()
             item.AddText(QRect(800-54-94-150,0,150,57),QString("Connected"),Qt::AlignRight|Qt::AlignVCenter,20,QColor(255,255,255,204));
             break;
         default:
-            INFO()<<"invalid status";
             break;
         }
 

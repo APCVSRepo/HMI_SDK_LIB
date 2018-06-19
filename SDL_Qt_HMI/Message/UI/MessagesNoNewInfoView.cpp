@@ -26,7 +26,7 @@ MessagesNoNewInfoView::~MessagesNoNewInfoView()
 
 void MessagesNoNewInfoView::viewAction(int state)
 {
-    INFO()<<" MessagesNoNewInfoView  viewAction state = " << state;
+    INFO("[Message] MessagesNoNewInfoView  viewAction state = %d",state);
     switch (state) {
     case eviewStatus_Init:
     {

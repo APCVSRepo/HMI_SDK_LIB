@@ -83,7 +83,6 @@ void SettingsMobileApplicationsUI::viewAction(int state)
 
 void SettingsMobileApplicationsUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsMobileApplicationsUI index = " << index <<" btnIndex = " <<btnIndex;
     int idStatus =  m_pVList->GetSpecifiedIDStatus(index);
 
     if(0 == idStatus)

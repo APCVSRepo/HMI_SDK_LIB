@@ -59,7 +59,7 @@ void PopUp::OnAppShow(string appId, string viewId)
 
 void PopUp::OnAppHide()
 {
-    INFO()<<" OnAppHide " << getState();
+    INFO("[PopUp] OnAppHide %d .",getState());
         setState(AppStatus_Inactive);
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->hide();

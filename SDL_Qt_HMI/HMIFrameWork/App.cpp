@@ -22,7 +22,8 @@ void App::setAppId(string id)
 
 void App::onAppShow(string appId, string viewId)
 {
-
+     Q_UNUSED(appId)
+     Q_UNUSED(viewId)
 }
 
 void App::onAppHide()
@@ -32,12 +33,14 @@ void App::onAppHide()
 
 void App::onNotify(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 void App::onReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 eAppStatus App::getState()

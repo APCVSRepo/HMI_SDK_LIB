@@ -48,7 +48,7 @@ void QuickLanuch::onReply(string appId, map<string, string> parameter)
 
 void QuickLanuch::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[QuickLanuch] OnAppShow appId = %s , viewId =%s .",appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:

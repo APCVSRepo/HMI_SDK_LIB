@@ -116,7 +116,7 @@ void Home::onReply(string appId, map<string, string> parameter)
 
 void Home::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[Home] onAppShow appId = %s ,viewId = %s .",appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -224,13 +224,11 @@ void Home::OnNotify(string appId, map<string, string> parameter)
     {
 
         string type = it->second;
-        INFO()<<QString::fromStdString(type);
 
         if("SettingsMain" ==  type)
         {
             if(AppStatus_Active == getState())
             {
-                INFO()<<" SettingsMain";
                 ViewForwardById(eViewId_Settings_Main);
             }else
             {
@@ -277,7 +275,7 @@ void Home::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        INFO() << "OnReply = " << QString::fromStdString( it->second);
+        INFO("[Home] OnReply = %s .", QString::fromStdString( it->second).toStdString().c_str());
         if("BTPair" == it->second)
         {
             SettingsBTData::GetInstance()->ConnectDevice(SettingsBTData::GetInstance()->GetSelectedBTInfo().id);

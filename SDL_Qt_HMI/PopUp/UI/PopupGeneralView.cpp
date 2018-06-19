@@ -141,7 +141,6 @@ void PopupGeneralView::AddBtnA(const QString &text)
     QRect rec = fm.boundingRect( m_text.text());
     int ii = rec.width();//这个就获得了字符串所占的像素宽度
 
-    INFO()<<" A ii = " << ii;
     if(ii > 126)
     {
         m_buttonStyle = ButtonStyle_BtnAS;
@@ -178,7 +177,6 @@ void PopupGeneralView::AddBtnB(const QString &text)
     m_text.setText(text);
     QRect rec = fm.boundingRect( m_text.text());
     int ii = rec.width();//这个就获得了字符串所占的像素宽度
-    INFO()<<" B ii = " << ii;
     if(ii > 126)
     {
         if(ButtonStyle_BtnAS == m_buttonStyle)
@@ -201,7 +199,6 @@ void PopupGeneralView::AddBtnB(const QString &text)
         {
             m_buttonStyle = ButtonStyle_BtnB;
         }
-        INFO() << " pb " ;
         m_pBtnB->resize(131,32);
         m_pBtnB->setStyleSheet("QPushButton{font-size:20px;color:#ffffffff;border:transparent;background-image:url(:/PopUp/Source/images/button_a.png);}\
                                      QPushButton:pressed{color:#66ffffff;background-image:url(:/PopUp/Source/images/button_a_push.png);border:none;}");
@@ -279,7 +276,6 @@ void PopupGeneralView::Show()
         m_pHDisplayAreaLayout->addWidget(m_pBtnB,0,Qt::AlignLeft|Qt::AlignVCenter);
         if(ButtonStyle_BtnAS  == m_buttonStyle)
         {
-            INFO() <<"aaaaa = " << m_buttonStyle;
             m_pHDisplayAreaLayout->addSpacing(58);
         }
         m_pHDisplayArea->setLayout(m_pHDisplayAreaLayout);
@@ -319,7 +315,6 @@ void PopupGeneralView::Show()
 
 void PopupGeneralView::Finish()
 {
-    INFO()<<"PopupGeneralView::Finish() ++++ ";
     if(IsExistPopUpShow())
     {
         if("True" == GetPopUpShow())
@@ -391,7 +386,6 @@ void PopupGeneralView::OnButtonB()
 
 void PopupGeneralView::DrawContextA(QString context, QString light)
 {
-    INFO()<<"DrawContextA" << context << "  " << light;
 
     //font size
     QFont font;
@@ -414,7 +408,6 @@ void PopupGeneralView::DrawContextA(QString context, QString light)
 
 void PopupGeneralView::DrawContextB(QString context, QString light)
 {
-    INFO()<<"DrawContextB" << context << "  " << light;
 
     //font size
     QFont font;
@@ -439,7 +432,6 @@ void PopupGeneralView::HighLightText(QString light)
 {
     QString search_text = light;
         if (search_text.trimmed().isEmpty()) {
-            INFO()<<"Empty search field";
 //            QMessageBox::information(this, tr("Empty search field"), tr("The search field is empty."));
         } else {
             QTextDocument *document = m_pText->document();
@@ -462,7 +454,7 @@ void PopupGeneralView::HighLightText(QString light)
             cursor.endEditBlock();
             //结束
             if (false == found) {
-                INFO()<<"Sorry,the word cannot be found.";
+                INFO("the word cannot be found.");
 //                QMessageBox::information(this, tr("Word not found"), tr("Sorry,the word cannot be found."));
             }
         }

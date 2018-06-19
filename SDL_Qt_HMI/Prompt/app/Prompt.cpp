@@ -68,10 +68,11 @@ void Prompt::OnAppShow(string appId, string viewId)
 
 void Prompt::OnAppHide()
 {
-    INFO()<<" OnAppHide " << getState();
-        setState(AppStatus_Inactive);
-        QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
-        mainwin->hide();
+    INFO("[Prompt] OnAppHide ");
+
+    setState(AppStatus_Inactive);
+    QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
+    mainwin->hide();
 }
 
 void Prompt::OnNotify(string appId, map<string, string> parameter)

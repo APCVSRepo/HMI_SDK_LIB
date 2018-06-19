@@ -160,7 +160,6 @@ void SettingsDisplayUI::viewAction(int state)
 
 void SettingsDisplayUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsDisplayUI index = " << index <<" btnIndex = " <<btnIndex;
     switch (index) {
     case 0:
     {
@@ -193,12 +192,10 @@ void SettingsDisplayUI::OnListClick(int index)
 
 void SettingsDisplayUI::OnLuminanceRegulationValue(int value)
 {
-    INFO() << "OnLuminanceRegulationValue = " << value;
 }
 
 void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 {
-    INFO() <<"OnAddLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->maximum();
 
     if(m_pLuminanceRegulationSlider->value() < m_pLuminanceRegulationSlider->maximum())
     {
@@ -208,7 +205,6 @@ void SettingsDisplayUI::OnAddLuminanceRegulationValue()
 
 void SettingsDisplayUI::OnSubLuminanceRegulationValue()
 {
-    INFO() <<"OnSubLuminanceRegulationValue = " << m_pLuminanceRegulationSlider->value() <<" "<<m_pLuminanceRegulationSlider->minimum();
     if(m_pLuminanceRegulationSlider->value() > m_pLuminanceRegulationSlider->minimum())
     {
         m_pLuminanceRegulationSlider->setValue(m_pLuminanceRegulationSlider->value()-1);

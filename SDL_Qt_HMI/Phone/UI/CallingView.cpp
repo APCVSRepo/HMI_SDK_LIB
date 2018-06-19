@@ -27,7 +27,7 @@ CallingView::~CallingView()
 
 void CallingView::viewAction(int state)
 {
-    INFO()<<" CallingView  viewAction state = " << state;
+    INFO("CallingView  viewAction state = %d .", state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -167,7 +167,6 @@ void CallingView::AddCall()
         m_callTimer1.start();
 
         SPhoneInfo &info = PhoneData::Inst()->CurCall();
-        INFO("add call %s ,number = %s.\n",info.FirstName.toStdString().c_str(),info.number.toStdString().c_str());
         PhoneData::Inst()->addNewRecentsInfo(info);
 
 

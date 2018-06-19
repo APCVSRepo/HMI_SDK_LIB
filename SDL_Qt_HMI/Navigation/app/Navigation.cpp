@@ -107,7 +107,6 @@ void Navigation::OnNotify(string appId, map<string, string> parameter)
 
             string str = iter->second;
             int appCount = QString::fromStdString(str).toInt();
-            INFO()<<"Navigation::OnNotify:NavigationAppList:"<<appCount;
 
             for(int i = 0; i < appCount; ++i)
             {
@@ -132,13 +131,10 @@ void Navigation::OnNotify(string appId, map<string, string> parameter)
                 }
 
                 m_vNaviAppList.push_back(appInfo);
-                INFO()<<"Navigation::OnNotify["<<i<<"]"<<m_vNaviAppList[i].appId<<" "<<m_vNaviAppList[i].appName.c_str()
-                       <<" "<<m_vNaviAppList[i].appIcon.c_str();
             }
 
             emit SigUpdateAppList();
         }
-        INFO()<<"Navigation::OnNotify:m_vNaviAppList.size():"<<m_vNaviAppList.size();
     }
 
 }

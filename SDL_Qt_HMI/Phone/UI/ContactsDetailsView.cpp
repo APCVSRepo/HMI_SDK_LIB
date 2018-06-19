@@ -26,7 +26,7 @@ ContactsDetailsView::~ContactsDetailsView()
 
 void ContactsDetailsView::viewAction(int state)
 {
-    INFO()<<" ContactsDetailsView  viewAction state = " << state;
+    INFO("[Phone] ContactsDetailsView  viewAction state = %d ",state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -155,7 +155,6 @@ void ContactsDetailsView::OnListClick(int index)
 
     if(NULL != info)
     {
-        INFO("Contacts detail find  %s yes.",info->FirstName.toStdString().c_str());
         info->date = QDate::currentDate();
         info->time = QTime::currentTime();
         info->status = eDialCall;

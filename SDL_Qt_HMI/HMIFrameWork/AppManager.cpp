@@ -52,7 +52,7 @@ bool AppManager::IntertApp(App *app)
 void AppManager::AppShow(string appId,string viewId)
 {
     App* app = findApp(appId);
-    INFO()<<"shwo appid = " << QString::fromStdString( appId) ;
+    INFO("Show AppId = %s .",appId.c_str());
 
     if(app)
     {
@@ -74,7 +74,7 @@ void AppManager::AppShow(string appId,string viewId)
 
     }else
     {
-        INFO()<<"not " << QString::fromStdString(appId);
+        INFO("Not find %s .", QString::fromStdString(appId).toStdString().c_str());
     }
 
 }
@@ -144,7 +144,6 @@ void AppManager::Push(App* app)
 {
     if( NULL == app)
     {
-        INFO()<<" push null";
         return;
     }
 

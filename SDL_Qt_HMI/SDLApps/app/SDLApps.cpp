@@ -93,7 +93,7 @@ void SDLApps::SetFromMedia(bool bFromMedia)
 void SDLApps::OnAppShow(string appId, string viewId)
 {
     int state = getState();
-    INFO()<<" SDLApps appid = " << QString::fromStdString(appId) << "viewId" << QString::fromStdString( viewId);
+    INFO("[SDLApps] OnAppShow appId = %s , viewId = %s .",appId.c_str(),viewId.c_str());
     switch (state) {
     case AppStatus_Active:
     {
@@ -173,7 +173,6 @@ void SDLApps::OnNotify(string appId, map<string, string> parameter)
         map<string, string>::iterator iter = parameter.find("MediaAppSelected");
         if(iter != parameter.end())
         {
-            INFO()<<" ui manager show ID" << m_pUIManager->GetCurViewId();
            if(ID_SHOW == m_pUIManager->GetCurViewId())
            {
                HMIFrameWork::Inst()->AppShow(SDLAPPS_ID,"default");

@@ -188,7 +188,7 @@ gboolean CGstPlayer::Gst_Bus_Callback(GstBus *bus, GstMessage *msg, gpointer dat
       break;
     }
     case GST_MESSAGE_EOS:
-      qDebug("-- MSG: EOS\n");
+      INFO("-- MSG: EOS");
       player->stop();
       if(player->GetMessageCallBack())
       {

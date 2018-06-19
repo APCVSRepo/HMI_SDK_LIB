@@ -107,7 +107,6 @@ void VR::OnNotify(string appId, map<string, string> parameter)
 
             string str = iter->second;
             int appCount = QString::fromStdString(str).toInt();
-            INFO()<<"VR::OnNotify:VRAppList:"<<appCount;
 
             for(int i = 0; i < appCount; ++i)
             {
@@ -132,13 +131,10 @@ void VR::OnNotify(string appId, map<string, string> parameter)
                 }
 
                 m_vVRAppList.push_back(appInfo);
-                INFO()<<"Navigation::OnNotify["<<i<<"]"<<m_vVRAppList[i].appId<<" "<<m_vVRAppList[i].appName.c_str()
-                       <<" "<<m_vVRAppList[i].appIcon.c_str();
             }
 
             emit SigUpdateAppList();
         }
-        INFO()<<"VR::OnNotify:m_vVRAppList.size():"<<m_vVRAppList.size();
     }
 }
 

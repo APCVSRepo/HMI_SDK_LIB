@@ -37,7 +37,6 @@ void QuickLanuchWindow::setPosition(QPoint position)
 
 void QuickLanuchWindow::PullBackAnimation(const QPoint startPos, const QPoint endPos, int time)
 {
-    INFO() <<" QuickLanuchWindow PullBackAnimation";
     if(m_pPullBackAnimation)
     {
         if(this->geometry().x() < 0)
@@ -59,7 +58,6 @@ void QuickLanuchWindow::PullBackAnimation(const QPoint startPos, const QPoint en
 void QuickLanuchWindow::PullBackAnimationFinish()
 {
     emit PullBackFinish();
-    INFO()<< " finisj +++" << this->geometry();
     if(this->geometry().x() < 0)
     {
         m_pLine->hide();

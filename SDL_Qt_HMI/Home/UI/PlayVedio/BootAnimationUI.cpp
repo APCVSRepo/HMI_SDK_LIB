@@ -19,7 +19,7 @@ BootAnimationUI::BootAnimationUI(QWidget *parent)
 
 void BootAnimationUI::viewAction(int state)
 {
-    INFO()<<"BootAnimationUI = " << state;
+    INFO("[Home] BootAnimationUI viewAction %d .",state);
     switch (state) {
     case eViewStatus_Active:
     {

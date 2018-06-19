@@ -26,7 +26,7 @@ MessagesView::~MessagesView()
 
 void MessagesView::viewAction(int state)
 {
-    INFO()<<" MessagesView  viewAction state = " << state;
+    INFO("[Message] MessagesView  viewAction state = %d .",state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -102,7 +102,6 @@ void MessagesView::UpdataData()
               int week = date.dayOfWeek();
               int curWeek = QDate::currentDate().dayOfWeek();
 
-              INFO()<<" week = " << week << " cur = " << curWeek;
               if(week < curWeek)
               {
                  strTime = toWeek(week);

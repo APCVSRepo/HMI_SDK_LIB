@@ -107,7 +107,7 @@ void Media::OnNotify(string appId, map<string, string> parameter)
 
             string str = iter->second;
             int appCount = QString::fromStdString(str).toInt();
-            INFO()<<"Media::OnNotify:MediaAppList:"<<appCount;
+            INFO("Media::OnNotify:MediaAppList: %d",appCount);
 
             for(int i = 0; i < appCount; ++i)
             {
@@ -132,13 +132,10 @@ void Media::OnNotify(string appId, map<string, string> parameter)
                 }
 
                 m_vMediaAppList.push_back(appInfo);
-                INFO()<<"Navigation::OnNotify["<<i<<"]"<<m_vMediaAppList[i].appId<<" "<<m_vMediaAppList[i].appName.c_str()
-                       <<" "<<m_vMediaAppList[i].appIcon.c_str();
             }
 
             emit SigUpdateAppList();
         }
-        INFO()<<"Media::OnNotify:m_vMediaAppList.size():"<<m_vMediaAppList.size();
     }
 }
 

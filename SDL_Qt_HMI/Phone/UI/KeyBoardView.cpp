@@ -27,7 +27,7 @@ KeyBoardView::~KeyBoardView()
 
 void KeyBoardView::viewAction(int state)
 {
-    INFO()<<" KeyBoardView  viewAction state = " << state;
+    INFO("[Phone] KeyBoardView  viewAction state = %d" ,state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -395,15 +395,12 @@ void KeyBoardView::OnTextChange(QString text)
 {
     if(text.length()>2)
     {
-        INFO() <<" aaaaaaaaaaa";
         MachContacts(m_pNumberInput->text());
     }else if(m_pNumberInput->text().length()<=2)
     {
-        INFO() <<" bbbbbbbbbb";
         if(m_pMatchContactsList->count()>0)
             m_pMatchContactsList->RemoveAllItems();
     }
-    INFO() << "  OnTextChange " <<text;
 }
 
 void KeyBoardView::OnContacts()
@@ -454,7 +451,6 @@ void KeyBoardView::OnListClick(int index)
 
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
     PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
-    INFO() << index<<" "<<name <<"  " << number;
 }
 
 

@@ -34,15 +34,9 @@ void PhoneData::InitNameMap()
      char *pmbnull = NULL;
      char *pmb = (char *)malloc( sizeof( char ) );
 
-     qDebug( "convertText a wide character:\n" );
      i = wctomb( pmb, wc );
-     qDebug( "\tCharacters convertTexted: %u\n", i );
-     qDebug( "\tMultibyte character: %.1s\n\n", pmb );
 
-     qDebug( "Attempt to convertText when target is NULL:\n" );
      i = wctomb( pmbnull, wc );
-     qDebug( "\tCharacters convertTexted: %u\n", i );
-     qDebug( "\tMultibyte character: %.1s\n", pmbnull );;
 }
 
 void PhoneData::InitTestRecentsData()
@@ -610,12 +604,9 @@ wchar_t PhoneData::toWchar(string sChinese)
 
       wchr  |=  (chr[1]  &  0xff);
 
-      INFO() <<" wchr = "<< wchr <<"  " << (int)chr[0] << "  " << (int)chr[1];
        bbbb =  convertText(wchr);
 
       }
-
-      cout  <<  "pin  yin  =  ["  <<  bbbb  <<  "]"  <<  endl;
 }
 
 SPhoneInfo *PhoneData::GetContactsDetailInfo()
@@ -808,7 +799,6 @@ QList<SMatchContact *>& PhoneData::GetMatchContacts(const QString &number)
        }
        else if((*it)->MobileNumber.indexOf(number)>=0)
        {
-           INFO() <<"GetMatchContacts MobileNumber";
             SMatchContact *temp = new SMatchContact;
             temp->FirstName = (*it)->FirstName;
             temp->LastName = (*it)->LastName;

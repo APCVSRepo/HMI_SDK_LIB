@@ -27,7 +27,7 @@ ContactsView::~ContactsView()
 
 void ContactsView::viewAction(int state)
 {
-    INFO()<<" ContactsView  viewAction state = " << state;
+    INFO("[Phone] ContactsView  viewAction state = %d .", state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -146,8 +146,6 @@ void ContactsView::UpdateData()
         }
         QString contacts = "Contacts " + PhoneData::Inst()->GetContactsInfo().at(i)->FirstName +"  "+ PhoneData::Inst()->GetContactsInfo().at(i)->LastName;
         item.AddText(QRect(47,18,300,52),contacts,Qt::AlignLeft|Qt::AlignTop,24,QColor(255,255,255));
-
-        INFO(" contacts = %s .",contacts.toStdString().c_str());
         m_pContactsList->InsertItem(i,item);
     }
 }
@@ -183,7 +181,6 @@ void ContactsView::OnListClick(int index)
 
 void ContactsView::OnPhonePickerClick(int index, QString text)
 {
-    INFO() <<"OnPhonePickerClick = " <<index<<" " <<text;
     if(index>=0)
     {
         m_pPhonePickerSelectLabel->move(703,114+(index+1)*13-6-25);

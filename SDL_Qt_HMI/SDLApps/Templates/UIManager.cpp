@@ -263,7 +263,7 @@ void UIManager::onVideoStopSlots() {
 }
 
 void UIManager::AppShowSlot(int type) {
-    qDebug("type 1= %d", type);
+    INFO("type 1= %d", type);
     TemplateImp &curTpl = m_TplManager.Get(m_sCurTpln);
     // 画面是MAIN或APPLINK时，使用全局的默认模板画面
     if (ID_MAIN == type || ID_APPLINK == type || ID_DEVICEVIEW == type) {
@@ -276,22 +276,22 @@ void UIManager::AppShowSlot(int type) {
         tpl.GetScene(m_iCurUI)->show();
         return;
     }
-    qDebug("type 2= %d", type);
+    INFO("type 2= %d", type);
     // 获取当前App使用的模板
     AppDataInterface *pData = AppControl;
     if (!pData)
         return;
-    qDebug("type 3= %d", type);
+    INFO("type 3= %d", type);
     std::string tplname = pData->GetActiveTemplate();
     TemplateImp &tpl = m_TplManager.Get(tplname);
 
     if (tpl.GetScene(m_iCurUI) == NULL)
         return;
-    qDebug("type 4= %d", type);
+    INFO("type 4= %d", type);
     if (type == ID_VIDEOSTREAM) {
         emit onVideoStartSignal();
     }
-    qDebug("type 5= %d", type);
+    INFO("type 5= %d", type);
     // 特殊处理MEDIA模板Show画面的mediaclock请求
     if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
         CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
@@ -302,7 +302,7 @@ void UIManager::AppShowSlot(int type) {
         }
         m_iCurUI = type;
         m_sCurTpln = tplname;
-        qDebug("type = %d", type);
+        INFO("type = %d", type);
         tpl.GetScene(m_iCurUI)->show();
 
 
@@ -361,7 +361,7 @@ void UIManager::loadsdk() {
     if (Init) {
         /*AppListInterface *pApp = */Init(this);
     } else {
-        INFO("[SDL][Error]can't load hmi sdk lib, %s", strFilePath.data());
+        ERROR("[SDL][Error]can't load hmi sdk lib, %s", strFilePath.data());
     }
     // 通知初始化完成
     emit finishLoadSDK();

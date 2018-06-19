@@ -25,7 +25,7 @@ HVACRearView::~HVACRearView()
 
 void HVACRearView::viewAction(int state)
 {
-    INFO()<<" HVACRearView  viewAction state = " << state;
+    INFO(" HVACRearView  viewAction state = %d ." ,state);
     switch (state) {
     case eViewStatus_Active:
         this->show();
@@ -39,7 +39,7 @@ void HVACRearView::InitHVACRearView()
 {
      m_pTitleWhiteLineLabel = new QLabel(this);
      m_pTitleWhiteLineLabel->setGeometry(QRect(0,87,800,3));
-     m_pTitleWhiteLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_line.png);backfground:transparent;}");
+     m_pTitleWhiteLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_line.png);background:transparent;}");
      m_pTitleWhiteLineLabel->show();
 
 
@@ -51,7 +51,7 @@ void HVACRearView::InitHVACRearView()
      m_pTitleFrontBtn->show();
      m_pTitleBlueLineLabel = new QLabel(this);
      m_pTitleBlueLineLabel->setGeometry(QRect(515,84,72,3));
-     m_pTitleBlueLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_select.png);backfground:transparent;}");
+     m_pTitleBlueLineLabel->setStyleSheet("QLabel{border-image:url(:/HVAC/Source/images/top_select.png);background:transparent;}");
      m_pTitleBlueLineLabel->show();
 
      m_pTitleReartBtn = new CPushButton(this);

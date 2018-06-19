@@ -173,7 +173,6 @@ QList<TSessionList *> &MessageData::GetMessageListData()
 
 void MessageData::SetSessionId(int id)
 {
-    INFO()<<" id = " << id;
     m_iSessionId = id;
 
     for(int i = 0; i < m_messageListData.size();i++)
@@ -181,7 +180,6 @@ void MessageData::SetSessionId(int id)
         if(m_messageListData.at(i)->sessionId == id)
         {
             m_telNum = m_messageListData.at(i)->telNumFrom;
-            INFO()<<" id = " << id <<"  " << m_telNum;
             return;
         }
     }

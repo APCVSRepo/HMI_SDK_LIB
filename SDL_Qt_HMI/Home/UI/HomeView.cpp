@@ -81,7 +81,7 @@ HomeView::~HomeView()
 
 void HomeView::viewAction(int state)
 {
-    INFO()<<" Homeview  viewAction state = " << state;
+    INFO("[Home] Homeview viewAction state =%d ", state);
 }
 
 void HomeView::InitHomeView()
@@ -176,7 +176,6 @@ void HomeView::InitHomeView()
         int nRow = i / 4;
         int nClomn = i % 4;
         int nPage = (nRow + 1) / 2 + (nRow + 1) % 2;
-        INFO()<<"ncol = "<<nClomn;
         CCButton * app = new CCButton(this);
         app->SetAppGeometry(QRect(OFFSET_POS_X +HOME_PAGE_OFFSET_POS_X + (nPage -1)*800 + (APP_BT_W + COLUMN_SPACE)*nClomn,OFFSET_POS_Y + (APP_BT_H + ROW_SPACE)*nRow,APP_BT_W,APP_BT_H));
         app->SetViewStatusStyle(CCButton::ViewStatusStyle_Change);
@@ -917,7 +916,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
            GetApp()->SetViewStatus(CCButton::ViewStatusNormal);
            GetApp()->SetIsPress(false);
         }
-        INFO() << "x = " << m_stayPos.x() << " y = " << m_stayPos.y();
         if(GetIsEditStatus())
         {
             if(GetApp())
@@ -925,7 +923,6 @@ bool HomeView::MouseEvent(QObject *obj, QEvent *event)
 
                if(IsTriggerDomain(m_stayPos.x(),m_stayPos.y())&&!m_bIsPageMoving&&((this->geometry().x()+ m_pageSize.width()*(m_iCurrentPageNum - 1)) >=0)) {
 
-                   INFO()<<"replace start .";
                    map<string,string> p;
                    p.insert(make_pair("QuickLanuchAppType",GetApp()->GetType().toStdString()));
                    p.insert(make_pair("QuickLanuchX",QString::number(m_stayPos.x()).toStdString()));
@@ -1358,7 +1355,7 @@ void HomeView::OnEnterTriggerDomainStatus(bool status,QString type)
 
 void HomeView::OnAppClick(int index, QString type, QString name)
 {
-    INFO()<<" index = " << index << " type = " << type << " name = " << name;
+    INFO("[Home] HomeView OnAppClick index = %d,type = %s, name = %s .",index,type.toStdString().c_str(),name.toStdString().c_str());
     map<string,string> p ;
     p.insert(make_pair("AppClick",type.toStdString()));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);

@@ -88,17 +88,18 @@ void SettingsSpeechRecognitionUI::OnBack()
 
 void SettingsSpeechRecognitionUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 
 
 void SettingsSpeechRecognitionUI::OnListBtnClick(int index, int btnIndex)
 {
-    INFO()<<"SettingsSpeechRecognitionUI index = " << index <<" btnIndex = " <<btnIndex;
+    Q_UNUSED(index)
+    Q_UNUSED(btnIndex)
 }
 
 void SettingsSpeechRecognitionUI::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }

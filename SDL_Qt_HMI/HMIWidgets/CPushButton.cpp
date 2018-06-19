@@ -188,7 +188,6 @@ void CPushButton::paintEvent(QPaintEvent *e)
             int g = m_textColor.green()*0.4;
             int b = m_textColor.blue()*0.4;
 
-            INFO() <<r <<" "<<g <<" "<<b;
             p.setPen(QColor(r,g,b));
         }
         p.setFont(f);

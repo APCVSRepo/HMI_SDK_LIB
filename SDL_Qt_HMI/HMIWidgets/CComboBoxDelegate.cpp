@@ -22,7 +22,6 @@ void CComboBoxDelegate::SetItemSize(const QSize &size)
 
 void CComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-//    INFO()<<"[1]flags:"<<index.flags()<<"row():["<<index.row()<<"]data:"<<index.data().toString();
     QStyleOptionViewItem option2 = option;
 
     //draw background
@@ -58,5 +57,7 @@ void CComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opt
 
 QSize CComboBoxDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+    Q_UNUSED(option)
+    Q_UNUSED(index)
     return m_size;
 }

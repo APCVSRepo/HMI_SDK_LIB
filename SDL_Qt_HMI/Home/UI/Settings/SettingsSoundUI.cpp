@@ -261,49 +261,41 @@ void SettingsSoundUI::InitConnect()
 
 void SettingsSoundUI::OnTerbleLeft()
 {
-    INFO()<<" OnTerbleLeft" ;
    TrebleHandler(1);
 }
 
 void SettingsSoundUI::OnTerbleRight()
 {
-    INFO()<<" OnTerbleRight" ;
     TrebleHandler(-1);
 }
 
 void SettingsSoundUI::OnAltoLeft()
 {
-    INFO()<<" OnAltoLeft" ;
     AltoHandler(1);
 }
 
 void SettingsSoundUI::OnAltoRight()
 {
-    INFO()<<" OnAltoRight" ;
     AltoHandler(-1);
 }
 
 void SettingsSoundUI::OnBassLeft()
 {
-    INFO()<<" OnBassLeft" ;
     BassHandler(1);
 }
 
 void SettingsSoundUI::OnBassRight()
 {
-    INFO()<<" OnBassRight" ;
     BassHandler(-1);
 }
 
 void SettingsSoundUI::OnBack()
 {
-    INFO()<<" OnBack" ;
     Home::Inst()->ViewBack();
 }
 
 void SettingsSoundUI::OnReset()
 {
-    INFO()<<" OnReset" ;
     for(int i = 0; i < m_trebleList.size();i++)
     {
         m_trebleList.at(i)->UpdateStatus(SliderSelect::eNormal);
@@ -358,7 +350,6 @@ void SettingsSoundUI::TrebleHandler(int step)
 {
     int value =  GetTerbleVoice();
     value += step;
-    INFO() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
@@ -366,7 +357,6 @@ void SettingsSoundUI::TrebleHandler(int step)
         {
             if( 0 == m_trebleList.at(i)->GetPosionID() &&m_trebleList.size()/2 -1- i < value )
             {
-                INFO() << "TrebleHandler   " ;
                 if(m_trebleList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
@@ -381,7 +371,6 @@ void SettingsSoundUI::TrebleHandler(int step)
         {
             if(1 == m_trebleList.at(i)->GetPosionID() && i < m_trebleList.size()/2 - value)
             {
-                INFO() << "TrebleHandler   " ;
                 if(SliderSelect::eSelect != m_trebleList.at(i)->getStatus() )
                     m_trebleList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
@@ -414,7 +403,6 @@ void SettingsSoundUI::AltoHandler(int step)
 {
     int value =  GetAltoVoice();
     value += step;
-    INFO() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
@@ -422,7 +410,6 @@ void SettingsSoundUI::AltoHandler(int step)
         {
             if(0 == m_altoList.at(i)->GetPosionID() &&m_altoList.size()/2 -1- i < value )
             {
-                INFO() << "TrebleHandler   " ;
                 if(SliderSelect::eSelect != m_altoList.at(i)->getStatus())
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
@@ -437,7 +424,6 @@ void SettingsSoundUI::AltoHandler(int step)
         {
             if(1 == m_altoList.at(i)->GetPosionID() && i < m_altoList.size()/2 - value)
             {
-                INFO() << "TrebleHandler   " ;
                 if(m_altoList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_altoList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
@@ -469,7 +455,6 @@ void SettingsSoundUI::BassHandler(int step)
 {
     int value =  GetBassVoice();
     value += step;
-    INFO() << "TrebleHandler  =  " << value ;
 
     if(value > 0 && value <= 12)
     {
@@ -477,7 +462,6 @@ void SettingsSoundUI::BassHandler(int step)
         {
             if(0 == m_bassList.at(i)->GetPosionID() &&m_bassList.size()/2 -1- i < value )
             {
-                INFO() << "TrebleHandler   " ;
                 if(m_bassList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else
@@ -492,7 +476,6 @@ void SettingsSoundUI::BassHandler(int step)
         {
             if(1 == m_bassList.at(i)->GetPosionID() && i < m_bassList.size()/2 - value)
             {
-                INFO() << "TrebleHandler   " ;
                 if(m_bassList.at(i)->getStatus() != SliderSelect::eSelect)
                     m_bassList.at(i)->UpdateStatus(SliderSelect::eSelect);
             }else

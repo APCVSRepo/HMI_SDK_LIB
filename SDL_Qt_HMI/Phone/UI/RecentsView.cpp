@@ -27,7 +27,7 @@ RecentsView::~RecentsView()
 
 void RecentsView::viewAction(int state)
 {
-    INFO()<<" RecentsView  viewAction state = " << state;
+    INFO("[Phone] RecentsView  viewAction state = %d .",state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -150,13 +150,11 @@ void RecentsView::UpdataData()
         m_pRecentsList->InsertItem(i,item);
         m_pRecentsList->SetSpecifiedText(i,name);
         m_pRecentsList->SetSpecifiedText2(i,PhoneData::Inst()->GetRecentsInfo().at(i)->number);
-        INFO("recent list number = %s .",PhoneData::Inst()->GetRecentsInfo().at(i)->number.toStdString().c_str());
     }
 }
 
 int RecentsView::DiddDays(QDate destDate, QDate CompareDate)
 {
-    INFO()<<destDate <<" " << CompareDate;
     int destDays = 0;
     for(int  i=1;i<destDate.month() ;i++)
     {

@@ -142,8 +142,6 @@ void SettingsWifiAddHotSpotsUI::OnBack()
 
 void SettingsWifiAddHotSpotsUI::OnAddBtnClicked()
 {
-    INFO()<<"[OnAddBtnClicked]currentIndex"<<m_pSecurityTypeComboBox->currentIndex();
-    INFO()<<"[OnAddBtnClicked]currentText"<<m_pSecurityTypeComboBox->currentText();
     //TODO: connect to Wifi with current setting, if succeed, change to connected wifi list view;
     //      if failed, show popup
 

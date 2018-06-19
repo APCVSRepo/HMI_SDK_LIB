@@ -125,7 +125,7 @@ bool SettingsWifiData::CheckPassword(QString password)
 
 bool SettingsWifiData::CheckPasswordWithWifiInfo(QString netName, QString securityType, QString password)
 {
-    INFO()<<"CheckPasswordWithWifiInfo:"<<netName<<", "<<securityType<<", "<<password;
+    INFO("CheckPasswordWithWifiInfo: netName is %s , securityType is %s , password is %s",netName.toStdString().c_str(),securityType.toStdString().c_str(),password.toStdString().c_str());
     if("123456" == netName  && "WPA/WPA2" == securityType && "123456" == password )
     {
         WifiDeviceInfo info;

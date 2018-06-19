@@ -26,7 +26,7 @@ MessageListView::~MessageListView()
 
 void MessageListView::viewAction(int state)
 {
-    INFO()<<" MessageListView  viewAction state = " << state;
+    INFO("[Message] MessageListView  viewAction state = %d" ,state);
     switch (state) {
     case eviewStatus_Init:
     {

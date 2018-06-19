@@ -46,7 +46,7 @@ void HVAC::onReply(string appId, map<string, string> parameter)
 
 void HVAC::OnAppShow(string appId, string viewId)
 {
-    INFO()<<"onAppShow" << QString::fromStdString(appId) << "viewid " <<QString::fromStdString(viewId);
+    INFO("[HVAC] OnAppShow state = %s ,viewId = %s." ,appId.c_str(),viewId.c_str());
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -105,7 +105,6 @@ void HVAC::OnReply(string appId, map<string, string> parameter)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {
-        INFO() << "OnReply = " << QString::fromStdString( it->second);
     }
 }
 

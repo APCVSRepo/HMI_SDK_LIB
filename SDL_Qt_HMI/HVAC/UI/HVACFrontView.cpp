@@ -32,7 +32,7 @@ HVACFrontView::~HVACFrontView()
 
 void HVACFrontView::viewAction(int state)
 {
-    INFO()<<" HVACFrontView  viewAction state = " << state;
+    INFO("[HVAC]  HVACFrontView  viewAction state =  =%d .",state);
     switch (state) {
     case eviewStatus_Init:
     {
@@ -506,7 +506,6 @@ void HVACFrontView::OnTitleReart()
 
 void HVACFrontView::OnHairModeSelect(int Id)
 {
-    INFO()<<" OnHairModeSelect id = " << Id;
     switch (Id) {
     case eFrontHairMode:
     {
