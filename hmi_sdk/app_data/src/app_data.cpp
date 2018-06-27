@@ -1232,7 +1232,7 @@ std::string AppData::getAppIconFile() {
     return m_strAppIconFilePath;
 }
 
-std::__cxx11::string AppData::getAppType()
+std::string AppData::getAppType()
 {
     return m_szAppType;
 }
