@@ -40,8 +40,8 @@ After this, you can get the executable `SDL_Qt_HMI` in your build directory.
 
 ## Start QT HMI
 Create a folder for your executable as <excute_dir> and do:
-  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the bin folder to <excute_dir>
-  2. Build HMI_SDK_LIB, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in app folder to <excute_dir>
+  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to <excute_dir>
+  2. Build HMI_SDK_LIB, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to <excute_dir>
   3. Copy the generated `SDL_Qt_HMI` to <excute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
   4. Create a folder named Config in your <excute_dir>, and copy all the files in `<current_path>/res/hmi` to `<excute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <excute_dir>
@@ -61,8 +61,16 @@ $./start.sh
 $./SDL_Qt_HMI 
 ```
 
-Notice: If you want to use USB connect with sdl, you should run step7/8 in root authority.
+Notice: 
+  1. In order for the program to work properly, you may need to complete [SDL Core Video Stream Setup](https://www.smartdevicelink.com/en/guides/core/video-streaming-setup/). For a quick look(there may be other dependencies， just install them):
+```shell
+$sudo apt-get install git cmake build-essential libavahi-client-dev libsqlite3-dev chromium-browser libssl-dev libudev-dev libgtest-dev libbluetooth3 libbluetooth-dev bluez-tools gstreamer1.0* libpulse-dev
 
+$sudo apt-get update
+$sudo apt-get upgrade
+$sudo ldconfig
+```
+  2. If you want to use USB connect with sdl, you should run step7/8 in root authority.
 
 # Known issues
 
