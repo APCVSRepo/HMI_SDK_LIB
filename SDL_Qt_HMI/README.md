@@ -61,8 +61,16 @@ $./start.sh
 $./SDL_Qt_HMI 
 ```
 
-Notice: If you want to use USB connect with sdl, you should run step7/8 in root authority.
+Notice: 
+  1. In order for the program to work properly, you may need to complete [SDL Core Video Stream Setup](https://www.smartdevicelink.com/en/guides/core/video-streaming-setup/). For a quick look(there may be other dependencies， just install them):
+```shell
+$sudo apt-get install git cmake build-essential libavahi-client-dev libsqlite3-dev chromium-browser libssl-dev libudev-dev libgtest-dev libbluetooth3 libbluetooth-dev bluez-tools gstreamer1.0* libpulse-dev
 
+$sudo apt-get update
+$sudo apt-get upgrade
+$sudo ldconfig
+```
+  2. If you want to use USB connect with sdl, you should run step7/8 in root authority.
 
 # Known issues
 
