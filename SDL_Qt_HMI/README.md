@@ -45,16 +45,23 @@ Create a folder for your executable as <excute_dir> and do:
   3. Copy the generated `SDL_Qt_HMI` to <excute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
   4. Create a folder named Config in your <excute_dir>, and copy all the files in `<current_path>/res/hmi` to `<excute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <excute_dir>
-  6. Start sdl core
+  6. Open `smartDeviceLink.ini` in the <excute_dir>, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
+>;VideoStreamConsumer = socket<br>
+>;AudioStreamConsumer = socket<br>
+>;VideoStreamConsumer = file<br>
+>;AudioStreamConsumer = file<br>
+>VideoStreamConsumer = pipe<br>
+>AudioStreamConsumer = pipe<br>
+  7. Start sdl core
 ```shell
 $./start.sh
 ```
-  7. Start QT HMI
+  8. Start QT HMI
 ```shell
 $./SDL_Qt_HMI 
 ```
 
-Notice: If you want to use USB connect with sdl, you should run step6/7 in root authority.
+Notice: If you want to use USB connect with sdl, you should run step7/8 in root authority.
 
 
 # Known issues
