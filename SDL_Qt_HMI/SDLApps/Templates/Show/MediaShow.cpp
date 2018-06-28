@@ -334,6 +334,11 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
             m_aSoftBtn[i].changeToPressed();
         }
     }
+
+    for (int i = iSize; i < RIGHT_BTN_NUM; ++i) {
+        m_aSoftBtn[i].initParameter(116, 32, "", "", "", "");
+        m_aSoftBtn[i].setId(-1);
+    }
 }
 
 void CMediaShow::UpdateMediaClockTimer() {
