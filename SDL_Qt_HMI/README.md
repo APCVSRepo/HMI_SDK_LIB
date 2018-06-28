@@ -40,8 +40,8 @@ After this, you can get the executable `SDL_Qt_HMI` in your build directory.
 
 ## Start QT HMI
 Create a folder for your executable as <excute_dir> and do:
-  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the bin folder to <excute_dir>
-  2. Build HMI_SDK_LIB, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in app folder to <excute_dir>
+  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to <excute_dir>
+  2. Build HMI_SDK_LIB, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to <excute_dir>
   3. Copy the generated `SDL_Qt_HMI` to <excute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
   4. Create a folder named Config in your <excute_dir>, and copy all the files in `<current_path>/res/hmi` to `<excute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <excute_dir>
