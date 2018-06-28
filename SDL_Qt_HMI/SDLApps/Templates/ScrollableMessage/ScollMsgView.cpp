@@ -132,7 +132,4 @@ void CScollMsgView::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
         m_aSoftBtn[i].initParameter(116, 32, "", "", "", "");
         m_aSoftBtn[i].setId(-1);
     }
-
-
-    INFO("CScollMsgView::setSoftButtons iSize: %d", iSize);
 }
