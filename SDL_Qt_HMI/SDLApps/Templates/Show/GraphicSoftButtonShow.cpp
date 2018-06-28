@@ -20,12 +20,10 @@ CGraphicSoftButtonShow::CGraphicSoftButtonShow(AppListInterface *pList, QWidget 
     //top widget
     m_pTopWidget = new TopNavigateWidget(this);
     m_pTopWidget->SetReturnTitle(QString(""));
-    m_pTopWidget->ShowBack();
     m_pTopWidget->ShowTitle();
     m_pTopWidget->ShowMenu();
     m_pTopWidget->show();
     connect(m_pTopWidget, SIGNAL(SigMenuClicked()), this, SLOT(BtnMenuClickedSlots()));
-    connect(m_pTopWidget, SIGNAL(SigBackClicked()), this, SLOT(BtnBackClickedSlots()));
 
     //right area
     m_pRightArea = new QWidget(this);
@@ -62,12 +60,6 @@ void CGraphicSoftButtonShow::SoftBtnClickedSlot(int iSoftBtnID) {
 
 void CGraphicSoftButtonShow::BtnMenuClickedSlots() {
     AppControl->OnShowCommand();
-}
-
-void CGraphicSoftButtonShow::BtnBackClickedSlots()
-{
-    INFO("CGraphicSoftButtonShow::BtnBackClickedSlots");
-    //TODO: change to previous view
 }
 
 void CGraphicSoftButtonShow::SetAppName(QString strName) {
