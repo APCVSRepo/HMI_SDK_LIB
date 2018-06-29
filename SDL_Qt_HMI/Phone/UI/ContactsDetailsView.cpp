@@ -169,6 +169,7 @@ void ContactsDetailsView::OnListClick(int index)
         info.FirstName = m_pContactsList->GetSpecifiedText(index);;
         PhoneData::Inst()->SetCallInfo(info);
     }
+    PhoneData::Inst()->SetAddNewCall(true);
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
 }
 
