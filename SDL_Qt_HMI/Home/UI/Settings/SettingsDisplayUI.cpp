@@ -97,7 +97,8 @@ SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
     m_pVlist->SetLeftMargin(0);
     m_pVlist->SetSplitLine(":/Settings/line.png",":/Settings/line.png");
     m_pVlist->SetScrollBarStyle(4);
-    m_pVlist->SetItemBackgroundInfo("",":/Settings/list_push_bg.png","");
+    m_pVlist->SetItemBackgroundInfo("","","");
+    m_pVlist->AutoSetSelected(false);
     QStringList titieList;
     titieList <<tr("Automatic luminance regulation") << tr("Pattern") ;
     for(int i = 0 ; i < titieList.size() ;i++)
@@ -118,7 +119,7 @@ SettingsDisplayUI::SettingsDisplayUI(QWidget *parent)
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             QStringList text;
             text<<tr("Auto")<<tr("Day mode")<<tr("Night mode");
-            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }
         m_pVlist->InsertItem(i,item);
     }
