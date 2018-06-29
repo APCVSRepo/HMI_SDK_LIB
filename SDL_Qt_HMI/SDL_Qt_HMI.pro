@@ -111,7 +111,6 @@ SOURCES += main.cpp\
     StatusBar/UI/StatusBarWindow.cpp \
     SDLApps/Templates/Alert/AlertView.cpp \
     SDLApps/Templates/AppListView/AppListView.cpp \
- #   SDLApps/Templates/AppListView/CAppButton.cpp \
     SDLApps/Templates/AppListView/DeviceListView.cpp \
     SDLApps/Templates/ChoiceSet/ChoiceSet.cpp \
     SDLApps/Templates/ChoiceSet/ChoiceSetVR.cpp \
@@ -123,7 +122,6 @@ SOURCES += main.cpp\
     SDLApps/Templates/Config/Config.cpp \
     SDLApps/Templates/ScrollableMessage/ScollMsgView.cpp \
     SDLApps/Templates/Show/GraphicSoftButtonShow.cpp \
-    #SDLApps/Templates/Show/MainWidget.cpp \
     SDLApps/Templates/Show/MediaShow.cpp \
     SDLApps/Templates/SliderView/SliderView.cpp \
     SDLApps/Templates/Template/TemplateImp.cpp \
@@ -279,7 +277,6 @@ HEADERS  +=  \
     SDLApps/Templates/Config/Config.h \
     SDLApps/Templates/ScrollableMessage/ScollMsgView.h \
     SDLApps/Templates/Show/GraphicSoftButtonShow.h \
-    #SDLApps/Templates/Show/MainWidget.h \
     SDLApps/Templates/Show/MediaShow.h \
     SDLApps/Templates/SliderView/SliderView.h \
     SDLApps/Templates/Template/TemplateImp.h \
