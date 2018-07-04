@@ -35,7 +35,8 @@ SettingsEmergencyUI::SettingsEmergencyUI(QWidget *parent)
     m_pVList->SetLeftMargin(0);
     m_pVList->SetSplitLine(":/Settings/line.png",":/Settings/line.png");
     m_pVList->SetScrollBarStyle(4);
-    m_pVList->SetItemBackgroundInfo("",":/Settings/list_push_bg.png","");
+    m_pVList->SetItemBackgroundInfo("","","");
+    m_pVList->AutoSetSelected(false);
     QStringList titieList;
     titieList <<tr("Emergency rescue") ;
 

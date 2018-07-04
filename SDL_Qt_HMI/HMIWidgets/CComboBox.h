@@ -13,7 +13,7 @@ public:
 
     QAbstractItemDelegate *itemDelegate() const;
     void setItemDelegate(CComboBoxDelegate *delegate);
-    void setBtnStyle(const QString& style,const QSize& size);
+    void setBtnStyle(const QString& style,const QSize& size,int fontsize = 24);
     //overwrite
     void addItem(const QString &text, const QVariant &userData = QVariant());
     void addItem(const QIcon &icon, const QString &text, const QVariant &userData = QVariant());

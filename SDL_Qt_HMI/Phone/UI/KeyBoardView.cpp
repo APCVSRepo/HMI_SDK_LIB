@@ -359,7 +359,7 @@ void KeyBoardView::OnKeyBoard(int Id)
                 info.LastName = "";
                 PhoneData::Inst()->SetCallInfo(info);
             }
-
+            PhoneData::Inst()->SetAddNewCall(true);
             Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
             PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
         }
@@ -449,6 +449,7 @@ void KeyBoardView::OnListClick(int index)
         PhoneData::Inst()->SetCallInfo(info);
     }
 
+    PhoneData::Inst()->SetAddNewCall(true);
     Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
     PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
 }

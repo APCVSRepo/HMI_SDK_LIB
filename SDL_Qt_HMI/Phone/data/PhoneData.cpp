@@ -10,6 +10,8 @@ PhoneData::PhoneData()
     ,m_callTime(0)
     ,m_callStatus("")
     ,m_iViewId(-1)
+    ,m_bCallStatus(false)
+    ,m_bAddNewCall(false)
 {
 
     InitTestContactsData();
@@ -780,6 +782,26 @@ void PhoneData::SetViewId(int id)
 int PhoneData::GetViewId()
 {
     return m_iViewId;
+}
+
+void PhoneData::SetCallingStatus(bool isCalling)
+{
+    m_bCallStatus = isCalling;
+}
+
+bool PhoneData::GetCallingStatus()
+{
+    return m_bCallStatus;
+}
+
+void PhoneData::SetAddNewCall(bool isAddNewCall)
+{
+    m_bAddNewCall = isAddNewCall;
+}
+
+bool PhoneData::GetAddNewCall()
+{
+    return m_bAddNewCall;
 }
 
 QList<SMatchContact *>& PhoneData::GetMatchContacts(const QString &number)

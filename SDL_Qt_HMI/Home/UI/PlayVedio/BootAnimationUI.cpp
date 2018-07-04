@@ -26,6 +26,10 @@ void BootAnimationUI::viewAction(int state)
         m_pAnimation->PlayAnimation();
     }
         break;
+    case eViewStatus_Inactive:
+    {
+        m_pAnimation->Stop();
+    }
     case eviewStatus_Init:
     {
         m_pAnimation->Stop();

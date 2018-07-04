@@ -42,7 +42,7 @@ public:
     void AutoSetSelected(bool state);
     void AutoScrollCursoredItem(bool state);
     void SetIndicatorState(bool state); //true: show; false: hide
-    void AddComboBox(int index,const QString& icon,const QStringList& listtext, const QRect& comboboxrect,const QSize& itemsize);
+    void AddComboBox(int index,const QString& icon,const QStringList& listtext, const QRect& comboboxrect,const QSize& itemsize,int fontsize = 24);
 
     void SetCursor(int index);
     void SetItemSelected(int index);
