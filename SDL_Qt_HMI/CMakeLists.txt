@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project(SDL_Qt_HMI)
 
-option(BUILD_TESTS "Possibility to build and run tests" ON)
+option(BUILD_TESTS "Possibility to build and run tests" OFF)
 
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
