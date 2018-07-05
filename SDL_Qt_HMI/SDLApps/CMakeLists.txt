@@ -31,7 +31,6 @@ aux_source_directory(.                              SDLAPPS_SOURCES)
 aux_source_directory(./app                          SDLAPPS_SOURCES)
 aux_source_directory(./Data                         SDLAPPS_SOURCES)
 aux_source_directory(./Factory                      SDLAPPS_SOURCES)
-aux_source_directory(./Templates                    SDLAPPS_SOURCES)
 aux_source_directory(./Templates/Alert              SDLAPPS_SOURCES)
 aux_source_directory(./Templates/AppListView        SDLAPPS_SOURCES)
 aux_source_directory(./Templates/ChoiceSet          SDLAPPS_SOURCES)
@@ -48,8 +47,56 @@ aux_source_directory(./UI                           SDLAPPS_SOURCES)
 
 find_package(Qt5Widgets)
 
-add_library (SDLApps ${SDLAPPS_SOURCES})
+add_library (SDLApps ${SDLAPPS_SOURCES} ${SDLAPPS_DIR}/Templates/UIManager.cpp)
 
 target_link_libraries(SDLApps Qt5::Widgets)
 target_link_libraries(SDLApps HMIFrameWork)
 target_link_libraries(SDLApps HMIWidgets)
+
+# for test
+if(BUILD_TESTS)
+
+find_package(Threads REQUIRED)
+
+# Enable ExternalProject CMake module
+include(ExternalProject)
+
+# Download and install GoogleTest
+ExternalProject_Add(
+    gtest
+    URL https://github.com/google/googletest/archive/master.zip
+    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
+    # Disable install step
+    INSTALL_COMMAND ""
+)
+
+# Get GTest source and binary directories from CMake project
+ExternalProject_Get_Property(gtest source_dir binary_dir)
+
+# Create a libgtest target to be used as a dependency by test programs
+add_library(libgtest IMPORTED STATIC GLOBAL)
+add_dependencies(libgtest gtest)
+
+# Set libgtest properties
+set_target_properties(libgtest PROPERTIES
+    "IMPORTED_LOCATION" "${binary_dir}/googlemock/gtest/libgtest.a"
+    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+)
+
+# Create a libgmock target to be used as a dependency by test programs
+add_library(libgmock IMPORTED STATIC GLOBAL)
+add_dependencies(libgmock gtest)
+
+# Set libgmock properties
+set_target_properties(libgmock PROPERTIES
+    "IMPORTED_LOCATION" "${binary_dir}/googlemock/libgmock.a"
+    "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+)
+
+# I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
+include_directories("${source_dir}/googletest/include"
+                    "${source_dir}/googlemock/include")
+
+add_subdirectory(Templates)
+
+endif()

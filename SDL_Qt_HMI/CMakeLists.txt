@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project(SDL_Qt_HMI)
 
+option(BUILD_TESTS "Possibility to build and run tests" ON)
+
+
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
+
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
 # QT Tools
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -13,18 +22,24 @@ SET(CMAKE_AUTOUIC ON)
 SET(CMAKE_AUTORCC ON) 
 
 set(SDL_QT_HMI_DIR ${CMAKE_SOURCE_DIR})
-set(HMIFRAMEWORK_DIR ${CMAKE_SOURCE_DIR}/HMIFRAMEWORK)
+set(HMIFRAMEWORK_DIR ${CMAKE_SOURCE_DIR}/HMIFrameWork)
 set(HMIWIDGETS_DIR ${CMAKE_SOURCE_DIR}/HMIWidgets)
 
-include_directories (
+
+# for test
+if(BUILD_TESTS)
+  enable_testing()
+
+  add_definitions(-DBUILD_TESTS)
+  message(STATUS "Tests enabled")
+endif()
+
+
+include_directories(
     ${SDL_QT_HMI_DIR}
     ${HMIFRAMEWORK_DIR}
     ${HMIWIDGETS_DIR}
     ${SDL_QT_HMI_DIR}/../include
-    ${SDL_QT_HMI_DIR}/../hmi_sdk/gstplayer/include
-    ${SDL_QT_HMI_DIR}/../tools/jsoncpp/include
-    ${SDL_QT_HMI_DIR}/../hmi_sdk/connect/include
-    ${SDL_QT_HMI_DIR}/../hmi_sdk/app_data/include
     /usr/include/glib-2.0
     /usr/include/gstreamer-1.0
     /usr/lib/x86_64-linux-gnu
@@ -103,3 +118,7 @@ target_link_libraries(SDL_Qt_HMI QuickLanuch)
 target_link_libraries(SDL_Qt_HMI SDLApps)
 target_link_libraries(SDL_Qt_HMI StatusBar)
 target_link_libraries(SDL_Qt_HMI VR)
+
+
+
+
