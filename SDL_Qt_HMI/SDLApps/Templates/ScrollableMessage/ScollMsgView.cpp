@@ -1,5 +1,6 @@
 #include "ScollMsgView.h"
 #include <QBoxLayout>
+#include "HMIFrameWork/log_interface.h"
 
 CScollMsgView::CScollMsgView(AppListInterface *pList, QWidget *parent)
     :QWidget(parent)
@@ -77,8 +78,8 @@ void CScollMsgView::showEvent(QShowEvent *e) {
             m_pText->insertPlainText(jsonParams["messageText"]["fieldText"].asString().c_str());
         }
 
+        m_vSoftButtons.clear();
         if (jsonParams.isMember("softButtons")) {
-            m_vSoftButtons.clear();
             for (unsigned int i = 0; i < jsonParams["softButtons"].size(); ++i) {
                 SSoftButton tmpSoftButton;
                 tmpSoftButton.b_isHighlighted = jsonParams["softButtons"][i]["isHighlighted"].asBool();
@@ -125,5 +126,10 @@ void CScollMsgView::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
         if (vec_softButtons[i].b_isHighlighted){
             m_aSoftBtn[i].changeToPressed();
         }
+    }
+
+    for (int i = iSize; i < RIGHT_BTN_NUM; ++i) {
+        m_aSoftBtn[i].initParameter(116, 32, "", "", "", "");
+        m_aSoftBtn[i].setId(-1);
     }
 }

@@ -1,5 +1,5 @@
 #include "CCButton.h"
-#include "Home/UI/HomeView.h"
+//#include "Home/UI/HomeView.h"
 CCButton::CCButton(QWidget *parent)
   : QWidget(parent)
   , m_pOpacityAnimation(NULL)
@@ -488,7 +488,7 @@ void CCButton::SetExist(bool isExit)
 }
 QPoint CCButton::GetGlobalPos(const QPoint currPos)
 {
-    HomeView *pBtnParent = dynamic_cast<HomeView*>(this->parent());
+    QWidget *pBtnParent = dynamic_cast<QWidget *>(this->parent());
     if (NULL == pBtnParent)
     {
         return QPoint();
@@ -686,6 +686,6 @@ QPoint CCButton::getParentPosition()
 
 void CCButton::setParentPosition(QPoint ParentPosition)
 {
-    reinterpret_cast<HomeView*>(this->parent())->move(ParentPosition);
+    reinterpret_cast<QWidget *>(this->parent())->move(ParentPosition);
     update();
 }

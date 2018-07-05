@@ -129,12 +129,12 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
     //play time
     m_pTimeElapseLab = new QLabel(this);
     m_pTimeElapseLab->setStyleSheet("border:0px;font: 14px;color:rgb(153,153,153)");
-    m_pTimeElapseLab->setGeometry(15,387-40-19,70,14);
+    m_pTimeElapseLab->setGeometry(15,387-40-19-7,70,28);
     m_pTimeElapseLab->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
     m_pTimeRemainLab = new QLabel(this);
     m_pTimeRemainLab->setStyleSheet("border:0px;font: 14px;color:rgb(153,153,153)");
-    m_pTimeRemainLab->setGeometry(800-15-70,387-40-19,70,14);
+    m_pTimeRemainLab->setGeometry(800-15-70,387-40-19-7,70,28);
     m_pTimeRemainLab->setAlignment(Qt::AlignRight|Qt::AlignHCenter);
 
     connect(this, SIGNAL(startMediaClock(bool)), SLOT(mediaClockSlots(bool)));
@@ -333,6 +333,11 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
         if (vec_softButtons[i].b_isHighlighted){
             m_aSoftBtn[i].changeToPressed();
         }
+    }
+
+    for (int i = iSize; i < RIGHT_BTN_NUM; ++i) {
+        m_aSoftBtn[i].initParameter(116, 32, "", "", "", "");
+        m_aSoftBtn[i].setId(-1);
     }
 }
 

@@ -212,6 +212,9 @@ void CChoiceSet::OnChoiceVRClicked() {
         AppControl->OnPerformInteraction(PERFORMINTERACTION_TIMEOUT, 0, true);
         m_pInitEdit->show();
         m_pReturnBtn->show();
-        m_pListView->show();
+        if(m_pListView)
+        {
+            m_pListView->show();
+        }
     }
 }

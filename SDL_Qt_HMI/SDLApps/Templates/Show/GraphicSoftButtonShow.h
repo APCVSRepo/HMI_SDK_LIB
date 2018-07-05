@@ -22,7 +22,6 @@ protected:
 public slots:
     void SoftBtnClickedSlot(int iSoftBtnID);
     void BtnMenuClickedSlots();
-    void BtnBackClickedSlots();
 
 private:
     void setSoftButtons(std::vector<SSoftButton> vec_softButtons);

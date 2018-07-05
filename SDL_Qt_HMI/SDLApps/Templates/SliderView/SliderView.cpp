@@ -33,7 +33,7 @@ CSliderView::CSliderView(AppListInterface *pList, QWidget *parent)
 
     m_pSlider->setStyleSheet("QSlider{height:36px;background:transparent}"
                              "QSlider::groove{margin:10px 0;background:rgb(100,109,119)}"
-                             "QSlider::handle{width:21px;margin:-10px 0;border-image:url(:images/slider_handle.png)}");
+                             "QSlider::handle{width:21px;margin:-10px 0;border-image:url(:/SDLApps/Source/images/slider_handle.png)}");
 
     connect(m_pSlider, SIGNAL(valueChanged(int)), SLOT(OnSliderValueChanged(int)));
 

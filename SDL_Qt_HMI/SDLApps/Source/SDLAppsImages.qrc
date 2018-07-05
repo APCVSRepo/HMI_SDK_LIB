@@ -26,5 +26,6 @@
         <file>images/partingline.png</file>
         <file>images/vr_light.png</file>
         <file>images/vr_microphone.png</file>
+        <file>images/slider_handle.png</file>
     </qresource>
 </RCC>
