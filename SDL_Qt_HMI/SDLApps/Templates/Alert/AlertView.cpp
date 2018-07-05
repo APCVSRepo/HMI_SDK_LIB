@@ -20,7 +20,14 @@ AlertView::AlertView(AppListInterface *pList, QWidget *parent)
     }
 
     m_pPopUpArea = new QWidget(this);
-    m_pPopUpArea->setGeometry(parent->width()/6,parent->height()/6,2*parent->width()/3,2*parent->height()/3);
+    if(parent)
+    {
+        m_pPopUpArea->setGeometry(parent->width()/6,parent->height()/6,2*parent->width()/3,2*parent->height()/3);
+    }
+    else
+    {
+        m_pPopUpArea->setGeometry(800/6,440/6,2*800/3,2*440/3);
+    }
 
     QVBoxLayout *pMainLayout = new QVBoxLayout(m_pPopUpArea);
     QVBoxLayout *pCenterLayout = new QVBoxLayout;
