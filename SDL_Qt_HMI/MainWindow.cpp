@@ -111,7 +111,7 @@ void MainWindow::InitMessage()
 
 void MainWindow::InitNavigation()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navigation::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navi::Inst()));
 }
 
 void MainWindow::InitMedia()
@@ -121,7 +121,7 @@ void MainWindow::InitMedia()
 
 void MainWindow::InitVR()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VR::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VoiceRecognition::Inst()));
 }
 
 

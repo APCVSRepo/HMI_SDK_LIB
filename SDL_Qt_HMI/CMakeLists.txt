@@ -110,14 +110,14 @@ target_link_libraries(SDL_Qt_HMI Home)
 target_link_libraries(SDL_Qt_HMI HVAC)
 target_link_libraries(SDL_Qt_HMI Media)
 target_link_libraries(SDL_Qt_HMI Message)
-target_link_libraries(SDL_Qt_HMI Navigation)
+target_link_libraries(SDL_Qt_HMI Navi)
 target_link_libraries(SDL_Qt_HMI Phone)
 target_link_libraries(SDL_Qt_HMI PopUp)
 target_link_libraries(SDL_Qt_HMI Prompt)
 target_link_libraries(SDL_Qt_HMI QuickLanuch)
 target_link_libraries(SDL_Qt_HMI SDLApps)
 target_link_libraries(SDL_Qt_HMI StatusBar)
-target_link_libraries(SDL_Qt_HMI VR)
+target_link_libraries(SDL_Qt_HMI VoiceRecognition)
 
 
 

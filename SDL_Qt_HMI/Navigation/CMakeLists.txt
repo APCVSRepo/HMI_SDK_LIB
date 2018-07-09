@@ -18,8 +18,8 @@ aux_source_directory(./UI       NAVIGATION_SOURCES)
 
 find_package(Qt5Widgets)
 
-add_library (Navigation ${NAVIGATION_SOURCES})
+add_library (Navi ${NAVIGATION_SOURCES})
 
-target_link_libraries(Navigation HMIFrameWork)
-target_link_libraries(Navigation HMIWidgets)
-target_link_libraries(Navigation Qt5::Widgets)
+target_link_libraries(Navi HMIFrameWork)
+target_link_libraries(Navi HMIWidgets)
+target_link_libraries(Navi Qt5::Widgets)
