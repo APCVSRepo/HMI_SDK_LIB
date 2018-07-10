@@ -35,7 +35,8 @@ SettingsSpeechRecognitionUI::SettingsSpeechRecognitionUI(QWidget *parent)
     m_pVlist->SetLeftMargin(0);
     m_pVlist->SetSplitLine(":/Settings/line.png",":/Settings/line.png");
     m_pVlist->SetScrollBarStyle(4);
-    m_pVlist->SetItemBackgroundInfo("",":/Settings/list_push_bg.png","");
+    m_pVlist->SetItemBackgroundInfo("","","");
+    m_pVlist->AutoSetSelected(false);
     QStringList titieList;
     titieList <<tr("Voice Prompt") << tr("Speed") ;;
     for(int i = 0 ; i < titieList.size() ;i++)
@@ -48,7 +49,7 @@ SettingsSpeechRecognitionUI::SettingsSpeechRecognitionUI(QWidget *parent)
             item.SetSpecifiedID(-1);
             QStringList text;
             text<<tr("Brief")<<tr("Detailed");
-            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }
         else if(1 == i)
         {
@@ -57,7 +58,7 @@ SettingsSpeechRecognitionUI::SettingsSpeechRecognitionUI(QWidget *parent)
             item.SetSpecifiedID(-1);
             QStringList text;
             text<<tr("Standard")<<tr("Fast")<<tr("Slow");
-            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVlist->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }
         m_pVlist->InsertItem(i,item);
 

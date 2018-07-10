@@ -75,6 +75,12 @@ public:
     void SetViewId(int id);
     int GetViewId();
 
+    void SetCallingStatus(bool isCalling);
+    bool GetCallingStatus();
+
+    void SetAddNewCall(bool isAddNewCall);
+    bool GetAddNewCall();
+
     QList<SMatchContact*>& GetMatchContacts(const QString& number );
     void ReleaseMatchContacts();
 
@@ -102,6 +108,8 @@ private:
 
     SPhoneInfo m_callInfo;
     int m_iViewId;
+    bool  m_bCallStatus;
+    bool  m_bAddNewCall;
 
 };
 

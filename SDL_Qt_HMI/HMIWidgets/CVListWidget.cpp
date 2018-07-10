@@ -376,7 +376,7 @@ void CVListWidget::SetIndicatorState(bool state)
     m_bDrawIndicator = state;
 }
 //const QStringList& list
-void CVListWidget::AddComboBox(int index,const QString& icon,const QStringList& listtext, const QRect& comboboxrect,const QSize& itemsize)
+void CVListWidget::AddComboBox(int index,const QString& icon,const QStringList& listtext, const QRect& comboboxrect,const QSize& itemsize,int fontsize)
 {
     CComboBox *combobox = new CComboBox(this);
     QPixmap p(icon);
@@ -385,7 +385,7 @@ void CVListWidget::AddComboBox(int index,const QString& icon,const QStringList& 
     int x = comboboxrect.x();
     combobox->setGeometry(QRect(x,y,comboboxrect.width(),comboboxrect.height()));
 
-    combobox->setBtnStyle(icon,QSize(p.width(),comboboxrect.height()));
+    combobox->setBtnStyle(icon,QSize(p.width(),comboboxrect.height()),fontsize);
     combobox->SetIndex(index);
     for(int i = 0; i < listtext.size();i++)
     {

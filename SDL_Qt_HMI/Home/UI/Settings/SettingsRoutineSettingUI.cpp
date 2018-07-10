@@ -36,7 +36,8 @@ SettingsRoutineSettingUI::SettingsRoutineSettingUI(QWidget *parent)
     m_pVList->SetLeftMargin(0);
     m_pVList->SetSplitLine(":/Settings/line.png",":/Settings/line.png");
     m_pVList->SetScrollBarStyle(4);
-    m_pVList->SetItemBackgroundInfo("",":/Settings/list_push_bg.png","");
+    m_pVList->SetItemBackgroundInfo("","","");
+    m_pVList->AutoSetSelected(false);
     QStringList titieList;
     titieList <<tr("Language") << tr("Touch-screen hint") <<  tr("Temperature") << \
                 tr("Length unit");
@@ -50,7 +51,7 @@ SettingsRoutineSettingUI::SettingsRoutineSettingUI(QWidget *parent)
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             QStringList text;
             text<<tr("English")<<tr("Chinese");
-            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }else if(1 == i)
         {
             QStringList list;
@@ -64,7 +65,7 @@ SettingsRoutineSettingUI::SettingsRoutineSettingUI(QWidget *parent)
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             QStringList text;
             text<<tr("Centigrade")<<tr("Fahrenheit");
-            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }
         else if(3 == i)
         {
@@ -72,7 +73,7 @@ SettingsRoutineSettingUI::SettingsRoutineSettingUI(QWidget *parent)
             item.AddText(QRect(0,0,300,57),titieList.at(i),Qt::AlignLeft|Qt::AlignVCenter,24);
             QStringList text;
             text<<"Mile"<<tr("Kilometers");
-            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57));
+            m_pVList->AddComboBox(i,":/Settings/select_b.png",text,QRect(418,10,252,37),QSize(718,57),22);
         }
         m_pVList->InsertItem(i,item);
     }

@@ -495,7 +495,7 @@ void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vA
   }
 }
 
-void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::__cxx11::string> &vAppNames, std::vector<std::__cxx11::string> &vIconPath, std::vector<std::__cxx11::string> &vAppTypes)
+void AppList::getAppList(std::vector<int> &vAppIDs, std::vector<std::string> &vAppNames, std::vector<std::string> &vIconPath, std::vector<std::string> &vAppTypes)
 {
     for (int i = 0; i < m_AppDatas.size(); ++i) {
       vAppIDs.push_back(m_AppDatas[i]->m_iAppID);

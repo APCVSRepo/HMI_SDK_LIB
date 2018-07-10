@@ -98,6 +98,7 @@ SettingsDateTimeUI::SettingsDateTimeUI(QWidget *parent)
     m_pVList->SetLeftMargin(0);
     m_pVList->SetSplitLine(":/Settings/line.png",":/Settings/line.png");
     m_pVList->SetScrollBarStyle(4);
+    m_pVList->AutoSetSelected(false);
     QStringList titieList;
     titieList <<tr("Automatic date and time") << tr("Use 24 hour system");
     for(int i = 0 ; i < titieList.size() ;i++)
