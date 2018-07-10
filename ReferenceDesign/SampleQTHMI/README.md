@@ -82,7 +82,7 @@ $sudo apt-get upgrade
 $sudo ldconfig
 ```
   2. If you want to use USB connect with sdl, you should run step7/8 in root authority.
-  3. If you want to add a new class to QT HMI, make sure the class name is not the same as the class defined in hmi_sdk, such as VR, BasicCommunication, Buttons, Navigation, TTS, VehicleInfo, UI, etc. Otherwise, when compiling the project with cmake, the resulting executable will behave unexpectedly at runtime because the wrong constructor was called. Please don't do it unless you understand the impact.
+  3. If you want to add a new class to QT HMI, make sure the class name is not the same as the class defined in `hmi_sdk`, such as `VR`, `BasicCommunication`, `Buttons`, `Navigation`, `TTS`, `VehicleInfo`, `UI`, etc. Otherwise, when compiling the project with `cmake`, the resulting executable will behave unexpectedly at runtime because the wrong constructor was called. `Please don't do it unless you understand the impact`.
 
 
 # Test & Coverage
