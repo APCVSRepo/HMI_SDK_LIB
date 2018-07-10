@@ -67,12 +67,16 @@ target_link_libraries(HMI_TEST ${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so)
 #copy lib file to test directory
 configure_file(${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so . COPYONLY)
 
-configure_file(${SDLAPPS_TEMPLATES_DIR}/test/HMITest.sh . COPYONLY)
+# generate test coverage report when run test / run test only
+if(BUILD_TESTS_COVERAGE)
+    configure_file(${SDLAPPS_TEMPLATES_DIR}/test/HMITest.sh . COPYONLY)
 
-add_test(NAME HMI_TEST
-         COMMAND HMITest.sh)
-#add_test(NAME HMI_TEST
-#         COMMAND HMI_TEST)
+    add_test(NAME HMI_TEST
+             COMMAND HMITest.sh)
+else()
+    add_test(NAME HMI_TEST
+             COMMAND HMI_TEST)
+endif()
 
 endif()
 

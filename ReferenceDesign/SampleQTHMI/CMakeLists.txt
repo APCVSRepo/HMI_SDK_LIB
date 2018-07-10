@@ -3,13 +3,31 @@ cmake_minimum_required(VERSION 2.8.11)
 project(SampleQTHMI)
 
 option(BUILD_TESTS "Possibility to build and run tests" OFF)
+option(BUILD_TESTS_COVERAGE "Possibility to generate test coverage report when run tests" OFF)
+
+# for test
+if(BUILD_TESTS_COVERAGE)
+    #auto enable BUILD_TESTS when BUILD_TESTS_COVERAGE is enabled
+    set(BUILD_TESTS ON)
+endif()
+
+if(BUILD_TESTS)
+    enable_testing()
+
+    add_definitions(-DBUILD_TESTS)
+    message(STATUS "Tests enabled")
+endif()
+
+if(BUILD_TESTS_COVERAGE)
+    add_definitions(-DBUILD_TESTS_COVERAGE)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
+    message(STATUS "Tests coverage enabled")
+endif()
 
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
-SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 # QT Tools
 # Find includes in corresponding build directories
@@ -17,22 +35,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 # Instruct CMake to run uic automatically when needed.
-SET(CMAKE_AUTOUIC ON) 
+set(CMAKE_AUTOUIC ON)
 # Instruct CMake to run uic automatically when needed.
-SET(CMAKE_AUTORCC ON) 
+set(CMAKE_AUTORCC ON)
+
 
 set(SDL_QT_HMI_DIR ${CMAKE_SOURCE_DIR})
 set(HMIFRAMEWORK_DIR ${CMAKE_SOURCE_DIR}/HMIFrameWork)
 set(HMIWIDGETS_DIR ${CMAKE_SOURCE_DIR}/HMIWidgets)
-
-
-# for test
-if(BUILD_TESTS)
-  enable_testing()
-
-  add_definitions(-DBUILD_TESTS)
-  message(STATUS "Tests enabled")
-endif()
 
 
 include_directories(
