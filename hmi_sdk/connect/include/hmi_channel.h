@@ -48,7 +48,7 @@ class Channel: public IChannel {
   int RegisterReqId();
   int UnRegisterRegId();
 
-  std::string	getChannelName();
+  std::string getChannelName();
   void setSocketManager(ISocketManager *pManager, void *pHandle = NULL);
   void onOpen();
 
