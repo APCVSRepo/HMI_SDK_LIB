@@ -50,13 +50,13 @@ After this, you can get the executable `SDL_Qt_HMI` in your build directory.
 
 
 ## Start QT HMI
-Create a folder for your executable as <execute_dir> and do:
-  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to <execute_dir>
-  2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to <execute_dir>
-  3. Copy the generated `SDL_Qt_HMI` to <execute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
-  4. Create a folder named Config in your <execute_dir>, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
-  5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <execute_dir>
-  6. Open `smartDeviceLink.ini` in the <execute_dir>, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
+Create a folder for your executable as `<execute_dir>` and do:
+  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to `<execute_dir>`
+  2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to `<execute_dir>`
+  3. Copy the generated `SDL_Qt_HMI` to `<execute_dir>`, see chapter [Generate QT HMI](#generate-qt-hmi)
+  4. Create a folder named Config in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
+  5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to `<execute_dir>`
+  6. Open `smartDeviceLink.ini` in the `<execute_dir>`, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
 >;VideoStreamConsumer = socket<br>
 >;AudioStreamConsumer = socket<br>
 >;VideoStreamConsumer = file<br>
@@ -90,7 +90,7 @@ $sudo ldconfig
 
 ## Used technologies
 Test framework:
-  * [Google Test](https://github.com/google/googletest) - Google's C++ test framework.
+  * [Google Test](https://github.com/google/googletest) - Google's C++ test framework.<br>
 Coverage:
   * GCOV - test coverage program.
   * LCOV - graphical front-end for GCC's coverage testing tool for gcov.
