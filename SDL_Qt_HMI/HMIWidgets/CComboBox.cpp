@@ -43,11 +43,12 @@ void CComboBox::setItemDelegate(CComboBoxDelegate *delegate)
     delegate->SetItemSize(this->size());
 }
 
-void CComboBox::setBtnStyle(const QString &style,const QSize& size)
+void CComboBox::setBtnStyle(const QString &style,const QSize& size,int fontsize)
 {
     QString iwidth= QString::number(size.width());
     QString iheight = QString::number(size.height());
-    QComboBox::setStyleSheet("QComboBox {background-color: #00000000;color:#bbffffff;font-size:24px;}\
+    QString iFontSize = QString::number(fontsize);
+    QComboBox::setStyleSheet("QComboBox {background-color: #00000000;color:#bbffffff;font-size:"+iFontSize +"px;}\
                              QComboBox::drop-down {\
                                  subcontrol-origin: padding;\
                                  width: "+iwidth+"px;\

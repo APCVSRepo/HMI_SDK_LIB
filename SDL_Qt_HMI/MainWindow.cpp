@@ -85,6 +85,17 @@ void MainWindow::InitPrompt()
     HMIFrameWork::Inst()->Notify(PROMPT_ID,p);
 }
 
+void MainWindow::InitNavigation()
+{
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navi::Inst()));
+}
+
+
+void MainWindow::InitMedia()
+{
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Media::Inst()));
+}
+
 void MainWindow::InitSDLApps()
 {
     HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (SDLApps::Inst()));
@@ -107,16 +118,6 @@ void MainWindow::InitPhone()
 void MainWindow::InitMessage()
 {
     HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Message::Inst()));
-}
-
-void MainWindow::InitNavigation()
-{
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navi::Inst()));
-}
-
-void MainWindow::InitMedia()
-{
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Media::Inst()));
 }
 
 void MainWindow::InitVR()

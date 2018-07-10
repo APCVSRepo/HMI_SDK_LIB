@@ -35,13 +35,16 @@ void CallingView::viewAction(int state)
     }
         break;
     case eViewStatus_Active:
-        UpdateData();
-        AddCall();
-
+        if(PhoneData::Inst()->GetAddNewCall())
+        {
+            PhoneData::Inst()->SetAddNewCall(false);
+            UpdateData();
+            AddCall();
+            PhoneData::Inst()->SetCallingStatus(true);
+        }
         this->show();
         break;
     case eViewStatus_Inactive:
-        m_callTimer1.stop();
         break;
     default:
         break;
@@ -94,6 +97,7 @@ void CallingView::InitCallingView()
     m_pContactsList->SetLeftMargin(0);
     m_pContactsList->SetSplitLine(":/Phone/Source/images/thins_line.png",":/Phone/Source/images/thins_line.png");
     m_pContactsList->SetScrollBarStyle(4);
+    m_pContactsList->AutoSetSelected(false);
    // m_pContactsList->SetItemBackgroundInfo("",":/Phone/Source/images/phone_list_push.png","");
     m_pContactsList->show();
 
@@ -343,6 +347,8 @@ void CallingView::OnBTSetting()
 
 void CallingView::OnHangUp()
 {
+    m_callTimer1.stop();
+    PhoneData::Inst()->SetCallingStatus(false);
     if(Phone::Inst()->IsOutAppCall())
     {
         HMIFrameWork::Inst()->AppBack();

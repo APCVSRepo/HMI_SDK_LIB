@@ -60,8 +60,13 @@ void Phone::OnAppShow(string appId, string viewId)
     {
         if("Main" == viewId)
         {
-
-            ViewForwardById(eViewId_KeyBoard);
+            if(!PhoneData::Inst()->GetCallingStatus())
+            {
+                ViewForwardById(eViewId_KeyBoard);
+            }else
+            {
+                ViewForwardById(eViewId_Calling);
+            }
         }
         QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
         mainwin->raise();
@@ -128,6 +133,7 @@ void Phone::OnNotify(string appId, map<string, string> parameter)
             PhoneData::Inst()->SetCallStatus("Call");
             info->date = QDate::currentDate();
             info->time = QTime::currentTime();
+            info->status = eDialCall;
             info->number = QString::fromStdString( value);
             PhoneData::Inst()->SetCallInfo(*info);
         }else{
@@ -140,6 +146,7 @@ void Phone::OnNotify(string appId, map<string, string> parameter)
             info.time = QTime::currentTime();
             info.number = QString::fromStdString( value);
             info.FirstName = QString::fromStdString( value);
+            info.status = eDialCall;
             PhoneData::Inst()->SetCallInfo(info);
         }
 
@@ -147,6 +154,7 @@ void Phone::OnNotify(string appId, map<string, string> parameter)
         if(AppStatus_Inactive == getState())
         {
             m_bOutAppCall = true;
+            PhoneData::Inst()->SetAddNewCall(true);
             Phone::Inst()->ViewForwardById(Phone::eViewId_Calling);
             PhoneData::Inst()->SetViewId(Phone::eViewId_KeyBoard);
             HMIFrameWork::Inst()->AppShow(PHONE_ID,"Calling");
