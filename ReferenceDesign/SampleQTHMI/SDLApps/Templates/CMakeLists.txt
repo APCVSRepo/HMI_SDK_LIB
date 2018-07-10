@@ -67,12 +67,12 @@ target_link_libraries(HMI_TEST ${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so)
 #copy lib file to test directory
 configure_file(${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so . COPYONLY)
 
-#configure_file(${SDLAPPS_TEMPLATES_DIR}/test/HMITest.sh . COPYONLY)
+configure_file(${SDLAPPS_TEMPLATES_DIR}/test/HMITest.sh . COPYONLY)
 
-#add_test(NAME HMI_TEST
-#         COMMAND HMITest.sh)
 add_test(NAME HMI_TEST
-         COMMAND HMI_TEST)
+         COMMAND HMITest.sh)
+#add_test(NAME HMI_TEST
+#         COMMAND HMI_TEST)
 
 endif()
 
