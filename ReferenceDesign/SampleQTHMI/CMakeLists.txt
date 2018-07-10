@@ -98,26 +98,26 @@ set (RCC_SOURCE
 # Find the QtWidgets library
 find_package(Qt5Widgets)
 
-# Tell CMake to create the SDL_Qt_HMI executable
-add_executable(SDL_Qt_HMI ${DIR_SRCS} ${RCC_SOURCE})
+# Tell CMake to create the SampleQTHMI executable
+add_executable(SampleQTHMI ${DIR_SRCS} ${RCC_SOURCE})
 
 # Use the Widgets module from Qt 5.
-target_link_libraries(SDL_Qt_HMI Qt5::Widgets)
+target_link_libraries(SampleQTHMI Qt5::Widgets)
 # link other libraries
-target_link_libraries(SDL_Qt_HMI HMIFrameWork)
-target_link_libraries(SDL_Qt_HMI HMIWidgets)
-target_link_libraries(SDL_Qt_HMI Home)
-target_link_libraries(SDL_Qt_HMI HVAC)
-target_link_libraries(SDL_Qt_HMI Media)
-target_link_libraries(SDL_Qt_HMI Message)
-target_link_libraries(SDL_Qt_HMI Navi)
-target_link_libraries(SDL_Qt_HMI Phone)
-target_link_libraries(SDL_Qt_HMI PopUp)
-target_link_libraries(SDL_Qt_HMI Prompt)
-target_link_libraries(SDL_Qt_HMI QuickLanuch)
-target_link_libraries(SDL_Qt_HMI SDLApps)
-target_link_libraries(SDL_Qt_HMI StatusBar)
-target_link_libraries(SDL_Qt_HMI VoiceRecognition)
+target_link_libraries(SampleQTHMI HMIFrameWork)
+target_link_libraries(SampleQTHMI HMIWidgets)
+target_link_libraries(SampleQTHMI Home)
+target_link_libraries(SampleQTHMI HVAC)
+target_link_libraries(SampleQTHMI Media)
+target_link_libraries(SampleQTHMI Message)
+target_link_libraries(SampleQTHMI Navi)
+target_link_libraries(SampleQTHMI Phone)
+target_link_libraries(SampleQTHMI PopUp)
+target_link_libraries(SampleQTHMI Prompt)
+target_link_libraries(SampleQTHMI QuickLanuch)
+target_link_libraries(SampleQTHMI SDLApps)
+target_link_libraries(SampleQTHMI StatusBar)
+target_link_libraries(SampleQTHMI VoiceRecognition)
 
 
 
