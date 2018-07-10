@@ -166,7 +166,7 @@ void SettingsBTData::RemoveDeviceFromPairedList(int id)
 {
     vector<BTDeviceInfo>::iterator iter = m_BTPairedList.begin();
     int i = 0;
-    for(iter; iter != m_BTPairedList.end(); ++iter)
+    for(; iter != m_BTPairedList.end(); ++iter)
     {
         if(id == iter->id)
         {

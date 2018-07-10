@@ -59,11 +59,13 @@ void Prompt::UpdateWIndSize(const QSize &size)
 
 void Prompt::OnAppShow(string appId, string viewId)
 {
-        setState(AppStatus_Active);
-        ViewForwardById(eViewId_Main);
-        QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
-        mainwin->raise();
-        mainwin->show();
+    Q_UNUSED(appId)
+    Q_UNUSED(viewId)
+    setState(AppStatus_Active);
+    ViewForwardById(eViewId_Main);
+    QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
+    mainwin->raise();
+    mainwin->show();
 }
 
 void Prompt::OnAppHide()
@@ -116,5 +118,6 @@ void Prompt::OnNotify(string appId, map<string, string> parameter)
 
 void Prompt::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }

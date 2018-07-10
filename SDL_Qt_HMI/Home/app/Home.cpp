@@ -272,6 +272,7 @@ void Home::OnNotify(string appId, map<string, string> parameter)
 
 void Home::OnReply(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(appId)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {

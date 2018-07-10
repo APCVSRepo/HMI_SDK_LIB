@@ -141,5 +141,6 @@ void Navi::OnNotify(string appId, map<string, string> parameter)
 
 void Navi::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }

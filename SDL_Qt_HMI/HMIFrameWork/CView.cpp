@@ -27,7 +27,7 @@ int CView::getViewId()
 
 void CView::viewAction(int state)
 {
-
+    C_CXX_UNUSED(state)
 }
 
 void *CView::getView()

@@ -104,10 +104,8 @@ void SettingsRoutineSettingUI::OnBack()
 
 void SettingsRoutineSettingUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
-
-
 
 void SettingsRoutineSettingUI::OnListBtnClick(int index, int btnIndex)
 {
@@ -139,7 +137,7 @@ void SettingsRoutineSettingUI::OnListBtnClick(int index, int btnIndex)
 
 void SettingsRoutineSettingUI::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }
 
 void SettingsRoutineSettingUI::OnComboBoxActive(int index, int itemIndex)

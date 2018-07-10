@@ -58,27 +58,27 @@ PromptNavView::~PromptNavView()
 
 void PromptNavView::AddTitle(const QString &title)
 {
-
+    Q_UNUSED(title)
 }
 
 void PromptNavView::AddContextA(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddContextALight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddContextB(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddContextBLight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddBtnA(const QString &text)
@@ -90,7 +90,7 @@ void PromptNavView::AddBtnA(const QString &text)
 
 void PromptNavView::AddBtnB(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddTimer(int time)
@@ -103,6 +103,7 @@ void PromptNavView::AddTimer(int time)
 
 void PromptNavView::AddHandle(const QString &text)
 {
+    Q_UNUSED(text)
 }
 
 void PromptNavView::AddNavDirection(const QString &text)
@@ -241,17 +242,19 @@ void PromptNavView::OnButtonA()
 
 void PromptNavView::DrawContextA(QString context, QString light)
 {
-
+    Q_UNUSED(context)
+    Q_UNUSED(light)
 }
 
 void PromptNavView::DrawContextB(QString context, QString light)
 {
-
+    Q_UNUSED(context)
+    Q_UNUSED(light)
 }
 
 void PromptNavView::HighLightText(QString light)
 {
-
+    Q_UNUSED(light)
 }
 
 QString PromptNavView::geteElidedText(QFont font, const QString& text, int MaxWidth)

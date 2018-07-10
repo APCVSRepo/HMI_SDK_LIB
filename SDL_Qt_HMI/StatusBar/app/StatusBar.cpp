@@ -94,6 +94,7 @@ void StatusBar::OnAppHide()
 
 void StatusBar::OnNotify(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(parameter)
     INFO("StatusBar::onNotify appId=%s .",appId.c_str());
 
 #ifdef ENABLE_STATUSBAR_TEST
@@ -116,5 +117,6 @@ void StatusBar::OnNotify(string appId, map<string, string> parameter)
 
 void StatusBar::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }

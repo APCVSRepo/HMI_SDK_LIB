@@ -50,19 +50,21 @@ void PopUp::onReply(string appId, map<string, string> parameter)
 
 void PopUp::OnAppShow(string appId, string viewId)
 {
-        setState(AppStatus_Active);
-        ViewForwardById(eViewId_Main);
-        QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
-        mainwin->raise();
-        mainwin->show();
+    Q_UNUSED(appId)
+    Q_UNUSED(viewId)
+    setState(AppStatus_Active);
+    ViewForwardById(eViewId_Main);
+    QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
+    mainwin->raise();
+    mainwin->show();
 }
 
 void PopUp::OnAppHide()
 {
     INFO("[PopUp] OnAppHide %d .",getState());
-        setState(AppStatus_Inactive);
-        QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
-        mainwin->hide();
+    setState(AppStatus_Inactive);
+    QWidget* mainwin = reinterpret_cast<QWidget*>(getMain());
+    mainwin->hide();
 }
 
 void PopUp::OnNotify(string appId, map<string, string> parameter)
@@ -106,5 +108,6 @@ void PopUp::OnNotify(string appId, map<string, string> parameter)
 
 void PopUp::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }

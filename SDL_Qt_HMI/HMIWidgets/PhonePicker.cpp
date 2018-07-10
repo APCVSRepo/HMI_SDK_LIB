@@ -212,4 +212,5 @@ bool PhonePicker::MouseEvent(QObject *object, QEvent *event)
     default:
         break;
     }
+    return true;
 }

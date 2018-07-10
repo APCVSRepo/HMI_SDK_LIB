@@ -140,5 +140,6 @@ void VoiceRecognition::OnNotify(string appId, map<string, string> parameter)
 
 void VoiceRecognition::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }

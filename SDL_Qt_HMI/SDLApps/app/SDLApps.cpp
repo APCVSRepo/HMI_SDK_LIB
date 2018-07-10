@@ -191,7 +191,8 @@ void SDLApps::OnNotify(string appId, map<string, string> parameter)
 
 void SDLApps::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 void SDLApps::OnAppListUpdate()

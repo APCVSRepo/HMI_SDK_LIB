@@ -241,6 +241,7 @@ void PromptViewUI::OnButtonClick(const QString& Id,const QString& replayInfo)
 
 void PromptViewUI::OnPromptNotify(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(appId)
     Parse(parameter);
 }
 

@@ -141,5 +141,6 @@ void Media::OnNotify(string appId, map<string, string> parameter)
 
 void Media::OnReply(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
