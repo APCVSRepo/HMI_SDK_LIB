@@ -1,7 +1,7 @@
 # SDL QT HMI
 
 This is the QT HMI project for the sdl core. It is currently able to run under Linux, and support for other platforms is also planned.<br>
-This project has been verified in the environment Ubuntu 16.04 LTS 64bit.
+This project has been verified in the environment `Ubuntu 16.04 LTS 64bit`.
 
 # Getting Started
 
@@ -85,17 +85,26 @@ $sudo ldconfig
   3. If you want to add a new class to QT HMI, make sure the class name is not the same as the class defined in hmi_sdk, such as VR, BasicCommunication, Buttons, Navigation, TTS, VehicleInfo, UI, etc. Otherwise, when compiling the project with cmake, the resulting executable will behave unexpectedly at runtime because the wrong constructor was called. Please don't do it unless you understand the impact.
 
 
-# Test
-  We have added unit tests for `SDL RPCs` in the SDLApps/Templates folder, using the [Google Test](https://github.com/google/googletest) framework. The other modules(Home, HVAC, Phone, etc) are not included.
+# Test & Coverage
+  We have added unit tests for `SDL RPCs` in the `SDLApps/Templates` folder, and the other modules(Home, HVAC, Phone, etc) are not included. It is also possible to generate a test coverage report when run `make test`.
 
 ## Used technologies
-
-  * Google Test - Google's C++ test framework.
+Test framework:
+  * [Google Test](https://github.com/google/googletest) - Google's C++ test framework.
+Coverage:
+  * GCOV - test coverage program.
+  * LCOV - graphical front-end for GCC's coverage testing tool for gcov.
 
 ## How to run Test
 
-  1. Build project with enabled flag -DBUILD_TESTS=on
+  1. Build project with enabled flag `-DBUILD_TESTS=on`
   2. Execute command `make test`
+
+## How to generate test coverage report
+
+  1. Build project with enabled flag `-DBUILD_TESTS_COVERAGE=on`, this will automatically set `-DBUILD_TESTS=on`
+  2. Execute command `make test` and wait for the end of the execution
+  3. Go to `<build_directory>/SDLApps/Templates/TestResult`, and open `index.html` to view the test coverage report
 
 
 # Known issues
