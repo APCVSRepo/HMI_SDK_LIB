@@ -271,7 +271,9 @@ TEST_F(AlertViewTest,getAlertJson_Success)
 
     appListMock.DelegateOnRequest(AlertObj);
     EXPECT_CALL(appListMock,onRequest(AlertObj)).Times(AtLeast(1));
+    EXPECT_EQ(ID_APPLINK,appListMock.getActiveApp()->getCurUI());
     appListMock.onRequest(AlertObj);
+    EXPECT_EQ(ID_ALERT,appListMock.getActiveApp()->getCurUI());
 
     EXPECT_EQ("UI.Alert",appListMock.getActiveApp()->getAlertJson()["method"].asString());
     EXPECT_EQ(3,appListMock.getActiveApp()->getAlertJson()["params"]["alertStrings"].size());

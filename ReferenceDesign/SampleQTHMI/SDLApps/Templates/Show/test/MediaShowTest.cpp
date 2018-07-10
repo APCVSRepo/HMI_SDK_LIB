@@ -36,14 +36,10 @@ TEST_F(CMediaShowTest,OnSoftButtonClick_Success)
     AppDataMock appDataMock;
 
     EXPECT_CALL(appListMock,getActiveApp()).WillRepeatedly(Return(&appDataMock));
-//    EXPECT_CALL(appDataMock,OnSoftButtonClick(1,BUTTON_SHORT,"testShow")).Times(AtLeast(1));
+    EXPECT_CALL(appDataMock,OnSoftButtonClick(1,BUTTON_SHORT,"")).Times(AtLeast(1));
 
     CMediaShow cMediaShow(&appListMock);
-//    cMediaShow.SoftBtnClickedSlot(1,"testShow");
-
-    EXPECT_CALL(appDataMock,OnSoftButtonClick(1,BUTTON_SHORT,"")).Times(AtLeast(1));
     cMediaShow.SoftBtnClickedSlot(1);
-
 }
 
 TEST_F(CMediaShowTest,OnShowCommand_Success)
