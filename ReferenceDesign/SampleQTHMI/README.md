@@ -89,9 +89,9 @@ $sudo ldconfig
   We have added unit tests for `SDL RPCs` in the `SDLApps/Templates` folder, and the other modules(Home, HVAC, Phone, etc) are not included. It is also possible to generate a test coverage report when run `make test`.
 
 ## Used technologies
-Test framework:
-  * [Google Test](https://github.com/google/googletest) - Google's C++ test framework.<br>
-Coverage:
+### Test framework:
+  * [Google Test](https://github.com/google/googletest) - Google's C++ test framework.
+### Coverage:
   * GCOV - test coverage program.
   * LCOV - graphical front-end for GCC's coverage testing tool for gcov.
 
