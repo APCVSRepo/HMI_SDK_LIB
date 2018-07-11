@@ -104,7 +104,7 @@ $sudo ldconfig
 
   1. Build project with enabled flag `-DBUILD_TESTS_COVERAGE=on`, this will automatically set `-DBUILD_TESTS=on`
   2. Execute command `make test` and wait for the end of the execution
-  3. Go to `<build_directory>/SDLApps/Templates/TestResult`, and open `index.html` to view the test coverage report
+  3. Go to `<build_directory>/TestResult`, and open `index.html` to view the test coverage report
 
 
 # Known issues
