@@ -40,6 +40,7 @@ private:
     AppListInterface *m_pList;
 
     QLineEdit *m_pInitEdit;
+    bool m_bEditable;
     CustomListView *m_pListView;
 
     CChoiceSetVR *m_pChoiceVR;

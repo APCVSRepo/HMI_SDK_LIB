@@ -11,6 +11,7 @@ CChoiceSet::CChoiceSet(AppListInterface *pList, QWidget *parent)
     ,m_iInteractionMode(BOTH)
     ,m_pList(pList)
     ,m_pInitEdit(NULL)
+    ,m_bEditable(false)
     ,m_pListView(NULL)
     ,m_pChoiceVR(NULL)
     ,m_pTimer(NULL)
@@ -71,7 +72,6 @@ void CChoiceSet::showEvent(QShowEvent *e) {
 
         delete m_pListView;
         m_pListView = NULL;
-        m_pInitEdit->setText("");
 
         std::string strLayout = "DEFAULT";
         if (jsonChoice.isMember("interactionLayout"))
@@ -123,6 +123,10 @@ void CChoiceSet::showEvent(QShowEvent *e) {
                                     jsonChoice["initialText"]["fieldText"].asString().c_str(),
                     560);
         }
+        else
+        {
+            m_pInitEdit->setText("");
+        }
 
         if (jsonChoice.isMember("vrHelpTitle")) {
             m_pChoiceVR->SetTitle(jsonChoice["vrHelpTitle"].asString());
@@ -145,6 +149,7 @@ void CChoiceSet::showEvent(QShowEvent *e) {
         {
             m_pListView->show();
             m_pReturnBtn->show();
+            m_pInitEdit->show();
         }
     }
 }
@@ -170,6 +175,12 @@ void CChoiceSet::OnListItemClicked(int iChoiceId) {
 
 void CChoiceSet::OnEditChanged(QString strkey) {
     INFO("CChoiceSet::OnEditChanged");
+    if(!m_bEditable)
+    {
+        INFO("CChoiceSet::OnEditChanged: Not editable, return");
+        return;
+    }
+
     if(m_pListView)
     {
 #if defined(WINCE)
@@ -182,6 +193,8 @@ void CChoiceSet::OnEditChanged(QString strkey) {
 
 void CChoiceSet::SetEditable(bool editable)
 {
+    m_bEditable = editable;
+    INFO("SetEditable: %d", m_bEditable);
     if(editable)
     {
         m_pInitEdit->setReadOnly(false);
