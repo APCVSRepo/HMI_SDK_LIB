@@ -6,7 +6,7 @@ set(SDLAPPS_TEMPLATES_DIR ${SDL_QT_HMI_DIR}/SDLApps/Templates)
 
 include_directories(
     ${SDL_QT_HMI_DIR}/../../HMI_SDK_LIB/include
-    ${SDL_QT_HMI_DIR}/3rd_party/include/jsoncpp/include
+    ${SDL_QT_HMI_DIR}/3rd_party/include
     ${SDL_QT_HMI_DIR}/../../HMI_SDK_LIB/hmi_sdk/connect/include
     ${SDL_QT_HMI_DIR}/../../HMI_SDK_LIB/hmi_sdk/app_data/include
     ${SDL_QT_HMI_DIR}/HMIFrameWork
