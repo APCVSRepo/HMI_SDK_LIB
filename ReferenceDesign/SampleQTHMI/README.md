@@ -1,6 +1,6 @@
-# SDL QT HMI
+# Sample QT HMI
 
-This is the QT HMI project for the sdl core. It is currently able to run under Linux, and support for other platforms is also planned.<br>
+This is the QT HMI project using HMI_SDK_LIB to interact with sdl_core. It is currently able to run under Linux, and support for other platforms is also planned.<br>
 This project has been verified in the environment `Ubuntu 16.04 LTS 64bit`.
 
 # Getting Started
@@ -18,10 +18,10 @@ Currently, we have two ways to generate QT HMI:
 ##### BUILD
 Create a folder for your build and run:
 ```shell
-$cmake <SDL_QT_HMI_dir>
+$cmake <SampleQTHMI_dir>
 $make
 ```
-Then you can get the executable `SDL_Qt_HMI`
+Then you can get the executable `SampleQTHMI`
 
 ##### Dependency
 In order to be able to build successfully, you need to install the qt library. There are two ways to do that:
@@ -35,7 +35,7 @@ $apt install qtbase5-dev
 ```shell
 $export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
 $export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64
-$cmake <SDL_QT_HMI_dir>
+$cmake <SampleQTHMI_dir>
 $make
 ```
 
@@ -45,15 +45,15 @@ $make
 ##### Environment
 * Qt Creator >= VERSION 5.3.2
 ##### BUILD
-Install and open your Qt Creator, make sure you can run the sample qt project, then open `SDL_Qt_HMI.pro`, and build your project.<br>
-After this, you can get the executable `SDL_Qt_HMI` in your build directory.
+Install and open your Qt Creator, make sure you can run the sample qt project, then open `SampleQTHMI.pro`, and build your project.<br>
+After this, you can get the executable `SampleQTHMI` in your build directory.
 
 
 ## Start QT HMI
 Create a folder for your executable as `<execute_dir>` and do:
   1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to `<execute_dir>`
   2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to `<execute_dir>`
-  3. Copy the generated `SDL_Qt_HMI` to `<execute_dir>`, see chapter [Generate QT HMI](#generate-qt-hmi)
+  3. Copy the generated `SampleQTHMI` to `<execute_dir>`, see chapter [Generate QT HMI](#generate-qt-hmi)
   4. Create a folder named Config in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to `<execute_dir>`
   6. Open `smartDeviceLink.ini` in the `<execute_dir>`, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
@@ -69,7 +69,7 @@ $./start.sh
 ```
   8. Start QT HMI
 ```shell
-$./SDL_Qt_HMI 
+$./SampleQTHMI 
 ```
 
 Notice: 
@@ -109,6 +109,6 @@ $sudo ldconfig
 
 # Known issues
 
-  1. If error occurred when start run SDL_Qt_HMI, please try to move your excute folder to a short path; If the path is too long, there may be some problem.
+  1. If error occurred when start run `SampleQTHMI`, please try to move your excute folder to a short path; If the path is too long, there may be some problem.
   2. When run `make test`, you may get `SIGSEGV` error, if so, please reference to the second method of [Dependency](#dependency).
 
