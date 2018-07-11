@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8.11)
 
+add_definitions(-DOS_LINUX)
+add_definitions(-DARCH_X86)
+
 project(SampleQTHMI)
 
 option(BUILD_TESTS "Possibility to build and run tests" OFF)
