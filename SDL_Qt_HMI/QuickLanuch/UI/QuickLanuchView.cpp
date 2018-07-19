@@ -56,7 +56,7 @@ QuickLanuchView::~QuickLanuchView()
 
 void QuickLanuchView::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 bool QuickLanuchView::MouseEvent(QObject *obj, QEvent *event)
@@ -685,6 +685,8 @@ void QuickLanuchView::OnReplaceInfo(int x ,int y ,string type)
 
 void QuickLanuchView::OnAppClick(int index, QString type, QString name)
 {
+    Q_UNUSED(index)
+    Q_UNUSED(name)
     map<string,string> p ;
     p.insert(make_pair("AppClick",type.toStdString()));
     HMIFrameWork::Inst()->Notify(HOME_ID,p);

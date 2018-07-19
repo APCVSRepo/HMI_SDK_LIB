@@ -56,7 +56,7 @@ SettingsWifiUI::~SettingsWifiUI()
 
 void SettingsWifiUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 void SettingsWifiUI::OnBack()
@@ -66,10 +66,13 @@ void SettingsWifiUI::OnBack()
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex)
 {
+    Q_UNUSED(index)
+    Q_UNUSED(btnIndex)
 }
 
 void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)
 {
+    Q_UNUSED(btnIndex)
     if(0 == index)
     {
         if(0 == specifiedID)
@@ -85,6 +88,7 @@ void SettingsWifiUI::OnListButtonReleased(int index, int btnIndex, int specified
 
 void SettingsWifiUI::OnListItemClicked(int index, int specifiedID)
 {
+    Q_UNUSED(specifiedID)
     if(0 == index)
     {
         return;

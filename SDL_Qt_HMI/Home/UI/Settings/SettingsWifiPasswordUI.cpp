@@ -86,7 +86,7 @@ SettingsWifiPasswordUI::~SettingsWifiPasswordUI()
 
 void SettingsWifiPasswordUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 void SettingsWifiPasswordUI::OnBack()

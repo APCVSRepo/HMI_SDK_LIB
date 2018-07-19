@@ -7,6 +7,8 @@
 using namespace std;
 
 #define interface struct
+#define C_CXX_UNUSED(x) (void)x;
+
 
 enum eAppStatus{
     AppStatus_Inactive,

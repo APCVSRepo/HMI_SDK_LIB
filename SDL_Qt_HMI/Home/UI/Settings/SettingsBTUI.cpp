@@ -55,7 +55,7 @@ SettingsBTUI::~SettingsBTUI()
 
 void SettingsBTUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 void SettingsBTUI::OnBack()
@@ -73,6 +73,8 @@ void SettingsBTUI::OnBack()
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex)
 {
+    Q_UNUSED(index)
+    Q_UNUSED(btnIndex)
 }
 
 void SettingsBTUI::OnListButtonReleased(int index, int btnIndex, int specifiedID)

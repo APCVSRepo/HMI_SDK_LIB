@@ -24,10 +24,21 @@ $make
 Then you can get the executable `SDL_Qt_HMI`
 
 ##### Dependency
-When run cmake, you may need install package qtbase5-dev:
+In order to be able to build successfully, you need to install the qt library. There are two ways to do that:
+  1. Use the `apt` command to directly install the qt related dependencies, as follows:
 ```shell
 $apt install qtbase5-dev
 ```
+  Notice: you may got `SIGSEGV` error when do [`make test`](#test), if so, please use the next method.
+
+  2. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
+```shell
+$export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
+$export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64
+$cmake <SDL_QT_HMI_dir>
+$make
+```
+
 
 ### USE Qt Creator
 #### Linux
@@ -39,13 +50,13 @@ After this, you can get the executable `SDL_Qt_HMI` in your build directory.
 
 
 ## Start QT HMI
-Create a folder for your executable as <excute_dir> and do:
-  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to <excute_dir>
-  2. Build HMI_SDK_LIB, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to <excute_dir>
-  3. Copy the generated `SDL_Qt_HMI` to <excute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
-  4. Create a folder named Config in your <excute_dir>, and copy all the files in `<current_path>/res/hmi` to `<excute_dir>/Config`
-  5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <excute_dir>
-  6. Open `smartDeviceLink.ini` in the <excute_dir>, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
+Create a folder for your executable as <execute_dir> and do:
+  1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to <execute_dir>
+  2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to <execute_dir>
+  3. Copy the generated `SDL_Qt_HMI` to <execute_dir>, see chapter [Generate QT HMI](#generate-qt-hmi)
+  4. Create a folder named Config in your <execute_dir>, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
+  5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to <execute_dir>
+  6. Open `smartDeviceLink.ini` in the <execute_dir>, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
 >;VideoStreamConsumer = socket<br>
 >;AudioStreamConsumer = socket<br>
 >;VideoStreamConsumer = file<br>
@@ -71,14 +82,24 @@ $sudo apt-get upgrade
 $sudo ldconfig
 ```
   2. If you want to use USB connect with sdl, you should run step7/8 in root authority.
+  3. If you want to add a new class to QT HMI, make sure the class name is not the same as the class defined in hmi_sdk, such as VR, BasicCommunication, Buttons, Navigation, TTS, VehicleInfo, UI, etc. Otherwise, when compiling the project with cmake, the resulting executable will behave unexpectedly at runtime because the wrong constructor was called. Please don't do it unless you understand the impact.
+
+
+# Test
+  We have added unit tests for `SDL RPCs` in the SDLApps/Templates folder, using the [Google Test](https://github.com/google/googletest) framework. The other modules(Home, HVAC, Phone, etc) are not included.
+
+## Used technologies
+
+  * Google Test - Google's C++ test framework.
+
+## How to run Test
+
+  1. Build project with enabled flag -DBUILD_TESTS=on
+  2. Execute command `make test`
+
 
 # Known issues
 
   1. If error occurred when start run SDL_Qt_HMI, please try to move your excute folder to a short path; If the path is too long, there may be some problem.
-
-
-
-
-
-
+  2. When run `make test`, you may get `SIGSEGV` error, if so, please reference to the second method of [Dependency](#dependency).
 

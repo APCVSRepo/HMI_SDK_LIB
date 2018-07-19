@@ -71,13 +71,13 @@ void SettingsMainUI::InitConnect()
 
 void SettingsMainUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
-
-
 
 void SettingsMainUI::OnListBtnClick(int index, int btnIndex)
 {
+    Q_UNUSED(index)
+    Q_UNUSED(btnIndex)
 }
 
 void SettingsMainUI::OnListClick(int index)

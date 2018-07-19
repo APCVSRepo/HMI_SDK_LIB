@@ -46,6 +46,7 @@ void Message::onReply(string appId, map<string, string> parameter)
 
 void Message::OnAppShow(string appId, string viewId)
 {
+    Q_UNUSED(appId)
     int state = getState();
     switch (state) {
     case AppStatus_Active:
@@ -94,11 +95,13 @@ void Message::OnAppHide()
 
 void Message::OnNotify(string appId, map<string, string> parameter)
 {
-
+    Q_UNUSED(appId)
+    Q_UNUSED(parameter)
 }
 
 void Message::OnReply(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(appId)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {

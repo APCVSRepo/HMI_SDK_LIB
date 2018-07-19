@@ -117,7 +117,7 @@ void MessageListView::OnBack()
 
 void MessageListView::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }
 
 void MessageListView::OnPhoneNumberClick(QString number)

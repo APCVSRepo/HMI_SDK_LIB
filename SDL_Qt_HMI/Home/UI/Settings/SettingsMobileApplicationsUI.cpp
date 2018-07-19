@@ -77,10 +77,8 @@ void SettingsMobileApplicationsUI::OnBack()
 
 void SettingsMobileApplicationsUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
-
-
 
 void SettingsMobileApplicationsUI::OnListBtnClick(int index, int btnIndex)
 {
@@ -122,5 +120,5 @@ void SettingsMobileApplicationsUI::OnListBtnClick(int index, int btnIndex)
 
 void SettingsMobileApplicationsUI::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }

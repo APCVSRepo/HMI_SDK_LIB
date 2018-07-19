@@ -31,7 +31,7 @@ PhoneData *PhoneData::Inst()
 
 void PhoneData::InitNameMap()
 {
-    int i;
+     int i;
      wchar_t wc = L'a';
      char *pmbnull = NULL;
      char *pmb = (char *)malloc( sizeof( char ) );
@@ -609,6 +609,7 @@ wchar_t PhoneData::toWchar(string sChinese)
        bbbb =  convertText(wchr);
 
       }
+      return  bbbb;
 }
 
 SPhoneInfo *PhoneData::GetContactsDetailInfo()

@@ -102,6 +102,7 @@ void HVAC::OnNotify(string appId, map<string, string> parameter)
 
 void HVAC::OnReply(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(appId)
     map<string,string>::const_iterator it = parameter.find("Button");
     if(it!=parameter.end())
     {

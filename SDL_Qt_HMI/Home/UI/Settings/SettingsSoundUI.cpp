@@ -121,7 +121,7 @@ SettingsSoundUI::~SettingsSoundUI()
 
 void SettingsSoundUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 void SettingsSoundUI::InitTrebleVoice()

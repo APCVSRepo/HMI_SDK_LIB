@@ -132,7 +132,7 @@ SettingsWifiAddHotSpotsUI::~SettingsWifiAddHotSpotsUI()
 
 void SettingsWifiAddHotSpotsUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 void SettingsWifiAddHotSpotsUI::OnBack()

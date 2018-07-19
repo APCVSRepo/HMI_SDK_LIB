@@ -104,22 +104,22 @@ void PopupGeneralView::AddTitle(const QString &title)
 
 void PopupGeneralView::AddContextA(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PopupGeneralView::AddContextALight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PopupGeneralView::AddContextB(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PopupGeneralView::AddContextBLight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PopupGeneralView::AddPassword(const QString &text)
@@ -220,7 +220,7 @@ void PopupGeneralView::AddTimer(int time)
 
 void PopupGeneralView::AddHandle(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PopupGeneralView::Show()

@@ -20,15 +20,15 @@ VRVFactory *VRVFactory::Inst()
 
 void *VRVFactory::CreateProduct(int viewId)
 {
-    QWidget* mainwin = reinterpret_cast<QWidget*>(VR::Inst()->getMain());
+    QWidget* mainwin = reinterpret_cast<QWidget*>(VoiceRecognition::Inst()->getMain());
     switch (viewId) {
-    case VR::eViewId_Main:
+    case VoiceRecognition::eViewId_Main:
     {
         VRView* view = new VRView(mainwin);
         view->setView(dynamic_cast<QWidget*>(view));
         return  dynamic_cast<CView*>(view);
     }
-    case VR::eViewId_Interaction:
+    case VoiceRecognition::eViewId_Interaction:
     {
         VRInteractionView* view = new VRInteractionView(mainwin);
         view->setView(dynamic_cast<QWidget*>(view));

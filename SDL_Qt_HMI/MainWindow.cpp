@@ -33,12 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     InitQuickLanuch();
     InitPopUp();
     InitPrompt();
-    InitSDLApps();
     InitHVAC();
     InitPhone();
     InitMessage();
     InitNavigation();
     InitMedia();
+    InitSDLApps();
     InitVR();
 }
 
@@ -87,9 +87,8 @@ void MainWindow::InitPrompt()
 
 void MainWindow::InitNavigation()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navigation::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navi::Inst()));
 }
-
 
 void MainWindow::InitMedia()
 {
@@ -120,12 +119,10 @@ void MainWindow::InitMessage()
     HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Message::Inst()));
 }
 
-
 void MainWindow::InitVR()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VR::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VoiceRecognition::Inst()));
 }
-
 
 void MainWindow::testPopup()
 {

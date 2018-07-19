@@ -3,10 +3,10 @@
 
 CRotationWidget::CRotationWidget(QWidget *parent)
     :QLabel(parent)
-    ,m_image()
     ,m_timer(NULL)
     ,m_bRotationStarted(false)
     ,m_nRotationAngle(0)
+    ,m_image()
     ,m_eDirection(DEFAULT_DIRECTION)
 {
     m_timer = new QTimer(this);

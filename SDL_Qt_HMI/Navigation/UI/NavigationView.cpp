@@ -6,7 +6,7 @@
 
 NavigationView::NavigationView(QWidget *parent)
     :QWidget(parent)
-    ,CView(Navigation::eViewId_Main)
+    ,CView(Navi::eViewId_Main)
     ,m_pNoDeviceMsg(NULL)
     ,m_pConnectDevice(NULL)
     ,m_pAppList(NULL)
@@ -29,7 +29,7 @@ NavigationView::NavigationView(QWidget *parent)
 
     connect(m_pConnectDevice, SIGNAL(clicked()), this, SLOT(OnConnectBtnClicked()));
 
-    connect(Navigation::Inst(), SIGNAL(SigUpdateAppList()), this, SLOT(OnAppListUpdate()));;
+    connect(Navi::Inst(), SIGNAL(SigUpdateAppList()), this, SLOT(OnAppListUpdate()));;
 
     m_pAppList = new AppListWidget(this);
     m_pAppList->setGeometry(85,43+40,630,307);
@@ -71,7 +71,7 @@ void NavigationView::OnAppListUpdate()
     INFO("NavigationView::OnAppListUpdate");
     m_pAppList->RemoveAll();
 
-    const std::vector<NaviAppInfo> &applist = Navigation::Inst()->GetAppList();
+    const std::vector<NaviAppInfo> &applist = Navi::Inst()->GetAppList();
     if(applist.size() > 0)
     {
         for(int i = 0; i < applist.size(); ++i)

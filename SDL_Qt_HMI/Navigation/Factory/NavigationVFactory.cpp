@@ -19,9 +19,9 @@ NavigationVFactory *NavigationVFactory::Inst()
 
 void *NavigationVFactory::CreateProduct(int viewId)
 {
-    QWidget* mainwin = reinterpret_cast<QWidget*>(Navigation::Inst()->getMain());
+    QWidget* mainwin = reinterpret_cast<QWidget*>(Navi::Inst()->getMain());
     switch (viewId) {
-    case Navigation::eViewId_Main:
+    case Navi::eViewId_Main:
     {
         NavigationView* view = new NavigationView(mainwin);
         view->setView(dynamic_cast<QWidget*>(view));

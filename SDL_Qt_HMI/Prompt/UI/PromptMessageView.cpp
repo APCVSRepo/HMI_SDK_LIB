@@ -65,27 +65,27 @@ PromptMessageView::~PromptMessageView()
 
 void PromptMessageView::AddTitle(const QString &title)
 {
-
+    Q_UNUSED(title)
 }
 
 void PromptMessageView::AddContextA(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptMessageView::AddContextALight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptMessageView::AddContextB(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptMessageView::AddContextBLight(const QString &text)
 {
-
+    Q_UNUSED(text)
 }
 
 void PromptMessageView::AddBtnA(const QString &text)
@@ -111,6 +111,7 @@ void PromptMessageView::AddTimer(int time)
 
 void PromptMessageView::AddHandle(const QString &text)
 {
+    Q_UNUSED(text)
 }
 
 void PromptMessageView::AddMessageName(const QString &text)
@@ -206,17 +207,19 @@ void PromptMessageView::OnButtonB()
 
 void PromptMessageView::DrawContextA(QString context, QString light)
 {
-
+    Q_UNUSED(context)
+    Q_UNUSED(light)
 }
 
 void PromptMessageView::DrawContextB(QString context, QString light)
 {
-
+    Q_UNUSED(context)
+    Q_UNUSED(light)
 }
 
 void PromptMessageView::HighLightText(QString light)
 {
-
+    Q_UNUSED(light)
 }
 
 QString PromptMessageView::geteElidedText(QFont font, const QString& text, int MaxWidth)

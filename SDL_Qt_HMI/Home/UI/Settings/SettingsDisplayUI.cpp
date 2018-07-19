@@ -154,10 +154,8 @@ void SettingsDisplayUI::OnBack()
 
 void SettingsDisplayUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
-
-
 
 void SettingsDisplayUI::OnListBtnClick(int index, int btnIndex)
 {
@@ -188,11 +186,12 @@ void SettingsDisplayUI::OnListBtnClick(int index, int btnIndex)
 
 void SettingsDisplayUI::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }
 
 void SettingsDisplayUI::OnLuminanceRegulationValue(int value)
 {
+    Q_UNUSED(value)
 }
 
 void SettingsDisplayUI::OnAddLuminanceRegulationValue()

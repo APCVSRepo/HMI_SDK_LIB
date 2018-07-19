@@ -77,7 +77,7 @@ void SettingsEmergencyUI::OnBack()
 
 void SettingsEmergencyUI::viewAction(int state)
 {
-
+    Q_UNUSED(state)
 }
 
 
@@ -110,5 +110,5 @@ void SettingsEmergencyUI::OnListBtnClick(int index, int btnIndex)
 
 void SettingsEmergencyUI::OnListClick(int index)
 {
-
+    Q_UNUSED(index)
 }

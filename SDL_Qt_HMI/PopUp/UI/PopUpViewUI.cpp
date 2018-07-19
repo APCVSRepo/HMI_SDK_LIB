@@ -165,6 +165,7 @@ void PopUpViewUI::OnButtonClick(const QString& Id,const QString& replayInfo)
 
 void PopUpViewUI::OnPopUpNotify(string appId, map<string, string> parameter)
 {
+    Q_UNUSED(appId)
     Parse(parameter);
 }
 
