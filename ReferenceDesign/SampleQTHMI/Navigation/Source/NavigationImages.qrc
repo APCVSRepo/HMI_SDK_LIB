@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Navigation/Source">
+        <file>images/button.png</file>
+        <file>images/button_push.png</file>
+    </qresource>
+</RCC>

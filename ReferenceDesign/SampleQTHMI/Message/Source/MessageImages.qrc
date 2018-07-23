@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/Message/Source">
+        <file>images/dalog_right_legt_top.png</file>
+        <file>images/default_profile.png</file>
+        <file>images/dialog_left_left_down.png</file>
+        <file>images/dialog_left_left_top.png</file>
+        <file>images/dialog_left_right_down.png</file>
+        <file>images/dialog_left_right_top.png</file>
+        <file>images/dialog_right_left_down.png</file>
+        <file>images/dialog_right_right_down.png</file>
+        <file>images/dialog_right_right_top.png</file>
+        <file>images/line.png</file>
+        <file>images/button_back.png</file>
+        <file>images/message_list_push.png</file>
+        <file>images/text_background.png</file>
+        <file>images/dialog_left.png</file>
+        <file>images/dialog_right.png</file>
+    </qresource>
+</RCC>

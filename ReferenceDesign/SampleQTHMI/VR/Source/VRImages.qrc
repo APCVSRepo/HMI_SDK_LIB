@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/VR/Source">
+        <file>images/message_icon.png</file>
+        <file>images/phone_icon.png</file>
+        <file>images/partingline.png</file>
+        <file>images/vr.png</file>
+        <file>images/vr_peple.png</file>
+    </qresource>
+</RCC>
