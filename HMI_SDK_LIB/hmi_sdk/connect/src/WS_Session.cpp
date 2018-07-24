@@ -8,14 +8,43 @@
 */
 
 #include "WS_Session.h"
+#include "global_first.h"
 
 void fail_print(boost::system::error_code ec, char const* what)
 {
-    std::cerr << what << ": " << ec.message() << "\n";
+    LOGD("%s:%s", what, ec.message().c_str());
 }
 
-void CWebsocketSession::run(const char *host, const char *port)
+bool CWebsocketSession::run(const char *host, const char *port)
 {
+    IsConnect = false;
+    // Save these for later
+    host_ = host;
+    // Look up the domain name
+    auto const results = resolver_.resolve(host, port);
+
+    // Make the connection on the IP address we get from a lookup
+    boost::system::error_code ec;
+    boost::asio::connect(ws_.next_layer(), results.begin(), results.end(),ec);
+    if(ec)
+    {
+        fail_print(ec, "run");
+        return  false;
+    }
+
+    // Perform the websocket handshake
+    ws_.async_handshake(host_, "/",
+        std::bind(
+            &CWebsocketSession::on_handshake,
+            shared_from_this(),
+            std::placeholders::_1));
+
+    return true;
+}
+
+void CWebsocketSession::AsyncRun(const char *host, const char *port)
+{
+    IsConnect = false;
     // Save these for later
     host_ = host;
     // Look up the domain name
@@ -33,7 +62,6 @@ void CWebsocketSession::on_resolve(boost::system::error_code ec, tcp::resolver::
 {
     if(ec)
         return fail_print(ec, "resolve");
-
     // Make the connection on the IP address we get from a lookup
     boost::asio::async_connect(
         ws_.next_layer(),
@@ -48,7 +76,10 @@ void CWebsocketSession::on_resolve(boost::system::error_code ec, tcp::resolver::
 void CWebsocketSession::on_connect(boost::system::error_code ec)
 {
     if(ec)
+    {
+        setConnectStatus(false);
         return fail_print(ec, "connect");
+    }
 
     // Perform the websocket handshake
     ws_.async_handshake(host_, "/",
@@ -62,6 +93,8 @@ void CWebsocketSession::on_handshake(boost::system::error_code ec)
 {
     if(ec)
         return fail_print(ec, "handshake");
+    LOGD(" Session Handshake Success.... \n");
+    setConnectStatus(true);
     waitRecv();
 }
 
@@ -92,7 +125,10 @@ void CWebsocketSession::on_read(boost::system::error_code ec, std::size_t bytes_
 void CWebsocketSession::on_close(boost::system::error_code ec)
 {
     if(ec)
+    {
         return fail_print(ec, "close");
+    }
+    LOGD("WebsocketSession close success .");
 }
 
 void CWebsocketSession::ConnectChannle(IChannel *Channel)
@@ -117,12 +153,18 @@ std::size_t CWebsocketSession::SendData(std::string& data)
     return ret;
 }
 
+void CWebsocketSession::setConnectStatus(bool isConnect)
+{
+    LOGD("setConnectStatus = %d .\n",isConnect);
+    IsConnect = isConnect;
+    if(NULL != pChannle)
+    {
+        pChannle->onChannelStatus(IsConnect);
+    }
+}
+
 void CWebsocketSession::close()
 {
     // Close the WebSocket connection
-    ws_.async_close(websocket::close_code::normal,
-        std::bind(
-            &CWebsocketSession::on_close,
-            shared_from_this(),
-            std::placeholders::_1));
+    ws_.close(websocket::close_code::normal);
 }

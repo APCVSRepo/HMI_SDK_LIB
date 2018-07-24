@@ -32,13 +32,15 @@ class CWebsocketSession : public std::enable_shared_from_this<CWebsocketSession>
     boost::beast::multi_buffer buffer_;
     std::string host_;
     IChannel *pChannle;
+    bool IsConnect;
 public:
     explicit CWebsocketSession(boost::asio::io_context& ioc)
     : resolver_(ioc)
     , ws_(ioc)
 {
 }
-void run(char const* host,char const* port);
+bool run(char const* host,char const* port);
+void AsyncRun(char const* host,char const* port);
 void on_resolve(boost::system::error_code ec,tcp::resolver::results_type results);
 void on_connect(boost::system::error_code ec);
 void on_handshake(boost::system::error_code ec);
@@ -48,6 +50,7 @@ void on_close(boost::system::error_code ec);
 void ConnectChannle(IChannel *Channel);
 void waitRecv();
 std::size_t SendData(std::string& data);
+void setConnectStatus(bool isConnect);
 void close();
 };
 
