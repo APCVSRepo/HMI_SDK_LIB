@@ -19,8 +19,11 @@
 #include "hmi_vehicle_info.h"
 #include "hmi_vr.h"
 #include "hmi_video_stream.h"
+#ifndef WEB_SOCKET
 #include "sockets_to_sdl.h"
-
+#else
+#include "websocket_to_sdl.h"
+#endif
 #define ToSDL SDLConnector::getSDLConnector()
 
 class SDLConnector : public INetworkStatus {
@@ -40,7 +43,11 @@ class SDLConnector : public INetworkStatus {
 
  private:
   bool m_bReleased;
+#ifndef WEB_SOCKET
   SocketsToSDL m_Sockets;
+#else
+  WebsocketToSDL m_Sockets;
+#endif
   std::vector<IChannel *> m_Channels;
   bool    m_bSdlConnected;
 

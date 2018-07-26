@@ -112,6 +112,7 @@ void SDLConnector::DelConnectToVideoStream() {
 
 void SDLConnector::Connect() {
   m_bSdlConnected = m_Sockets.ConnectTo(m_Channels, this);
+#ifndef WEB_SOCKET
   if (m_bSdlConnected) {
     m_VR.onOpen();
     m_Vehicle.onOpen();
@@ -127,6 +128,7 @@ void SDLConnector::Connect() {
     //BaseCommunication is the last Channel to register
     m_Base.onOpen();
   }
+#endif
 }
 
 void *SDLConnector::ConnectThread(void *arg) {
