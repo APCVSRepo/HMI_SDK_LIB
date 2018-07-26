@@ -46,3 +46,9 @@ Create a folder for your build and run
 $cmake -DSYSTEM_NAME="Android" -DCOMPILER_PATH=<ndk_toolchain_dir> <hmi_sdk_lib_dir>
 $make
 ```
+## Websocket
+If you need to enable websocket, add the `-DWEB_SOCKET_SUPPORT=ON` option to cmake.
+If you need to disable websocket, add the `-DWEB_SOCKET_SUPPORT=OFF` option to cmake.
+The websocket is enabled by default.
+When the sdl core version is greater than 4.4.1, you need to enable websocket.
+
