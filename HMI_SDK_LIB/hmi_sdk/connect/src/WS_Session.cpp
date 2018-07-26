@@ -38,7 +38,6 @@ bool CWebsocketSession::run(const char *host, const char *port)
             &CWebsocketSession::on_handshake,
             shared_from_this(),
             std::placeholders::_1));
-
     return true;
 }
 
