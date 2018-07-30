@@ -51,6 +51,8 @@ class Channel: public IChannel {
   std::string getChannelName();
   void setSocketManager(ISocketManager *pManager, void *pHandle = NULL);
   void onOpen();
+  void onChannelStatus(bool channelStatus);
+  bool getchannelStatus();
 
  protected:
   void unRegisterComponent();
@@ -96,6 +98,8 @@ class Channel: public IChannel {
   std::string m_sComponentName;
   Json::Value  m_StaticResult;
   JsonBuffer m_JsonBuffer;
+
+  bool m_bChannelStatus;
 
 };
 

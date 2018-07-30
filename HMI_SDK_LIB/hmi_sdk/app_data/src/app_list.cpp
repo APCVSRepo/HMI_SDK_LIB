@@ -184,7 +184,7 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     } else if (str_method == "BasicCommunication.UpdateAppList") {
       updateAppList(jsonObj);
       // 防止在其他App画面弹回到App列表画面，强制图标更新
-      if (m_pCurApp == NULL) {
+      if (m_pCurApp == NULL || ID_APPLINK == m_pUIManager->GetCurViewId()) {
         m_pUIManager->onAppShow(ID_APPLINK);
       }
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
