@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class Buttons : public Channel {
  public:
   Buttons();
@@ -21,5 +23,7 @@ class Buttons : public Channel {
 
  private:
 };
+
+}
 
 #endif // BUTTONSCLIENT_H_

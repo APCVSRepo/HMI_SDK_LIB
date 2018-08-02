@@ -24,7 +24,7 @@
 #include "app_list_interface.h"
 #include "UIInterface.h"
 
-extern "C" UISHARED_EXPORT UIInterface *UILib_Init(AppListInterface *pList);
+extern "C" UISHARED_EXPORT hmisdk::UIInterface *UILib_Init(hmisdk::AppListInterface *pList);
 
 extern "C" UISHARED_EXPORT void UILib_Close();
 

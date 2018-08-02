@@ -34,6 +34,8 @@
 #define SOCKET_ERROR -1
 #endif
 
+namespace hmisdk {
+
 SocketsToSDL::SocketsToSDL()
   :	m_iReadSign(-1),
     m_iWriteSign(-1),
@@ -475,4 +477,6 @@ void CSockHandle::Close() {
 
 int CSockHandle::GetSocketID() {
   return m_iSocket;
+}
+
 }

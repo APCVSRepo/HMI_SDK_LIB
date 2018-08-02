@@ -15,6 +15,8 @@
 #include <vector>
 #include "app_data_interface.h"
 
+namespace hmisdk {
+
 class UIInterface;
 
 /**  设备信息*/
@@ -157,5 +159,7 @@ class AppListInterface {
    */
   virtual void appUnregistered(int appId) = 0;
 };
+
+}
 
 #endif // APPLISTINTERFACE_H
