@@ -54,7 +54,7 @@ Create a folder for your executable as `<execute_dir>` and do:
   1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to `<execute_dir>`
   2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to `<execute_dir>`
   3. Copy the generated `SampleQTHMI` to `<execute_dir>`, see chapter [Generate QT HMI](#generate-qt-hmi)
-  4. Create a folder named Config in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
+  4. Create a folder named `Config` in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to `<execute_dir>`
   6. Open `smartDeviceLink.ini` in the `<execute_dir>`, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
 >;VideoStreamConsumer = socket<br>
@@ -82,8 +82,7 @@ $sudo apt-get upgrade
 $sudo ldconfig
 ```
   2. If you want to use USB connect with sdl, you should run step7/8 in root authority.
-  3. If you want to add a new class to QT HMI, make sure the class name is not the same as the class defined in `hmi_sdk`, such as `VR`, `BasicCommunication`, `Buttons`, `Navigation`, `TTS`, `VehicleInfo`, `UI`, etc. Otherwise, when compiling the project with `cmake`, the resulting executable will behave unexpectedly at runtime because the wrong constructor was called. `Please don't do it unless you understand the impact`.
-  4. If you want to connect some Mobile Apps(QQ Music, 网易云音乐, etc.) to sdl_core via BT connection, make sure your host BT device's name contains words `Ford`/`Sync`, such as `Ford-Sync-XXX` or other similar names, otherwise, the apps will not be recognized.
+  3. If you want to connect some Mobile Apps(QQ Music, 网易云音乐, etc.) to sdl_core via BT connection, make sure your host BT device's name contains words `Ford`/`Sync`, such as `Ford-Sync-XXX` or other similar names, otherwise, the apps will not be recognized.
 
 
 # Test & Coverage
