@@ -10,6 +10,8 @@
 #include "WS_Session.h"
 #include "global_first.h"
 
+namespace hmisdk {
+
 void fail_print(boost::system::error_code ec, char const* what)
 {
     LOGD("%s:%s", what, ec.message().c_str());
@@ -166,4 +168,6 @@ void CWebsocketSession::close()
 {
     // Close the WebSocket connection
     ws_.close(websocket::close_code::normal);
+}
+
 }

@@ -24,6 +24,8 @@
 #include <unistd.h>
 #include "WS_Session.h"
 
+namespace hmisdk {
+
 typedef std::shared_ptr<std::string> Message;
 
 class CWebSockHandle{
@@ -91,6 +93,8 @@ class WebsocketToSDL : public ISocketManager {
 
   std::vector<CWebSockHandle *> m_SocketHandles;
 };
+
+}
 
 #endif // WEBSOCKET_TO_SDL_H_
 

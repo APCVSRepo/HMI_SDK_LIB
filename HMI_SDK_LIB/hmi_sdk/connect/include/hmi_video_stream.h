@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class CVideoStream : public Channel {
  public:
   CVideoStream();
@@ -27,5 +29,7 @@ class CVideoStream : public Channel {
 
  private:
 };
+
+}
 
 #endif // CVIDEO_STREAM_H_

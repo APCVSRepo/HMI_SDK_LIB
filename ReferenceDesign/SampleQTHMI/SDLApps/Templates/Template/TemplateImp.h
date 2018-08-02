@@ -15,6 +15,8 @@
 #include <set>
 #include "app_common.h"
 
+using namespace hmisdk;
+
 class QWidget;
 
 class TemplateImp {

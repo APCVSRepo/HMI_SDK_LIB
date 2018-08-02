@@ -17,6 +17,8 @@
 #include <queue>
 #include "socket_manager_interface.h"
 
+namespace hmisdk {
+
 typedef struct _SEND_DATA {
   void *pData;
   int iLength;
@@ -76,6 +78,8 @@ class SocketsToSDL : public ISocketManager {
 
   std::vector<CSockHandle *> m_SocketHandles;
 };
+
+}
 
 #endif // SOCKETS_TO_SDL_H_
 

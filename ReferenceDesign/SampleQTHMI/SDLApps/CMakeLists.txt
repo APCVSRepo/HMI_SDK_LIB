@@ -56,6 +56,7 @@ target_link_libraries(SDLApps HMIWidgets)
 # for test
 if(BUILD_TESTS)
 
+## start config GoogleTest
 find_package(Threads REQUIRED)
 
 # Enable ExternalProject CMake module
@@ -93,11 +94,12 @@ set_target_properties(libgmock PROPERTIES
     "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
 )
 
-# I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
 include_directories("${source_dir}/googletest/include"
                     "${source_dir}/googlemock/include")
-# find boost
+## finish config GoogleTest
 
+## start config boost
+# find boost(The configuration here refers to the configuration of boost in the sdl core.)
 include("./set_3rd_party_paths.cmake")
 
 find_package(Boost 1.66.0 COMPONENTS system)
@@ -129,6 +131,7 @@ set(BOOST_LIB_DIR ${BOOST_ROOT_DIR}/Boost-prefix/src/Boost/stage/lib/)
 endif()
 #message(STATUS "BOOST_INCLUDE_DIR:${BOOST_INCLUDE_DIR}")
 
+## finish config boost
 
 add_subdirectory(Templates)
 

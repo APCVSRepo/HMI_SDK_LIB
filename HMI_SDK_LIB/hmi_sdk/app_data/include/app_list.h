@@ -14,6 +14,7 @@
 #include "app_data.h"
 #include "ui_interface.h"
 
+namespace hmisdk {
 
 class AppData;
 class AppList : public IMessageInterface, public AppListInterface {
@@ -62,5 +63,7 @@ class AppList : public IMessageInterface, public AppListInterface {
   AppData *m_pCurApp;
   std::vector <DeviceData> m_DeviceList;
 };
+
+}
 
 #endif // APPLIST_H_

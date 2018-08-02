@@ -16,7 +16,7 @@
 #include "sdl_export.h"
 #include "sdk_export.h"
 
-AppList *g_appList = NULL;
+hmisdk::AppList *g_appList = NULL;
 
 #ifdef SDL_SUPPORT_LIB
 void *SDLStartThread(void *arg) {
@@ -47,8 +47,8 @@ void initSDL() {
 }
 #endif
 
-AppListInterface *InitHmiSdk(UIInterface *pUI) {
-  g_appList = new AppList;
+hmisdk::AppListInterface *InitHmiSdk(hmisdk::UIInterface *pUI) {
+  g_appList = new hmisdk::AppList;
   if (!g_appList) {
     printf("AppList allocate failed!\n");
     return NULL;

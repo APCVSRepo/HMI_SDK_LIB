@@ -176,7 +176,7 @@ private:
  * but the Value API does *not* check bounds. That is the responsibility
  * of the caller.
  */
-class JSON_API Value : public rpcValueInterface {
+class JSON_API Value : public hmisdk::rpcValueInterface {
   friend class ValueIteratorBase;
 public:
   typedef std::vector<JSONCPP_STRING> Members;

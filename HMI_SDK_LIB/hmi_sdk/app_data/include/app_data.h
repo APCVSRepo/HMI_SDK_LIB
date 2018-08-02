@@ -14,6 +14,8 @@
 #include "app_data_interface.h"
 #include "ui_interface.h"
 
+namespace hmisdk {
+
 class AppData : public AppDataInterface {
  public:
   AppData();
@@ -103,5 +105,7 @@ class AppData : public AppDataInterface {
   std::string m_sLastTpl;
 
 };
+
+}
 
 #endif // APPDATA_H_

@@ -13,6 +13,8 @@
 #include <json/json.h>
 #include "global_first.h"
 
+namespace hmisdk {
+
 BasicCommunication::BasicCommunication() : Channel(500, "BasicCommunication") {
 }
 
@@ -83,5 +85,7 @@ void BasicCommunication::onNotification(Json::Value &jsonObj) {
   } else {
     Channel::onNotification(jsonObj);
   }
+}
+
 }
 

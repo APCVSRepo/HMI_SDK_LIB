@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class VR : public Channel {
  public:
   VR();
@@ -24,5 +26,7 @@ class VR : public Channel {
  private:
 
 };
+
+}
 
 #endif // VRCLIENT_H_

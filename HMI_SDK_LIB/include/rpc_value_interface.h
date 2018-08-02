@@ -12,6 +12,8 @@
 
 #include <string>
 
+namespace hmisdk {
+
 class rpcValueInterface {
  public:
   /**
@@ -235,5 +237,7 @@ class rpcValueInterface {
    */
   virtual  unsigned int size() const = 0;
 };
+
+}
 
 #endif // RPCVALUEINTERFACE_H

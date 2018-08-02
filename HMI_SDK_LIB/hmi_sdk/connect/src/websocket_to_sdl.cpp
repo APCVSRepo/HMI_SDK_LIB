@@ -30,6 +30,8 @@
 #include "global_first.h"
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR -1
 #endif
@@ -469,4 +471,6 @@ bool CWebSockHandle::ConnectStatus()
 IChannel *CWebSockHandle::Channle()
 {
     return pDataReceiver;
+}
+
 }

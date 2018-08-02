@@ -15,6 +15,8 @@
 #include "json/json.h"
 #include <global_first.h>
 
+namespace hmisdk {
+
 VehicleInfo::VehicleInfo() : Channel(700, "VehicleInfo") {
 
 }
@@ -133,4 +135,6 @@ Json::Value VehicleInfo::vehicleInfoGetDTCsResponse(Json::Value &request) {
   result["method"] = "VehicleInfo.GetDTCs";
   result["dtc"] = dtc;
   return result;
+}
+
 }

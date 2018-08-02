@@ -13,6 +13,8 @@
 #include "json/json.h"
 #include <global_first.h>
 
+namespace hmisdk {
+
 UI::UI() : Channel(600, "UI") {
 
 }
@@ -151,4 +153,6 @@ Json::Value UI::startRecordingNotify(Json::Value &request) {
   params["saveAudioPassThruFile"] = "-";
   params["sendAudioPassThruFile"] = "-";
   return params;
+}
+
 }
