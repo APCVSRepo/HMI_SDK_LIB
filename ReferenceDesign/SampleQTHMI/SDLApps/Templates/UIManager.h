@@ -8,6 +8,8 @@
 #include "Template/TemplateManager.h"
 #include "SDLApps/UI/SDLAppsView.h"
 
+using namespace hmisdk;
+
 class UIManager : public QWidget, public UIInterface {
     Q_OBJECT
 public:

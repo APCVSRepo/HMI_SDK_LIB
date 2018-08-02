@@ -1,5 +1,5 @@
-libdir=/home/linux/D/sdl/FordUnitTest/HMI_SDK_LIB-build/googletest/lib
-includedir=/home/linux/D/sdl/FordUnitTest/HMI_SDK_LIB-build/googletest/include
+libdir=/usr/local/lib
+includedir=/usr/local/include
 
 Name: jsoncpp
 Description: A C++ library for interacting with JSON
