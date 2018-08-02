@@ -3,9 +3,9 @@
 #include "Navigation/Factory/NavigationVFactory.h"
 #include "HMIFrameWork/log_interface.h"
 
-Navi* Navi::m_pInst = NULL;
+Navigation* Navigation::m_pInst = NULL;
 
-Navi::Navi()
+Navigation::Navigation()
 {
     setAppType(AppType_App);
     setAppId(NAV_ID);
@@ -13,45 +13,45 @@ Navi::Navi()
     setMain(reinterpret_cast<void*>(new NavigationWindow()));
 }
 
-Navi *Navi::Inst()
+Navigation *Navigation::Inst()
 {
     if(NULL == m_pInst)
     {
-        m_pInst = new Navi();
+        m_pInst = new Navigation();
     }
     return m_pInst;
 }
 
-void Navi::onAppShow(string appId, string viewId)
+void Navigation::onAppShow(string appId, string viewId)
 {
     connect(this,SIGNAL(SigAppShow(string,string)),this,SLOT(OnAppShow(string,string)),Qt::UniqueConnection);
     emit SigAppShow(appId,viewId);
 }
 
-void Navi::onAppHide()
+void Navigation::onAppHide()
 {
     connect(this,SIGNAL(SigAppHide()),this,SLOT(OnAppHide()),Qt::UniqueConnection);
     emit SigAppHide();
 }
 
-void Navi::onNotify(string appId, map<string, string> parameter)
+void Navigation::onNotify(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigNotify(string,map<string,string>)),this,SLOT(OnNotify(string,map<string,string>)),Qt::UniqueConnection);
     emit SigNotify(appId,parameter);
 }
 
-void Navi::onReply(string appId, map<string, string> parameter)
+void Navigation::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
     emit SigReply(appId,parameter);
 }
 
-const std::vector<NaviAppInfo> &Navi::GetAppList() const
+const std::vector<NaviAppInfo> &Navigation::GetAppList() const
 {
     return m_vNaviAppList;
 }
 
-void Navi::OnAppShow(string appId, string viewId)
+void Navigation::OnAppShow(string appId, string viewId)
 {
     INFO("onAppShow:%s, viewId:%s", appId.c_str(), viewId.c_str());
     int state = getState();
@@ -73,7 +73,7 @@ void Navi::OnAppShow(string appId, string viewId)
     }
 }
 
-void Navi::OnAppHide()
+void Navigation::OnAppHide()
 {
     int state = getState();
     switch (state) {
@@ -95,9 +95,9 @@ void Navi::OnAppHide()
     }
 }
 
-void Navi::OnNotify(string appId, map<string, string> parameter)
+void Navigation::OnNotify(string appId, map<string, string> parameter)
 {
-    INFO("Navi::onNotify appId=%s .",appId.c_str());
+    INFO("Navigation::onNotify appId=%s .",appId.c_str());
 
     {
         map<string, string>::iterator iter = parameter.find("NavigationAppList");
@@ -139,7 +139,7 @@ void Navi::OnNotify(string appId, map<string, string> parameter)
 
 }
 
-void Navi::OnReply(string appId, map<string, string> parameter)
+void Navigation::OnReply(string appId, map<string, string> parameter)
 {
     Q_UNUSED(appId)
     Q_UNUSED(parameter)

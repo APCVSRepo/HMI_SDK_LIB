@@ -18,8 +18,8 @@ aux_source_directory(./UI       VR_SOURCES)
 
 find_package(Qt5Widgets)
 
-add_library (VoiceRecognition ${VR_SOURCES})
+add_library (VR ${VR_SOURCES})
 
-target_link_libraries(VoiceRecognition Qt5::Widgets)
-target_link_libraries(VoiceRecognition HMIFrameWork)
-target_link_libraries(VoiceRecognition HMIWidgets)
+target_link_libraries(VR Qt5::Widgets)
+target_link_libraries(VR HMIFrameWork)
+target_link_libraries(VR HMIWidgets)
