@@ -1,8 +1,19 @@
 
-cmake_minimum_required(VERSION 2.8.0)
+cmake_minimum_required(VERSION 3.1)
 
+# Require C++11 support, prefer ISO C++ over GNU variants,
+# as relying solely on ISO C++ is more portable.
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
 
 set (PROJECT hmi_sdk)
+
+option(WEB_SOCKET_SUPPORT "web socket support" ON)
+
+if(WEB_SOCKET_SUPPORT)
+add_definitions(-DWEB_SOCKET)
+endif()
 
 #compiler set
 #message(STATUS ${CMAKE_SYSTEM_NAME})

@@ -22,6 +22,8 @@ class IChannel {
   virtual void setSocketManager(ISocketManager *pManager, void *pHandle) = 0;
   virtual void onOpen() = 0;
   virtual void onReceiveData(void *pData, int iLength) = 0;
+  virtual void onChannelStatus(bool IsConnect) = 0;
+  virtual bool getchannelStatus() = 0;
 };
 
 class ISocketManager {

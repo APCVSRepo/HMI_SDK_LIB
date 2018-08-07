@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.1)
 
 add_definitions(-DOS_LINUX)
 add_definitions(-DARCH_X86)
@@ -16,7 +16,6 @@ endif()
 
 if(BUILD_TESTS)
     enable_testing()
-
     add_definitions(-DBUILD_TESTS)
     message(STATUS "Tests enabled")
 endif()

@@ -2,6 +2,11 @@
 # for test
 if(BUILD_TESTS)
 
+# Require C++11 support, prefer ISO C++ over GNU variants,
+# as relying solely on ISO C++ is more portable.
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_CXX_STANDARD_REQUIRED ON)
+SET(CMAKE_CXX_EXTENSIONS OFF)
 set(SDLAPPS_TEMPLATES_DIR ${SDL_QT_HMI_DIR}/SDLApps/Templates)
 
 include_directories(
@@ -62,7 +67,7 @@ target_link_libraries(HMI_TEST libgtest libgmock)
 target_link_libraries(HMI_TEST SDLApps)
 target_link_libraries(HMI_TEST ${SDL_QT_HMI_DIR}/3rd_party/lib/libjsoncpp.a)
 target_link_libraries(HMI_TEST ${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so)
-
+target_link_libraries(HMI_TEST ${Boost_LIBRARIES})
 
 #copy lib file to test directory
 configure_file(${SDL_QT_HMI_DIR}/lib/linux/libhmi_sdk.so . COPYONLY)

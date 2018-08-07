@@ -54,7 +54,7 @@ Create a folder for your executable as `<execute_dir>` and do:
   1. Build [sdl_core](https://github.com/smartdevicelink/sdl_core), after `make install`, copy all the files in the `bin` folder to `<execute_dir>`
   2. Build `HMI_SDK_LIB`, which is just in the upper directory, after `make`, copy `libhmi_sdk.so` in `app` folder to `<execute_dir>`
   3. Copy the generated `SampleQTHMI` to `<execute_dir>`, see chapter [Generate QT HMI](#generate-qt-hmi)
-  4. Create a folder named Config in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
+  4. Create a folder named `Config` in your `<execute_dir>`, and copy all the files in `<current_path>/res/hmi` to `<execute_dir>/Config`
   5. Copy opening movie `Main_build_3.mov` in `<current_path>/res` to `<execute_dir>`
   6. Open `smartDeviceLink.ini` in the `<execute_dir>`, modify `VideoStreamConsumer` and `AudioStreamConsumer` to `pipe`, as follows:
 >;VideoStreamConsumer = socket<br>

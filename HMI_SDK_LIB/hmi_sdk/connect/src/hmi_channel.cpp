@@ -60,6 +60,7 @@ bool JsonBuffer::getJsonFromBuffer(char *pData, int iLength, Json::Value &output
 
 Channel::Channel(int startId, std::string Channelname)
   : m_pSocketManager(NULL) {
+  m_bChannelStatus = false;
   m_iIDStart = -1;//register start
   m_iIDRegRequest = startId;//start
   m_iIDUnRegRequest = -1;
@@ -233,6 +234,25 @@ void Channel::onOpen() {
   Json::Value params;
   params["componentName"] = m_sComponentName;
   sendRequest(m_iIDRegRequest, "MB.registerComponent", params);
+}
+
+void Channel::onChannelStatus(bool channelStatus)
+{
+    if(channelStatus)
+    {
+        onOpen();
+        LOGD("%s --- connect sdl . \n" ,m_sComponentName.c_str());
+    }
+    else
+    {
+        LOGD("%s --- disconnect sdl . \n" ,m_sComponentName.c_str());
+    }
+    m_bChannelStatus = channelStatus;
+}
+
+bool Channel::getchannelStatus()
+{
+    return m_bChannelStatus;
 }
 
 void Channel::onRegistered() {
