@@ -87,7 +87,7 @@ void MainWindow::InitPrompt()
 
 void MainWindow::InitNavigation()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navi::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (Navigation::Inst()));
 }
 
 void MainWindow::InitMedia()
@@ -121,7 +121,7 @@ void MainWindow::InitMessage()
 
 void MainWindow::InitVR()
 {
-    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VoiceRecognition::Inst()));
+    HMIFrameWork::Inst()->RegisterApp(dynamic_cast<App*> (VR::Inst()));
 }
 
 void MainWindow::testPopup()

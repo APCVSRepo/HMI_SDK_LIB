@@ -10,6 +10,8 @@
 #include "app_list.h"
 #include "global_first.h"
 
+namespace hmisdk {
+
 extern std::string string_To_UTF8(const std::string &str);
 extern bool IsTextUTF8(char *str, unsigned long long length);
 
@@ -541,4 +543,6 @@ void AppList::updateDeiveList(Json::Value jsonObj) {
     data.id = device["id"].asString();
     m_DeviceList.push_back(data);
   }
+}
+
 }

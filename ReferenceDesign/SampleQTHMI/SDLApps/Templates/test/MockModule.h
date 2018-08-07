@@ -12,7 +12,7 @@ using ::testing::Return;
 using ::testing::AtLeast;
 using ::testing::_;
 using ::testing::Invoke;
-
+using namespace hmisdk;
 
 namespace test {
     namespace hmi_sdk {

@@ -6,7 +6,7 @@
 
 VRInteractionView::VRInteractionView(QWidget *parent)
     :QWidget(parent)
-    ,CView(VoiceRecognition::eViewId_Interaction)
+    ,CView(VR::eViewId_Interaction)
     ,m_pRotate(NULL)
     ,m_pVRBtn(NULL)
     ,m_pVlist(NULL)

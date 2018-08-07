@@ -7,6 +7,8 @@
 #include "ui_interface.h"
 #include "app_list_interface.h"
 
+using namespace hmisdk;
+
 #define AppControl (m_pList->getActiveApp() ? m_pList->getActiveApp() : (printf("######%s:%s():%d,error, current app is NULL!\n",  __FILE__, __FUNCTION__, __LINE__), (AppDataInterface*)NULL))
 
 #define SCREEN_WIDTH  800//1280

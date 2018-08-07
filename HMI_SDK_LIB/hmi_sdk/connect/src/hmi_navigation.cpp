@@ -12,6 +12,8 @@
 #include <string>
 #include "json/json.h"
 
+namespace hmisdk {
+
 Navigation::Navigation() : Channel(800, "Navigation") {
 
 }
@@ -48,4 +50,6 @@ void Navigation::onRequest(Json::Value &request) {
   } else {
     Channel::onRequest(request);
   }
+}
+
 }

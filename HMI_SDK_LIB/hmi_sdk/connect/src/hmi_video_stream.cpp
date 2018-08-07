@@ -9,6 +9,8 @@
 
 #include "hmi_video_stream.h"
 
+namespace hmisdk {
+
 CVideoStream::CVideoStream() : Channel(900, "VideoStream") {
 
 }
@@ -32,6 +34,9 @@ void CVideoStream::onReceiveData(void *pData, int iLength) {
 void CVideoStream::onRequest(Json::Value &request) {
 
 }
+
 void CVideoStream::onNotification(Json::Value &jsonObj) {
+
+}
 
 }

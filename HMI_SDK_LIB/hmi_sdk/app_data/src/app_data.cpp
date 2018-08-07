@@ -10,7 +10,9 @@
 #include "app_data.h"
 #include "app_list.h"
 
-extern AppList *g_appList;
+extern hmisdk::AppList *g_appList;
+
+namespace hmisdk {
 
 std::string string_To_UTF8(const std::string &str) {
 #ifdef WIN32
@@ -1258,4 +1260,6 @@ std::string AppData::GetActiveTemplate() {
 
 void AppData::SetActiveTemplate(std::string tpl) {
   m_sLastTpl = tpl;
+}
+
 }

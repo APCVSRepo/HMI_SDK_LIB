@@ -5,6 +5,8 @@
 #include "HMIWidgets/CAppButton.h"
 #include "app_list_interface.h"
 
+using namespace hmisdk;
+
 class CDeviceListView : public QWidget {
     Q_OBJECT
 

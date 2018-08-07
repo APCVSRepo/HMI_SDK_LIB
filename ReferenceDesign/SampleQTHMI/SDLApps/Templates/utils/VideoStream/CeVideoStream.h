@@ -14,6 +14,8 @@
 #include "gst_player.h"
 #endif
 
+using namespace hmisdk;
+
 #define TEST_FILE
 
 typedef struct dataPackage {

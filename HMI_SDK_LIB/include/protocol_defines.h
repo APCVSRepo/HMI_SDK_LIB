@@ -10,6 +10,8 @@
 #ifndef PROTOCOL_DEFINES_H_
 #define PROTOCOL_DEFINES_H_
 
+namespace hmisdk {
+
 /**@name    Alert画面执行状态
 * @{
 */
@@ -70,5 +72,7 @@ typedef enum {
   TOUCH_MOVE,	///<  移动
   TOUCH_END	///<  弹起
 } TOUCH_TYPE;
+
+}
 
 #endif // PROTOCOL_DEFINES_H_

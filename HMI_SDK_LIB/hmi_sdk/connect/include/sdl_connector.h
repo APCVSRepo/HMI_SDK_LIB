@@ -24,7 +24,9 @@
 #else
 #include "websocket_to_sdl.h"
 #endif
-#define ToSDL SDLConnector::getSDLConnector()
+#define ToSDL hmisdk::SDLConnector::getSDLConnector()
+
+namespace hmisdk {
 
 class SDLConnector : public INetworkStatus {
  private:
@@ -127,5 +129,7 @@ class SDLConnector : public INetworkStatus {
   void _buttonPressed(std::string buttonname, int mode);
   void _buttonEventUp(std::string buttonname);
 };
+
+}
 
 #endif // SOCKETS_TO_SDL_H_

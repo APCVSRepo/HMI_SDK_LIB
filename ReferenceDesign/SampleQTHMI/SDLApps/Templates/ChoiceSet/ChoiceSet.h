@@ -10,6 +10,8 @@
 #include "ChoiceSetVR.h"
 #include "HMIWidgets/CPushButton.h"
 
+using namespace hmisdk;
+
 class CChoiceSet : public QWidget {
     Q_OBJECT
 
