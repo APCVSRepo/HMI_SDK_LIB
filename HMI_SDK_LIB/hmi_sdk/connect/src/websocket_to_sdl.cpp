@@ -1,13 +1,13 @@
-﻿/**
-* @file			sockets_to_sdl
-* @brief		hmi与sdl底层通信层，使用socket方式进行数据交互，发送和接收原始数据，每个通道对应一个socket进行单独的数据交互
-* @author		fanqiang
-* @date			2017-6-21
+/**
+* @file			websocket_to_sdl
+* @brief		管理hmi与sdl交互的各个通道，关联每个通道和对应的socket，进行数据流程的转发以及与sdl连接状态的管理
+* @author		zenghuan
+* @date			2018-7-18
 * @version		A001
 * @copyright	ford
 */
 
-#include <sockets_to_sdl.h>
+#include <websocket_to_sdl.h>
 #ifdef OS_WIN32
 #ifdef WINCE
 #pragma comment(lib,"ws2.lib")
@@ -30,17 +30,18 @@
 #include "global_first.h"
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 #ifndef SOCKET_ERROR
 #define SOCKET_ERROR -1
 #endif
 
-namespace hmisdk {
-
-SocketsToSDL::SocketsToSDL()
+WebsocketToSDL::WebsocketToSDL()
   :	m_iReadSign(-1),
     m_iWriteSign(-1),
     m_SendThread(),
-    m_bTerminate(false) {
+    m_bTerminate(false)
+{
   m_sHost = "127.0.0.1";
   m_iPort = 8087;
 
@@ -50,7 +51,7 @@ SocketsToSDL::SocketsToSDL()
 #endif
 }
 
-SocketsToSDL::~SocketsToSDL() {
+WebsocketToSDL::~WebsocketToSDL() {
   m_bTerminate = true;
   Notify();
   pthread_join(m_SendThread, 0);
@@ -58,7 +59,7 @@ SocketsToSDL::~SocketsToSDL() {
   CloseSockets();
 }
 
-void SocketsToSDL::CloseSockets() {
+void WebsocketToSDL::CloseSockets() {
   if (-1 != m_iReadSign)
 #if defined(WIN32)
     closesocket(m_iReadSign);
@@ -79,14 +80,14 @@ void SocketsToSDL::CloseSockets() {
 
   int iNum = m_SocketHandles.size();
   for (int i = 0; i < iNum; ++i) {
-    CSockHandle *pHandle = m_SocketHandles[i];
+    CWebSockHandle *pHandle = m_SocketHandles[i];
     pHandle->Close();
     delete pHandle;
   }
   m_SocketHandles.clear();
 }
 
-void SocketsToSDL::Notify() {
+void WebsocketToSDL::Notify() {
   if (-1 == m_iWriteSign)
     return;
 
@@ -94,7 +95,7 @@ void SocketsToSDL::Notify() {
   ::send(m_iWriteSign, (const char *)&c, 1, 0);
 }
 
-bool SocketsToSDL::CreateSignal() {
+bool WebsocketToSDL::CreateSignal() {
   int tcp1, tcp2;
   sockaddr_in name;
   memset(&name, 0, sizeof(name));
@@ -185,12 +186,12 @@ clean:
 }
 
 void *StartSocketThread(void *p) {
-  SocketsToSDL *pThis = (SocketsToSDL *)p;
+  WebsocketToSDL *pThis = (WebsocketToSDL *)p;
   pThis->RunThread();
   return 0;
 }
 
-bool SocketsToSDL::ConnectTo(std::vector<IChannel *> Channels, INetworkStatus *pNetwork) {
+bool WebsocketToSDL::ConnectTo(std::vector<IChannel *> Channels, INetworkStatus *pNetwork) {
   m_pNetwork = pNetwork;
   if (!CreateSignal())
     return false;
@@ -206,7 +207,7 @@ bool SocketsToSDL::ConnectTo(std::vector<IChannel *> Channels, INetworkStatus *p
 
   int iNum = Channels.size();
   for (int i = 0; i < iNum; ++i) {
-    CSockHandle *pHandle = new CSockHandle(1024);
+    CWebSockHandle *pHandle = new CWebSockHandle(1024);
     if (pHandle->Connect(Channels[i], m_sHost, m_iPort)) {
       m_SocketHandles.push_back(pHandle);
       Channels[i]->setSocketManager(this, pHandle);
@@ -226,10 +227,10 @@ FAILED:
   return false;
 }
 
-bool SocketsToSDL::ConnectToVS( IChannel *ChannelVS, std::string sIP, int iPort, INetworkStatus *pNetwork) {
+bool WebsocketToSDL::ConnectToVS( IChannel *ChannelVS, std::string sIP, int iPort, INetworkStatus *pNetwork) {
   m_pNetwork = pNetwork;
 
-  CSockHandle *pHandle = new CSockHandle(576000);
+  CWebSockHandle *pHandle = new CWebSockHandle(576000);
   if (pHandle->Connect(ChannelVS, sIP, iPort)) {
     m_SocketHandles.push_back(pHandle);
     ChannelVS->setSocketManager(this, pHandle);
@@ -240,8 +241,8 @@ bool SocketsToSDL::ConnectToVS( IChannel *ChannelVS, std::string sIP, int iPort,
   }
 }
 
-void SocketsToSDL::DelConnectToVS() {
-  CSockHandle *pHandle = m_SocketHandles.at(m_SocketHandles.size() - 1);
+void WebsocketToSDL::DelConnectToVS() {
+  CWebSockHandle *pHandle = m_SocketHandles.at(m_SocketHandles.size() - 1);
 
   m_SocketHandles.pop_back();
   Notify();
@@ -254,16 +255,16 @@ void SocketsToSDL::DelConnectToVS() {
   pHandle->Close();
 }
 
-void SocketsToSDL::SendData(void *pHandle, void *pData, int iLength) {
+void WebsocketToSDL::SendData(void *pHandle, void *pData, int iLength) {
   if (m_bTerminate)
     return;
-
-  CSockHandle *p = (CSockHandle *)pHandle;
-  p->PushData(pData, iLength);
+  CWebSockHandle *p = (CWebSockHandle *)pHandle;
+  std::string data = std::string((char*)pData);
+  p->PushData(data);
   Notify();
 }
 
-void SocketsToSDL::RunThread() {
+void WebsocketToSDL::RunThread() {
 #ifdef WIN32
   FD_SET fdRead;
   int fd_max = -1;
@@ -273,21 +274,13 @@ void SocketsToSDL::RunThread() {
   int fd_max = m_iReadSign;
 #endif
   while (!m_bTerminate) {
+
     FD_ZERO(&fdRead);
 #ifndef WIN32
     FD_ZERO(&fdWrite);
 #endif
 
     int iNum = m_SocketHandles.size();
-    for (int i = 0; i < iNum; ++i) {
-      CSockHandle *pHandle = m_SocketHandles[i];
-      int socket = pHandle->GetSocketID();
-      FD_SET(socket, &fdRead);
-#ifndef WIN32
-      FD_SET(socket, &fdWrite);
-#endif
-      fd_max = fd_max > socket ? fd_max : socket;
-    }
     FD_SET(m_iReadSign, &fdRead);
 
 #ifdef WIN32
@@ -310,23 +303,9 @@ void SocketsToSDL::RunThread() {
         if (i + 1 > m_SocketHandles.size()) {
           break;
         }
-        CSockHandle *pHandle = m_SocketHandles[i];
+        CWebSockHandle *pHandle = m_SocketHandles[i];
         if (!pHandle->SendData())
           goto SOCKET_WRONG;
-      }
-    }
-
-
-    iNum = m_SocketHandles.size();
-    for (int i = 0; i < iNum; ++i) {
-      if (i + 1 > m_SocketHandles.size()) {
-        break;
-      }
-      CSockHandle *pHandle = m_SocketHandles[i];
-      if (FD_ISSET(pHandle->GetSocketID(), &fdRead)) {
-        if (!pHandle->RecvData()) {
-          goto SOCKET_WRONG;
-        }
       }
     }
   }
@@ -341,97 +320,88 @@ SOCKET_WRONG:
   return;
 }
 
-CSockHandle::CSockHandle(int bufSize)
-  : m_SendMutex() {
-  m_iBufSize = bufSize;
-  m_pRecBuf = (unsigned char *)malloc(bufSize);
-
-  pthread_mutex_init(&m_SendMutex, 0);
-
-}
-
-CSockHandle::~CSockHandle() {
-  free(m_pRecBuf);
-  pthread_mutex_destroy(&m_SendMutex);
-}
-
-bool CSockHandle::Connect(IChannel *newChannel, std::string sIP, int iPort) {
-  sockaddr_in toLocal;
-  memset(&toLocal, 0, sizeof(toLocal));
-  toLocal.sin_family = AF_INET;
-  toLocal.sin_addr.s_addr = inet_addr(sIP.c_str());
-  toLocal.sin_port = htons(iPort);
-
-#ifdef WIN32
-  int namelen = sizeof(toLocal);
-#else
-  size_t namelen = sizeof(toLocal);
-#endif
-
-  this->pDataReceiver = newChannel;
-  this->m_iSocket = socket(AF_INET, SOCK_STREAM, 0);
-  if (SOCKET_ERROR == this->m_iSocket) {
-    LOGE("SOCKET INVALID");
-  }
-//    LOGE("this->m_i_socket = %d", this->m_i_socket);
-  try {
-    if (SOCKET_ERROR == ::connect(this->m_iSocket, (const sockaddr *)&toLocal, namelen))
-      goto FAILED;
-#ifdef WIN32
-    {
-      u_long iMode = 1;
-      if (SOCKET_ERROR == ioctlsocket(this->m_iSocket, FIONBIO, (u_long FAR *) &iMode))
-        goto FAILED;
+bool WebsocketToSDL::CheckConnect()
+{
+    for (int i = 0; i < m_SocketHandles.size(); ++i) {
+        if(!m_SocketHandles[i]->ConnectStatus())
+        {
+            return false;
+        }
     }
-#else
-    fcntl(this->m_iSocket, F_SETFL, O_NONBLOCK);
-#endif
-  } catch (...) {
-    goto FAILED;
-  }
-  return true;
+    LOGD("CheckConnect is success. \n");
+    return true;
+}
 
-FAILED:
-#if defined(WIN32)
-  closesocket(this->m_iSocket);
-#else
-  close(this->m_iSocket);
-#endif
+CWebSockHandle::CWebSockHandle(int bufSize)
+  : m_SendMutex()
+  , m_WSThread(NULL)
+  , m_CheckThread(NULL)
+{
+  m_bCheck = false;
+  m_iBufSize = bufSize;
+  pthread_mutex_init(&m_SendMutex, 0);
+}
+
+
+CWebSockHandle::~CWebSockHandle() {
+  pthread_mutex_destroy(&m_SendMutex);
+  if(NULL != m_WSThread)
+  {
+      m_WSThread->join();
+      delete m_WSThread;
+      m_WSThread = NULL;
+  }
+  if(NULL != m_CheckThread)
+  {
+      m_CheckThread->join();
+      delete m_CheckThread;
+      m_CheckThread = NULL;
+  }
+}
+
+bool CWebSockHandle::Connect(IChannel *newChannel, std::string sIP, int iPort) {
+  pDataReceiver = newChannel;
+  Ip = sIP;
+  Port = iPort;
+  m_WSSession = std::make_shared<CWebsocketSession>(m_ioc);
+  m_WSSession->ConnectChannle(newChannel);
+  bool ret = m_WSSession->run(sIP.c_str(), std::to_string(iPort).c_str());
+  if(ret)
+  {
+    if(NULL != m_WSThread)
+    {
+      m_WSThread->join();
+      delete m_WSThread;
+      m_WSThread = NULL;
+    }
+    m_WSThread = new std::thread(&CWebSockHandle::RunThread, this);
+    m_bCheck = true;
+    if(NULL == m_CheckThread)
+    {
+        m_CheckThread = new std::thread(&CWebSockHandle::CheckThread, this);
+    }
+    return true;
+  }
   return false;
 }
-
-void CSockHandle::PushData(void *pData, int iLength) {
-  SEND_DATA data;
-  data.iLength = iLength;
-
-  void *pBuffer = ::malloc(iLength);
-  memcpy(pBuffer, pData, iLength);
-  data.pData = pBuffer;
-
-  pthread_mutex_lock(&m_SendMutex);
-  this->m_SendData.push(data);
-  pthread_mutex_unlock(&m_SendMutex);
+void CWebSockHandle::PushData(std::string &message)
+{
+    pthread_mutex_lock(&m_SendMutex);
+    std::shared_ptr<std::string> message_ptr = std::make_shared<std::string>(message);
+    m_SendData.push(message_ptr);
+    pthread_mutex_unlock(&m_SendMutex);
 }
 
-bool CSockHandle::SendData() {
+bool CWebSockHandle::SendData() {
+
   bool bRet = true;
   pthread_mutex_lock(&m_SendMutex);
   while (!this->m_SendData.empty()) {
-    SEND_DATA data = this->m_SendData.front();
+     Message message_ptr;
+     message_ptr= this->m_SendData.front();
     try {
-      int total = 0;
-      do {
-        int iSent = ::send(this->m_iSocket, (const char *)data.pData + total, data.iLength - total, 0);
-        if (SOCKET_ERROR == iSent) {
-          bRet = false;
-          break;
-        }
-        total += iSent;
-      } while (total < data.iLength);
-      if (total < data.iLength)
-        break;
-      this->m_SendData.pop();
-      ::free(data.pData);
+          m_WSSession->SendData(*message_ptr);
+          this->m_SendData.pop();
     } catch (...) {
       bRet = false;
       break;
@@ -441,42 +411,66 @@ bool CSockHandle::SendData() {
   return bRet;
 }
 
-bool CSockHandle::RecvData() {
-  int bytes_read = 0;
-
-  bool bRet = false;
-  do {
-    try {
-      bytes_read = recv(this->m_iSocket, (char *)m_pRecBuf, m_iBufSize, 0);
-//            LOGE("pHandle->socket = %d,   bytes_read = %d", this->socket, bytes_read);
-    } catch (...) {
-      return false;
-    }
-    if (bytes_read > 0)
-      this->pDataReceiver->onReceiveData(m_pRecBuf, bytes_read);
-    else if (SOCKET_ERROR == bytes_read)
-      break;
-    bRet = true;
-  } while (bytes_read > 0);
-
-  return bRet;
-}
-
-void CSockHandle::Close() {
-#ifdef WIN32
-  closesocket(this->m_iSocket);
-#else
-  close(this->m_iSocket);
-#endif
+void CWebSockHandle::Close() {
+  m_CheckThread->join();
+  m_WSThread->join();
+  m_WSSession->close();
   while (!this->m_SendData.empty()) {
-    SEND_DATA data = this->m_SendData.front();
+    Message message_ptr;
+    message_ptr = this->m_SendData.front();
     this->m_SendData.pop();
-    ::free(data.pData);
   }
 }
 
-int CSockHandle::GetSocketID() {
-  return m_iSocket;
+void CWebSockHandle::RunThread()
+{
+    LOGD("---CWebSockHandle:RunThread enter .");
+    m_ioc.run();
+    if(NULL != m_WSSession)
+    {
+        LOGD("---CWebSockHandle:channle disconnect .\n");
+        m_WSSession->setConnectStatus(false);
+    }
+    m_ioc.restart();
+    m_bCheck = false;
+    LOGD("---CWebSockHandle:RunThread exit .");
+}
+
+void CWebSockHandle::CheckThread()
+{
+    while (true) {
+   // LOGD("CheckThread result %d .",Check());
+    if(!Check())
+    {
+      Connect(pDataReceiver,Ip,Port);
+
+    }
+#ifdef WIN32
+    Sleep(2000);
+#else
+    sleep(2);
+#endif
+    }
+}
+
+bool CWebSockHandle::Check()
+{
+    return m_bCheck;
+}
+
+bool CWebSockHandle::ConnectStatus()
+{
+    if(NULL != pDataReceiver)
+    {
+        return pDataReceiver->getchannelStatus();
+    }
+
+    return false;
+}
+
+IChannel *CWebSockHandle::Channle()
+{
+    return pDataReceiver;
 }
 
 }

@@ -10,6 +10,8 @@
 #include "app_list.h"
 #include "global_first.h"
 
+namespace hmisdk {
+
 extern std::string string_To_UTF8(const std::string &str);
 extern bool IsTextUTF8(char *str, unsigned long long length);
 
@@ -184,7 +186,7 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     } else if (str_method == "BasicCommunication.UpdateAppList") {
       updateAppList(jsonObj);
       // 防止在其他App画面弹回到App列表画面，强制图标更新
-      if (m_pCurApp == NULL) {
+      if (m_pCurApp == NULL || ID_APPLINK == m_pUIManager->GetCurViewId()) {
         m_pUIManager->onAppShow(ID_APPLINK);
       }
     } else if (str_method == "BasicCommunication.OnAppUnregistered") {
@@ -541,4 +543,6 @@ void AppList::updateDeiveList(Json::Value jsonObj) {
     data.id = device["id"].asString();
     m_DeviceList.push_back(data);
   }
+}
+
 }

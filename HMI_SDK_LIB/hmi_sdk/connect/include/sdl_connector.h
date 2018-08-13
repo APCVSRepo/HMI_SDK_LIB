@@ -19,9 +19,14 @@
 #include "hmi_vehicle_info.h"
 #include "hmi_vr.h"
 #include "hmi_video_stream.h"
+#ifndef WEB_SOCKET
 #include "sockets_to_sdl.h"
+#else
+#include "websocket_to_sdl.h"
+#endif
+#define ToSDL hmisdk::SDLConnector::getSDLConnector()
 
-#define ToSDL SDLConnector::getSDLConnector()
+namespace hmisdk {
 
 class SDLConnector : public INetworkStatus {
  private:
@@ -40,7 +45,11 @@ class SDLConnector : public INetworkStatus {
 
  private:
   bool m_bReleased;
+#ifndef WEB_SOCKET
   SocketsToSDL m_Sockets;
+#else
+  WebsocketToSDL m_Sockets;
+#endif
   std::vector<IChannel *> m_Channels;
   bool    m_bSdlConnected;
 
@@ -120,5 +129,7 @@ class SDLConnector : public INetworkStatus {
   void _buttonPressed(std::string buttonname, int mode);
   void _buttonEventUp(std::string buttonname);
 };
+
+}
 
 #endif // SOCKETS_TO_SDL_H_

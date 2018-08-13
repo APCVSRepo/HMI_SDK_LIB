@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class Navigation : public Channel {
  public:
   Navigation();
@@ -22,5 +24,7 @@ class Navigation : public Channel {
  private:
 
 };
+
+}
 
 #endif // NAVIGATIONCLIENT_H_

@@ -10,6 +10,7 @@
 #ifndef APPCOMMON_H
 #define APPCOMMON_H
 
+namespace hmisdk {
 
 #define DEFAULT_TEMPLATE "MEDIA"
 #define DEFAULT_TEMPLATE_PROPERTY "this is media template"
@@ -109,6 +110,8 @@ enum RPC_TYPE {
   RPC_SetMediaClockTimer,
   RPC_MAX
 };
+
+}
 
 #endif // APPCOMMON_H
 

@@ -11,6 +11,8 @@
 #define UIINTERFACE_H
 #include "app_list_interface.h"
 
+namespace hmisdk {
+
 class UIInterface {
  public:
   /**
@@ -146,6 +148,18 @@ class UIInterface {
   * @note
   */
   virtual bool FindTemplate(std::string name) = 0;
+
+  /**
+  * 获取当前模板ID
+  * @param      无
+  * @return		当前模板ID
+  * @ref
+  * @see
+  * @note
+  */
+  virtual int GetCurViewId() = 0;
 };
+
+}
 
 #endif // UIINTERFACE_H

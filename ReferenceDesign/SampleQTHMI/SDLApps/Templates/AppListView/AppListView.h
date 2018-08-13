@@ -6,6 +6,8 @@
 #include "HMIWidgets/CAppButton.h"
 #include "app_list_interface.h"
 
+using namespace hmisdk;
+
 class CAppListView : public QWidget {
     Q_OBJECT
 public:

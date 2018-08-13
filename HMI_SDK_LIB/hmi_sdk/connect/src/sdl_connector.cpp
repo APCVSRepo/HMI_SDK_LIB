@@ -17,6 +17,8 @@
 #include <iostream>
 #include "global_first.h"
 
+namespace hmisdk {
+
 static SDLConnector *g_SingleConnector = 0;
 
 SDLConnector::SDLConnector() : m_bReleased(false), m_Sockets(), m_VR(), m_Base(), m_Buttons(), m_Navi(), m_TTS(), m_Vehicle(), m_UI() {
@@ -112,6 +114,7 @@ void SDLConnector::DelConnectToVideoStream() {
 
 void SDLConnector::Connect() {
   m_bSdlConnected = m_Sockets.ConnectTo(m_Channels, this);
+#ifndef WEB_SOCKET
   if (m_bSdlConnected) {
     m_VR.onOpen();
     m_Vehicle.onOpen();
@@ -127,6 +130,7 @@ void SDLConnector::Connect() {
     //BaseCommunication is the last Channel to register
     m_Base.onOpen();
   }
+#endif
 }
 
 void *SDLConnector::ConnectThread(void *arg) {
@@ -525,4 +529,6 @@ void SDLConnector::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
   params["event"] = event;
 
   m_UI.sendNotification("UI.OnTouchEvent", params);
+}
+
 }

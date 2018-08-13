@@ -56,6 +56,7 @@ target_link_libraries(SDLApps HMIWidgets)
 # for test
 if(BUILD_TESTS)
 
+## start config GoogleTest
 find_package(Threads REQUIRED)
 
 # Enable ExternalProject CMake module
@@ -93,9 +94,44 @@ set_target_properties(libgmock PROPERTIES
     "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
 )
 
-# I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
 include_directories("${source_dir}/googletest/include"
                     "${source_dir}/googlemock/include")
+## finish config GoogleTest
+
+## start config boost
+# find boost(The configuration here refers to the configuration of boost in the sdl core.)
+include("./set_3rd_party_paths.cmake")
+
+find_package(Boost 1.66.0 COMPONENTS system)
+    set(BOOST_LIB_SOURCE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/boost_src)
+    set(BOOST_LIBS_DIRECTORY ${3RD_PARTY_INSTALL_PREFIX}/lib)
+    SET_PROPERTY(GLOBAL PROPERTY GLOBAL_BOOST_LIBS ${BOOST_LIBS_DIRECTORY})
+    set(BOOST_INCLUDE_DIRECTORY ${3RD_PARTY_INSTALL_PREFIX}/include )
+if (NOT ${Boost_FOUND})
+    message(STATUS "Did not find boost. Downloading and installing boost 1.66")
+    set(BOOST_INSTALL_COMMAND ./b2 install)
+if (${3RD_PARTY_INSTALL_PREFIX} MATCHES "/usr/local")
+  set(BOOST_INSTALL_COMMAND sudo ./b2 install)
+endif()
+include(ExternalProject)
+ExternalProject_Add(
+    Boost
+    URL https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
+    DOWNLOAD_DIR ${BOOST_LIB_SOURCE_DIRECTORY}
+    SOURCE_DIR ${BOOST_LIB_SOURCE_DIRECTORY}
+    CONFIGURE_COMMAND ./bootstrap.sh --with-libraries=system --prefix=${3RD_PARTY_INSTALL_PREFIX}
+    BUILD_COMMAND ./b2
+    INSTALL_COMMAND ${BOOST_INSTALL_COMMAND} --with-system --prefix=${3RD_PARTY_INSTALL_PREFIX}
+    INSTALL_DIR ${3RD_PARTY_INSTALL_PREFIX}
+    BUILD_IN_SOURCE true
+)
+
+set(BOOST_INCLUDE_DIR ${BOOST_ROOT_DIR}/Boost-prefix/src/Boost)
+set(BOOST_LIB_DIR ${BOOST_ROOT_DIR}/Boost-prefix/src/Boost/stage/lib/)
+endif()
+#message(STATUS "BOOST_INCLUDE_DIR:${BOOST_INCLUDE_DIR}")
+
+## finish config boost
 
 add_subdirectory(Templates)
 

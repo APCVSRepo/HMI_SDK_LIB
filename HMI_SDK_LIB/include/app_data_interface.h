@@ -17,6 +17,8 @@
 #include "app_common.h"
 #include "protocol_defines.h"
 
+namespace hmisdk {
+
 /**  菜单命令项信息*/
 typedef struct command {
   int i_appID;	///<  App ID
@@ -291,5 +293,7 @@ class AppDataInterface {
    */
   virtual int getAppID() = 0;
 };
+
+}
 
 #endif // APPDATAINTERFACE_H

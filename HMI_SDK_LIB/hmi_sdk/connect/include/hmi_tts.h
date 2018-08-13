@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class TTS : public Channel {
  public:
   TTS();
@@ -22,5 +24,7 @@ class TTS : public Channel {
  private:
 
 };
+
+}
 
 #endif // TTSCLIENT_H_

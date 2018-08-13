@@ -3,9 +3,9 @@
 #include "VR/Factory/VRVFactory.h"
 #include "HMIFrameWork/log_interface.h"
 
-VoiceRecognition* VoiceRecognition::m_pInst = NULL;
+VR* VR::m_pInst = NULL;
 
-VoiceRecognition::VoiceRecognition()
+VR::VR()
 {
     setAppType(AppType_App);
     setAppId(VR_ID);
@@ -13,45 +13,45 @@ VoiceRecognition::VoiceRecognition()
     setMain(reinterpret_cast<void*>(new VRWindow()));
 }
 
-VoiceRecognition *VoiceRecognition::Inst()
+VR *VR::Inst()
 {
     if(NULL == m_pInst)
     {
-        m_pInst = new VoiceRecognition();
+        m_pInst = new VR();
     }
     return m_pInst;
 }
 
-void VoiceRecognition::onAppShow(string appId, string viewId)
+void VR::onAppShow(string appId, string viewId)
 {
     connect(this,SIGNAL(SigAppShow(string,string)),this,SLOT(OnAppShow(string,string)),Qt::UniqueConnection);
     emit SigAppShow(appId,viewId);
 }
 
-void VoiceRecognition::onAppHide()
+void VR::onAppHide()
 {
     connect(this,SIGNAL(SigAppHide()),this,SLOT(OnAppHide()),Qt::UniqueConnection);
     emit SigAppHide();
 }
 
-void VoiceRecognition::onNotify(string appId, map<string, string> parameter)
+void VR::onNotify(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigNotify(string,map<string,string>)),this,SLOT(OnNotify(string,map<string,string>)),Qt::UniqueConnection);
     emit SigNotify(appId,parameter);
 }
 
-void VoiceRecognition::onReply(string appId, map<string, string> parameter)
+void VR::onReply(string appId, map<string, string> parameter)
 {
     connect(this,SIGNAL(SigReply(string,map<string,string>)),this,SLOT(OnReply(string,map<string,string>)),Qt::UniqueConnection);
     emit SigReply(appId,parameter);
 }
 
-const std::vector<VRAppInfo> &VoiceRecognition::GetAppList() const
+const std::vector<VRAppInfo> &VR::GetAppList() const
 {
     return m_vVRAppList;
 }
 
-void VoiceRecognition::OnAppShow(string appId, string viewId)
+void VR::OnAppShow(string appId, string viewId)
 {
     INFO("onAppShow:%s, viewId:%s", appId.c_str(), viewId.c_str());
     int state = getState();
@@ -73,7 +73,7 @@ void VoiceRecognition::OnAppShow(string appId, string viewId)
     }
 }
 
-void VoiceRecognition::OnAppHide()
+void VR::OnAppHide()
 {
     int state = getState();
     switch (state) {
@@ -95,9 +95,9 @@ void VoiceRecognition::OnAppHide()
     }
 }
 
-void VoiceRecognition::OnNotify(string appId, map<string, string> parameter)
+void VR::OnNotify(string appId, map<string, string> parameter)
 {
-    INFO("VoiceRecognition::onNotify appId=%s .",appId.c_str());
+    INFO("VR::onNotify appId=%s .",appId.c_str());
 
     {
         map<string, string>::iterator iter = parameter.find("VRAppList");
@@ -138,7 +138,7 @@ void VoiceRecognition::OnNotify(string appId, map<string, string> parameter)
     }
 }
 
-void VoiceRecognition::OnReply(string appId, map<string, string> parameter)
+void VR::OnReply(string appId, map<string, string> parameter)
 {
     Q_UNUSED(appId)
     Q_UNUSED(parameter)

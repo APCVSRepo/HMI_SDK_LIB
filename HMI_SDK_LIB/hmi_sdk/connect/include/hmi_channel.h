@@ -14,8 +14,10 @@
 #include <string>
 #include "socket_manager_interface.h"
 
+namespace hmisdk {
 class IMessageInterface;
 class ISocketManager;
+}
 
 namespace Json {
 class Value;
@@ -36,6 +38,8 @@ extern Json::Value g_StaticConfigJson;
 extern Json::Value g_VehicleInfoJson;
 extern Json::Value g_StaticResultJson;
 
+namespace hmisdk {
+
 class Channel: public IChannel {
  public:
   Channel(int startId, std::string Channelname);
@@ -51,6 +55,8 @@ class Channel: public IChannel {
   std::string getChannelName();
   void setSocketManager(ISocketManager *pManager, void *pHandle = NULL);
   void onOpen();
+  void onChannelStatus(bool channelStatus);
+  bool getchannelStatus();
 
  protected:
   void unRegisterComponent();
@@ -97,6 +103,10 @@ class Channel: public IChannel {
   Json::Value  m_StaticResult;
   JsonBuffer m_JsonBuffer;
 
+  bool m_bChannelStatus;
+
 };
+
+}
 
 #endif // CHANNEL_H_

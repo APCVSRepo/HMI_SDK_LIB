@@ -12,7 +12,7 @@ using ::testing::Return;
 using ::testing::AtLeast;
 using ::testing::_;
 using ::testing::Invoke;
-
+using namespace hmisdk;
 
 namespace test {
     namespace hmi_sdk {
@@ -164,7 +164,8 @@ namespace test {
                 MOCK_METHOD3(setStaticResult,void(std::string attri, std::string ref, Json::Value value));
                 MOCK_METHOD3(sendResult,void(int id, std::string ref, Result code));
                 MOCK_METHOD4(sendError,void(int id, std::string ref, std::string message, Result code));
-
+		MOCK_METHOD1(onChannelStatus,void(bool IsConnect));
+		MOCK_METHOD0(getchannelStatus,bool());
 
 
                 void DelegateOnReceiveData(void *data, int len){Channel::onReceiveData(data,len);}
@@ -203,6 +204,7 @@ namespace test {
                 MOCK_METHOD1(SetAppListInterface,void(AppListInterface *pList));
                 MOCK_METHOD0(initAppHMI,void());
                 MOCK_METHOD1(FindTemplate,bool(std::string name));
+		MOCK_METHOD0(GetCurViewId,int());
 
             };
         }

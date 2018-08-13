@@ -13,6 +13,8 @@
 #include "json/json.h"
 #include <global_first.h>
 
+namespace hmisdk {
+
 TTS::TTS() : Channel(300, "TTS") {
 
 }
@@ -48,3 +50,4 @@ void TTS::onRequest(Json::Value &request) {
   }
 }
 
+}

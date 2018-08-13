@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.1)
 
 add_definitions(-DOS_LINUX)
 add_definitions(-DARCH_X86)
@@ -16,7 +16,6 @@ endif()
 
 if(BUILD_TESTS)
     enable_testing()
-
     add_definitions(-DBUILD_TESTS)
     message(STATUS "Tests enabled")
 endif()
@@ -123,14 +122,14 @@ target_link_libraries(SampleQTHMI Home)
 target_link_libraries(SampleQTHMI HVAC)
 target_link_libraries(SampleQTHMI Media)
 target_link_libraries(SampleQTHMI Message)
-target_link_libraries(SampleQTHMI Navi)
+target_link_libraries(SampleQTHMI Navigation)
 target_link_libraries(SampleQTHMI Phone)
 target_link_libraries(SampleQTHMI PopUp)
 target_link_libraries(SampleQTHMI Prompt)
 target_link_libraries(SampleQTHMI QuickLanuch)
 target_link_libraries(SampleQTHMI SDLApps)
 target_link_libraries(SampleQTHMI StatusBar)
-target_link_libraries(SampleQTHMI VoiceRecognition)
+target_link_libraries(SampleQTHMI VR)
 
 
 
