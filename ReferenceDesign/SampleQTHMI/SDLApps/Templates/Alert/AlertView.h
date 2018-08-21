@@ -30,6 +30,8 @@ private:
     void setSoftButtons(std::vector<SSoftButton> vec_softButtons);
 
 private:
+    //static path
+    QString m_aletIconPath;
     QLabel *m_pAppNameLab;
     QLabel m_aAlertLab[3];
     CButton m_aSoftBtn[MAX_BTN_NUM];
@@ -42,6 +44,7 @@ private:
     QLabel *m_pBackground;
     QLabel *m_pLineTop;
     QLabel *m_pLineBottom;
+    QLabel *m_pAlertIcon;
     QWidget *m_pPopUpArea;
 };
 
