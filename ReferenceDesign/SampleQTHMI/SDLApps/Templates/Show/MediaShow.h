@@ -9,6 +9,8 @@
 #include "HMIWidgets/CSlider.h"
 #include "HMIWidgets/TopNavigateWidget.h"
 
+using namespace hmisdk;
+
 #define RIGHT_BTN_NUM 5
 #define SHOW_LINE_NUM 3
 

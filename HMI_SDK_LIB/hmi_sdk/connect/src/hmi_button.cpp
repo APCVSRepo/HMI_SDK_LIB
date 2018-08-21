@@ -13,6 +13,8 @@
 #include "json/json.h"
 #include "global_first.h"
 
+namespace hmisdk {
+
 Buttons::Buttons() : Channel(200, "Buttons") {
 
 }
@@ -33,3 +35,4 @@ void Buttons::onRequest(Json::Value &request) {
   }
 }
 
+}

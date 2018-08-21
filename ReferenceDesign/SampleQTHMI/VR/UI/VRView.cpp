@@ -6,7 +6,7 @@
 
 VRView::VRView(QWidget *parent)
     :QWidget(parent)
-    ,CView(VoiceRecognition::eViewId_Main)
+    ,CView(VR::eViewId_Main)
     ,m_pTitleLab(NULL)
     ,m_pTopLine(NULL)
     ,m_pBottomLine(NULL)
@@ -105,5 +105,5 @@ void VRView::hideEvent(QHideEvent *)
 
 void VRView::OnVRBtnClicked()
 {
-    VoiceRecognition::Inst()->ViewForwardById(VoiceRecognition::eViewId_Interaction);
+    VR::Inst()->ViewForwardById(VR::eViewId_Interaction);
 }

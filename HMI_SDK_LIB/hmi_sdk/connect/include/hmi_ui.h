@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class UI : public Channel {
  public:
   UI();
@@ -27,5 +29,7 @@ class UI : public Channel {
  public:
   void onSystemContext(std::string systemContext, int appID);
 };
+
+}
 
 #endif // UICLIENT_H_

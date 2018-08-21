@@ -13,6 +13,7 @@
 #include <vector>
 #include "message_interface.h"
 
+namespace hmisdk {
 
 class ISocketManager;
 
@@ -32,5 +33,7 @@ class ISocketManager {
   virtual bool ConnectToVS(IChannel *ChannelVS, std::string sIP, int iPort, INetworkStatus *pNetwork = 0) = 0;
   virtual void SendData(void *pHandle, void *pData, int iLength) = 0;
 };
+
+}
 
 #endif // ISOCKETMANAGER_H

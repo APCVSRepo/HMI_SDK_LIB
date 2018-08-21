@@ -21,6 +21,7 @@
 #include <string>
 #include "socket_manager_interface.h"
 
+namespace hmisdk {
 
 using tcp = boost::asio::ip::tcp;               // from <boost/asio/ip/tcp.hpp>
 namespace websocket = boost::beast::websocket;  // from <boost/beast/websocket.hpp>
@@ -35,23 +36,25 @@ class CWebsocketSession : public std::enable_shared_from_this<CWebsocketSession>
     bool IsConnect;
 public:
     explicit CWebsocketSession(boost::asio::io_context& ioc)
-    : resolver_(ioc)
-    , ws_(ioc)
-{
-}
-bool run(char const* host,char const* port);
-void AsyncRun(char const* host,char const* port);
-void on_resolve(boost::system::error_code ec,tcp::resolver::results_type results);
-void on_connect(boost::system::error_code ec);
-void on_handshake(boost::system::error_code ec);
-void on_write(boost::system::error_code ec,std::size_t bytes_transferred);
-void on_read(boost::system::error_code ec,std::size_t bytes_transferred);
-void on_close(boost::system::error_code ec);
-void ConnectChannle(IChannel *Channel);
-void waitRecv();
-std::size_t SendData(std::string& data);
-void setConnectStatus(bool isConnect);
-void close();
+        : resolver_(ioc)
+        , ws_(ioc)
+    {
+    }
+    bool run(char const* host,char const* port);
+    void AsyncRun(char const* host,char const* port);
+    void on_resolve(boost::system::error_code ec,tcp::resolver::results_type results);
+    void on_connect(boost::system::error_code ec);
+    void on_handshake(boost::system::error_code ec);
+    void on_write(boost::system::error_code ec,std::size_t bytes_transferred);
+    void on_read(boost::system::error_code ec,std::size_t bytes_transferred);
+    void on_close(boost::system::error_code ec);
+    void ConnectChannle(IChannel *Channel);
+    void waitRecv();
+    std::size_t SendData(std::string& data);
+    void setConnectStatus(bool isConnect);
+    void close();
 };
+
+}
 
 #endif // WS_SESSION_H_

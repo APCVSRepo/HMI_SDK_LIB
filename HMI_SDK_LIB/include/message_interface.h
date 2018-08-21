@@ -14,6 +14,8 @@
 #include <string>
 #include "app_common.h"
 
+namespace hmisdk {
+
 class IMessageInterface {
  public:
   virtual Result onRequest(Json::Value) = 0;
@@ -28,5 +30,7 @@ class INetworkStatus {
   virtual void onConnected() = 0;
   virtual void onNetworkBroken() = 0;
 };
+
+}
 
 #endif // IMESSAGEINTERFACE_H

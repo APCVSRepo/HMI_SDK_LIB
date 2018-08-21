@@ -21,19 +21,19 @@ struct NaviAppInfo{
 //    std::string appType;
 };
 
-class Navi : public QObject, public App
+class Navigation : public QObject, public App
 {
     Q_OBJECT
 
 private:
-    explicit Navi();
+    explicit Navigation();
 
 public:
     enum eViewId{
         eViewId_Main
     };
 
-    static Navi* Inst();
+    static Navigation* Inst();
 
     void onAppShow(string appId,string viewId) ;
     void onAppHide();
@@ -59,7 +59,7 @@ signals:
 private:
     std::vector<NaviAppInfo> m_vNaviAppList;
 
-    static Navi *m_pInst;
+    static Navigation *m_pInst;
 };
 
 #endif // NAVIGATION_H

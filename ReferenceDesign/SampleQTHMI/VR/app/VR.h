@@ -1,5 +1,5 @@
-#ifndef VOICERECOGNITION_H
-#define VOICERECOGNITION_H
+#ifndef VR_H
+#define VR_H
 
 #include <QObject>
 #include "HMIFrameWork/App.h"
@@ -11,12 +11,12 @@ struct VRAppInfo{
     std::string appIcon;
 };
 
-class VoiceRecognition : public QObject, public App
+class VR : public QObject, public App
 {
     Q_OBJECT
 
 private:
-    explicit VoiceRecognition();
+    explicit VR();
 
 public:
     enum eViewId{
@@ -24,7 +24,7 @@ public:
         eViewId_Interaction
     };
 
-    static VoiceRecognition* Inst();
+    static VR* Inst();
 
     void onAppShow(string appId,string viewId) ;
     void onAppHide();
@@ -50,7 +50,7 @@ signals:
 private:
     std::vector<VRAppInfo> m_vVRAppList;
 
-    static VoiceRecognition *m_pInst;
+    static VR *m_pInst;
 };
 
-#endif // VOICERECOGNITION_H
+#endif // VR_H

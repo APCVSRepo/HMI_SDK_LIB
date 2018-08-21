@@ -17,6 +17,8 @@
 #include <iostream>
 #include "global_first.h"
 
+namespace hmisdk {
+
 static SDLConnector *g_SingleConnector = 0;
 
 SDLConnector::SDLConnector() : m_bReleased(false), m_Sockets(), m_VR(), m_Base(), m_Buttons(), m_Navi(), m_TTS(), m_Vehicle(), m_UI() {
@@ -527,4 +529,6 @@ void SDLConnector::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
   params["event"] = event;
 
   m_UI.sendNotification("UI.OnTouchEvent", params);
+}
+
 }

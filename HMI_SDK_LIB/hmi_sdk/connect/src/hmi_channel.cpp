@@ -58,6 +58,8 @@ bool JsonBuffer::getJsonFromBuffer(char *pData, int iLength, Json::Value &output
   return false;
 }
 
+namespace hmisdk {
+
 Channel::Channel(int startId, std::string Channelname)
   : m_pSocketManager(NULL) {
   m_bChannelStatus = false;
@@ -392,4 +394,6 @@ void Channel::UnsubscribeFromNotification(std::string notification) {
   Json::Value params;
   params["propertyName"] = notification;
   sendRequest(GenerateId(), "MB.unsubscribeTo", params);
+}
+
 }

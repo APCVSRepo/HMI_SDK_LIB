@@ -6,6 +6,8 @@
 #include "app_list_interface.h"
 #include "HMIFrameWork/CView.h"
 
+using namespace hmisdk;
+
 class SDLAppsView : public QWidget,public CView{
     Q_OBJECT
 

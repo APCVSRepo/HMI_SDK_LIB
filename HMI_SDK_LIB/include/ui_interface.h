@@ -11,6 +11,8 @@
 #define UIINTERFACE_H
 #include "app_list_interface.h"
 
+namespace hmisdk {
+
 class UIInterface {
  public:
   /**
@@ -157,5 +159,7 @@ class UIInterface {
   */
   virtual int GetCurViewId() = 0;
 };
+
+}
 
 #endif // UIINTERFACE_H

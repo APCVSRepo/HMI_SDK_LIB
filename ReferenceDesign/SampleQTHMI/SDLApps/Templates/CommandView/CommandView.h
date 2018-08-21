@@ -6,6 +6,8 @@
 #include "HMIWidgets/TopNavigateWidget.h"
 #include "HMIWidgets/CVListWidget.h"
 
+using namespace hmisdk;
+
 typedef struct CommandInformation {
     std::string strCmd;
     int iParentId;

@@ -13,8 +13,9 @@
 #include <string>
 #include <map>
 #include "TemplateImp.h"
+#include "app_list_interface.h"
 
-class AppListInterface;
+using namespace hmisdk;
 
 class TemplateManager {
  private:

@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class BasicCommunication : public Channel {
  public:
   BasicCommunication();
@@ -27,6 +29,8 @@ class BasicCommunication : public Channel {
  private:
 
 };
+
+}
 
 #endif // BASE_COMMUNICATIONCLIENT_H_
 

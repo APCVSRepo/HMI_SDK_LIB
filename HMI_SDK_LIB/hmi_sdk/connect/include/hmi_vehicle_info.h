@@ -12,6 +12,8 @@
 
 #include "hmi_channel.h"
 
+namespace hmisdk {
+
 class VehicleInfo : public Channel {
  public:
   VehicleInfo();
@@ -25,5 +27,7 @@ class VehicleInfo : public Channel {
   Json::Value vehicleInfoGetDTCsResponse(Json::Value &);
   Json::Value vehicleInfoReadDIDResponse(Json::Value &);
 };
+
+}
 
 #endif // VEHICLE_INFO_H_

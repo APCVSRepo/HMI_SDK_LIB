@@ -13,6 +13,8 @@
 #include "json/json.h"
 #include <global_first.h>
 
+namespace hmisdk {
+
 VR::VR() : Channel(400, "VR") {
 
 }
@@ -68,3 +70,4 @@ void VR::onRequest(Json::Value &request) {
   }
 }
 
+}
