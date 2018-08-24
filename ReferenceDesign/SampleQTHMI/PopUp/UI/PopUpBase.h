@@ -26,6 +26,7 @@ public:
     QString GetPopUpReplyButtonB();
     QString GetPopUpHandle();
     int GetPopUpTime();
+    QString GetPopUpReplyTimeOut();
     QString GetFromeAppId();
     QString GetPassword();
 
@@ -43,6 +44,7 @@ public:
     bool IsExistPopUpReplyButtonB();
     bool IsExistPopUpHandle();
     bool IsExistPopUpTime();
+    bool IsExistPopUpReplyTimeOut();
     bool IsExistFromAppId();
     bool IsExistPassword();
 
@@ -68,6 +70,7 @@ private:
     QString m_PopUpReplyButtonB;
     QString m_PopUpHandle;
     QString m_PopUpTime;
+    QString m_PopUpReplyTimeOut;
 
     QString m_fromAppId;
     QString m_Password;
@@ -88,6 +91,7 @@ private:
     bool m_bPopUpTime;
     bool m_bFromAppId;
     bool m_bPassword;
+    bool m_bPopUpReplyTimeOut;
 
 };
 
