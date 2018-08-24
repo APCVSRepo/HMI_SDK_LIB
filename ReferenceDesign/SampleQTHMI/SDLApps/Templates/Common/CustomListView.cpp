@@ -3,6 +3,13 @@
 #include "HMIWidgets/CAppButton.h"
 #include "HMIFrameWork/log_interface.h"
 
+ListItemData::ListItemData(string text, int id, string path)
+    :m_text(text)
+    ,m_id(id)
+    ,m_path(path)
+{
+}
+
 CustomListView::CustomListView(int iWidth, int iHeight, int iMode, QWidget *parent)
     :QWidget(parent)
     ,m_iMode(iMode)
@@ -185,3 +192,4 @@ void CustomListView::mouseReleaseEvent(QMouseEvent *e) {
         m_curpage--;
     }
 }
+
