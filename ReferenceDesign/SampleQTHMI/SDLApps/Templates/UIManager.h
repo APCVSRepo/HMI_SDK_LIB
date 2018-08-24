@@ -12,9 +12,10 @@ using namespace hmisdk;
 
 class UIManager : public QWidget, public UIInterface {
     Q_OBJECT
+
 public:
     explicit UIManager(QWidget *parent = NULL);
-    explicit UIManager(AppListInterface *pList, QWidget *parent = NULL);
+//    explicit UIManager(AppListInterface *pList, QWidget *parent = NULL);
     ~UIManager();
 
     void SetAppListInterface(AppListInterface *pList);
@@ -45,6 +46,12 @@ public:
     void ExitApp();
 
     int GetCurViewId();
+
+    //AudioPassThru popup
+    void AudioPassThruFinish();
+    void AudioPassThruCancel();
+    void AudioPassThruTimeOut();
+
 signals:
     void onAppShowSignal(int type);
     void onAppActivatedSignal(AppDataInterface *pInterface);
@@ -56,6 +63,8 @@ signals:
 
     void appListUpdateSignal();
 
+    void onAudioPassThruSignal();
+
 public slots:
     void AppShowSlot(int type);
     void OnAppUnregisterSlot(int appId);
@@ -64,9 +73,14 @@ public slots:
     void onVideoStopSlots();
     void loadsdk();
 
+    void onAudioPassThruSlot();
 public:
     SDLAppsView *getSDLAppsView();
 
+private:
+    //AudioPassThru popup
+    void ShowPopupAudioPassThru(const string &appName, const string &duration, const string &contextA);
+    void HidePopupAudioPassThru();
 private:
     int m_iCurUI;
     std::string m_sCurTpln;
@@ -74,7 +88,8 @@ private:
     QLibrary m_sdk;
     TemplateManager m_TplManager;
 
-    void waitMSec(int ms);
+    bool m_bShowPopUpAudioPassThru;
+//    void waitMSec(int ms);
 };
 
 #endif // UIMANAGER_H

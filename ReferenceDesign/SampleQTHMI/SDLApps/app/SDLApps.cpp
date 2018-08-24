@@ -192,7 +192,28 @@ void SDLApps::OnNotify(string appId, map<string, string> parameter)
 void SDLApps::OnReply(string appId, map<string, string> parameter)
 {
     Q_UNUSED(appId)
-    Q_UNUSED(parameter)
+
+    map<string,string>::const_iterator it = parameter.find("Button");
+    if(it!=parameter.end())
+    {
+        INFO("[SDLApps] OnReply = %s .", QString::fromStdString( it->second).toStdString().c_str());
+        if("AudioPassThruFinish" == it->second)
+        {
+            m_pUIManager->AudioPassThruFinish();
+        }
+        else if("AudioPassThruCancel" == it->second)
+        {
+            m_pUIManager->AudioPassThruCancel();
+        }
+        else if("AudioPassThruTimeOut" == it->second)
+        {
+            m_pUIManager->AudioPassThruTimeOut();
+        }
+        else
+        {
+            //none
+        }
+    }
 }
 
 void SDLApps::OnAppListUpdate()
