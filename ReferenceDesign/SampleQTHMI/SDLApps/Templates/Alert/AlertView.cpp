@@ -2,9 +2,11 @@
 #include <QBoxLayout>
 #include "HMIFrameWork/log_interface.h"
 #include <QSettings>
-
+#include <QApplication>
 #define SOFTBTNWIDTH 120
 #define SOFTBTNHEIGHT 50
+#define CApplicationDirPath QApplication::applicationDirPath()
+
 
 //TODO: move this view to Popup
 
@@ -89,6 +91,8 @@ AlertView::AlertView(AppListInterface *pList, QWidget *parent)
 
     QSettings settings("hmi.ini", QSettings::IniFormat);
     m_aletIconPath = settings.value("HMI/AlertIconStorageFolder").toString();
+
+    m_aletIconPath = CApplicationDirPath + "/" + m_aletIconPath;
 
     INFO("alert icon path is %s",m_aletIconPath.toStdString().c_str());
 }
