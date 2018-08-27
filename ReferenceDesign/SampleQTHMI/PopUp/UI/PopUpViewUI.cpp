@@ -88,6 +88,12 @@ void PopUpViewUI::Parse(map<string, string> parameter)
                 {
                     HMIFrameWork::Inst()->AppShow(POPUP_ID);
                 }
+                else
+                {
+                    ReleasePopup(QString::fromStdString(id_));
+                    PopUpHide();
+                    return;
+                }
                 QString qId = QString::fromStdString( id_);
                 PopUpBase * pv = GetPopUp(qId);
 
