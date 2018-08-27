@@ -166,7 +166,7 @@ void UIManager::AudioPassThruCancel()
     m_bShowPopUpAudioPassThru = false;
     AppDataInterface *pData = AppControl;
     if (!pData) return;
-    AppControl->OnPerformAudioPassThru(0);
+    AppControl->OnPerformAudioPassThru(5);
 }
 
 void UIManager::AudioPassThruTimeOut()
@@ -175,7 +175,7 @@ void UIManager::AudioPassThruTimeOut()
     m_bShowPopUpAudioPassThru = false;
     AppDataInterface *pData = AppControl;
     if (!pData) return;
-    AppControl->OnPerformAudioPassThru(0);
+    AppControl->OnPerformAudioPassThru(5);
 }
 
 void UIManager::onAppActive() {
@@ -368,6 +368,12 @@ void UIManager::tsSpeak(int VRID, std::string strText) {
 }
 
 void UIManager::OnEndAudioPassThru() {
+    INFO("UIManager::OnEndAudioPassThru");
+    this->HidePopupAudioPassThru();
+
+    AppDataInterface *pData = AppControl;
+    if (!pData) return;
+    AppControl->OnPerformAudioPassThru(0);
 }
 
 void UIManager::ShowDeviceList() {
