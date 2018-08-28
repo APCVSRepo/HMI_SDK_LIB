@@ -305,6 +305,8 @@ void AppData::OnPerformAudioPassThru(int code) {
     return;
 
   ToSDL->OnPerformAudioPassThru(m_iAppID, m_JsonAudioPassThru["id"].asInt(), code);
+  m_JsonAudioPassThru = Json::Value::null;
+
   ToSDL->OnVRCancelRecord();
   ShowPreviousUI();
 }
