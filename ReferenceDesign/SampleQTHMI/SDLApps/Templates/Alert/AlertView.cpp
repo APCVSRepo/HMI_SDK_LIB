@@ -1,18 +1,23 @@
 #include "AlertView.h"
 #include <QBoxLayout>
 #include "HMIFrameWork/log_interface.h"
-
+#include <QSettings>
+#include <QApplication>
 #define SOFTBTNWIDTH 120
 #define SOFTBTNHEIGHT 50
+#define CApplicationDirPath QApplication::applicationDirPath()
+
 
 //TODO: move this view to Popup
 
 AlertView::AlertView(AppListInterface *pList, QWidget *parent)
     :QWidget(parent)
+    ,m_aletIconPath("")
     ,m_pList(pList)
     ,m_pBackground(NULL)
     ,m_pLineTop(NULL)
     ,m_pLineBottom(NULL)
+    ,m_pAlertIcon(NULL)
     ,m_pPopUpArea(NULL)
 {
     if (parent) {
@@ -78,6 +83,18 @@ AlertView::AlertView(AppListInterface *pList, QWidget *parent)
     m_pLineBottom->setPixmap(QPixmap(QString(":/SDLApps/Source/images/line_a.png")));
     m_pLineBottom->setGeometry(0,m_pPopUpArea->y()+m_pPopUpArea->height()-3,this->width(),3);
     m_pLineBottom->show();
+
+    m_pAlertIcon = new QLabel(this);
+    m_pAlertIcon->setGeometry(QRect(100,m_pPopUpArea->y()+20,64,64));
+    m_pAlertIcon->setStyleSheet("QLabel{background:transparent;}");
+    m_pAlertIcon->hide();
+
+    QSettings settings("hmi.ini", QSettings::IniFormat);
+    m_aletIconPath = settings.value("HMI/AlertIconStorageFolder").toString();
+
+    m_aletIconPath = CApplicationDirPath + "/" + m_aletIconPath;
+
+    INFO("alert icon path is %s",m_aletIconPath.toStdString().c_str());
 }
 
 AlertView::~AlertView() {
@@ -144,6 +161,25 @@ void AlertView::showEvent(QShowEvent *e) {
                                         pObj["params"]["alertStrings"][i]["fieldText"].asString().c_str(),
                         m_pPopUpArea->width()*0.9);
             }
+        }
+        //alertIcon
+        if (pObj["params"].isMember("alertIcon")) {
+            // 获取alertStrings字段数组类型元素个数
+            INFO("alert icon path is %s",m_aletIconPath.toStdString().c_str());
+
+            std::string icon = pObj["params"]["alertIcon"]["value"].asString();
+            QString iconPath = QString::fromStdString(icon);
+            if(pObj["params"]["alertIcon"]["imageType"].asString() == "STATIC")
+            {
+                //add static path for icon
+
+                iconPath  = m_aletIconPath + "/" + iconPath;
+            }
+            m_pAlertIcon->setPixmap(QPixmap(iconPath));
+            m_pAlertIcon->show();
+        }else
+        {
+            m_pAlertIcon->hide();
         }
 
         m_vSoftButtons.clear();

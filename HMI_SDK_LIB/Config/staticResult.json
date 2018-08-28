@@ -734,6 +734,18 @@
                             "resolutionHeight": 64
                         }
                     },
+		    {
+                        "name": "alertIcon",
+                        "imageTypeSupported": [
+                            "GRAPHIC_BMP",
+                            "GRAPHIC_JPEG",
+                            "GRAPHIC_PNG"
+                        ],
+                        "imageResolution": {
+                            "resolutionWidth": 64,
+                            "resolutionHeight": 64
+                        }
+                    },
                     {
                         "name": "cmdIcon",
                         "imageTypeSupported": [
