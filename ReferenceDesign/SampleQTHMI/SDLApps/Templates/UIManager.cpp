@@ -63,7 +63,6 @@ std::string GetSDKLibPath() {
 
 UIManager::UIManager(QWidget *parent)
     : QWidget(parent)
-    , m_bShowPopUpAudioPassThru(false)
 {
 
 }
@@ -84,11 +83,6 @@ void UIManager::SetAppListInterface(AppListInterface *pList) {
 bool UIManager::FindTemplate(std::string name) {
     return m_TplManager.Find(name);
 }
-
-//UIManager::UIManager(AppListInterface *pList, QWidget *parent) :
-//    QWidget(parent) {
-//    m_pList = pList;
-//}
 
 UIManager::~UIManager() {
     std::string strFilePath = GetSDKLibPath();
@@ -127,7 +121,6 @@ void UIManager::initAppHMI() {
     connect(this, SIGNAL(OnAppUnregisterSignal(int)), this, SLOT(OnAppUnregisterSlot(int)));
     connect(this, SIGNAL(onVideoStartSignal()), this, SLOT(onVideoStartSlots()));
     connect(this, SIGNAL(onVideoStopSignal()), this, SLOT(onVideoStopSlots()));
-    connect(this, SIGNAL(onAudioPassThruSignal()), this, SLOT(onAudioPassThruSlot()));
 }
 
 void UIManager::OnAppActivated(int appID)
@@ -149,33 +142,6 @@ void UIManager::ExitApp()
 int UIManager::GetCurViewId()
 {
     return m_iCurUI;
-}
-
-void UIManager::AudioPassThruFinish()
-{
-    INFO("UIManager::AudioPassThruFinish");
-    m_bShowPopUpAudioPassThru = false;
-    AppDataInterface *pData = AppControl;
-    if (!pData) return;
-    AppControl->OnPerformAudioPassThru(0);
-}
-
-void UIManager::AudioPassThruCancel()
-{
-    INFO("UIManager::AudioPassThruCancel");
-    m_bShowPopUpAudioPassThru = false;
-    AppDataInterface *pData = AppControl;
-    if (!pData) return;
-    AppControl->OnPerformAudioPassThru(5);
-}
-
-void UIManager::AudioPassThruTimeOut()
-{
-    INFO("UIManager::AudioPassThruTimeOut");
-    m_bShowPopUpAudioPassThru = false;
-    AppDataInterface *pData = AppControl;
-    if (!pData) return;
-    AppControl->OnPerformAudioPassThru(5);
 }
 
 void UIManager::onAppActive() {
@@ -230,8 +196,6 @@ void UIManager::OnAppUnregisterSlot(int appId) {
         // App异常退出提示框
         QMessageBox::about(this, "通知", QString(pData->getAppName().c_str()) + "App异常断开!");
     }
-
-    HidePopupAudioPassThru();
 
     m_pList->appUnregistered(appId);
 
@@ -325,12 +289,6 @@ void UIManager::AppShowSlot(int type) {
     }
     INFO("type 5= %d", type);
 
-    if(type == ID_AUDIOPASSTHRU)
-    {
-        emit onAudioPassThruSignal();
-//        return;
-    }
-
     // 特殊处理MEDIA模板Show画面的mediaclock请求
     if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
         CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
@@ -358,10 +316,6 @@ void UIManager::AppShowSlot(int type) {
     }
 }
 
-//void UIManager::waitMSec(int ms) {
-//    Q_UNUSED(ms);
-//}
-
 void UIManager::tsSpeak(int VRID, std::string strText) {
     Q_UNUSED(VRID);
     Q_UNUSED(strText);
@@ -369,8 +323,6 @@ void UIManager::tsSpeak(int VRID, std::string strText) {
 
 void UIManager::OnEndAudioPassThru() {
     INFO("UIManager::OnEndAudioPassThru");
-    this->HidePopupAudioPassThru();
-
     AppDataInterface *pData = AppControl;
     if (!pData) return;
     AppControl->OnPerformAudioPassThru(0);
@@ -412,96 +364,8 @@ void UIManager::loadsdk() {
     emit finishLoadSDK();
 }
 
-void UIManager::onAudioPassThruSlot()
-{
-    INFO("[Enter]onAudioPassThruSlot");
-
-    if (AppControl) {
-        QString appName = QString::fromStdString(AppControl->getAppName());
-
-        rpcValueInterface &pObj = AppControl->getAudioPassThruJson();
-        if (pObj.isNull())
-            return;
-        rpcValueInterface &jsonParams = pObj["params"];
-
-        QString fieldtext1,fieldtext2;
-        if(jsonParams.isMember("audioPassThruDisplayTexts"))
-        {
-            for(unsigned int i = 0; i < jsonParams["audioPassThruDisplayTexts"].size(); ++i)
-            {
-                rpcValueInterface  &fieldName = jsonParams["audioPassThruDisplayTexts"][i];
-
-//                QString fieldtext;
-                if ("audioPassThruDisplayText1" == fieldName["fieldName"].asString()) {
-
-                    fieldtext1 = fieldName["fieldText"].asString().c_str();
-                    INFO("fieldtext1: %s", fieldtext1.toStdString().c_str());
-                }
-                else if("audioPassThruDisplayText2" == fieldName["fieldName"].asString()) {
-
-                    fieldtext2 = fieldName["fieldText"].asString().c_str();
-                    INFO("fieldtext2: %s", fieldtext2.toStdString().c_str());
-                }
-            }
-        }
-
-        string maxDuration;
-        if(jsonParams.isMember("maxDuration"))
-        {
-            maxDuration = jsonParams["maxDuration"].asString();
-        }
-
-        bool muteAudio = false;
-        if(jsonParams.isMember("muteAudio"))
-        {
-            muteAudio = jsonParams["muteAudio"].asBool();
-        }
-
-        //show popup
-        QString contextA = fieldtext1.append("\n").append(fieldtext2);
-        ShowPopupAudioPassThru(AppControl->getAppName(), maxDuration, contextA.toStdString());
-    }
-    INFO("[Leave]onAudioPassThruSlot");
-}
-
 SDLAppsView *UIManager::getSDLAppsView()
 {
     SDLAppsView *pMain = (SDLAppsView *)m_TplManager.Get(DEFAULT_TEMPLATE).GetScene(ID_MAIN);
     return pMain;
-}
-
-void UIManager::ShowPopupAudioPassThru(const string &appName, const string &duration, const string &contextA)
-{
-    m_bShowPopUpAudioPassThru = true;
-
-    map<string,string> msg;
-    msg.insert(make_pair("PopUpType","General"));
-    msg.insert(make_pair("PopUpId","AudioPassThru"));
-    msg.insert(make_pair("Show","True"));
-    msg.insert(make_pair("FromAppId",SDLAPPS_ID));
-    msg.insert(make_pair("ButtonA","Finish"));
-    msg.insert(make_pair("ReplyButtonA","AudioPassThruFinish"));
-    msg.insert(make_pair("ButtonB","Cancel"));
-    msg.insert(make_pair("ReplyButtonB","AudioPassThruCancel"));
-    msg.insert(make_pair("Title",appName));
-    msg.insert(make_pair("Time",duration));
-    msg.insert(make_pair("TimeOut","AudioPassThruTimeOut"));
-    msg.insert(make_pair("ContextA",contextA));
-
-    HMIFrameWork::Inst()->Notify(POPUP_ID,msg);
-}
-
-void UIManager::HidePopupAudioPassThru()
-{
-    if(m_bShowPopUpAudioPassThru)
-    {
-        m_bShowPopUpAudioPassThru = false;
-
-        map<string,string> msg;
-        msg.insert(make_pair("PopUpType","General"));
-        msg.insert(make_pair("PopUpId","AudioPassThru"));
-        msg.insert(make_pair("Show","False"));
-
-        HMIFrameWork::Inst()->Notify(POPUP_ID,msg);
-    }
 }
