@@ -13,6 +13,7 @@ include_directories (
     ${SDLAPPS_DIR}/Templates
     ${SDLAPPS_DIR}/Templates/Alert
     ${SDLAPPS_DIR}/Templates/AppListView
+    ${SDLAPPS_DIR}/Templates/AudioPassThru
     ${SDLAPPS_DIR}/Templates/ChoiceSet
     ${SDLAPPS_DIR}/Templates/CommandView
     ${SDLAPPS_DIR}/Templates/Common
