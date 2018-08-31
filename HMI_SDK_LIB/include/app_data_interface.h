@@ -11,7 +11,7 @@
 #define APPDATAINTERFACE_H
 
 #include "rpc_value_interface.h"
-#include <string.h>
+#include <string>
 #include <vector>
 #include "global_first.h"
 #include "app_common.h"

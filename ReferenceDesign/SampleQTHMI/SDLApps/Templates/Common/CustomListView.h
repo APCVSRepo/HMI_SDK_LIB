@@ -8,12 +8,7 @@
 
 class ListItemData{
 public:
-    ListItemData(std::string text, int id, std::string path)
-        :m_text(text)
-        ,m_id(id)
-        ,m_path(path)
-    {
-    }
+    ListItemData(std::string text, int id, std::string path);
 
     inline std::string GetText(){return m_text;}
     inline int GetID(){return m_id;}

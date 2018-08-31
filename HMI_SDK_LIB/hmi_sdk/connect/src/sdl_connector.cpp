@@ -385,6 +385,25 @@ void SDLConnector::OnFindApplications(std::string name, std::string id) {
   m_Base.sendNotification("BasicCommunication.OnFindApplications", params);
 }
 
+void SDLConnector::OnEndAudioPassThru(int endaududiopassthruID, int code)
+{
+    if (code == 0) {
+      Json::Value result;
+      result["code"] = code;
+      result["method"] = "UI.EndAudioPassThru";
+      m_UI.sendResult(endaududiopassthruID, result);
+    } else {
+      Json::Value error;
+      Json::Value data;
+
+      data["method"] = "UI.EndAudioPassThru";
+      error["code"] = code;
+      error["message"] = "EndAudioPassThru failed!";
+      error["data"] = data;
+      m_UI.sendError(endaududiopassthruID, error);
+    }
+}
+
 void SDLConnector::OnPerformAudioPassThru(int appID, int performaududiopassthruID, int code) {
   _stopPerformAudioPassThru(appID);
   Json::Value root;
