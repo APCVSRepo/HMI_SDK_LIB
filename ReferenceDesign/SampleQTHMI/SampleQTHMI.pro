@@ -184,7 +184,8 @@ SOURCES += main.cpp\
     VR/UI/VRView.cpp \
     VR/UI/VRWindow.cpp \
     VR/UI/VRInteractionView.cpp \
-    SDLApps/Templates/AudioPassThru/AudioPassThru.cpp
+    SDLApps/Templates/AudioPassThru/AudioPassThru.cpp \
+    SDLApps/Templates/DialNumber/DialNumber.cpp
 
 
 
@@ -335,7 +336,8 @@ HEADERS  +=  \
     VR/UI/VRView.h \
     VR/UI/VRWindow.h \
     VR/UI/VRInteractionView.h \
-    SDLApps/Templates/AudioPassThru/AudioPassThru.h
+    SDLApps/Templates/AudioPassThru/AudioPassThru.h \
+    SDLApps/Templates/DialNumber/DialNumber.h
 
 
 

@@ -52,6 +52,9 @@ signals:
     void SigAudioPassThruCancel();
     void SigAudioPassThruTimeOut();
 
+    void SigDialNumberCall();
+    void SigDialNumberCancel();
+
 private:
     void StartSDL();
 

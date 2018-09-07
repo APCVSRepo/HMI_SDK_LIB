@@ -187,6 +187,21 @@ void SDLApps::OnNotify(string appId, map<string, string> parameter)
         }
     }
 
+    {
+        map<string, string>::iterator iter = parameter.find("PhoneCallStatus");
+        if(iter != parameter.end())
+        {
+            string value = iter->second;
+            if(0 == value.compare("true"))
+            {
+                m_pUIManager->OnPhoneCall(true);
+            }
+            else
+            {
+                m_pUIManager->OnPhoneCall(false);
+            }
+        }
+    }
 }
 
 void SDLApps::OnReply(string appId, map<string, string> parameter)
@@ -208,6 +223,14 @@ void SDLApps::OnReply(string appId, map<string, string> parameter)
         else if("AudioPassThruTimeOut" == it->second)
         {
             emit SigAudioPassThruTimeOut();
+        }
+        else if("DialNumberCall" == it->second)
+        {
+            emit SigDialNumberCall();
+        }
+        else if("DialNumberCancel" == it->second)
+        {
+            emit SigDialNumberCancel();
         }
         else
         {

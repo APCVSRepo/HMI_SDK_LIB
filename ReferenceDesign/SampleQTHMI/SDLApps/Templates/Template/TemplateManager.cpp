@@ -17,6 +17,7 @@
 #include "SDLApps/Templates/AudioPassThru/AudioPassThru.h"
 #include "SDLApps/Templates/ChoiceSet/ChoiceSet.h"
 #include "SDLApps/Templates/CommandView/CommandView.h"
+#include "SDLApps/Templates/DialNumber/DialNumber.h"
 #include "SDLApps/Templates/ScrollableMessage/ScollMsgView.h"
 #include "SDLApps/Templates/Show/MediaShow.h"
 #include "SDLApps/Templates/SliderView/SliderView.h"
@@ -53,6 +54,7 @@ void TemplateManager::CreateDefault(AppListInterface *pList) {
   tpl.SetScene(ID_MAIN, pMain);
   tpl.SetScene(ID_DEVICEVIEW, new CDeviceListView(pList, pParent));
   tpl.SetScene(ID_VIDEOSTREAM, new CeVideoStream(pList, pParent));
+  tpl.SetScene(ID_DIALNUMBER, new CDialNumber(pList, pParent));
 
   m_mapTemplates[DEFAULT_TEMPLATE] = tpl;
 }

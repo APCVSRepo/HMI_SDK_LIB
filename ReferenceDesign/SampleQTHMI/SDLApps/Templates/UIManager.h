@@ -46,6 +46,7 @@ public:
 
     int GetCurViewId();
 
+    void OnPhoneCall(bool isActive);
 signals:
     void onAppShowSignal(int type);
     void onAppActivatedSignal(AppDataInterface *pInterface);

@@ -144,6 +144,15 @@ int UIManager::GetCurViewId()
     return m_iCurUI;
 }
 
+void UIManager::OnPhoneCall(bool isActive)
+{
+    INFO("UIManager::OnPhoneCall %d", isActive);
+    AppDataInterface *pData = AppControl;
+    if (!pData) return;
+    INFO("UIManager::OnPhoneCall pData->OnPhoneCall(isActive);");
+    pData->OnPhoneCall(isActive);
+}
+
 void UIManager::onAppActive() {
 
 }
