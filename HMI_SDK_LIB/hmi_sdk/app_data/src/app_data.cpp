@@ -226,6 +226,10 @@ Result AppData::recvFromServer(Json::Value jsonObj) {
 
       m_pUIManager->tsSpeak(ID_CANCEL, strVRName);
       ToSDL->OnVRCommand(m_iAppID, jsonObj["params"]["cmdID"].asInt());
+    } else if (str_method == "BasicCommunication.DialNumber") {
+      dialNumber(jsonObj);
+      showUI(ID_DIALNUMBER);
+      return RESULT_USER_WAIT;
     } else if (str_method == "TTS.Speak") {
       tsSpeak(jsonObj);
       Json::Value ttsSpeeks = jsonObj["params"]["ttsChunks"];
@@ -429,7 +433,12 @@ Json::Value &AppData::getInteractionJson() {
 }
 
 Json::Value &AppData::getMediaClockJson() {
-  return m_JsonMediaClock;
+    return m_JsonMediaClock;
+}
+
+Json::Value &AppData::getDialNumberJson()
+{
+    return m_JsonDialNumber;
 }
 
 void AppData::showUI(int iUIType) {
@@ -447,7 +456,12 @@ void AppData::showUI(int iUIType) {
   // 过滤掉非当前活动App的画面显示
   AppData *pCur = (AppData *)g_appList->getActiveApp();
   if (pCur && pCur->m_iAppID == m_iAppID)
-    m_pUIManager->onAppShow(iUIType);
+      m_pUIManager->onAppShow(iUIType);
+}
+
+void AppData::dialNumber(Json::Value jsonObj)
+{
+    m_JsonDialNumber = jsonObj;
 }
 
 bool AppData::ShowPreviousUI(bool bInApp) {
@@ -1246,7 +1260,27 @@ std::string AppData::getAppName() {
 }
 
 void AppData::OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) {
-  ToSDL->OnVideoScreenTouch(touch, x, y);
+    ToSDL->OnVideoScreenTouch(touch, x, y);
+}
+
+void AppData::OnDialNumber(int code)
+{
+    ToSDL->OnDialNumber(code, m_JsonDialNumber["id"].asInt());
+    ShowPreviousUI();
+}
+
+void AppData::OnPhoneCall(bool isActive)
+{
+    if(isActive)
+    {
+        this->OnAppDeactivated("PHONECALL");
+    }
+    ToSDL->OnPhoneCall(isActive);
+}
+
+void AppData::OnAppDeactivated(std::string reason)
+{
+    ToSDL->OnAppOut(m_iAppID, reason);
 }
 
 std::string AppData::GetActiveTemplate() {

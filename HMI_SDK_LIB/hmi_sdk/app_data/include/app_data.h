@@ -30,6 +30,7 @@ class AppData : public AppDataInterface {
   Json::Value &getAudioPassThruJson();
   Json::Value &getInteractionJson();
   Json::Value &getMediaClockJson();
+  Json::Value &getDialNumberJson();
   std::vector<SMenuCommand> getCommandList();
   std::vector<SMenuCommand> getCommandList(int subMenuID);
   std::string getUrlString();
@@ -54,6 +55,9 @@ class AppData : public AppDataInterface {
   void OnPerformInteraction(int code, int choiceID, bool bVR = false);
   void OnSetMediaClockTimerResponse(int iCode);
   void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y);
+  void OnDialNumber(int code);
+  void OnPhoneCall(bool isActive);
+  void OnAppDeactivated(std::string reason);
   std::string GetActiveTemplate();
   void SetActiveTemplate(std::string);
 
@@ -72,6 +76,7 @@ class AppData : public AppDataInterface {
   Json::Value m_JsonMediaClock;
   Json::Value m_JsonTtsSpeak;
   Json::Value m_JsonVideoStream;
+  Json::Value m_JsonDialNumber;
 
   void addCommand(Json::Value jsonObj);
   void addSubMenu(Json::Value jsonObj);
@@ -87,6 +92,7 @@ class AppData : public AppDataInterface {
   void videoStreamStart(Json::Value jsonObj);
   void videoStreamStop(Json::Value jsonObj);
   void showUI(int);
+  void dialNumber(Json::Value jsonObj);
 
  public:
   std::string m_strAppIconFilePath;

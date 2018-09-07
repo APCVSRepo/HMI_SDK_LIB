@@ -75,7 +75,7 @@ class SDLConnector : public INetworkStatus {
  public:
   void OnAppActivated(int appID);
   void OnAppExit(int appID);
-  void OnAppOut(int appID);
+  void OnAppOut(int appID, std::string reason = "GENERAL");
 
   // mode: SHORT or LONG
   void OnSoftButtonClick(int appID, int id, int mode, std::string strName = "");
@@ -123,6 +123,10 @@ class SDLConnector : public INetworkStatus {
 
   // code: OK or Failed
   void OnEndAudioPassThru(int endaududiopassthruID, int code);
+
+  // code: OK or Cancel
+  void OnDialNumber(int code, int dialnumberID);
+  void OnPhoneCall(bool isActive);
 
  private:
   void _onButtonClickAction(int appID, std::string, std::string, int);

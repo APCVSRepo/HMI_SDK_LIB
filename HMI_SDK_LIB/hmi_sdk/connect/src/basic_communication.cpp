@@ -70,6 +70,10 @@ void BasicCommunication::onRequest(Json::Value &request) {
     sendResult(id, "IsReady");
   } else if (method == "BasicCommunication.GetSystemInfo") {
     sendResult(id, "GetSystemInfo");
+  } else if (method == "BasicCommunication.DialNumber") {
+    Result result = m_pCallback->onRequest(request);
+    // 不需要回复
+    //sendResult(id, "DialNumber");
   } else {
     Channel::onRequest(request);
   }

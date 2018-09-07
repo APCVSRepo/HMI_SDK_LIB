@@ -269,7 +269,7 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
       if (m_pCurApp != NULL && m_pCurApp->m_iAppID != iAppID)
         ToSDL->OnAppOut(m_pCurApp->m_iAppID);
       m_pCurApp = pData;
-    }  else if (str_method == "UI.SetDisplayLayout") {
+    } else if (str_method == "UI.SetDisplayLayout") {
       int iAppId = jsonObj["params"]["appID"].asInt();
       std::string name = jsonObj["params"]["displayLayout"].asString();
       bool bFind = m_pUIManager->FindTemplate(name);
