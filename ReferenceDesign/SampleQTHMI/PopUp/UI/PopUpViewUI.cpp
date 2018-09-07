@@ -74,7 +74,6 @@ void PopUpViewUI::Parse(map<string, string> parameter)
     string type_,id_,show_;
     if(it!=parameter.end())
     {
-
         type_ = it->second;
         it = parameter.find("PopUpId");
         if(it != parameter.end())
