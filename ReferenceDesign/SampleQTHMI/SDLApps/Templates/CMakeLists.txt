@@ -32,6 +32,8 @@ include_directories(
     ${SDLAPPS_TEMPLATES_DIR}/Common/test
     ${SDLAPPS_TEMPLATES_DIR}/Config
     ${SDLAPPS_TEMPLATES_DIR}/Config/test
+    ${SDLAPPS_TEMPLATES_DIR}/DialNumber
+    ${SDLAPPS_TEMPLATES_DIR}/DialNumber/test
     ${SDLAPPS_TEMPLATES_DIR}/ScrollableMessage
     ${SDLAPPS_TEMPLATES_DIR}/ScrollableMessage/test
     ${SDLAPPS_TEMPLATES_DIR}/Show
@@ -53,6 +55,7 @@ aux_source_directory(./ChoiceSet/test          SDLAPPS_SOURCES_TEST)
 aux_source_directory(./CommandView/test        SDLAPPS_SOURCES_TEST)
 aux_source_directory(./Common/test             SDLAPPS_SOURCES_TEST)
 aux_source_directory(./Config/test             SDLAPPS_SOURCES_TEST)
+aux_source_directory(./DialNumber/test         SDLAPPS_SOURCES_TEST)
 aux_source_directory(./ScrollableMessage/test  SDLAPPS_SOURCES_TEST)
 aux_source_directory(./Show/test               SDLAPPS_SOURCES_TEST)
 aux_source_directory(./SliderView/test         SDLAPPS_SOURCES_TEST)
