@@ -43,7 +43,6 @@ void CDialNumber::showEvent(QShowEvent *)
     INFO("CDialNumber::showEvent show nothing; Show popup view instead.");
 
     if (AppControl) {
-        INFO("if (AppControl) {");
         QString appName = QString::fromStdString(AppControl->getAppName());
 
         rpcValueInterface &pObj = AppControl->getDialNumberJson();
