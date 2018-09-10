@@ -57,7 +57,6 @@ class AppData : public AppDataInterface {
   void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y);
   void OnDialNumber(int code);
   void OnPhoneCall(bool isActive);
-  void OnAppDeactivated(std::string reason);
   std::string GetActiveTemplate();
   void SetActiveTemplate(std::string);
 

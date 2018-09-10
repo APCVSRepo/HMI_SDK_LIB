@@ -1271,16 +1271,7 @@ void AppData::OnDialNumber(int code)
 
 void AppData::OnPhoneCall(bool isActive)
 {
-    if(isActive)
-    {
-        this->OnAppDeactivated("PHONECALL");
-    }
     ToSDL->OnPhoneCall(isActive);
-}
-
-void AppData::OnAppDeactivated(std::string reason)
-{
-    ToSDL->OnAppOut(m_iAppID, reason);
 }
 
 std::string AppData::GetActiveTemplate() {

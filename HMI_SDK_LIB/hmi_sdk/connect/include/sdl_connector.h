@@ -75,7 +75,7 @@ class SDLConnector : public INetworkStatus {
  public:
   void OnAppActivated(int appID);
   void OnAppExit(int appID);
-  void OnAppOut(int appID, std::string reason = "GENERAL");
+  void OnAppOut(int appID);
 
   // mode: SHORT or LONG
   void OnSoftButtonClick(int appID, int id, int mode, std::string strName = "");

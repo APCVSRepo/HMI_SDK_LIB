@@ -218,10 +218,10 @@ void SDLConnector::OnAppExit(int appID) {
   m_Base.sendNotification("BasicCommunication.OnExitApplication", params);
 }
 
-void SDLConnector::OnAppOut(int appID, std::string reason) {
+void SDLConnector::OnAppOut(int appID) {
   Json::Value params;
   params["appID"] = appID;
-  params["reason"] = reason.c_str();
+  params["reason"] = "GENERAL";
   m_Base.sendNotification("BasicCommunication.OnAppDeactivated", params);
 }
 
@@ -424,8 +424,9 @@ void SDLConnector::OnDialNumber(int code, int dialnumberID) {
 void SDLConnector::OnPhoneCall(bool isActive)
 {
     Json::Value params;
+    params["eventName"] = ONEVENTCHANGED_PHONE_CALL;
     params["isActive"] = isActive;
-    m_Base.sendNotification("BasicCommunication.OnPhoneCall", params);
+    m_Base.sendNotification("BasicCommunication.OnEventChanged", params);
 }
 
 void SDLConnector::OnPerformAudioPassThru(int appID, int performaududiopassthruID, int code) {
