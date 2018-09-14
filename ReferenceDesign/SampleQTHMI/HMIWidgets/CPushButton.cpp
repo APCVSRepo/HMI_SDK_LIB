@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QPixmap>
 #include <QFont>
+#include <QMouseEvent>
 CPushButton::CPushButton(QWidget *parent)
     :QPushButton(parent)
     ,m_type("")
@@ -17,6 +18,12 @@ CPushButton::CPushButton(QWidget *parent)
     ,m_textAlign(Qt::AlignCenter)
     ,m_bIsEnabled(true)
     ,m_dEffect(1.0)
+    ,m_bEnableEffect(true)
+    ,m_eBtnStatus(eStatus_Normal)
+    ,m_btnNormalStyle("")
+    ,m_btnPushStyle("")
+    ,m_btnSelectStyle("")
+    ,m_btnStatusRect(QRect(0,0,0,0))
 {
     m_pEffect = new QGraphicsOpacityEffect();
     m_pEffect->setOpacity(1);
@@ -29,6 +36,7 @@ CPushButton::CPushButton(QWidget *parent)
     m_LongPressTimer.setSingleShot(true);
     connect(&m_LongPressTimer,SIGNAL(timeout()),this,SLOT(OnLongPress()),Qt::UniqueConnection);
 
+    connect(this,SIGNAL(clicked()),this,SLOT(OnClicked()),Qt::UniqueConnection);
 }
 
 void CPushButton::SetStyle(const QString &style)
@@ -61,6 +69,7 @@ void CPushButton::SetType(const QString &type)
 void CPushButton::SetStatus(CPushButton::eStatus status)
 {
     m_status = status;
+    update();
 }
 
 void CPushButton::SetId(int id)
@@ -71,6 +80,15 @@ void CPushButton::SetId(int id)
 void CPushButton::SetData(const QString &data)
 {
     m_data = data;
+}
+
+void CPushButton::SetStatusStyle(const QRect &rect, const QString &normal, const QString &push, const QString &select)
+{
+    m_btnStatusRect = rect;
+    m_btnNormalStyle = normal;
+    m_btnPushStyle = push;
+    m_btnSelectStyle = select;
+    update();
 }
 
 void CPushButton::SetEnabled(bool isEnabeled)
@@ -122,6 +140,11 @@ void CPushButton::SetEffect(double effect)
     this->setGraphicsEffect(m_pEffect);
 }
 
+void CPushButton::SetEnableEffect(bool isEnable)
+{
+    m_bEnableEffect = isEnable;
+}
+
 
 void CPushButton::MouseEvent(QEvent *e)
 {
@@ -129,12 +152,18 @@ void CPushButton::MouseEvent(QEvent *e)
     {
         return;
     }
+
     switch (e->type()) {
     case QEvent::MouseButtonPress:
     {
-        m_pEffect->setOpacity(0.4*m_dEffect);
-        this->setGraphicsEffect(m_pEffect);
-        m_LongPressTotalTimer.start();
+        m_eBtnStatus = eStatus_Push;
+        update();
+        if(m_bEnableEffect)
+        {
+            m_pEffect->setOpacity(0.4*m_dEffect);
+            this->setGraphicsEffect(m_pEffect);
+            m_LongPressTotalTimer.start();
+        }
     }
         break;
     case QEvent::MouseButtonDblClick:
@@ -149,11 +178,16 @@ void CPushButton::MouseEvent(QEvent *e)
         break;
     case QEvent::MouseButtonRelease:
     {
+        m_eBtnStatus = eStatus_Normal;
+        update();
         m_LongPressTotalTimer.stop();
         m_LongPressTimer.stop();
 
-        m_pEffect->setOpacity(1*m_dEffect);
-        this->setGraphicsEffect(m_pEffect);
+        if(m_bEnableEffect)
+        {
+            m_pEffect->setOpacity(1*m_dEffect);
+            this->setGraphicsEffect(m_pEffect);
+        }
     }
         break;
     default:
@@ -168,6 +202,23 @@ void CPushButton::paintEvent(QPaintEvent *e)
     QPushButton::paintEvent(e);
     QPainter p(this);
 
+
+    if(!m_bEnableEffect)
+    {
+        if("" != m_btnNormalStyle && eStatus_Normal == m_eBtnStatus)
+        {
+            QPixmap icon(m_btnNormalStyle);
+            p.drawPixmap(m_btnStatusRect,icon);
+        }else if("" != m_btnPushStyle && eStatus_Push == m_eBtnStatus)
+        {
+            QPixmap icon(m_btnPushStyle);
+            p.drawPixmap(m_btnStatusRect,icon);
+        }else if("" != m_btnSelectStyle && eStatus_Select == m_eBtnStatus)
+        {
+            QPixmap icon(m_btnSelectStyle);
+            p.drawPixmap(m_btnStatusRect,icon);
+        }
+    }
 
     if(m_icon != "")
     {
@@ -205,4 +256,9 @@ void CPushButton::OnLongPress()
     emit LongPress();
     if(!m_LongPressTimer.isActive())
         m_LongPressTimer.start();
+}
+
+void CPushButton::OnClicked()
+{
+    emit clicked(m_iId);
 }
