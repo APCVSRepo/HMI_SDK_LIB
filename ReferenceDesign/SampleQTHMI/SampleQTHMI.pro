@@ -183,7 +183,11 @@ SOURCES += main.cpp\
     VR/Factory/VRVFactory.cpp \
     VR/UI/VRView.cpp \
     VR/UI/VRWindow.cpp \
-    VR/UI/VRInteractionView.cpp
+    VR/UI/VRInteractionView.cpp \
+    SDLApps/Templates/Show/GraphicWithTextShow.cpp \
+    SDLApps/Templates/Show/TilesOnlyShow.cpp \
+    SDLApps/Templates/Show/GraphicWithTilesShow.cpp \
+    SDLApps/Templates/Show/TilesWithGraphicShow.cpp 
 
 
 
@@ -333,7 +337,11 @@ HEADERS  +=  \
     VR/Factory/VRVFactory.h \
     VR/UI/VRView.h \
     VR/UI/VRWindow.h \
-    VR/UI/VRInteractionView.h
+    VR/UI/VRInteractionView.h \
+    SDLApps/Templates/Show/GraphicWithTextShow.h \
+    SDLApps/Templates/Show/TilesOnlyShow.h \
+    SDLApps/Templates/Show/GraphicWithTilesShow.h \
+    SDLApps/Templates/Show/TilesWithGraphicShow.h 
 
 
 
