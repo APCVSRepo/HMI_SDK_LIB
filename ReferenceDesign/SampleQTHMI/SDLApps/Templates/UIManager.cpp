@@ -28,10 +28,14 @@
 #include "Common/AppBase.h"
 #include "Show/MediaShow.h"
 #include "Show/GraphicSoftButtonShow.h"
+#include "Show/NonMediaShow.h"
 #include "Show/GraphicWithTextShow.h"
 #include "Show/TilesOnlyShow.h"
+#include "Show/TextWithGraphicShow.h"
 #include "Show/GraphicWithTilesShow.h"
 #include "Show/TilesWithGraphicShow.h"
+#include "Show/GraphicWithTextAndSoftbuttonsShow.h"
+#include "Show/TextAndSoftbuttonsWithGraphicShow.h"
 #include "utils/VideoStream/CeVideoStream.h"
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/Data/SDLAppsData.h"
@@ -121,13 +125,32 @@ void UIManager::initAppHMI() {
 
         tpl.SetScene(ID_SHOW, new CGraphicSoftButtonShow(m_pList, pParent));
     }
-   //GraphicWithTextShow
+
+    //non-media
+    if (m_TplManager.Create(NON_MEDIA, NON_MEDIA_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(NON_MEDIA);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CNonMediaShow(m_pList, pParent));
+    }
+
+    //GraphicWithTextShow
     if (m_TplManager.Create(GRAPHIC_WITH_TEXT, GRAPHIC_WITH_TEXT_PROPERTY)) {
         TemplateImp &tpl = m_TplManager.Get(GRAPHIC_WITH_TEXT);
         SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
         QWidget *pParent = pMain->CenterWidget();
 
         tpl.SetScene(ID_SHOW, new CGraphicWithTextShow(m_pList, pParent));
+    }
+
+    //TextWithGraphicShow
+    if (m_TplManager.Create(TEXT_WITH_GRAPHIC, TEXT_WITH_GRAPHIC_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(TEXT_WITH_GRAPHIC);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CTextWithGraphicShow(m_pList, pParent));
     }
 
     //TilesOnlyShow
@@ -140,7 +163,7 @@ void UIManager::initAppHMI() {
     }
 
     //GraphicWithTilesShow
-    if (m_TplManager.Create(GRAPHIC_WITH_TILES, TILES_ONLY_PROPERTY)) {
+    if (m_TplManager.Create(GRAPHIC_WITH_TILES, GRAPHIC_WITH_TILES_PROPERTY)) {
         TemplateImp &tpl = m_TplManager.Get(GRAPHIC_WITH_TILES);
         SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
         QWidget *pParent = pMain->CenterWidget();
@@ -155,6 +178,24 @@ void UIManager::initAppHMI() {
         QWidget *pParent = pMain->CenterWidget();
 
         tpl.SetScene(ID_SHOW, new CTilesWithGraphicShow(m_pList, pParent));
+    }
+
+    //GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS
+    if (m_TplManager.Create(GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS, GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CGraphicWithTextAndSoftbuttonsShow(m_pList, pParent));
+    }
+
+    //TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC
+    if (m_TplManager.Create(TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC,TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CTextAndSoftbuttonsWithGraphicShow(m_pList, pParent));
     }
 
     m_iCurUI = ID_MAIN;
