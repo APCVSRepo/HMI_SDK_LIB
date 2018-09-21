@@ -43,7 +43,7 @@ CTextAndSoftbuttonsWithGraphicShow::CTextAndSoftbuttonsWithGraphicShow(AppListIn
 
     //top widget
     m_pTopWidget = new TopNavigateWidget(this);
-    m_pTopWidget->SetReturnTitle(QString("Sources"));
+    m_pTopWidget->SetReturnTitle(QString(""));
     m_pTopWidget->ShowBack();
     m_pTopWidget->ShowTitle();
     m_pTopWidget->ShowMenu();
