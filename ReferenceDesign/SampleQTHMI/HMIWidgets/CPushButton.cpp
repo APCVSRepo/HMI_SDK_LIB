@@ -25,6 +25,7 @@ CPushButton::CPushButton(QWidget *parent)
     ,m_btnSelectStyle("")
     ,m_btnStatusRect(QRect(0,0,0,0))
 {
+    setStyleSheet("QPushButton{border:none;background:transparent;}");
     m_pEffect = new QGraphicsOpacityEffect();
     m_pEffect->setOpacity(1);
     this->setGraphicsEffect(m_pEffect);
