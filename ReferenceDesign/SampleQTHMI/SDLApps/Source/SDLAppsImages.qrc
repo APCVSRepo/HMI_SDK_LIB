@@ -34,5 +34,7 @@
         <file>images/146_he.png</file>
         <file>images/146_he_P.png</file>
         <file>images/KUANG_321.png</file>
+        <file>images/button_320.png</file>
+        <file>images/button_320_P.png</file>
     </qresource>
 </RCC>
