@@ -43,6 +43,11 @@ namespace hmisdk {
 #define TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC "TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC"
 #define TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC_PROPERTY "this is text and softbuttons  with graphic template"
 
+#define GRAPHIC_WITH_TEXTBUTTONS "GRAPHIC_WITH_TEXTBUTTONS"
+#define GRAPHIC_WITH_TEXTBUTTONS_PROPERTY "this is graphic with textbuttons template"
+
+#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS "DOUBLE_GRAPHIC_WITH_SOFTBUTTONS"
+#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is graphic double graphic with softbuttons template"
 
 enum MenuCmdId {
   CMDID_MENU_FM = 101,
