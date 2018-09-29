@@ -191,7 +191,9 @@ SOURCES += main.cpp\
     SDLApps/Templates/Show/GraphicWithTilesShow.cpp \
     SDLApps/Templates/Show/TilesWithGraphicShow.cpp \
     SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.cpp \
-    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.cpp
+    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.cpp \
+    SDLApps/Templates/Show/GraphicWithTextButtonsShow.cpp \
+    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.cpp
 
 
 
@@ -349,7 +351,9 @@ HEADERS  +=  \
     SDLApps/Templates/Show/GraphicWithTilesShow.h \
     SDLApps/Templates/Show/TilesWithGraphicShow.h \
     SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.h \
-    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.h
+    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.h \
+    SDLApps/Templates/Show/GraphicWithTextButtonsShow.h \
+    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.h
 
 
 
