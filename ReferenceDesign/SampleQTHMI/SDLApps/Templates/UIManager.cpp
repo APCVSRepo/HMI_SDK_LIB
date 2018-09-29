@@ -36,6 +36,8 @@
 #include "Show/TilesWithGraphicShow.h"
 #include "Show/GraphicWithTextAndSoftbuttonsShow.h"
 #include "Show/TextAndSoftbuttonsWithGraphicShow.h"
+#include "Show/GraphicWithTextButtonsShow.h"
+#include "Show/DoubleGraphicSoftbuttonsShow.h"
 #include "utils/VideoStream/CeVideoStream.h"
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/Data/SDLAppsData.h"
@@ -197,6 +199,25 @@ void UIManager::initAppHMI() {
 
         tpl.SetScene(ID_SHOW, new CTextAndSoftbuttonsWithGraphicShow(m_pList, pParent));
     }
+
+    //GRAPHIC_WITH_TEXTBUTTONS
+    if (m_TplManager.Create(GRAPHIC_WITH_TEXTBUTTONS,GRAPHIC_WITH_TEXTBUTTONS_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(GRAPHIC_WITH_TEXTBUTTONS);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CGraphicWithTextButtonsShow(m_pList, pParent));
+    }
+
+    //DOUBLE_GRAPHIC_WITH_SOFTBUTTONS
+    if (m_TplManager.Create(DOUBLE_GRAPHIC_WITH_SOFTBUTTONS,DOUBLE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(DOUBLE_GRAPHIC_WITH_SOFTBUTTONS);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CDoubleGraphicSoftbuttonsShow(m_pList, pParent));
+    }
+
 
     m_iCurUI = ID_MAIN;
     m_sCurTpln = DEFAULT_TEMPLATE;
