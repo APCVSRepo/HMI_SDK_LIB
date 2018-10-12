@@ -38,6 +38,9 @@
 #include "Show/TextAndSoftbuttonsWithGraphicShow.h"
 #include "Show/GraphicWithTextButtonsShow.h"
 #include "Show/DoubleGraphicSoftbuttonsShow.h"
+#include "Show/TextButtonsWithGraphicShow.h"
+#include "Show/TextButtonsOnlyShow.h"
+#include "Show/LargeGraphicOnlyShow.h"
 #include "utils/VideoStream/CeVideoStream.h"
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/Data/SDLAppsData.h"
@@ -71,8 +74,9 @@ std::string GetSDKLibPath() {
     return strResult;
 }
 
-UIManager::UIManager(QWidget *parent) :
-    QWidget(parent) {
+UIManager::UIManager(QWidget *parent)
+    : QWidget(parent)
+{
 
 }
 
@@ -218,6 +222,32 @@ void UIManager::initAppHMI() {
         tpl.SetScene(ID_SHOW, new CDoubleGraphicSoftbuttonsShow(m_pList, pParent));
     }
 
+    //TEXTBUTTONS_WITH_GRAPHIC
+    if (m_TplManager.Create(TEXTBUTTONS_WITH_GRAPHIC,TEXTBUTTONS_WITH_GRAPHIC_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(TEXTBUTTONS_WITH_GRAPHIC);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CTextButtonsWithGraphicShow(m_pList, pParent));
+    }
+
+    //TEXTBUTTONS_ONLY
+    if (m_TplManager.Create(TEXTBUTTONS_ONLY,TEXTBUTTONS_ONLY_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(TEXTBUTTONS_ONLY);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CTextButtonsOnlyShow(m_pList, pParent));
+    }
+
+    //LARGE_GRAPHIC_ONLY
+    if (m_TplManager.Create(LARGE_GRAPHIC_ONLY,LARGE_GRAPHIC_ONLY_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(LARGE_GRAPHIC_ONLY);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CLargeGraphicOnlyShow(m_pList, pParent));
+    }
 
     m_iCurUI = ID_MAIN;
     m_sCurTpln = DEFAULT_TEMPLATE;
