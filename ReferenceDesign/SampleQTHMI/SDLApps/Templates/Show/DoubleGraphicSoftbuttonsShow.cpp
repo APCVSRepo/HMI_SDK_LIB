@@ -1,4 +1,4 @@
-#include "DoubleGraphicSoftbuttons.h"
+#include "DoubleGraphicSoftbuttonsShow.h"
 #include <QUrl>
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/app/SDLApps.h"
@@ -31,13 +31,13 @@ CDoubleGraphicSoftbuttonsShow::CDoubleGraphicSoftbuttonsShow(AppListInterface *p
 
     //Graphic
     m_pGraphicFrame = new QLabel(this);
-    m_pGraphicFrame->setGeometry(81,119,212,212);
-    m_pGraphicFrame->setStyleSheet("QLabel{border-image:url(:/SDLApps/Source/images/KUANG_321.png);background:transparent;}");
+    m_pGraphicFrame->setGeometry(81,119,218,218);
+    m_pGraphicFrame->setStyleSheet("QLabel{border-image:url(:/SDLApps/Source/images/KUANG_218.png);background:transparent;}");
     m_pGraphicFrame->show();
 
 
     m_pGraphic = new QLabel(this);
-    m_pGraphic->setGeometry(85,123,204,204);
+    m_pGraphic->setGeometry(85,123,210,210);
     m_pGraphic->setStyleSheet("QLabel{background:transparent;}");
     m_pGraphic->show();
 
@@ -130,7 +130,7 @@ void CDoubleGraphicSoftbuttonsShow::showEvent(QShowEvent *e) {
 #else
                 QString path = QString::fromStdString(ChangeSlash(graphicUrl.path().toStdString()));
 #endif
-                m_pGraphic->setPixmap(QPixmap(path).scaled(204,204,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+                m_pGraphic->setPixmap(QPixmap(path).scaled(210,210,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
             }
         } else {
             m_pGraphic->setPixmap(QPixmap(""));
