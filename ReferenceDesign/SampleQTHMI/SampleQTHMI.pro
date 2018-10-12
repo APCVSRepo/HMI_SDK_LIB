@@ -193,7 +193,10 @@ SOURCES += main.cpp\
     SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.cpp \
     SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.cpp \
     SDLApps/Templates/Show/GraphicWithTextButtonsShow.cpp \
-    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.cpp
+    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.cpp \
+    SDLApps/Templates/Show/TextButtonsWithGraphicShow.cpp \
+    SDLApps/Templates/Show/TextButtonsOnlyShow.cpp \
+    SDLApps/Templates/Show/LargeGraphicOnlyShow.cpp
 
 
 
@@ -353,7 +356,10 @@ HEADERS  +=  \
     SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.h \
     SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.h \
     SDLApps/Templates/Show/GraphicWithTextButtonsShow.h \
-    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.h
+    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.h \
+    SDLApps/Templates/Show/TextButtonsWithGraphicShow.h \
+    SDLApps/Templates/Show/TextButtonsOnlyShow.h \
+    SDLApps/Templates/Show/LargeGraphicOnlyShow.h
 
 
 
