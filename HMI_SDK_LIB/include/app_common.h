@@ -58,6 +58,9 @@ namespace hmisdk {
 #define LARGE_GRAPHIC_ONLY "LARGE_GRAPHIC_ONLY"
 #define LARGE_GRAPHIC_ONLY_PROPERTY "this is textbuttons only template"
 
+#define ONSCREEN_PRESETS "ONSCREEN_PRESETS"
+#define ONSCREEN_PRESETS_PROPERTY "this is onscreen presets template"
+
 enum MenuCmdId {
   CMDID_MENU_FM = 101,
   CMDID_MENU_TEL,
