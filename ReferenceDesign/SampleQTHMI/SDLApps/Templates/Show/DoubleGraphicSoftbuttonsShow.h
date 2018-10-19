@@ -19,7 +19,6 @@ public:
     void DeleteButton(int index);
     void removeAllButton();
 
-    // QWidget interface
 protected:
     void showEvent(QShowEvent *e);
 public slots:
@@ -49,7 +48,7 @@ private:
     QLabel *m_pGraphic;
     QLabel *m_pSecGraphic;
 
-    //right softbutton
+    //softbutton
     QWidget *m_pRightArea;
     std::vector <SSoftButton> m_vSoftButtons;
     QList<CPushButton *> m_lSoftButtons;

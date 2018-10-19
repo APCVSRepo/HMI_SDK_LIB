@@ -19,7 +19,6 @@ public:
     void DeleteButton(int index);
     void removeAllButton();
 
-    // QWidget interface
 protected:
     void showEvent(QShowEvent *e);
 public slots:

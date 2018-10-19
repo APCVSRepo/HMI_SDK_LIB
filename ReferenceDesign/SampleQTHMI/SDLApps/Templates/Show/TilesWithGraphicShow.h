@@ -48,7 +48,7 @@ private:
     QLabel *m_pGraphicFrame;
     QLabel *m_pGraphic;
 
-    //right softbutton
+    //softbutton
     QWidget *m_pRightArea;
     std::vector <SSoftButton> m_vSoftButtons;
     QList<CPushButton *> m_lSoftButtons;

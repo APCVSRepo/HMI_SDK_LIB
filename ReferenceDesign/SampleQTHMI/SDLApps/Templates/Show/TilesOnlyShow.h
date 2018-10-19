@@ -44,7 +44,7 @@ private:
     int m_btnXSpace;
     int m_btnYSpace;
 
-    //right softbutton
+    //softbutton
     QWidget *m_pRightArea;
     std::vector <SSoftButton> m_vSoftButtons;
     QList<CPushButton *> m_lSoftButtons;

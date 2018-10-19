@@ -32,7 +32,7 @@ private:
     //navigate item
     TopNavigateWidget *m_pTopWidget;
 
-    //right softbutton
+    //softbutton
     QWidget *m_pRightArea;
     std::vector <SSoftButton> m_vSoftButtons;
     CButton m_aSoftBtn[RIGHT_BTN_NUM];
