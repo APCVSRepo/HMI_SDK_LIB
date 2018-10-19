@@ -41,6 +41,7 @@
 #include "Show/TextButtonsWithGraphicShow.h"
 #include "Show/TextButtonsOnlyShow.h"
 #include "Show/LargeGraphicOnlyShow.h"
+#include "Show/OnscreenPresetsShow.h"
 #include "utils/VideoStream/CeVideoStream.h"
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/Data/SDLAppsData.h"
@@ -247,6 +248,15 @@ void UIManager::initAppHMI() {
         QWidget *pParent = pMain->CenterWidget();
 
         tpl.SetScene(ID_SHOW, new CLargeGraphicOnlyShow(m_pList, pParent));
+    }
+
+    //ONSCREEN_PRESETS
+    if (m_TplManager.Create(ONSCREEN_PRESETS,ONSCREEN_PRESETS_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(ONSCREEN_PRESETS);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new COnscreenPresetsShow(m_pList, pParent));
     }
 
     m_iCurUI = ID_MAIN;
