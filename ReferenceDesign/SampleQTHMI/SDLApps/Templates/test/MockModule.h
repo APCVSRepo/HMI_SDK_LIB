@@ -204,7 +204,7 @@ namespace test {
                 MOCK_METHOD1(SetAppListInterface,void(AppListInterface *pList));
                 MOCK_METHOD0(initAppHMI,void());
                 MOCK_METHOD1(FindTemplate,bool(std::string name));
-		MOCK_METHOD0(GetCurViewId,int());
+                MOCK_METHOD0(GetCurViewId,int());
 
             };
         }
