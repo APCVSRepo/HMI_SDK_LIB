@@ -47,11 +47,11 @@ CGraphicWithTextShow::CGraphicWithTextShow(AppListInterface *pList, QWidget *par
 
     //graphic
     m_pFrameLab = new QLabel(this);
-    m_pFrameLab->setGeometry(QRect(40,78,300,300));
-    m_pFrameLab->setStyleSheet("QLabel{border-image:url(:/SDLApps/Source/images/KUANG.png);background:transparent;}");
+    m_pFrameLab->setGeometry(QRect(85,118,218,218));
+    m_pFrameLab->setStyleSheet("QLabel{border-image:url(:/SDLApps/Source/images/KUANG_218.png);background:transparent;}");
     m_pFrameLab->show();
     m_pMusicPicLab = new QLabel(this);
-    m_pMusicPicLab->setGeometry(85,123,210,210);
+    m_pMusicPicLab->setGeometry(89,122,210,210);
     m_pMusicPicLab->setStyleSheet("background:transparent;");
 }
 

@@ -29,12 +29,11 @@ private:
     //navigate item
     TopNavigateWidget *m_pTopWidget;
 
-    //right softbutton
-    QWidget *m_pRightArea;
     //textfield
     QLabel m_aShowLine[SHOW_LINE_NUM];
 
     //graphic
+    QLabel *m_pFrameLab;
     QLabel *m_pMusicPicLab;
 };
 

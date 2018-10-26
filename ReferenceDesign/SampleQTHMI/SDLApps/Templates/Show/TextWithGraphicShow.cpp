@@ -11,7 +11,7 @@ CTextWithGraphicShow::CTextWithGraphicShow(AppListInterface *pList, QWidget *par
     :QWidget(parent)
     ,m_pList(pList)
     ,m_pTopWidget(NULL)
-    ,m_pRightArea(NULL)
+    ,m_pFrameLab(NULL)
     ,m_pMusicPicLab(NULL)
 {
     if (parent) {
@@ -27,34 +27,31 @@ CTextWithGraphicShow::CTextWithGraphicShow(AppListInterface *pList, QWidget *par
     connect(m_pTopWidget, SIGNAL(SigMenuClicked()), this, SLOT(BtnMenuClickedSlots()));
     connect(m_pTopWidget, SIGNAL(SigBackClicked()), this, SLOT(BtnBackClickedSlots()));
 
-    //right area
-    m_pRightArea = new QWidget(this);
-    m_pRightArea->setGeometry(800-116,75,116,(32+20)*5-20);
-
-    QVBoxLayout *pRightLayout = new QVBoxLayout;
-    pRightLayout->setSpacing(20);
-    pRightLayout->setMargin(0);
-
     //textfield
     m_aShowLine[0].setParent(this);
-    m_aShowLine[0].setStyleSheet("border:0px;font: 24px;color:rgb(116,118,126)");
-    m_aShowLine[0].setGeometry(54,100,317,33);
+    m_aShowLine[0].setStyleSheet("border:0px;font: 26px;color:#74767E");
+    m_aShowLine[0].setGeometry(82,103,380,60);
+    m_aShowLine[0].setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
     m_aShowLine[0].show();
 
     m_aShowLine[1].setParent(this);
-    m_aShowLine[1].setStyleSheet("border:0px;font: 26px;color:rgb(116,118,126)");
-    m_aShowLine[1].setGeometry(54,100+33+5,317,36);
+    m_aShowLine[1].setStyleSheet("border:0px;font: 26px;color:#74767E");
+    m_aShowLine[1].setGeometry(82,163,380,60);
+    m_aShowLine[1].setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
     m_aShowLine[2].setParent(this);
-    m_aShowLine[2].setStyleSheet("border:0px;font: 30px;color:rgb(238,238,238)");
-    m_aShowLine[2].setGeometry(54,100+33+5+36+1,317,41);
-
-
-    m_pRightArea->setLayout(pRightLayout);
+    m_aShowLine[2].setStyleSheet("border:0px;font: 26px;color:#74767E");
+    m_aShowLine[2].setGeometry(82,223,380,60);
+    m_aShowLine[2].setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
     //graphic
+    m_pFrameLab = new QLabel(this);
+    m_pFrameLab->setGeometry(QRect(82+380+39,118,218,218));
+    m_pFrameLab->setStyleSheet("QLabel{border-image:url(:/SDLApps/Source/images/KUANG_218.png);background:transparent;}");
+    m_pFrameLab->show();
+
     m_pMusicPicLab = new QLabel(this);
-    m_pMusicPicLab->setGeometry(80+262+15,70,200,200);
+    m_pMusicPicLab->setGeometry(82+380+39+4,122,210,210);
     m_pMusicPicLab->setStyleSheet("background:transparent");
 }
 
@@ -105,7 +102,7 @@ void CTextWithGraphicShow::showEvent(QShowEvent *e) {
             if ("RIGHT_ALIGNED" == align) {
                 alignMode = Qt::AlignRight;
             } else if ("CENTERED" == align) {
-                alignMode = Qt::AlignHCenter;
+                alignMode = Qt::AlignVCenter;
             }
         }
         if (jsonParams.isMember("showStrings")) {
