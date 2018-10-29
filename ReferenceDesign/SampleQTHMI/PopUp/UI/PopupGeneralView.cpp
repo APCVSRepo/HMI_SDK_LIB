@@ -368,7 +368,7 @@ void PopupGeneralView::Finish()
 void PopupGeneralView::OnTimer()
 {
     this->hide();
-    emit SigTimerOut(GetPopUpId());
+    emit SigTimerOut(GetPopUpId(), GetPopUpReplyTimeOut());
 }
 
 void PopupGeneralView::OnButtonA()

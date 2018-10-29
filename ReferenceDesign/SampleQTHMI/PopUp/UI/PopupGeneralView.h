@@ -52,7 +52,7 @@ public:
     void DrawContextB(QString context, QString light);
     void HighLightText(QString light);
 signals:
-    void SigTimerOut(const QString& Id);
+    void SigTimerOut(const QString& Id, const QString& replayInfo);
     void SigButtonClick(const QString& Id,const QString& replayInfo);
 public slots:
     void OnTimer();

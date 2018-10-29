@@ -183,7 +183,8 @@ SOURCES += main.cpp\
     VR/Factory/VRVFactory.cpp \
     VR/UI/VRView.cpp \
     VR/UI/VRWindow.cpp \
-    VR/UI/VRInteractionView.cpp
+    VR/UI/VRInteractionView.cpp \
+    SDLApps/Templates/AudioPassThru/AudioPassThru.cpp
 
 
 
@@ -333,7 +334,8 @@ HEADERS  +=  \
     VR/Factory/VRVFactory.h \
     VR/UI/VRView.h \
     VR/UI/VRWindow.h \
-    VR/UI/VRInteractionView.h
+    VR/UI/VRInteractionView.h \
+    SDLApps/Templates/AudioPassThru/AudioPassThru.h
 
 
 

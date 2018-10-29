@@ -22,6 +22,8 @@ include_directories(
     ${SDLAPPS_TEMPLATES_DIR}/Alert/test
     ${SDLAPPS_TEMPLATES_DIR}/AppListView
     ${SDLAPPS_TEMPLATES_DIR}/AppListView/test
+    ${SDLAPPS_TEMPLATES_DIR}/AudioPassThru
+    ${SDLAPPS_TEMPLATES_DIR}/AudioPassThru/test
     ${SDLAPPS_TEMPLATES_DIR}/ChoiceSet
     ${SDLAPPS_TEMPLATES_DIR}/ChoiceSet/test
     ${SDLAPPS_TEMPLATES_DIR}/CommandView
@@ -46,6 +48,7 @@ set (SDLAPPS_SOURCES_TEST test_main.cc)
 aux_source_directory(./test                    SDLAPPS_SOURCES_TEST)
 aux_source_directory(./Alert/test              SDLAPPS_SOURCES_TEST)
 aux_source_directory(./AppListView/test        SDLAPPS_SOURCES_TEST)
+aux_source_directory(./AudioPassThru/test      SDLAPPS_SOURCES_TEST)
 aux_source_directory(./ChoiceSet/test          SDLAPPS_SOURCES_TEST)
 aux_source_directory(./CommandView/test        SDLAPPS_SOURCES_TEST)
 aux_source_directory(./Common/test             SDLAPPS_SOURCES_TEST)

@@ -121,6 +121,9 @@ class SDLConnector : public INetworkStatus {
   void OnDeviceChosen(std::string name, std::string id);
   void OnFindApplications(std::string name, std::string id);
 
+  // code: OK or Failed
+  void OnEndAudioPassThru(int endaududiopassthruID, int code);
+
  private:
   void _onButtonClickAction(int appID, std::string, std::string, int);
   void _onButtonClickAction2(int appID, std::string, std::string, int);
