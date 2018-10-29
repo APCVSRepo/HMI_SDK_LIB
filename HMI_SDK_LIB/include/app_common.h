@@ -40,6 +40,7 @@ enum ShowType {
   ID_MEDIACLOCK,	///<  MediaClockTimer画面
   ID_VIDEOSTREAM,	///<  VideoStream画面
   ID_MAIN,	///<  Main画面
+  ID_DIALNUMBER,	///<  拨打电话画面
   ID_UI_MAX
 };
 

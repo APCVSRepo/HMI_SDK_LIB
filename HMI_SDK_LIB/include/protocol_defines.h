@@ -66,6 +66,17 @@ namespace hmisdk {
 #define SPEEK_INTERRUPTED               5
 /** @}*/
 
+/**@name    OnEventChanged类型
+* @{
+*/
+#define ONEVENTCHANGED_INVALID_ENUM     -1
+#define ONEVENTCHANGED_AUDIO_SOURCE     0
+#define ONEVENTCHANGED_EMBEDDED_NAVI    1
+#define ONEVENTCHANGED_PHONE_CALL       2
+#define ONEVENTCHANGED_EMERGENCY_EVENT  3
+#define ONEVENTCHANGED_DEACTIVATE_HMI   4
+/** @}*/
+
 /**  屏幕操作枚举类型*/
 typedef enum {
   TOUCH_START,	///<  按下

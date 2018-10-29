@@ -94,6 +94,7 @@ namespace test {
                 MOCK_METHOD0(getSlider,Json::Value&());
                 MOCK_METHOD0(getScrollableMsgJson,Json::Value&());
                 MOCK_METHOD0(getAudioPassThruJson,Json::Value&());
+                MOCK_METHOD0(getDialNumberJson,Json::Value&());
                 MOCK_METHOD0(getInteractionJson,Json::Value&());
                 MOCK_METHOD0(getMediaClockJson,Json::Value&());
                 MOCK_METHOD0(getCommandList,std::vector<SMenuCommand>());
@@ -113,6 +114,8 @@ namespace test {
                 MOCK_METHOD3(OnPerformInteraction,void(int code, int choiceID, bool bVR));
                 MOCK_METHOD1(OnSetMediaClockTimerResponse,void(int code));
                 MOCK_METHOD3(OnVideoScreenTouch,void(TOUCH_TYPE touch, int x, int y));
+                MOCK_METHOD1(OnDialNumber,void(int code));
+                MOCK_METHOD1(OnPhoneCall,void(bool isActive));
                 MOCK_METHOD0(GetActiveTemplate,std::string());
                 MOCK_METHOD0(getAppID,int());
 
@@ -198,13 +201,14 @@ namespace test {
                 MOCK_METHOD0(onVideoStreamStart,void());
                 MOCK_METHOD0(onVideoStreamStop,void());
                 MOCK_METHOD0(OnEndAudioPassThru,void());
+                MOCK_METHOD0(OnDialNumber,void());
                 MOCK_METHOD2(tsSpeak,void(int VRID, std::string strText));
                 MOCK_METHOD0(ShowDeviceList,void());
                 MOCK_METHOD1(SetSDLStatus,void(bool bConnect));
                 MOCK_METHOD1(SetAppListInterface,void(AppListInterface *pList));
                 MOCK_METHOD0(initAppHMI,void());
                 MOCK_METHOD1(FindTemplate,bool(std::string name));
-		MOCK_METHOD0(GetCurViewId,int());
+                MOCK_METHOD0(GetCurViewId,int());
 
             };
         }

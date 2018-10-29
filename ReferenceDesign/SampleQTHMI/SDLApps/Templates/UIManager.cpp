@@ -61,8 +61,9 @@ std::string GetSDKLibPath() {
     return strResult;
 }
 
-UIManager::UIManager(QWidget *parent) :
-    QWidget(parent) {
+UIManager::UIManager(QWidget *parent)
+    : QWidget(parent)
+{
 
 }
 
@@ -81,11 +82,6 @@ void UIManager::SetAppListInterface(AppListInterface *pList) {
 
 bool UIManager::FindTemplate(std::string name) {
     return m_TplManager.Find(name);
-}
-
-UIManager::UIManager(AppListInterface *pList, QWidget *parent) :
-    QWidget(parent) {
-    m_pList = pList;
 }
 
 UIManager::~UIManager() {
@@ -146,6 +142,15 @@ void UIManager::ExitApp()
 int UIManager::GetCurViewId()
 {
     return m_iCurUI;
+}
+
+void UIManager::OnPhoneCall(bool isActive)
+{
+    INFO("UIManager::OnPhoneCall %d", isActive);
+    AppDataInterface *pData = AppControl;
+    if (!pData) return;
+    INFO("UIManager::OnPhoneCall pData->OnPhoneCall(isActive);");
+    pData->OnPhoneCall(isActive);
 }
 
 void UIManager::onAppActive() {
@@ -292,6 +297,7 @@ void UIManager::AppShowSlot(int type) {
         emit onVideoStartSignal();
     }
     INFO("type 5= %d", type);
+
     // 特殊处理MEDIA模板Show画面的mediaclock请求
     if ("MEDIA" == tplname && ID_MEDIACLOCK == type) {
         CMediaShow *pShow = (CMediaShow *)tpl.GetScene(ID_SHOW);
@@ -319,16 +325,16 @@ void UIManager::AppShowSlot(int type) {
     }
 }
 
-void UIManager::waitMSec(int ms) {
-    Q_UNUSED(ms);
-}
-
 void UIManager::tsSpeak(int VRID, std::string strText) {
     Q_UNUSED(VRID);
     Q_UNUSED(strText);
 }
 
 void UIManager::OnEndAudioPassThru() {
+    INFO("UIManager::OnEndAudioPassThru");
+    AppDataInterface *pData = AppControl;
+    if (!pData) return;
+    AppControl->OnPerformAudioPassThru(0);
 }
 
 void UIManager::ShowDeviceList() {

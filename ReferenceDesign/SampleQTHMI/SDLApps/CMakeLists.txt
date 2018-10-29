@@ -13,10 +13,12 @@ include_directories (
     ${SDLAPPS_DIR}/Templates
     ${SDLAPPS_DIR}/Templates/Alert
     ${SDLAPPS_DIR}/Templates/AppListView
+    ${SDLAPPS_DIR}/Templates/AudioPassThru
     ${SDLAPPS_DIR}/Templates/ChoiceSet
     ${SDLAPPS_DIR}/Templates/CommandView
     ${SDLAPPS_DIR}/Templates/Common
     ${SDLAPPS_DIR}/Templates/Config
+    ${SDLAPPS_DIR}/Templates/DialNumber
     ${SDLAPPS_DIR}/Templates/ScrollableMessage
     ${SDLAPPS_DIR}/Templates/Show
     ${SDLAPPS_DIR}/Templates/SliderView
@@ -33,10 +35,12 @@ aux_source_directory(./Data                         SDLAPPS_SOURCES)
 aux_source_directory(./Factory                      SDLAPPS_SOURCES)
 aux_source_directory(./Templates/Alert              SDLAPPS_SOURCES)
 aux_source_directory(./Templates/AppListView        SDLAPPS_SOURCES)
+aux_source_directory(./Templates/AudioPassThru      SDLAPPS_SOURCES)
 aux_source_directory(./Templates/ChoiceSet          SDLAPPS_SOURCES)
 aux_source_directory(./Templates/CommandView        SDLAPPS_SOURCES)
 aux_source_directory(./Templates/Common             SDLAPPS_SOURCES)
 aux_source_directory(./Templates/Config             SDLAPPS_SOURCES)
+aux_source_directory(./Templates/DialNumber         SDLAPPS_SOURCES)
 aux_source_directory(./Templates/ScrollableMessage  SDLAPPS_SOURCES)
 aux_source_directory(./Templates/Show               SDLAPPS_SOURCES)
 aux_source_directory(./Templates/SliderView         SDLAPPS_SOURCES)

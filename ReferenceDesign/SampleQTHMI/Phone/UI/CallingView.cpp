@@ -41,6 +41,10 @@ void CallingView::viewAction(int state)
             UpdateData();
             AddCall();
             PhoneData::Inst()->SetCallingStatus(true);
+
+            map<string,string> p;
+            p.insert(make_pair("PhoneCallStatus","true"));
+            HMIFrameWork::Inst()->Notify(SDLAPPS_ID,p);
         }
         this->show();
         break;
@@ -349,6 +353,11 @@ void CallingView::OnHangUp()
 {
     m_callTimer1.stop();
     PhoneData::Inst()->SetCallingStatus(false);
+
+    map<string,string> p;
+    p.insert(make_pair("PhoneCallStatus","false"));
+    HMIFrameWork::Inst()->Notify(SDLAPPS_ID,p);
+
     if(Phone::Inst()->IsOutAppCall())
     {
         HMIFrameWork::Inst()->AppBack();

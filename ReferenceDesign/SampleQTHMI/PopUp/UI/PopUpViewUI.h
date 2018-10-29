@@ -34,7 +34,7 @@ private:
 signals:
 
 public slots:
-    void OnTimerOut(const QString& Id);
+    void OnTimerOut(const QString& Id,const QString& replayInfo);
     void OnButtonClick(const QString& Id,const QString& replayInfo);
     void OnPopUpNotify(string appId,map<string, string> parameter);
 private:

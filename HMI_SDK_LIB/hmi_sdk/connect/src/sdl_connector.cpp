@@ -385,6 +385,50 @@ void SDLConnector::OnFindApplications(std::string name, std::string id) {
   m_Base.sendNotification("BasicCommunication.OnFindApplications", params);
 }
 
+void SDLConnector::OnEndAudioPassThru(int endaududiopassthruID, int code) {
+    if (code == 0) {
+      Json::Value result;
+      result["code"] = code;
+      result["method"] = "UI.EndAudioPassThru";
+      m_UI.sendResult(endaududiopassthruID, result);
+    } else {
+      Json::Value error;
+      Json::Value data;
+
+      data["method"] = "UI.EndAudioPassThru";
+      error["code"] = code;
+      error["message"] = "EndAudioPassThru failed!";
+      error["data"] = data;
+      m_UI.sendError(endaududiopassthruID, error);
+    }
+}
+
+void SDLConnector::OnDialNumber(int code, int dialnumberID) {
+    if (code == 0) {
+      Json::Value result;
+      result["code"] = code;
+      result["method"] = "BasicCommunication.DialNumber";
+      m_Base.sendResult(dialnumberID, result);
+    } else {
+      Json::Value error;
+      Json::Value data;
+
+      data["method"] = "BasicCommunication.DialNumber";
+      error["code"] = code;
+      error["message"] = "DialNumber request aborted";
+      error["data"] = data;
+      m_Base.sendError(dialnumberID, error);
+    }
+}
+
+void SDLConnector::OnPhoneCall(bool isActive)
+{
+    Json::Value params;
+    params["eventName"] = ONEVENTCHANGED_PHONE_CALL;
+    params["isActive"] = isActive;
+    m_Base.sendNotification("BasicCommunication.OnEventChanged", params);
+}
+
 void SDLConnector::OnPerformAudioPassThru(int appID, int performaududiopassthruID, int code) {
   _stopPerformAudioPassThru(appID);
   Json::Value root;

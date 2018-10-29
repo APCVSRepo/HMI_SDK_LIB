@@ -12,9 +12,9 @@ using namespace hmisdk;
 
 class UIManager : public QWidget, public UIInterface {
     Q_OBJECT
+
 public:
     explicit UIManager(QWidget *parent = NULL);
-    explicit UIManager(AppListInterface *pList, QWidget *parent = NULL);
     ~UIManager();
 
     void SetAppListInterface(AppListInterface *pList);
@@ -45,6 +45,8 @@ public:
     void ExitApp();
 
     int GetCurViewId();
+
+    void OnPhoneCall(bool isActive);
 signals:
     void onAppShowSignal(int type);
     void onAppActivatedSignal(AppDataInterface *pInterface);
@@ -73,8 +75,6 @@ private:
     AppListInterface *m_pList;
     QLibrary m_sdk;
     TemplateManager m_TplManager;
-
-    void waitMSec(int ms);
 };
 
 #endif // UIMANAGER_H

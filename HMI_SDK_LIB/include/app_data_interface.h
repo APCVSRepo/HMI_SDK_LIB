@@ -11,7 +11,7 @@
 #define APPDATAINTERFACE_H
 
 #include "rpc_value_interface.h"
-#include <string.h>
+#include <string>
 #include <vector>
 #include "global_first.h"
 #include "app_common.h"
@@ -106,6 +106,15 @@ class AppDataInterface {
    * @note		Show画面在media模式时，可通过SetMediaClockTimer rpc请求设置媒体播放进度栏
    */
   virtual rpcValueInterface &getMediaClockJson() = 0;
+
+  /**
+   * 获取DialNumber画面需要的rpc数据
+   * @return		rpcValueInterface&
+   * @ref
+   * @see
+   * @note
+   */
+  virtual rpcValueInterface &getDialNumberJson() = 0;
 
   /**
    * 获取所有菜单命令项数据
@@ -274,6 +283,26 @@ class AppDataInterface {
    * @note		VideoStream画面点击移动操作时通知SDK，调用SDK该函数将通知传递给手机端App
    */
   virtual void OnVideoScreenTouch(TOUCH_TYPE touch, int x, int y) = 0;
+
+    /**
+     * 请求拨打电话的Popup画面的操作通知
+     * @param[in]	执行结果，参照RESULT_CODE
+     * @return		无
+     * @ref
+     * @see			app_common.h RESULT_CODE
+     * @note		将请求拨打电话的Popup画面的操作结果通知给SDK，调用SDK该函数将通知传递给手机端App
+     */
+    virtual void OnDialNumber(int iCode) = 0;
+
+    /**
+     * 通话状态变化的通知
+     * @param[in]	电话拨打状态，true:通话中，false：无通话
+     * @return		无
+     * @ref
+     * @see			app_common.h RESULT_CODE
+     * @note		将车机端的通话状态通知给SDK
+     */
+    virtual void OnPhoneCall(bool isActive) = 0;
 
   /**
    * 获取当前App活动模板

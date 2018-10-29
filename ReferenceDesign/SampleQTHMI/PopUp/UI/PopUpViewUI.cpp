@@ -44,7 +44,7 @@ void PopUpViewUI::CreatePopUp(QString &type,map<string, string> parameter)
     {
        PopupGeneralView*  general=  new PopupGeneralView(this);
        PopupList.append(dynamic_cast<PopUpBase*>(general));
-       connect(general,SIGNAL(SigTimerOut(QString)),this,SLOT(OnTimerOut(QString)));
+       connect(general,SIGNAL(SigTimerOut(QString, QString)),this,SLOT(OnTimerOut(QString, QString)));
        connect(general,SIGNAL(SigButtonClick(QString,QString)),this,SLOT(OnButtonClick(QString,QString)));
        general->Parse(parameter);
        general->Finish();
@@ -74,7 +74,6 @@ void PopUpViewUI::Parse(map<string, string> parameter)
     string type_,id_,show_;
     if(it!=parameter.end())
     {
-
         type_ = it->second;
         it = parameter.find("PopUpId");
         if(it != parameter.end())
@@ -87,6 +86,12 @@ void PopUpViewUI::Parse(map<string, string> parameter)
                 if(show_ == "True")
                 {
                     HMIFrameWork::Inst()->AppShow(POPUP_ID);
+                }
+                else
+                {
+                    ReleasePopup(QString::fromStdString(id_));
+                    PopUpHide();
+                    return;
                 }
                 QString qId = QString::fromStdString( id_);
                 PopUpBase * pv = GetPopUp(qId);
@@ -148,8 +153,12 @@ void PopUpViewUI::Replay(const QString& PopUpId,const QString& info)
     }
 }
 
-void PopUpViewUI::OnTimerOut(const QString& Id)
+void PopUpViewUI::OnTimerOut(const QString& Id,const QString& replayInfo)
 {
+    if(!replayInfo.isEmpty())
+    {
+        Replay(Id,replayInfo);
+    }
     ReleasePopup(Id);
     PopUpHide();
 }

@@ -48,6 +48,13 @@ signals:
     void SigNotify(string appId, map<string, string> parameter);
     void SigReply(string appId, map<string, string> parameter);
 
+    void SigAudioPassThruFinish();
+    void SigAudioPassThruCancel();
+    void SigAudioPassThruTimeOut();
+
+    void SigDialNumberCall();
+    void SigDialNumberCancel();
+
 private:
     void StartSDL();
 
