@@ -133,6 +133,15 @@ void UIManager::initAppHMI() {
         tpl.SetScene(ID_SHOW, new CGraphicSoftButtonShow(m_pList, pParent));
     }
 
+    //DEFAULT
+    if (m_TplManager.Create(DEFAULT_DEFAULT_TEMPLATE, DEFAULT_DEFAULT_TEMPLATE_PROPERTY)) {
+        TemplateImp &tpl = m_TplManager.Get(DEFAULT_DEFAULT_TEMPLATE);
+        SDLAppsView *pMain = (SDLAppsView *)tpl.GetScene(ID_MAIN);
+        QWidget *pParent = pMain->CenterWidget();
+
+        tpl.SetScene(ID_SHOW, new CNonMediaShow(m_pList, pParent));
+    }
+
     //non-media
     if (m_TplManager.Create(NON_MEDIA, NON_MEDIA_PROPERTY)) {
         TemplateImp &tpl = m_TplManager.Get(NON_MEDIA);
@@ -426,8 +435,16 @@ void UIManager::AppShowSlot(int type) {
     std::string tplname = pData->GetActiveTemplate();
     TemplateImp &tpl = m_TplManager.Get(tplname);
 
-    if (tpl.GetScene(m_iCurUI) == NULL)
+    if (NULL == tpl.GetScene(m_iCurUI))
+    {
+        INFO("cur scene %d is NULL .", m_iCurUI);
         return;
+    }
+    if(NULL == tpl.GetScene(type))
+    {
+        INFO("to scene %d is NULL .", type);
+        return ;
+    }
     INFO("type 4= %d", type);
     if (type == ID_VIDEOSTREAM) {
         emit onVideoStartSignal();
