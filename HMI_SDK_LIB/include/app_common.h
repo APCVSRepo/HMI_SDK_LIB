@@ -15,6 +15,13 @@ namespace hmisdk {
 #define DEFAULT_TEMPLATE "MEDIA"
 #define DEFAULT_TEMPLATE_PROPERTY "this is media template"
 
+#define DEFAULT_DEFAULT_TEMPLATE "DEFAULT"
+#define DEFAULT_DEFAULT_TEMPLATE_PROPERTY "this is default template"
+
+#define MEDIA_TEMPLATE "MEDIA"
+#define MEDIA_TEMPLATE_PROPERTY "this is media template"
+
+
 #define LARGE_GRAPHIC_WITH_SOFTBUTTONS "LARGE_GRAPHIC_WITH_SOFTBUTTONS"
 #define LARGE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is large graphic with softbuttons template"
 
