@@ -54,7 +54,7 @@ namespace hmisdk {
 #define GRAPHIC_WITH_TEXTBUTTONS_PROPERTY "this is graphic with textbuttons template"
 
 #define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS "DOUBLE_GRAPHIC_WITH_SOFTBUTTONS"
-#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is graphic double graphic with softbuttons template"
+#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is double graphic with softbuttons template"
 
 #define TEXTBUTTONS_WITH_GRAPHIC "TEXTBUTTONS_WITH_GRAPHIC"
 #define TEXTBUTTONS_WITH_GRAPHIC_PROPERTY "this is textbuttons with graphic template"
@@ -63,7 +63,7 @@ namespace hmisdk {
 #define TEXTBUTTONS_ONLY_PROPERTY "this is textbuttons only template"
 
 #define LARGE_GRAPHIC_ONLY "LARGE_GRAPHIC_ONLY"
-#define LARGE_GRAPHIC_ONLY_PROPERTY "this is textbuttons only template"
+#define LARGE_GRAPHIC_ONLY_PROPERTY "this is large graphic only template"
 
 #define ONSCREEN_PRESETS "ONSCREEN_PRESETS"
 #define ONSCREEN_PRESETS_PROPERTY "this is onscreen presets template"
