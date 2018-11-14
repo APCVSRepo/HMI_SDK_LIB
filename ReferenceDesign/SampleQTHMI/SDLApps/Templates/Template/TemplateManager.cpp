@@ -20,7 +20,6 @@
 #include "SDLApps/Templates/ScrollableMessage/ScollMsgView.h"
 #include "SDLApps/Templates/SliderView/SliderView.h"
 #include "SDLApps/Templates/AppListView/DeviceListView.h"
-#include "SDLApps/Templates/Show/NonMediaShow.h"
 #include "TemplateImp.h"
 
 TemplateManager::TemplateManager() {
