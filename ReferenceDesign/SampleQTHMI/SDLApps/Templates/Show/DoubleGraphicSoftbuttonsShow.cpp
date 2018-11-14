@@ -76,7 +76,6 @@ void CDoubleGraphicSoftbuttonsShow::BtnMenuClickedSlots() {
 
 void CDoubleGraphicSoftbuttonsShow::BtnBackClickedSlots()
 {
-    INFO("CDoubleGraphicSoftbuttonsShow::BtnBackClickedSlots");
     SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
 }
 void CDoubleGraphicSoftbuttonsShow::SetAppName(QString strName) {

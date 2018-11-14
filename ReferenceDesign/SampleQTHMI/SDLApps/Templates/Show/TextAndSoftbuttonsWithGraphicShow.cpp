@@ -86,18 +86,7 @@ void CTextAndSoftbuttonsWithGraphicShow::BtnMenuClickedSlots() {
 
 void CTextAndSoftbuttonsWithGraphicShow::BtnBackClickedSlots()
 {
-    INFO("CTextAndSoftbuttonsWithGraphicShow::BtnBackClickedSlots");
-    //TODO: change to media source list view
-    if(SDLApps::Inst()->FromMedia())
-    {
-        HMIFrameWork::Inst()->AppShow(MEDIA_ID);
-//        m_pList->OnAppExit();
-    }
-    else
-    {
-//        m_pList->OnAppExit();
-          SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
-    }
+     SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
 }
 void CTextAndSoftbuttonsWithGraphicShow::SetAppName(QString strName) {
     m_pTopWidget->SetTitle(strName);
@@ -162,13 +151,7 @@ void CTextAndSoftbuttonsWithGraphicShow::showEvent(QShowEvent *e) {
                     AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), m_aShowLine[1].width(), alignMode);
                 } else if ("mainField3" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), m_aShowLine[2].width(), alignMode);
-                } /*else if ("mainField4" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), m_aShowLine[3].width(), alignMode);
-        } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), m_aShowLine[4].width(), alignMode);
-        } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-          //该字段暂未使用
-        }*/
+                }
             }
         }
 

@@ -70,7 +70,6 @@ void CGraphicWithTextButtonsShow::BtnMenuClickedSlots() {
 
 void CGraphicWithTextButtonsShow::BtnBackClickedSlots()
 {
-    INFO("CGraphicWithTextButtonsShow::BtnBackClickedSlots");
     SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
 }
 void CGraphicWithTextButtonsShow::SetAppName(QString strName) {

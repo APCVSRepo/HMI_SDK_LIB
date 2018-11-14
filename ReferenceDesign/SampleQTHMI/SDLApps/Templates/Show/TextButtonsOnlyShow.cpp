@@ -56,7 +56,6 @@ void CTextButtonsOnlyShow::BtnMenuClickedSlots() {
 
 void CTextButtonsOnlyShow::BtnBackClickedSlots()
 {
-    INFO("CTextButtonsOnlyShow::BtnBackClickedSlots");
     SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
 }
 void CTextButtonsOnlyShow::SetAppName(QString strName) {

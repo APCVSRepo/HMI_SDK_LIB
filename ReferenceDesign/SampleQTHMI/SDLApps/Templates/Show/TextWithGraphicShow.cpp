@@ -61,7 +61,6 @@ void CTextWithGraphicShow::BtnMenuClickedSlots() {
 
 void CTextWithGraphicShow::BtnBackClickedSlots()
 {
-    INFO("CTextWithGraphicShow::BtnBackClickedSlots");
     SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
 }
 
@@ -108,21 +107,13 @@ void CTextWithGraphicShow::showEvent(QShowEvent *e) {
         if (jsonParams.isMember("showStrings")) {
             for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
                 rpcValueInterface  &fieldName = jsonParams["showStrings"][i];
-                // Bug #9671
                 if ("mainField1" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine, fieldName["fieldText"].asString().c_str(), m_aShowLine[0].width(), alignMode);
                 } else if ("mainField2" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), m_aShowLine[1].width(), alignMode);
                 } else if ("mainField3" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), m_aShowLine[2].width(), alignMode);
-                } /*else if ("mainField4" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), m_aShowLine[3].width(), alignMode);
-        } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), m_aShowLine[4].width(), alignMode);
-        } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-          //该字段暂未使用
-          //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
-        }*/
+                }
             }
         }
     }

@@ -94,7 +94,6 @@ COnscreenPresetsShow::COnscreenPresetsShow(AppListInterface *pList, QWidget *par
         m_aSoftBtn[i].setSize(116, 32);
         m_aSoftBtn[i].setTextStyle("border:0px; font:19px; color:rgb(238,238,238)");
         m_aSoftBtn[i].SetPadding(10,0,10,0);
-        //set softBtnId
         m_aSoftBtn[i].setId(-1);
         connect(&m_aSoftBtn[i], SIGNAL(clicked(int)), this, SLOT(SoftBtnClickedSlot(int)));
     }
@@ -198,15 +197,12 @@ void COnscreenPresetsShow::BtnMenuClickedSlots() {
 void COnscreenPresetsShow::BtnBackClickedSlots()
 {
     INFO("COnscreenPresetsShow::BtnBackClickedSlots");
-    //TODO: change to media source list view
     if(SDLApps::Inst()->FromMedia())
     {
         HMIFrameWork::Inst()->AppShow(MEDIA_ID);
-//        m_pList->OnAppExit();
     }
     else
     {
-//        m_pList->OnAppExit();
           SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
     }
 }
@@ -231,7 +227,6 @@ void COnscreenPresetsShow::SetAppName(QString strName) {
 void COnscreenPresetsShow::showEvent(QShowEvent *e) {
     Q_UNUSED(e);
 
-    INFO("m_pAlbumCover->start();");
     m_pAlbumCover->start();
     m_pAlbumCover->show();
 
@@ -254,7 +249,6 @@ void COnscreenPresetsShow::showEvent(QShowEvent *e) {
             return;
         rpcValueInterface &jsonParams = pObj["params"];
 
-        // Bug #9671
         Qt::AlignmentFlag alignMode =  Qt::AlignLeft;
         if (jsonParams.isMember("alignment")) {
             std::string align = jsonParams["alignment"].asString();
@@ -268,21 +262,13 @@ void COnscreenPresetsShow::showEvent(QShowEvent *e) {
         if (jsonParams.isMember("showStrings")) {
             for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
                 rpcValueInterface  &fieldName = jsonParams["showStrings"][i];
-                // Bug #9671
                 if ("mainField1" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine, fieldName["fieldText"].asString().c_str(), m_aShowLine[0].width(), alignMode);
                 } else if ("mainField2" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), m_aShowLine[1].width(), alignMode);
                 } else if ("mainField3" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), m_aShowLine[2].width(), alignMode);
-                } /*else if ("mainField4" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), m_aShowLine[3].width(), alignMode);
-        } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), m_aShowLine[4].width(), alignMode);
-        } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-          //该字段暂未使用
-          //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
-        }*/
+                }
             }
         }
 

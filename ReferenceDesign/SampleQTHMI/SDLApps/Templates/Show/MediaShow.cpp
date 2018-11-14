@@ -198,15 +198,12 @@ void CMediaShow::BtnMenuClickedSlots() {
 void CMediaShow::BtnBackClickedSlots()
 {
     INFO("CMediaShow::BtnBackClickedSlots");
-    //TODO: change to media source list view
     if(SDLApps::Inst()->FromMedia())
     {
         HMIFrameWork::Inst()->AppShow(MEDIA_ID);
-//        m_pList->OnAppExit();
     }
     else
     {
-//        m_pList->OnAppExit();
           SDLApps::Inst()->GetUIManager()->onAppShow(ID_APPLINK);
     }
 }
