@@ -30,8 +30,8 @@ In order to be able to build successfully, you need to install the qt library. T
 $apt install qtbase5-dev
 ```
   Notice: you may got `SIGSEGV` error when do [`make test`](#how-to-run-test), if so, please use the next method.
-
-  2. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
+  2. Copy `libhmi_sdk.so` to `SampleQTHMI/lib/linux` dir
+  3. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
 ```shell
 $export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
 $export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64
@@ -105,6 +105,7 @@ $sudo ldconfig
   1. Build project with enabled flag `-DBUILD_TESTS_COVERAGE=on`, this will automatically set `-DBUILD_TESTS=on`
   2. Execute command `make test` and wait for the end of the execution
   3. Go to `<build_directory>/TestResult`, and open `index.html` to view the test coverage report
+  4. Go to `<build_directory>/Testing/Temporary`, and open `LastTest.log` to view the test log report
 
 
 # Known issues
