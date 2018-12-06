@@ -30,7 +30,9 @@ In order to be able to build successfully, you need to install the qt library. T
 $apt install qtbase5-dev
 ```
   Notice: you may got `SIGSEGV` error when do [`make test`](#how-to-run-test), if so, please use the next method.
+
   2. Copy `libhmi_sdk.so` to `SampleQTHMI/lib/linux` dir
+
   3. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
 ```shell
 $export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
