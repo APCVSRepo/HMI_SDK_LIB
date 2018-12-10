@@ -184,20 +184,7 @@ SOURCES += main.cpp\
     VR/UI/VRView.cpp \
     VR/UI/VRWindow.cpp \
     VR/UI/VRInteractionView.cpp \
-    SDLApps/Templates/Show/NonMediaShow.cpp \
-    SDLApps/Templates/Show/GraphicWithTextShow.cpp \
-    SDLApps/Templates/Show/TilesOnlyShow.cpp \
-    SDLApps/Templates/Show/TextWithGraphicShow.cpp \
-    SDLApps/Templates/Show/GraphicWithTilesShow.cpp \
-    SDLApps/Templates/Show/TilesWithGraphicShow.cpp \
-    SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.cpp \
-    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.cpp \
-    SDLApps/Templates/Show/GraphicWithTextButtonsShow.cpp \
-    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.cpp \
-    SDLApps/Templates/Show/TextButtonsWithGraphicShow.cpp \
-    SDLApps/Templates/Show/TextButtonsOnlyShow.cpp \
-    SDLApps/Templates/Show/LargeGraphicOnlyShow.cpp \
-    SDLApps/Templates/Show/OnscreenPresetsShow.cpp
+    SDLApps/Templates/AudioPassThru/AudioPassThru.cpp
 
 
 
@@ -348,21 +335,7 @@ HEADERS  +=  \
     VR/UI/VRView.h \
     VR/UI/VRWindow.h \
     VR/UI/VRInteractionView.h \
-    SDLApps/Templates/Show/NonMediaShow.h \
-    SDLApps/Templates/Show/GraphicWithTextShow.h \
-    SDLApps/Templates/Show/TilesOnlyShow.h \
-    SDLApps/Templates/Show/TextWithGraphicShow.h \
-    SDLApps/Templates/Show/GraphicWithTilesShow.h \
-    SDLApps/Templates/Show/TilesWithGraphicShow.h \
-    SDLApps/Templates/Show/GraphicWithTextAndSoftbuttonsShow.h \
-    SDLApps/Templates/Show/TextAndSoftbuttonsWithGraphicShow.h \
-    SDLApps/Templates/Show/GraphicWithTextButtonsShow.h \
-    SDLApps/Templates/Show/DoubleGraphicSoftbuttonsShow.h \
-    SDLApps/Templates/Show/TextButtonsWithGraphicShow.h \
-    SDLApps/Templates/Show/TextButtonsOnlyShow.h \
-    SDLApps/Templates/Show/LargeGraphicOnlyShow.h \
-    SDLApps/Templates/Show/OnscreenPresetsShow.h
-
+    SDLApps/Templates/AudioPassThru/AudioPassThru.h
 
 
 unix {

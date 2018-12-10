@@ -6,7 +6,7 @@
 
 class MenuButton : public QPushButton {
 public:
-    MenuButton(QWidget *pParent = NULL);
+    MenuButton(QWidget *parent = NULL);
     ~MenuButton();
     virtual void setText(const QString &text);
     virtual void setIcon(const QString on, const QString off);

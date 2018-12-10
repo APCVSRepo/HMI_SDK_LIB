@@ -244,6 +244,8 @@ Result AppList::recvFromServer(Json::Value jsonObj) {
     } else if (str_method == "UI.EndAudioPassThru") {
       ToSDL->OnVRCancelRecord();
       m_pUIManager->OnEndAudioPassThru();
+      int id = jsonObj["params"]["id"].asInt();
+      ToSDL->OnEndAudioPassThru(id, 0);
       return RESULT_SUCCESS;
     } else if (str_method == "BasicCommunication.UpdateDeviceList") {
       // add by fanqiang

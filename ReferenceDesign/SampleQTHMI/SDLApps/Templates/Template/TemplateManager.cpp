@@ -10,16 +10,17 @@
 
 #include "TemplateManager.h"
 #include "SDLApps/Templates/Config/Config.h"
-#include "SDLApps/Templates/utils/VideoStream/CeVideoStream.h"
 #include "SDLApps/UI/SDLAppsView.h"
-#include "SDLApps/Templates/AppListView/AppListView.h"
-#include "SDLApps/Templates/CommandView/CommandView.h"
-#include "SDLApps/Templates/Show/MediaShow.h"
 #include "SDLApps/Templates/Alert/AlertView.h"
-#include "SDLApps/Templates/ChoiceSet/ChoiceSet.h"
-#include "SDLApps/Templates/ScrollableMessage/ScollMsgView.h"
-#include "SDLApps/Templates/SliderView/SliderView.h"
+#include "SDLApps/Templates/AppListView/AppListView.h"
 #include "SDLApps/Templates/AppListView/DeviceListView.h"
+#include "SDLApps/Templates/AudioPassThru/AudioPassThru.h"
+#include "SDLApps/Templates/ChoiceSet/ChoiceSet.h"
+#include "SDLApps/Templates/CommandView/CommandView.h"
+#include "SDLApps/Templates/ScrollableMessage/ScollMsgView.h"
+#include "SDLApps/Templates/Show/MediaShow.h"
+#include "SDLApps/Templates/SliderView/SliderView.h"
+#include "SDLApps/Templates/utils/VideoStream/CeVideoStream.h"
 #include "TemplateImp.h"
 
 TemplateManager::TemplateManager() {
@@ -43,8 +44,8 @@ void TemplateManager::CreateDefault(AppListInterface *pList) {
   tpl.SetScene(ID_COMMAND, new CCommandView(pList, pParent));
   tpl.SetScene(ID_SHOW, new CMediaShow(pList, pParent));
   tpl.SetScene(ID_ALERT, new AlertView(pList, pParent));
-  tpl.SetScene(ID_AUDIOPASSTHRU, NULL);//new CAudioPassThru(pList, pParent);
-  tpl.SetScene(ID_CHOICESETVR, NULL);//new CChoiceSetVR(pList, pParent);
+  tpl.SetScene(ID_AUDIOPASSTHRU, new CAudioPassThru(pList, pParent));//new CAudioPassThru(pList, pParent);
+  tpl.SetScene(ID_CHOICESETVR, NULL);//new CChoicesetVR(pList, pParent);
   tpl.SetScene(ID_SCROLLMSG, new CScollMsgView(pList, pParent));
   tpl.SetScene(ID_SLIDER, new CSliderView(pList, pParent));
   tpl.SetScene(ID_NOTIFY, NULL);//new Notify(pParent);

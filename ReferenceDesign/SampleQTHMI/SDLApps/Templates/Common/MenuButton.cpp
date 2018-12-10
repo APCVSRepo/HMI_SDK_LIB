@@ -4,7 +4,7 @@
 #include <QTextOption>
 #include <QUrl>
 
-MenuButton::MenuButton(QWidget *pParent): QPushButton(pParent) {
+MenuButton::MenuButton(QWidget *parent): QPushButton(parent) {
     m_isActive = false;
 }
 

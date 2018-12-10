@@ -16,6 +16,7 @@ PopUpBase::PopUpBase(QWidget *parent)
     ,m_PopUpReplyButtonB("")
     ,m_PopUpHandle("")
     ,m_PopUpTime("")
+    ,m_PopUpReplyTimeOut("")
     ,m_fromAppId("")
     ,m_Password("")
     ,m_bPopUpId(false)
@@ -32,6 +33,7 @@ PopUpBase::PopUpBase(QWidget *parent)
     ,m_bPopUpReplyButtonB(false)
     ,m_bPopUpHandle(false)
     ,m_bPopUpTime(false)
+    ,m_bPopUpReplyTimeOut(false)
     ,m_bFromAppId(false)
     ,m_bPassword(false)
 {
@@ -136,6 +138,12 @@ void PopUpBase::Parse(map<string, string> parameter)
                     m_PopUpTime = QString::fromStdString(it->second);
                     m_bPopUpTime = true;
                 }
+                it = parameter.find("TimeOut");
+                if(it != parameter.end())
+                {
+                    m_PopUpReplyTimeOut = QString::fromStdString(it->second);
+                    m_bPopUpReplyTimeOut = true;
+                }
 
                 it = parameter.find("Password");
                 if(it != parameter.end())
@@ -219,6 +227,11 @@ int PopUpBase::GetPopUpTime()
     return  m_PopUpTime.toInt();
 }
 
+QString PopUpBase::GetPopUpReplyTimeOut()
+{
+    return m_PopUpReplyTimeOut;
+}
+
 QString PopUpBase::GetFromeAppId()
 {
     return m_fromAppId;
@@ -299,6 +312,11 @@ bool PopUpBase::IsExistPopUpTime()
     return m_bPopUpTime;
 }
 
+bool PopUpBase::IsExistPopUpReplyTimeOut()
+{
+    return m_bPopUpReplyTimeOut;
+}
+
 bool PopUpBase::IsExistFromAppId()
 {
     return m_bFromAppId;
@@ -326,6 +344,7 @@ void PopUpBase::Release()
      m_PopUpReplyButtonB = "";
      m_PopUpHandle = "";
      m_PopUpTime = "";
+     m_PopUpReplyTimeOut = "";
      m_Password = "";
 
      m_bPopUpId = false ;
@@ -342,6 +361,7 @@ void PopUpBase::Release()
      m_bPopUpReplyButtonB = false ;
      m_bPopUpHandle = false ;
      m_bPopUpTime = false ;
+     m_bPopUpReplyTimeOut = false;
      m_bFromAppId = false ;
      m_bPassword = false ;
 }
