@@ -338,7 +338,6 @@ HEADERS  +=  \
     SDLApps/Templates/AudioPassThru/AudioPassThru.h
 
 
-
 unix {
     HEADERS += SDLApps/Templates/utils/VideoStream/gst_player.h
 }

@@ -15,6 +15,59 @@ namespace hmisdk {
 #define DEFAULT_TEMPLATE "MEDIA"
 #define DEFAULT_TEMPLATE_PROPERTY "this is media template"
 
+#define DEFAULT_DEFAULT_TEMPLATE "DEFAULT"
+#define DEFAULT_DEFAULT_TEMPLATE_PROPERTY "this is default template"
+
+#define MEDIA_TEMPLATE "MEDIA"
+#define MEDIA_TEMPLATE_PROPERTY "this is media template"
+
+
+#define LARGE_GRAPHIC_WITH_SOFTBUTTONS "LARGE_GRAPHIC_WITH_SOFTBUTTONS"
+#define LARGE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is large graphic with softbuttons template"
+
+#define NON_MEDIA "NON-MEDIA"
+#define NON_MEDIA_PROPERTY "this is non media template"
+
+#define GRAPHIC_WITH_TEXT "GRAPHIC_WITH_TEXT"
+#define GRAPHIC_WITH_TEXT_PROPERTY "this is graphic with text template"
+
+#define TEXT_WITH_GRAPHIC "TEXT_WITH_GRAPHIC"
+#define TEXT_WITH_GRAPHIC_PROPERTY "this is text with graphic template"
+
+#define TILES_ONLY "TILES_ONLY"
+#define TILES_ONLY_PROPERTY "this is tiles only template"
+
+#define GRAPHIC_WITH_TILES "GRAPHIC_WITH_TILES"
+#define GRAPHIC_WITH_TILES_PROPERTY "this is graphic with tiles template"
+
+#define TILES_WITH_GRAPHIC "TILES_WITH_GRAPHIC"
+#define TILES_WITH_GRAPHIC_PROPERTY "this is tiles with graphic template"
+
+
+#define GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS "GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS"
+#define GRAPHIC_WITH_TEXT_AND_SOFTBUTTONS_PROPERTY "this is graphic with text and softbuttons template"
+
+#define TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC "TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC"
+#define TEXT_AND_SOFTBUTTONS_WITH_GRAPHIC_PROPERTY "this is text and softbuttons  with graphic template"
+
+#define GRAPHIC_WITH_TEXTBUTTONS "GRAPHIC_WITH_TEXTBUTTONS"
+#define GRAPHIC_WITH_TEXTBUTTONS_PROPERTY "this is graphic with textbuttons template"
+
+#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS "DOUBLE_GRAPHIC_WITH_SOFTBUTTONS"
+#define DOUBLE_GRAPHIC_WITH_SOFTBUTTONS_PROPERTY "this is double graphic with softbuttons template"
+
+#define TEXTBUTTONS_WITH_GRAPHIC "TEXTBUTTONS_WITH_GRAPHIC"
+#define TEXTBUTTONS_WITH_GRAPHIC_PROPERTY "this is textbuttons with graphic template"
+
+#define TEXTBUTTONS_ONLY "TEXTBUTTONS_ONLY"
+#define TEXTBUTTONS_ONLY_PROPERTY "this is textbuttons only template"
+
+#define LARGE_GRAPHIC_ONLY "LARGE_GRAPHIC_ONLY"
+#define LARGE_GRAPHIC_ONLY_PROPERTY "this is large graphic only template"
+
+#define ONSCREEN_PRESETS "ONSCREEN_PRESETS"
+#define ONSCREEN_PRESETS_PROPERTY "this is onscreen presets template"
+
 enum MenuCmdId {
   CMDID_MENU_FM = 101,
   CMDID_MENU_TEL,

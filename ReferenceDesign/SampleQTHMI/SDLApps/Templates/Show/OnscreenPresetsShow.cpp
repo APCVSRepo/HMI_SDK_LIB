@@ -1,4 +1,4 @@
-#include "MediaShow.h"
+#include "OnscreenPresetsShow.h"
 #include <QUrl>
 #include "HMIFrameWork/log_interface.h"
 #include "SDLApps/app/SDLApps.h"
@@ -10,7 +10,7 @@
 #define CMD_PAUSE 1025
 #define CMD_NEXT 112
 
-CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
+COnscreenPresetsShow::COnscreenPresetsShow(AppListInterface *pList, QWidget *parent)
     :QWidget(parent)
     ,m_pList(pList)
     ,m_timerId(0)
@@ -94,7 +94,6 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
         m_aSoftBtn[i].setSize(116, 32);
         m_aSoftBtn[i].setTextStyle("border:0px; font:19px; color:rgb(238,238,238)");
         m_aSoftBtn[i].SetPadding(10,0,10,0);
-        //set softBtnId
         m_aSoftBtn[i].setId(-1);
         connect(&m_aSoftBtn[i], SIGNAL(clicked(int)), this, SLOT(SoftBtnClickedSlot(int)));
     }
@@ -180,24 +179,24 @@ CMediaShow::CMediaShow(AppListInterface *pList, QWidget *parent)
     m_pShuffleMode->hide();
 }
 
-CMediaShow::~CMediaShow()
+COnscreenPresetsShow::~COnscreenPresetsShow()
 {
 
 }
 
-void CMediaShow::SoftBtnClickedSlot(int iSoftBtnID) {
+void COnscreenPresetsShow::SoftBtnClickedSlot(int iSoftBtnID) {
     if (iSoftBtnID >= 0) {
         AppControl->OnSoftButtonClick(iSoftBtnID, BUTTON_SHORT);
     }
 }
 
-void CMediaShow::BtnMenuClickedSlots() {
+void COnscreenPresetsShow::BtnMenuClickedSlots() {
     AppControl->OnShowCommand();
 }
 
-void CMediaShow::BtnBackClickedSlots()
+void COnscreenPresetsShow::BtnBackClickedSlots()
 {
-    INFO("CMediaShow::BtnBackClickedSlots");
+    INFO("COnscreenPresetsShow::BtnBackClickedSlots");
     if(SDLApps::Inst()->FromMedia())
     {
         HMIFrameWork::Inst()->AppShow(MEDIA_ID);
@@ -208,7 +207,7 @@ void CMediaShow::BtnBackClickedSlots()
     }
 }
 
-void CMediaShow::UpdatePlayPauseStatus(bool isPlaying)
+void COnscreenPresetsShow::UpdatePlayPauseStatus(bool isPlaying)
 {
     m_bPlaying = isPlaying;
     if(m_bPlaying)
@@ -221,14 +220,13 @@ void CMediaShow::UpdatePlayPauseStatus(bool isPlaying)
     }
 }
 
-void CMediaShow::SetAppName(QString strName) {
+void COnscreenPresetsShow::SetAppName(QString strName) {
     m_pTopWidget->SetTitle(strName);
 }
 
-void CMediaShow::showEvent(QShowEvent *e) {
+void COnscreenPresetsShow::showEvent(QShowEvent *e) {
     Q_UNUSED(e);
 
-    INFO("m_pAlbumCover->start();");
     m_pAlbumCover->start();
     m_pAlbumCover->show();
 
@@ -251,7 +249,6 @@ void CMediaShow::showEvent(QShowEvent *e) {
             return;
         rpcValueInterface &jsonParams = pObj["params"];
 
-        // Bug #9671
         Qt::AlignmentFlag alignMode =  Qt::AlignLeft;
         if (jsonParams.isMember("alignment")) {
             std::string align = jsonParams["alignment"].asString();
@@ -265,21 +262,13 @@ void CMediaShow::showEvent(QShowEvent *e) {
         if (jsonParams.isMember("showStrings")) {
             for (unsigned int i = 0; i < jsonParams["showStrings"].size(); ++i) {
                 rpcValueInterface  &fieldName = jsonParams["showStrings"][i];
-                // Bug #9671
                 if ("mainField1" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine, fieldName["fieldText"].asString().c_str(), m_aShowLine[0].width(), alignMode);
                 } else if ("mainField2" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 1, fieldName["fieldText"].asString().c_str(), m_aShowLine[1].width(), alignMode);
                 } else if ("mainField3" == fieldName["fieldName"].asString()) {
                     AppBase::SetEdlidedText(m_aShowLine + 2, fieldName["fieldText"].asString().c_str(), m_aShowLine[2].width(), alignMode);
-                } /*else if ("mainField4" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 3, fieldName["fieldText"].asString().c_str(), m_aShowLine[3].width(), alignMode);
-        } else if ("mediaTrack" == fieldName["fieldName"].asString()) {
-          AppBase::SetEdlidedText(m_aShowLine + 4, fieldName["fieldText"].asString().c_str(), m_aShowLine[4].width(), alignMode);
-        } else if ("mediaClock" == fieldName["fieldName"].asString()) {
-          //该字段暂未使用
-          //AppBase::SetEdlidedText(m_pTimeRemainLab,fieldName["fieldText"].asString().c_str(),width()*0.3);
-        }*/
+                }
             }
         }
 
@@ -315,13 +304,13 @@ void CMediaShow::showEvent(QShowEvent *e) {
     }
 }
 
-void CMediaShow::hideEvent(QHideEvent *e)
+void COnscreenPresetsShow::hideEvent(QHideEvent *e)
 {
     m_pAlbumCover->stop();
     m_pAlbumCover->hide();
 }
 
-void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
+void COnscreenPresetsShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
     int iSize = vec_softButtons.size() > RIGHT_BTN_NUM ? RIGHT_BTN_NUM : vec_softButtons.size();
     for (int i = 0; i < iSize; ++i) {
         m_aSoftBtn[i].initParameter(116, 32, ":/SDLApps/Source/images/right_btn_normal.png", ":/SDLApps/Source/images/right_btn_push.png", "", vec_softButtons[i].str_text.c_str());
@@ -338,7 +327,7 @@ void CMediaShow::setSoftButtons(std::vector<SSoftButton> vec_softButtons) {
     }
 }
 
-void CMediaShow::UpdateMediaClockTimer() {
+void COnscreenPresetsShow::UpdateMediaClockTimer() {
     rpcValueInterface &jsonObj = AppControl->getMediaClockJson();
 
     if (jsonObj["params"].isMember("startTime")) {
@@ -399,7 +388,7 @@ void CMediaShow::UpdateMediaClockTimer() {
     }
 }
 
-void CMediaShow::mediaClockSlots(bool isStart) {
+void COnscreenPresetsShow::mediaClockSlots(bool isStart) {
     if (isStart) {
         if (m_timerId != 0)
             this->killTimer(m_timerId);
@@ -417,12 +406,12 @@ void CMediaShow::mediaClockSlots(bool isStart) {
     UpdatePlayPauseStatus(isStart);
 }
 
-void CMediaShow::OnSeekLeftClicked()
+void COnscreenPresetsShow::OnSeekLeftClicked()
 {
     AppControl->OnSoftButtonClick(CMD_PREV, BUTTON_SHORT, "SEEKLEFT");
 }
 
-void CMediaShow::OnPlayPauseClicked()
+void COnscreenPresetsShow::OnPlayPauseClicked()
 {
     if(m_bPlaying)
     {
@@ -434,12 +423,12 @@ void CMediaShow::OnPlayPauseClicked()
     }
 }
 
-void CMediaShow::OnSeekRightClicked()
+void COnscreenPresetsShow::OnSeekRightClicked()
 {
     AppControl->OnSoftButtonClick(CMD_NEXT, BUTTON_SHORT, "SEEKRIGHT");
 }
 
-void CMediaShow::timerEvent(QTimerEvent *e) {
+void COnscreenPresetsShow::timerEvent(QTimerEvent *e) {
     Q_UNUSED(e);
     if (m_b_countup) {
         m_MeidaClockCurrentTime = m_MeidaClockCurrentTime.addSecs(1);
@@ -476,7 +465,7 @@ void CMediaShow::timerEvent(QTimerEvent *e) {
     setMediaClock(m_MeidaClockCurrentTime.toString("HH:mm:ss"), "-" + timeRemain.toString("HH:mm:ss"));
 }
 
-void CMediaShow::setMediaClock(QString strElapseTime, QString strRemainTime) {
+void COnscreenPresetsShow::setMediaClock(QString strElapseTime, QString strRemainTime) {
     AppBase::SetEdlidedText(m_pTimeElapseLab, strElapseTime, width() * 0.3);
     AppBase::SetEdlidedText(m_pTimeRemainLab, strRemainTime, width() * 0.3);
 }
