@@ -41,7 +41,6 @@ $cmake <SampleQTHMI_dir>
 $make
 ```
 
-
 ### USE Qt Creator
 #### Linux
 ##### Environment
@@ -109,6 +108,17 @@ $sudo ldconfig
   3. Go to `<build_directory>/TestResult`, and open `index.html` to view the test coverage report
   4. Go to `<build_directory>/Testing/Temporary`, and open `LastTest.log` to view the test log report
 
+## build.sh
+
+The `build.sh` is a full-compiled script for QTHMI.
+Running the build.sh script generates the `build` build directory and the `buildOut` output directory.
+There are `TestResult` test coverage directory and `bin` executable program directory in the `buildOut` directory.
+
+Notice:
+  1. Using `build.sh` scripts does not generate `Testing` directory and `LastTest.log` log file.
+  2. set env path `export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH` in the `build.sh`.
+  3. set qt path `export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64` in the `build.sh`.
+  4. set `libhmi_sdk.so` path  `hmisdk_dir=/home/<user_path>/HMI_SDK_LIB/<build_dir>/app` in the `build.sh`.
 
 # Known issues
 
