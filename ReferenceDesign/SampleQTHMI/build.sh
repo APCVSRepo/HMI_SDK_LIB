@@ -21,10 +21,10 @@ export QTDIR=/home/linux/E/Qt5.3.2/5.3/gcc_64
 echo "${QTDIR}"
 
 echo "load libhmi_sdk.so ..."
-#hmisdk_lib=/home/<user_path>/HMI_SDK_LIB/<build_dir>/app
+#hmisdk_dir=/home/<user_path>/HMI_SDK_LIB/<build_dir>/app
 hmisdk_dir=../../../build/app
-hmisdk_lib=${hmisdk_dir}/libhmi_sdk.so
 
+hmisdk_lib=${hmisdk_dir}/libhmi_sdk.so
 echo "${hmisdk_dir}"
 if [ ! -f "${hmisdk_lib}" ];then
     
