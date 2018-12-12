@@ -108,7 +108,7 @@ $sudo ldconfig
   3. Go to `<build_directory>/TestResult`, and open `index.html` to view the test coverage report
   4. Go to `<build_directory>/Testing/Temporary`, and open `LastTest.log` to view the test log report
 
-## build.sh
+# build.sh
 
 The `build.sh` is a full-compiled script for QTHMI.
 Running the build.sh script generates the `build` build directory and the `buildOut` output directory.
