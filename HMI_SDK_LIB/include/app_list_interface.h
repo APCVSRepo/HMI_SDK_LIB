@@ -11,7 +11,7 @@
 #define APPLISTINTERFACE_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <vector>
 #include "app_data_interface.h"
 
