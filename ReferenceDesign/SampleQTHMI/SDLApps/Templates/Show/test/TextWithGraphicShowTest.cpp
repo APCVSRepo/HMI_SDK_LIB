@@ -163,6 +163,7 @@ TEST_F(CTextWithGraphicShowTest,getShowData_Success)
     params["showStrings"] = stringsArr;
     params["appID"] = 3;
     params["alignment"] = "CENTERED";
+    ShowObj["params"] = params;
     appListMock.DelegateOnRequest(ShowObj);
     EXPECT_CALL(appListMock,onRequest(ShowObj)).Times(AtLeast(1));
     appListMock.onRequest(ShowObj);
@@ -170,11 +171,7 @@ TEST_F(CTextWithGraphicShowTest,getShowData_Success)
     EXPECT_EQ(3,appListMock.getActiveApp()->getShowData()["params"]["appID"].asInt());
 
     rpcValueInterface &pObj = appListMock.getActiveApp()->getShowData();
-
     EXPECT_FALSE(pObj.isNull());
-
-//    CTextWithGraphicShow cTextWithGraphicShow(&appListMock);
-//    cTextWithGraphicShow.show();
 
 }
 

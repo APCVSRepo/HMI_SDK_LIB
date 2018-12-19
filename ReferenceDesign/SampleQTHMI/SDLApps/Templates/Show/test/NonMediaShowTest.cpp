@@ -164,6 +164,7 @@ TEST_F(CNonMediaShowTest,getShowData_Success)
 
     params["appID"] = 3;
     params["alignment"] = "CENTERED";
+    ShowObj["params"] = params;
     appListMock.DelegateOnRequest(ShowObj);
     EXPECT_CALL(appListMock,onRequest(ShowObj)).Times(AtLeast(1));
     appListMock.onRequest(ShowObj);
@@ -171,7 +172,6 @@ TEST_F(CNonMediaShowTest,getShowData_Success)
     EXPECT_EQ(3,appListMock.getActiveApp()->getShowData()["params"]["appID"].asInt());
 
     rpcValueInterface &pObj = appListMock.getActiveApp()->getShowData();
-
     EXPECT_FALSE(pObj.isNull());
 
     CNonMediaShow cNonMediaShow(&appListMock);
