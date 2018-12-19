@@ -1,26 +1,22 @@
 #!/bin/bash
 
 if [ ! -d "./build/" ];then
-  	echo "create build dir ..."
     mkdir build
-else
-  	echo "clean build dir ..."
-# 	rm -rf ./build/*
 fi
 
 cd ./build
 
-echo "load env path..."
+#echo "load env path..."
 #export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
 export PATH=/home/linux/E/Qt5.3.2/5.3/gcc_64/bin:$PATH
 echo "${PATH}"
 
-echo "load qt path ..."
+#echo "load qt path ..."
 #export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64
 export QTDIR=/home/linux/E/Qt5.3.2/5.3/gcc_64
 echo "${QTDIR}"
 
-echo "load libhmi_sdk.so ..."
+#echo "load libhmi_sdk.so ..."
 #hmisdk_dir=/home/<user_path>/HMI_SDK_LIB/<build_dir>/app
 hmisdk_dir=../../../build/app
 
@@ -30,10 +26,9 @@ if [ ! -f "${hmisdk_lib}" ];then
     
 	echo "error: libhmi_sdk.so does not exist." 
 	echo "Please check whether the libhmi_sdk.so path is correct."
-	echo "exit build ..."
 else
 	cp ${hmisdk_lib} ../lib/linux
-	echo "Start build ..."
+	echo "Build start ..."
   	cmake ../ -DBUILD_TESTS_COVERAGE=on
   	make
 	echo "run test ..."
@@ -66,10 +61,6 @@ else
 
 		echo "cp build/TestResult/ to buildOut/"
 		cp -rf ./build/TestResult ./buildOut/
-  	    echo "Test coverage is viewed through buildOut/TestResult/index.html file."
-	
-	else
-  	    echo "Failure of test coverage generation."
 	fi
 
   	echo "build finish."
