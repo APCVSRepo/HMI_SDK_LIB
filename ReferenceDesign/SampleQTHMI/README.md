@@ -31,14 +31,15 @@ $apt install qtbase5-dev
 ```
   Notice: you may got `SIGSEGV` error when do [`make test`](#how-to-run-test), if so, please use the next method.
 
-  2. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
+  2. Copy `libhmi_sdk.so` to `SampleQTHMI/lib/linux` dir
+
+  3. Install `Qt Creator`(Qt Creator >= VERSION 5.3.2) and specify the environment variable of QT before you run `cmake`, as follows(just change the version number of QT to what you had installed):
 ```shell
 $export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH
 $export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64
 $cmake <SampleQTHMI_dir>
 $make
 ```
-
 
 ### USE Qt Creator
 #### Linux
@@ -105,7 +106,19 @@ $sudo ldconfig
   1. Build project with enabled flag `-DBUILD_TESTS_COVERAGE=on`, this will automatically set `-DBUILD_TESTS=on`
   2. Execute command `make test` and wait for the end of the execution
   3. Go to `<build_directory>/TestResult`, and open `index.html` to view the test coverage report
+  4. Go to `<build_directory>/Testing/Temporary`, and open `LastTest.log` to view the test log report
 
+# build.sh
+
+The `build.sh` is a full-compiled script for QTHMI.
+Running the build.sh script generates the `build` build directory and the `buildOut` output directory.
+There are `TestResult` test coverage directory and `bin` executable program directory in the `buildOut` directory.
+
+Notice:
+  1. Using `build.sh` scripts does not generate `Testing` directory and `LastTest.log` log file.
+  2. set env path `export PATH=/home/<user_name>/Qt5.3.2/5.3/gcc_64/bin:$PATH` in the `build.sh`.
+  3. set qt path `export QTDIR=/home/<user_name>/Qt5.3.2/5.3/gcc_64` in the `build.sh`.
+  4. set `libhmi_sdk.so` path  `hmisdk_dir=/home/<user_path>/HMI_SDK_LIB/<build_dir>/app` in the `build.sh`.
 
 # Known issues
 

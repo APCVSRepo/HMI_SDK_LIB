@@ -340,7 +340,6 @@ HEADERS  +=  \
     SDLApps/Templates/DialNumber/DialNumber.h
 
 
-
 unix {
     HEADERS += SDLApps/Templates/utils/VideoStream/gst_player.h
 }

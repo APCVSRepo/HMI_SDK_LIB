@@ -1,5 +1,5 @@
-#ifndef GRAPHICSOFTBUTTONSHOW_H
-#define GRAPHICSOFTBUTTONSHOW_H
+#ifndef GRAPHICWITHTEXTSHOW_H
+#define GRAPHICWITHTEXTSHOW_H
 
 #include <QLabel>
 #include "SDLApps/Templates/Common/AppBase.h"
@@ -7,12 +7,12 @@
 #include "HMIWidgets/TopNavigateWidget.h"
 
 #define RIGHT_BTN_NUM 5
-
-class CGraphicSoftButtonShow : public QWidget {
+#define SHOW_LINE_NUM 3
+class CGraphicWithTextShow: public QWidget {
     Q_OBJECT
 
 public:
-    explicit CGraphicSoftButtonShow(AppListInterface *pList, QWidget *parent = 0);
+    explicit CGraphicWithTextShow(AppListInterface *pList, QWidget *parent = 0);
 
     void SetAppName(QString strName);
 
@@ -20,25 +20,21 @@ protected:
     virtual void showEvent(QShowEvent *e);
 
 public slots:
-    void SoftBtnClickedSlot(int iSoftBtnID);
     void BtnMenuClickedSlots();
+    void BtnBackClickedSlots();
 
-private:
-    void setSoftButtons(std::vector<SSoftButton> vec_softButtons);
 
 private:
     AppListInterface *m_pList;
 
     //navigate item
     TopNavigateWidget *m_pTopWidget;
-
-    //softbutton
-    QWidget *m_pRightArea;
-    std::vector <SSoftButton> m_vSoftButtons;
-    CButton m_aSoftBtn[RIGHT_BTN_NUM];
+    //textfield
+    QLabel m_aShowLine[SHOW_LINE_NUM];
 
     //graphic
+    QLabel *m_pFrameLab;
     QLabel *m_pMusicPicLab;
 };
 
-#endif // GRAPHICSOFTBUTTONSHOW_H
+#endif // GRAPHICWITHTEXTSHOW_H
